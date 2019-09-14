@@ -8,7 +8,10 @@ const compression = require('compression');
 const logger = require('./logger');
 const config = require('../config');
 
-const exampleRouter = require('./routers/exampleRouter');
+const exampleRouter = require('./routes/exampleRouter');
+const adminRouter = require('./routes/adminRouter');
+const registrationRouter = require('./routes/registrationRouter');
+const userRouter = require('./routes/userRouter');
 
 let app = express();
 
@@ -27,6 +30,9 @@ function setup() {
   /////////////////////////////////////////
 
   app.use('example', exampleRouter);
+  app.use('admin', adminRouter);
+  app.use('registration', registrationRouter);
+  app.use(userRouter);
 }
 
 function defineRoutes() {
