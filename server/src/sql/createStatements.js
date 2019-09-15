@@ -32,5 +32,9 @@ module.exports = [
     )`,
     `CREATE TABLE IF NOT EXISTS programType (
         programType TEXT
+    )`,
+    `CREATE TABLE IF NOT EXISTS passwords (
+        userId INTEGER,
+        password TEXT
     )`
 ];
