@@ -47,6 +47,40 @@ async function createTables() {
     logger.info('db tables have been created');
 }
 
+// basic
+async function getUser(email) {
+
+}
+
+/*
+getAllUsers()
+addUser(user)
+updateUser(user)
+//banUser()
+
+getAllProgramTypes
+addProgramType(programType)
+deleteProgramType(programType)
+
+getAllTimeSlotsDefs
+addTimeSlotDefs(timeslot)
+delete
+update
+
+getAllTimeSlots
+getTimeSlotRange
+addTimeSlot
+deleteTimeSlot
+updateTimeSlot
+
+addReservation
+deleteReservation
+
+signIn //attendence
+*/
+
+//
+
 module.exports = {
     init: init
 };

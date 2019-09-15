@@ -17,17 +17,17 @@ class User {
 
   prepare() {
     return {
-      $id: id;
-      $email: email;
-      $fname: firstName;
-      $mname: middleName;
-      $lname: lastName;
-      $phone: phone;
-      $age: age;
-      $experience: volunteerExp;
-      $comments: comments;
-      $validate: validated;
-      $adin: admin; 
+      $id: id,
+      $email: email,
+      $fname: firstName,
+      $mname: middleName,
+      $lname: lastName,
+      $phone: phone,
+      $age: age,
+      $experience: volunteerExp,
+      $comments: comments,
+      $validate: validated,
+      $adin: admin,
     }
   }
 
