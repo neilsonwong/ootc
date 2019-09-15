@@ -9,6 +9,19 @@ class TimeSlotDefinition {
     this.signUpCap = signUpCap;
     this.year = year;
   }
+
+
+    prepare() {
+    return {
+      $dayOfWeek: dayOfWeek;
+      $starTime: starTime;
+      $duration: duration;
+      $activityType: activityType;
+      $signUpCap: signUpCap;
+      $year: year;
+    }
+  }
+
 }
 
 module.exports = TimeSlotDefinition;

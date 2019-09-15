@@ -7,7 +7,7 @@ class ActivityType {
 
   prepare() {
     return {
-      $name: name
+      $programType: name
     }
   }
 }

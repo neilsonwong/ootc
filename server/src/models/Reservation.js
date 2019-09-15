@@ -6,6 +6,14 @@ class Reservation {
   	this.timeSlot = timeSlot;
   	this.attended = attended;
   }
+
+  prepare() {
+    return {
+      $userid: user;
+      $timeSlot: timeSlot;
+      $attended: attended;
+    }
+  }
 }
 
 module.exports = Reservation;

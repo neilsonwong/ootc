@@ -9,6 +9,17 @@ class TimeSlot {
   	this.duration = duration;
   	this.signUpCap = signUpCap;
   }
+
+  prepare() {
+    return {
+      $id: id;
+      $datetime: datetime;
+      $duration: duration;
+      $signUpCap: signUpCap;
+    }
+  }
+
+
 }
 
 module.exports = TimeSlot;
