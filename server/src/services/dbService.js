@@ -2,6 +2,7 @@
 
 const sqlite3 = require('sqlite3').verbose();
 const DB_PATH = require('../../config').DB_PATH;
+const createStatements = require('../sql/createStatements');
 const logger = require('../logger');
 
 let db = null;
@@ -25,6 +26,27 @@ async function connect(){
 	}
 }
 
+async function run() {
+    return new Promise((res, rej) => {
+		db.run(...arguments, err => {
+			return err ? rej(err) : res(true);
+		});
+	});
+}
+
+async function init() {
+    db = await connect();
+    await createTables();
+}
+
+async function createTables() {
+    // generate all the tables
+    await Promise.all(createStatements.map(e => {
+        return run(e);
+    }));
+    logger.info('db tables have been created');
+}
+
 module.exports = {
-	connect: connect
+    init: init
 };

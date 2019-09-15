@@ -1,7 +1,7 @@
 'use strict';
 
 class User {
-  constructor(id, email, firstName, middleName, lastName, phone, age, volunteerExp, comments) {
+  constructor(id, email, firstName, middleName, lastName, phone, age, volunteerExp, comments, validated, admin) {
     this.id = id;
     this.email = email;
     this.firstName = firstName;
@@ -11,7 +11,8 @@ class User {
     this.age = age;
     this.volunteerExp = volunteerExp;
     this.comments = comments;
-    this.validated = false;
+    this.validated = validated;
+    this.admin = admin; 
   }
 }
 
