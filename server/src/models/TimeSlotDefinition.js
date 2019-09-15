@@ -6,8 +6,8 @@ class TimeSlotDefinition {
   	this.startTime = startTime;
   	this.duration = duration;
   	this.activityType = activityType;
-	this.signUpCap = signUpCap;
-	this.year = year;
+    this.signUpCap = signUpCap;
+    this.year = year;
   }
 }
 
