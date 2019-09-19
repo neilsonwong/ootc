@@ -45,9 +45,42 @@ async function testDepartments() {
     await db.departments.updateDepartment(toBeUpdated);
 }
 
+async function testPasswords() {
+    logger.info('Running some tests for Passwords');
+
+    //make some fake dudes
+    const fakeEmails = ['dummy1@helloworld.com', 'dummy2@helloworld.com', 'dummy3@helloworld.com'];
+    const dummyUser = (email => (new User(email, email, 'a-fname', 'a-mname', 'a-lname', '416-123-4567', 99, '', '', false, false)));
+    await Promise.all(fakeEmails.map(e => db.users.insertUser(dummyUser(e))));
+
+    logger.info('Adding fake passwords');
+    await Promise.all(fakeEmails.map(e => {
+        return db.passwords.insertPassword(e, `password_for_${e}`);
+    }));
+
+    logger.info('Check fake passwords');
+    const dummyPasswords = await Promise.all(fakeEmails.map(e => {
+        return db.passwords.getPassword(e)
+    }));
+
+    console.log(dummyPasswords);
+
+    logger.info('Update fake passwords');
+    await Promise.all(fakeEmails.map(e => {
+        return db.passwords.updatePassword(e, `la_password_pour_${e}`);
+    }));
+
+    const dummyPasswords2 = await Promise.all(fakeEmails.map(e => {
+        return db.passwords.getPassword(e)
+    }));
+
+    console.log(dummyPasswords2);
+}
+
 async function test() {
     await testUsers();
     await testDepartments();
+    await testPasswords();
 }
 
 module.exports = {
