@@ -3,15 +3,14 @@
 const sqliteWrapper = require('./sqliteWrapper');
 
 // add functionaltiy
-const users = require('./users');
-const departments = require('./departments');
-const passwords = require('./passwords');
-const reservations = require('./reservations');
-const timeSlotDefs = require('./timeSlotDefs');
-const timeSlots = require('./timeSlots');
+const users = require('./modules/users');
+const departments = require('./modules/departments');
+const passwords = require('./modules/passwords');
+const reservations = require('./modules/reservations');
+const timeSlotDefs = require('./modules/timeSlotDefs');
+const timeSlots = require('./modules/timeSlots');
 
 const modules = [];
-
 
 function importDbModule(/* arguments */) {
     for (let i = 0; i < arguments.length; ++i) {

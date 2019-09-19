@@ -1,45 +1,8 @@
 'use strict';
 
-const db = require('./sqliteWrapper');
-const User = require('../models/User');
-
-async function createTable() {
-    return await db.run(sql.createTable);
-}
-
-async function insertUser(user) {
-    return await db.run(sql.insertUser, user.prepare(sql.insertUser));
-}
-
-async function updateUser(user) {
-    return await db.run(sql.updateUser, user.prepare(sql.updateUser));
-}
-
-async function validateUser(id) {
-    return await db.run(sql.validateUser, [id]);
-}
-
-async function updateAdminStatus(id, isAdmin) {
-    // const isAdminInt = isAdmin ? 1 : 0;
-    return await db.run(sql.updateAdminStatus, [isAdmin, id]);
-}
-
-async function listUsers() {
-    const rows = await db.all(sql.listUsers);
-    return rows.map(e => Object.assign(new User(), e));
-}
-
-// TODO: Ban users or delete them?
-
-module.exports = {
-    name: 'users',
-    createTable: createTable,
-    insertUser: insertUser,
-    updateUser: updateUser,
-    updateAdminStatus: updateAdminStatus,
-    validateUser: validateUser,
-    listUsers: listUsers
-}
+const db = require('../sqliteWrapper');
+const DbModule = require('./dbModule');
+const User = require('../../models/User');
 
 const sql = {
     createTable: 
@@ -105,4 +68,36 @@ const sql = {
 
     listUsers: 
         `SELECT * FROM users`
+
+    // ban users? delete users?
 };
+
+class UserDbModule extends DbModule {
+    constructor() {
+        super('users', sql.createTable);
+    }
+
+    async insertUser(user) {
+        return await db.run(sql.insertUser, user.prepare(sql.insertUser));
+    }
+
+    async updateUser(user) {
+        return await db.run(sql.updateUser, user.prepare(sql.updateUser));
+    }
+
+    async validateUser(id) {
+        return await db.run(sql.validateUser, [id]);
+    }
+
+    async updateAdminStatus(id, isAdmin) {
+        // const isAdminInt = isAdmin ? 1 : 0;
+        return await db.run(sql.updateAdminStatus, [isAdmin, id]);
+    }
+
+    async listUsers() {
+        const rows = await db.all(sql.listUsers);
+        return rows.map(e => Object.assign(new User(), e));
+    }
+}
+
+module.exports = new UserDbModule();
