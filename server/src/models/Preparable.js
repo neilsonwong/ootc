@@ -11,7 +11,7 @@ class Preparable {
     for (const prop in this) {
       // if we have no sql statement
       // or sql contains the prop
-      if (!sql || sql.includes(prop)) {
+      if (!sql || sql.includes('$' + prop)) {
         prepared['$' + prop] = this[prop];
       }
     }

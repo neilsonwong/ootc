@@ -51,42 +51,6 @@ async function all() {
 	});
 }
 
-// async function createTables() {
-//     // generate all the tables
-//     await Promise.all(createStatements.map(e => {
-//         return run(e);
-//     }));
-//     logger.info('db tables have been created');
-// }
-
-
-/*
-getAllUsers()
-addUser(user)
-updateUser(user)
-//banUser()
-
-getAllProgramTypes
-addProgramType(programType)
-deleteProgramType(programType)
-
-getAllTimeSlotsDefs
-addTimeSlotDefs(timeslot)
-delete
-update
-
-getAllTimeSlots
-getTimeSlotRange
-addTimeSlot
-deleteTimeSlot
-updateTimeSlot
-
-addReservation
-deleteReservation
-
-signIn //attendence
-*/
-
 module.exports = {
 	connect: connect,
 	run: run,

@@ -1,13 +1,14 @@
 'use strict';
 
 const db = require('./sqliteWrapper');
+const User = require('../models/User');
 
 async function createTable() {
     return await db.run(sql.createTable);
 }
 
 async function insertUser(user) {
-    return await db.run(sql.insertUser, user.prepare());
+    return await db.run(sql.insertUser, user.prepare(sql.insertUser));
 }
 
 async function updateUser(user) {
@@ -24,7 +25,8 @@ async function updateAdminStatus(id, isAdmin) {
 }
 
 async function listUsers() {
-    return await db.all(sql.listUsers);
+    const rows = await db.all(sql.listUsers);
+    return rows.map(e => Object.assign(new User(), e));
 }
 
 // TODO: Ban users or delete them?

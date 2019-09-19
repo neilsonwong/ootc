@@ -4,6 +4,9 @@ const db = require('./db');
 const logger = require('../logger');
 
 const User = require('../models/User');
+const TimeSlotDefinition = require('../models/TimeSlotDefinition');
+const TimeSlot = require('../models/TimeSlot');
+const Reservation = require('../models/Reservation');
 
 async function testUsers() {
     logger.info('Running tests for Users');
@@ -77,10 +80,122 @@ async function testPasswords() {
     console.log(dummyPasswords2);
 }
 
+async function testTimeSlotDefs() {
+    logger.info('Running some tests for TimeSlotDefs');
+
+    const allDepts = await db.departments.listDepartments();
+    const schedFrag = new TimeSlotDefinition(undefined, 2, 1600, 150, allDepts[0].id, 10, 2019);
+    const schedFrag2 = new TimeSlotDefinition(undefined, 2, 1200, 120, allDepts[1].id, 5, 2019);
+    const schedFrag3 = new TimeSlotDefinition(undefined, 2, 1600, 150, allDepts[0].id, 10, 2018);
+    const schedFrag4 = new TimeSlotDefinition(undefined, 2, 1200, 120, allDepts[1].id, 5, 2018);
+
+    logger.info('Inserting Time Slot Definitions');
+    await db.timeSlotDefs.insertTimeSlotDef(schedFrag);
+    await db.timeSlotDefs.insertTimeSlotDef(schedFrag2);
+    await db.timeSlotDefs.insertTimeSlotDef(schedFrag3);
+    await db.timeSlotDefs.insertTimeSlotDef(schedFrag4);
+
+    logger.info('Testing List Time Slot Defs');
+    const yearDefs2019 = await db.timeSlotDefs.listTimeSlotDefsForYear(2019);
+    const yearDefs2018 = await db.timeSlotDefs.listTimeSlotDefsForYear(2018);
+    console.log(yearDefs2018);
+    console.log(yearDefs2019);
+
+    logger.info('Testing List Time Slot Def Deletion');
+    const toBeDeletedId = yearDefs2018[0].id;
+    await db.timeSlotDefs.deleteTimeSlotDef(toBeDeletedId);
+
+    logger.info('Testing List Time Slot Def update');
+    const toBeUpdated = yearDefs2019[1];
+    toBeUpdated.dayOfWeek = 5;
+    toBeUpdated.startTime = 2000;
+    toBeUpdated.duration = 20;
+    toBeUpdated.department = allDepts[2].id;
+    toBeUpdated.signUpCap = 100;
+    toBeUpdated.year = 2017;
+    await db.timeSlotDefs.updateTimeSlotDef(toBeUpdated);
+
+    console.log(await db.timeSlotDefs.listTimeSlotDefsForYear(2019));
+    console.log(await db.timeSlotDefs.listTimeSlotDefsForYear(2018));
+    console.log(await db.timeSlotDefs.listTimeSlotDefsForYear(2017));
+}
+
+async function testTimeSlots() {
+    logger.info('Running some tests for TimeSlot');
+
+    const allDepts = await db.departments.listDepartments();
+    const schedFrag = new TimeSlotDefinition(undefined, 2, 1600, 150, allDepts[0].id, 10, 2019);
+    const schedFrag2 = new TimeSlotDefinition(undefined, 5, 1200, 120, allDepts[1].id, 5, 2019);
+
+    await db.timeSlotDefs.insertTimeSlotDef(schedFrag);
+    await db.timeSlotDefs.insertTimeSlotDef(schedFrag2);
+
+    const yearDefs2019 = await db.timeSlotDefs.listTimeSlotDefsForYear(2019);
+
+    const now = Date.now();
+    const ts = new TimeSlot(undefined, now, yearDefs2019[0].id);
+    const ts2 = new TimeSlot(undefined, now + 100000, yearDefs2019[1].id);
+    const ts3 = new TimeSlot(undefined, now + 200000, yearDefs2019[1].id);
+    const ts4 = new TimeSlot(undefined, now + 300000, yearDefs2019[1].id);
+
+    logger.info('Inserting Time Slots');
+    await db.timeSlots.insertTimeSlot(ts);
+    await db.timeSlots.insertTimeSlot(ts2);
+    await db.timeSlots.insertTimeSlot(ts3);
+    await db.timeSlots.insertTimeSlot(ts4);
+
+    logger.info('Listing all Time Slots in a range');
+    const someSlots = await db.timeSlots.listTimeSlotsByRange(now + 1, now + 250000);
+    console.log(someSlots);
+
+    logger.info('Delete a time Slot');
+    await db.timeSlots.deleteTimeSlot(someSlots[1].id);
+
+    logger.info('Listing all Time Slots');
+    const allSlots = await db.timeSlots.listTimeSlots();
+    console.log(allSlots);
+}
+
+async function testReservations() {
+    logger.info('Running some tests for Reservations');
+
+    const allUsers = await db.users.listUsers();
+    const user = allUsers[0];
+    const allTimeSlots = await db.timeSlots.listTimeSlots();
+
+    logger.info('Inserting Reservations');
+    const reservation1 = new Reservation(undefined, user.id, allTimeSlots[0].id, false);
+    const reservation2 = new Reservation(undefined, user.id, allTimeSlots[1].id, false);
+    const reservation3 = new Reservation(undefined, user.id, allTimeSlots[2].id, false);
+    const reservation4 = new Reservation(undefined, allUsers[1].id, allTimeSlots[1].id, false);
+
+    await db.reservations.insertReservation(reservation1);
+    await db.reservations.insertReservation(reservation2);
+    await db.reservations.insertReservation(reservation3);
+    await db.reservations.insertReservation(reservation4);
+
+    logger.info('Get Reservation By UserId');
+    const reservations = await db.reservations.getReservationsByUserId(user.id);
+    console.log(reservations);
+
+    logger.info('Deleting Reservations');
+    await db.reservations.deleteReservation(reservations[0].id);
+
+    logger.info('Update attendance for Reservation');
+    await db.reservations.updateReservationAttendance(reservations[1].id, true);
+
+    logger.info('Get Reservation By TimeSlot');
+    const slotReservations = await db.reservations.getReservationsByTimeSlot(reservations[1].timeSlot);
+    console.log(slotReservations);
+}
+
 async function test() {
     await testUsers();
     await testDepartments();
     await testPasswords();
+    await testTimeSlotDefs();
+    await testTimeSlots();
+    await testReservations();
 }
 
 module.exports = {
