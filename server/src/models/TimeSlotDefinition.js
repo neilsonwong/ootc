@@ -1,7 +1,11 @@
 'use strict';
 
-class TimeSlotDefinition {
-  constructor(dayOfWeek, startTime, duration, activityType, signUpCap, year) {
+const Preparable = require('./Preparable');
+
+class TimeSlotDefinition extends Preparable {
+  constructor(id, dayOfWeek, startTime, duration, activityType, signUpCap, year) {
+    super();
+    this.id = id;
   	this.dayOfWeek = dayOfWeek;
   	this.startTime = startTime;
   	this.duration = duration;
@@ -9,19 +13,6 @@ class TimeSlotDefinition {
     this.signUpCap = signUpCap;
     this.year = year;
   }
-
-
-    prepare() {
-    return {
-      $dayOfWeek: dayOfWeek;
-      $starTime: starTime;
-      $duration: duration;
-      $activityType: activityType;
-      $signUpCap: signUpCap;
-      $year: year;
-    }
-  }
-
 }
 
 module.exports = TimeSlotDefinition;

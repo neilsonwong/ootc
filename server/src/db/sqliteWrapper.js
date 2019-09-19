@@ -2,18 +2,16 @@
 
 const sqlite3 = require('sqlite3').verbose();
 const DB_PATH = require('../../config').DB_PATH;
-const createStatements = require('../sql/createStatements');
 const logger = require('../logger');
 
 let db = null;
+let connecting = null;
 
 async function connect(){
-	logger.info(`loading db from ${DB_PATH}`);
-	if (db !== null && db !== undefined) {
-		return Promise.resolve(db);
-	}
-	else {
-		return new Promise((res, rej) => {
+	if (connecting === null) {
+		logger.info(`loading db from ${DB_PATH}`);
+		// we need to load up the db
+		connecting = new Promise((res, rej) => {
 			const theDb = new sqlite3.Database(DB_PATH, (err) => {
 				if (err) {
 					logger.error(err.message);
@@ -24,6 +22,9 @@ async function connect(){
 			});
 		});
 	}
+	db = await connecting;
+	logger.info('db is loaded');
+	return db;
 }
 
 async function run() {
@@ -34,23 +35,30 @@ async function run() {
 	});
 }
 
-async function init() {
-    db = await connect();
-    await createTables();
+async function get() {
+    return new Promise((res, rej) => {
+		db.get(...arguments, (err, row) => {
+			return err ? rej(err) : res(row);
+		});
+	});
 }
 
-async function createTables() {
-    // generate all the tables
-    await Promise.all(createStatements.map(e => {
-        return run(e);
-    }));
-    logger.info('db tables have been created');
+async function all() {
+    return new Promise((res, rej) => {
+		db.all(...arguments, (err, rows) => {
+			return err ? rej(err) : res(rows);
+		});
+	});
 }
 
-// basic
-async function getUser(email) {
+// async function createTables() {
+//     // generate all the tables
+//     await Promise.all(createStatements.map(e => {
+//         return run(e);
+//     }));
+//     logger.info('db tables have been created');
+// }
 
-}
 
 /*
 getAllUsers()
@@ -79,8 +87,9 @@ deleteReservation
 signIn //attendence
 */
 
-//
-
 module.exports = {
-    init: init
+	connect: connect,
+	run: run,
+	get: get,
+	all: all,
 };

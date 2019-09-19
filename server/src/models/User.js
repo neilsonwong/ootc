@@ -1,36 +1,22 @@
 'use strict';
 
-class User {
-  constructor(id, email, firstName, middleName, lastName, phone, age, volunteerExp, comments, validated, admin) {
+const Preparable = require('./Preparable');
+
+class User extends Preparable {
+  constructor(id, email, fname, mname, lname, phone, age, experience, comments, validated, admin) {
+    super();
     this.id = id;
     this.email = email;
-    this.firstName = firstName;
-    this.middleName = middleName;
-    this.lastName = lastName;
+    this.fname = fname;
+    this.mname = mname;
+    this.lname = lname;
     this.phone = phone;
     this.age = age;
-    this.volunteerExp = volunteerExp;
+    this.experience = experience;
     this.comments = comments;
     this.validated = validated;
     this.admin = admin; 
   }
-
-  prepare() {
-    return {
-      $id: id,
-      $email: email,
-      $fname: firstName,
-      $mname: middleName,
-      $lname: lastName,
-      $phone: phone,
-      $age: age,
-      $experience: volunteerExp,
-      $comments: comments,
-      $validate: validated,
-      $adin: admin,
-    }
-  }
-
 }
 
 module.exports = User;

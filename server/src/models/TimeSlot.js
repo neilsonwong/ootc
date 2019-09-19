@@ -1,25 +1,15 @@
 'use strict';
 
-const uuidv4 = require('uuid/v4');
+const Preparable = require('./Preparable');
 
-class TimeSlot {
+class TimeSlot extends Preparable {
   constructor(id, datetime, duration, signUpCap) {
+    super();
   	this.id = id;
   	this.datetime = datetime;
   	this.duration = duration;
   	this.signUpCap = signUpCap;
   }
-
-  prepare() {
-    return {
-      $id: id;
-      $datetime: datetime;
-      $duration: duration;
-      $signUpCap: signUpCap;
-    }
-  }
-
-
 }
 
 module.exports = TimeSlot;
