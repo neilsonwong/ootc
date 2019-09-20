@@ -1,6 +1,7 @@
 'use strict';
 
 const db = require('../sqliteWrapper');
+const logger = require('../../logger');
 const DbModule = require('./dbModule');
 const User = require('../../models/User');
 
@@ -67,26 +68,35 @@ const sql = {
         WHERE id = ?`,
 
     listUsers: 
-        `SELECT * FROM users`
+        `SELECT * FROM users`,
+    
+    getUser:
+        `SELECT * FROM users WHERE id = $id`
 
     // ban users? delete users?
 };
 
 class UserDbModule extends DbModule {
     constructor() {
-        super('users', sql.createTable);
+        super('users', sql.createTable, User);
     }
 
     async insertUser(user) {
-        return await db.run(sql.insertUser, user.prepare(sql.insertUser));
+        user = this.fixType(user);
+        const { lastID } = await db.run(sql.insertUser, user.prepare(sql.insertUser));
+        if (lastID) {
+            logger.verbose(`inserted user with id ${user.id} as rowid: ${lastID}`);
+            return user;
+        }
     }
 
     async updateUser(user) {
+        user = this.fixType(user);
         return await db.run(sql.updateUser, user.prepare(sql.updateUser));
     }
 
     async validateUser(id) {
-        return await db.run(sql.validateUser, [id]);
+        return await db.run(sql.validateUser, [true, id]);
     }
 
     async updateAdminStatus(id, isAdmin) {
@@ -96,7 +106,11 @@ class UserDbModule extends DbModule {
 
     async listUsers() {
         const rows = await db.all(sql.listUsers);
-        return rows.map(e => Object.assign(new User(), e));
+        return rows.map(e => this.fixType(e));
+    }
+
+    async getUser(userId) {
+        return this.fixType(await db.get(sql.getUser, [userId]));
     }
 }
 

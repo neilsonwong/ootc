@@ -5,18 +5,24 @@ async function createReservation() {
 
 }
 
-// update
-async function updateReservation() {
-
-}
-
 // delete
 async function deleteReservation() {
 
 }
 
+// sign in
+async function updateAttendance(userId) {
+    // check whether there is a sign in for the time
+    const now = Date.now();
+    const reservation = await db.reservations.findReservationByUserAndTime(userId, now);
+    if (reservation) {
+        return await db.reservations.updateReservationAttendance(reservation.id, true);
+    }
+    return null;
+}
+
 module.exports = {
     createReservation: createReservation,
-    updateReservation: updateReservation,
-    deleteReservation: deleteReservation
+    deleteReservation: deleteReservation,
+    updateAttendance: updateAttendance,
 };

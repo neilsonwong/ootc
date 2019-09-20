@@ -7,7 +7,15 @@ class TimeSlot extends Preparable {
     super();
   	this.id = id;
   	this.datetime = datetime;
-  	this.timeSlotDef = timeSlotDef;
+    this.timeSlotDef = timeSlotDef;
+
+    // archival purposes, as timeSlotDef can change
+  	this.dayOfWeek = null;
+  	this.startTime = null;
+  	this.duration = null;
+  	this.department = null;
+    this.signUpCap = null;
+    this.year = null;
   }
 }
 

@@ -7,11 +7,7 @@ const compression = require('compression');
 
 const logger = require('./logger');
 const config = require('../config');
-
-const exampleRouter = require('./routes/exampleRouter');
-const adminRouter = require('./routes/adminRouter');
-const registrationRouter = require('./routes/registrationRouter');
-const userRouter = require('./routes/userRouter');
+const apiV1Router = require('./routes/apiV1Router');
 
 let app = express();
 
@@ -25,14 +21,7 @@ function setup() {
   // app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.text());
 
-  /////////////////////////////////////////
-  // put routers here
-  /////////////////////////////////////////
-
-  app.use('example', exampleRouter);
-  app.use('admin', adminRouter);
-  app.use('registration', registrationRouter);
-  app.use(userRouter);
+  app.use('/api/v1', apiV1Router);
 }
 
 function defineRoutes() {

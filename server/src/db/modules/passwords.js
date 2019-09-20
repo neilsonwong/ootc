@@ -27,7 +27,8 @@ class PasswordDbModule extends DbModule {
     }
 
     async getPassword(userId) {
-        return await db.get(sql.getPassword, [userId]);
+        const { password } = await db.get(sql.getPassword, [userId]);
+        return password;
     }
 
     // passwords should be encrypted prior to this step!!

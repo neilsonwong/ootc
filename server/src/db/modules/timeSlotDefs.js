@@ -37,19 +37,26 @@ const sql = {
 
 class TimeSlotDefDbModule extends DbModule {
     constructor() {
-        super('timeSlotDefs', sql.createTable);
+        super('timeSlotDefs', sql.createTable, TimeSlotDefinition);
     }
 
     async listTimeSlotDefsForYear(year) {
         const rows = await db.all(sql.listTimeSlotDefsForYear, [year]);
-        return rows.map(e => Object.assign(new TimeSlotDefinition(), e));
+        return rows.map(e => this.fixType(e));
     }
 
     async insertTimeSlotDef(timeSlotDef) {
-        return await db.run(sql.insertTimeSlotDef, timeSlotDef.prepare(sql.insertTimeSlotDef));
+        timeSlotDef = this.fixType(timeSlotDef);
+        const { lastID } = await db.run(sql.insertTimeSlotDef,
+            timeSlotDef.prepare(sql.insertTimeSlotDef));
+        if (lastID) {
+            timeSlotDef.id = lastID;
+            return timeSlotDef;
+        }
     }
 
     async updateTimeSlotDef(timeSlotDef) {
+        timeSlotDef = this.fixType(timeSlotDef);
         return await db.run(sql.updateTimeSlotDef, timeSlotDef.prepare(sql.updateTimeSlotDef));
     }
 

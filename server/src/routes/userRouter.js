@@ -2,16 +2,16 @@
 
 const express = require('express');
 const logger = require('../logger');
+const basicAuth = require('express-basic-auth');
+const authService = require('../services/authService');
 
 const router = express.Router();
 
-router.post('/register', (req, res) => {
-	return res.status(500).send('not yet implemented');
-});
-
-router.post('/validateEmail', (req, res) => {
-	return res.status(500).send('not yet implemented');
-});
+// add user authentication
+router.use(basicAuth({
+	authorizer: authService.isValidUserWithCb,
+	authorizeAsync: true,
+}));
 
 router.post('/reservations/add', (req, res) => {
 	return res.status(500).send('not yet implemented');

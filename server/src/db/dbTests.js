@@ -1,5 +1,6 @@
 'use strict';
 
+const assert = require('assert');
 const db = require('./db');
 const logger = require('../logger');
 
@@ -15,7 +16,6 @@ async function testUsers() {
     const email = `a_${Date.now()}@b.com`;
 
     const a = new User(email, email, 'a-fname', 'a-mname', 'a-lname', '416-123-4567', 99, '', '', false, false);
-    await db.users.insertUser(a);
 
     logger.info('Testing user validation');
     await db.users.validateUser(email);
@@ -41,11 +41,15 @@ async function testDepartments() {
 
     logger.info('Testing list departments');
     const allDepts = await db.departments.listDepartments();
+    assert(allDepts.length === 3);
 
     logger.info('Testing update department');
     const toBeUpdated = allDepts[0];
     toBeUpdated.name = 'OMG I GOT UPDATED DEPT';
     await db.departments.updateDepartment(toBeUpdated);
+
+    const allDepts2 = await db.departments.listDepartments();
+    assert(allDepts2[0].name === 'OMG I GOT UPDATED DEPT');
 }
 
 async function testPasswords() {
@@ -65,8 +69,8 @@ async function testPasswords() {
     const dummyPasswords = await Promise.all(fakeEmails.map(e => {
         return db.passwords.getPassword(e)
     }));
-
-    console.log(dummyPasswords);
+    assert(dummyPasswords.reduce((acc, cur) => {
+        return acc && cur.startsWith('password_for_')}));
 
     logger.info('Update fake passwords');
     await Promise.all(fakeEmails.map(e => {
@@ -77,7 +81,8 @@ async function testPasswords() {
         return db.passwords.getPassword(e)
     }));
 
-    console.log(dummyPasswords2);
+    assert(dummyPasswords2.reduce((acc, cur) => acc &&
+        cur.startsWith('la_password_pour_')));
 }
 
 async function testTimeSlotDefs() {
@@ -98,8 +103,8 @@ async function testTimeSlotDefs() {
     logger.info('Testing List Time Slot Defs');
     const yearDefs2019 = await db.timeSlotDefs.listTimeSlotDefsForYear(2019);
     const yearDefs2018 = await db.timeSlotDefs.listTimeSlotDefsForYear(2018);
-    console.log(yearDefs2018);
-    console.log(yearDefs2019);
+    assert(yearDefs2018.length === 2);
+    assert(yearDefs2019.length === 2);
 
     logger.info('Testing List Time Slot Def Deletion');
     const toBeDeletedId = yearDefs2018[0].id;
@@ -115,17 +120,20 @@ async function testTimeSlotDefs() {
     toBeUpdated.year = 2017;
     await db.timeSlotDefs.updateTimeSlotDef(toBeUpdated);
 
-    console.log(await db.timeSlotDefs.listTimeSlotDefsForYear(2019));
-    console.log(await db.timeSlotDefs.listTimeSlotDefsForYear(2018));
-    console.log(await db.timeSlotDefs.listTimeSlotDefsForYear(2017));
+    const defs2019 = await db.timeSlotDefs.listTimeSlotDefsForYear(2019);
+    const defs2018 = await db.timeSlotDefs.listTimeSlotDefsForYear(2018);
+    const defs2017 = await db.timeSlotDefs.listTimeSlotDefsForYear(2017);
+    assert(defs2019.length === 1);
+    assert(defs2018.length === 1);
+    assert(defs2017.length === 1);
 }
 
 async function testTimeSlots() {
     logger.info('Running some tests for TimeSlot');
 
     const allDepts = await db.departments.listDepartments();
-    const schedFrag = new TimeSlotDefinition(undefined, 2, 1600, 150, allDepts[0].id, 10, 2019);
-    const schedFrag2 = new TimeSlotDefinition(undefined, 5, 1200, 120, allDepts[1].id, 5, 2019);
+    const schedFrag = new TimeSlotDefinition(undefined, 2, 1600, 150*60*1000, allDepts[0].id, 10, 2019);
+    const schedFrag2 = new TimeSlotDefinition(undefined, 5, 1200, 120*60*1000, allDepts[1].id, 5, 2019);
 
     await db.timeSlotDefs.insertTimeSlotDef(schedFrag);
     await db.timeSlotDefs.insertTimeSlotDef(schedFrag2);
@@ -146,14 +154,17 @@ async function testTimeSlots() {
 
     logger.info('Listing all Time Slots in a range');
     const someSlots = await db.timeSlots.listTimeSlotsByRange(now + 1, now + 250000);
-    console.log(someSlots);
+    assert(someSlots.length === 2);
 
     logger.info('Delete a time Slot');
     await db.timeSlots.deleteTimeSlot(someSlots[1].id);
 
+    logger.info('Archive a time Slot');
+    await db.timeSlots.archiveTimeSlot(someSlots[0].id);
+
     logger.info('Listing all Time Slots');
     const allSlots = await db.timeSlots.listTimeSlots();
-    console.log(allSlots);
+    assert(allSlots.length === 3);
 }
 
 async function testReservations() {
@@ -176,26 +187,35 @@ async function testReservations() {
 
     logger.info('Get Reservation By UserId');
     const reservations = await db.reservations.getReservationsByUserId(user.id);
-    console.log(reservations);
+    assert(reservations.length === 3);
 
     logger.info('Deleting Reservations');
     await db.reservations.deleteReservation(reservations[0].id);
 
+    logger.info('Find reservations for user')
+    const reservation = await db.reservations.findReservationByUserAndTime(user.id, Date.now());
+
     logger.info('Update attendance for Reservation');
-    await db.reservations.updateReservationAttendance(reservations[1].id, true);
+    await db.reservations.updateReservationAttendance(reservation.id, true);
 
     logger.info('Get Reservation By TimeSlot');
     const slotReservations = await db.reservations.getReservationsByTimeSlot(reservations[1].timeSlot);
-    console.log(slotReservations);
+    assert(slotReservations.length === 2);
 }
 
 async function test() {
-    await testUsers();
-    await testDepartments();
-    await testPasswords();
-    await testTimeSlotDefs();
-    await testTimeSlots();
-    await testReservations();
+    try {
+        await testUsers();
+        await testDepartments();
+        await testPasswords();
+        await testTimeSlotDefs();
+        await testTimeSlots();
+        await testReservations();
+    }
+    catch(e) {
+        logger.error('error when testing db');
+        logger.error(e);
+    }
 }
 
 module.exports = {

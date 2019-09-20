@@ -29,8 +29,10 @@ async function connect(){
 
 async function run() {
     return new Promise((res, rej) => {
-		db.run(...arguments, err => {
-			return err ? rej(err) : res(true);
+		// don't use arrow function here, as sqlite binds an object to 
+		// 'this' containing rowId for inserts *** VERY USEFUL ***
+		db.run(...arguments, function(err) {
+			return err ? rej(err) : res(filterInvalid(this));
 		});
 	});
 }
@@ -49,6 +51,18 @@ async function all() {
 			return err ? rej(err) : res(rows);
 		});
 	});
+}
+
+// https://github.com/mapbox/node-sqlite3/wiki/API#databaserunsql-param--callback
+function filterInvalid(runResult) {
+	const trimmedSql = runResult.sql.trim();
+	if (trimmedSql.startsWith('INSERT')) {
+		return { lastID: runResult.lastID };
+	}
+	else if (trimmedSql.startsWith('UPDATE') || trimmedSql.startsWith('DELETE')) {
+		return { changes: runResult.changes };
+	}
+	return null;
 }
 
 module.exports = {
