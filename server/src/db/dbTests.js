@@ -149,44 +149,31 @@ async function testTimeSlotDefs() {
     assert(defs2019.length === 4);
 }
 
+let theSlots = [];
 async function testTimeSlots() {
     logger.info('Running some tests for TimeSlot');
 
-    // we should have enough to gen
-    const allDepts = await db.departments.listDepartments();
-    const schedFrag = new TimeSlotDefinition(undefined, 2, 1600, 150*60*1000, allDepts[0].id, 10, 2019);
-    const schedFrag2 = new TimeSlotDefinition(undefined, 5, 1200, 120*60*1000, allDepts[1].id, 5, 2019);
-
-    await db.timeSlotDefs.insertTimeSlotDef(schedFrag);
-    await db.timeSlotDefs.insertTimeSlotDef(schedFrag2);
-
-    const yearDefs2019 = await db.timeSlotDefs.listTimeSlotDefsForYear(2019);
-
-    const now = Date.now();
-    const ts = new TimeSlot(undefined, now, yearDefs2019[0].id);
-    const ts2 = new TimeSlot(undefined, now + 100000, yearDefs2019[1].id);
-    const ts3 = new TimeSlot(undefined, now + 200000, yearDefs2019[1].id);
-    const ts4 = new TimeSlot(undefined, now + 300000, yearDefs2019[1].id);
+    // time slot defs are now decoupled from time slots
 
     logger.info('Inserting Time Slots');
-    await db.timeSlots.insertTimeSlot(ts);
-    await db.timeSlots.insertTimeSlot(ts2);
-    await db.timeSlots.insertTimeSlot(ts3);
-    await db.timeSlots.insertTimeSlot(ts4);
+    const toBeDeleted = await db.timeSlots.insertTimeSlot(await newTimeSlot('2019-09-25'));
+    await db.timeSlots.insertTimeSlot(await newTimeSlot('2019-09-30'));
+    await db.timeSlots.insertTimeSlot(await newTimeSlot('2019-10-01'));
+    theSlots.push(await db.timeSlots.insertTimeSlot(await newTimeSlot('2019-10-07')));
+    theSlots.push(await db.timeSlots.insertTimeSlot(await newTimeSlot('2019-10-07', '18:00')));
 
     logger.info('Listing all Time Slots in a range');
-    const someSlots = await db.timeSlots.listTimeSlotsByRange(now + 1, now + 250000);
+    const someSlots = await db.timeSlots.listTimeSlotsByRange('2019-09-30', '2019-10-01');
     assert(someSlots.length === 2);
 
     logger.info('Delete a time Slot');
-    await db.timeSlots.deleteTimeSlot(someSlots[1].id);
-
-    logger.info('Archive a time Slot');
-    await db.timeSlots.archiveTimeSlot(someSlots[0].id);
+    await db.timeSlots.deleteTimeSlot(toBeDeleted.id);
+    const findDeleted = await db.timeSlots.listTimeSlotsByRange('2019-08-30', '2019-09-29');
+    assert(findDeleted.length === 0);
 
     logger.info('Listing all Time Slots');
     const allSlots = await db.timeSlots.listTimeSlots();
-    assert(allSlots.length === 3);
+    assert(allSlots.length === 4);
 }
 
 async function testReservations() {
@@ -194,35 +181,43 @@ async function testReservations() {
 
     const allUsers = await db.users.listUsers();
     const user = allUsers[0];
-    const allTimeSlots = await db.timeSlots.listTimeSlots();
 
-    logger.info('Inserting Reservations');
-    const reservation1 = new Reservation(undefined, user.id, allTimeSlots[0].id, false);
-    const reservation2 = new Reservation(undefined, user.id, allTimeSlots[1].id, false);
-    const reservation3 = new Reservation(undefined, user.id, allTimeSlots[2].id, false);
-    const reservation4 = new Reservation(undefined, allUsers[1].id, allTimeSlots[1].id, false);
+    await db.reservations.insertReservation(await newReservation(user.id, theSlots[0]));
+    await db.reservations.insertReservation(await newReservation(user.id, theSlots[1]));
+    const toBeAttended = await db.reservations.insertReservation(await newReservation(allUsers[1].id));
+    const toBeDeleted = await db.reservations.insertReservation(await newReservation(allUsers[2].id));
+    await db.reservations.insertReservation(await newReservation(allUsers[1].id, theSlots[1]));
+    await db.reservations.insertReservation(await newReservation(allUsers[2].id, theSlots[1]));
 
-    await db.reservations.insertReservation(reservation1);
-    await db.reservations.insertReservation(reservation2);
-    await db.reservations.insertReservation(reservation3);
-    await db.reservations.insertReservation(reservation4);
-
-    logger.info('Get Reservation By UserId');
+    logger.info('Get Reservations By UserId');
     const reservations = await db.reservations.getReservationsByUserId(user.id);
-    assert(reservations.length === 3);
+    assert(reservations.length === 2);
 
-    logger.info('Deleting Reservations');
-    await db.reservations.deleteReservation(reservations[0].id);
+    logger.info(`Find reservations for user ${user.id} on day`)
+    const reservationsOnDay = await db.reservations.getReservationsForUserOnDate(user.id, '2019-10-07');
+    assert(reservationsOnDay.length === 2);
 
-    logger.info('Find reservations for user')
-    const reservation = await db.reservations.findReservationByUserAndTime(user.id, Date.now());
+    logger.info('Find reservations for user on wrong day')
+    const reservationsOnDay2 = await db.reservations.getReservationsForUserOnDate(user.id, '2019-11-07');
+    assert(reservationsOnDay2.length === 0);
 
     logger.info('Update attendance for Reservation');
-    await db.reservations.updateReservationAttendance(reservation.id, true);
+    await db.reservations.updateReservationAttendance(toBeAttended.id, true);
+    const aUserReservations = await db.reservations.getReservationsByUserId(toBeAttended.user);
+    const attended = aUserReservations.filter(e => e.id === toBeAttended.id);
+    assert(attended.length === 1);
+    assert(attended[0].attended === 1);
+
+    logger.info('Deleting Reservations');
+    await db.reservations.deleteReservation(toBeDeleted.id);
+    const deletedReservations = (await db.reservations.getReservationsByUserId(toBeDeleted.user))
+        .filter(e => e.id === toBeDeleted.id);
+    assert(deletedReservations.length === 0);
 
     logger.info('Get Reservation By TimeSlot');
-    const slotReservations = await db.reservations.getReservationsByTimeSlot(reservations[1].timeSlot);
-    assert(slotReservations.length === 2);
+    const slotReservations = await db.reservations.getReservationsByTimeSlot(theSlots[1].id);
+    assert(slotReservations.length === 3);
+
 }
 
 async function test() {
@@ -231,8 +226,8 @@ async function test() {
         await testDepartments();
         await testPasswords();
         await testTimeSlotDefs();
-        // await testTimeSlots();
-        // await testReservations();
+        await testTimeSlots();
+        await testReservations();
     }
     catch(e) {
         logger.error('error when testing db');
@@ -251,11 +246,25 @@ async function newTestTimeSlotDef(time, date, count, repeatInterval) {
     return Object.assign({}, new TimeSlotDefinition(null, time, 2, (await randomDept()).id, 10, date, count, repeatInterval, 0));
 }
 
+async function newTimeSlot(date, time) {
+    time = time || '16:00';
+    return Object.assign({}, new TimeSlot(undefined, date, time, 2, (await randomDept()).id, 10));
+}
+
+async function newReservation(userId, timeSlot) {
+    timeSlot = timeSlot || (await randomTimeSlot());
+    return Object.assign({}, new Reservation(undefined, userId, timeSlot.id, false));
+}
+
 async function randomDept() {
     const allDepts = await db.departments.listDepartments();
     return allDepts[Math.floor(Math.random() * allDepts.length)];
 }
 
+async function randomTimeSlot() {
+    const allSlots = await db.timeSlots.listTimeSlots();
+    return allSlots[Math.floor(Math.random() * allSlots.length)];
+}
 
 module.exports = {
     test: test

@@ -7,7 +7,7 @@ const sql = {
     createTable: 
         `CREATE TABLE IF NOT EXISTS passwords (
             userId TEXT UNIQUE NOT NULL,
-            password TEXT
+            password TEXT NOT NULL
         )`,
     
     getPassword:

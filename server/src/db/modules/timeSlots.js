@@ -8,11 +8,11 @@ const sql = {
     createTable: 
         `CREATE TABLE IF NOT EXISTS timeSlots (
             id INTEGER PRIMARY KEY,
-            startDate TEXT,
-            startTime TEXT,
-            duration INTEGER,
-            department INTEGER,
-            signUpCap INTEGER
+            startDate TEXT NOT NULL,
+            startTime TEXT NOT NULL,
+            duration INTEGER NOT NULL,
+            department INTEGER NOT NULL,
+            signUpCap INTEGER NOT NULL
         )`,
     
     listTimeSlots:

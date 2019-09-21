@@ -8,9 +8,9 @@ const sql = {
     createTable: 
         `CREATE TABLE IF NOT EXISTS reservations (
             id INTEGER PRIMARY KEY,
-            user INTEGER,
-            timeSlot INTEGER,
-            attended INTEGER
+            user INTEGER NOT NULL,
+            timeSlot INTEGER NOT NULL,
+            attended BOOLEAN NOT NULL
         )`,
 
     getReservationsByUserId:
@@ -19,19 +19,16 @@ const sql = {
     getReservationsByTimeSlot:
         `SELECT * FROM reservations WHERE timeSlot = ?`,
     
-    findReservationByUserAndTime:
+    getReservationsForUserOnDate:
         `SELECT reservations.id,
             reservations.user,
             reservations.timeSlot,
             reservations.attended
         FROM reservations INNER JOIN timeSlots ON 
             reservations.timeSlot = timeSlots.id
-            INNER JOIN timeSlotDefs ON
-            timeSlots.timeSlotDef = timeSlotDefs.id
         WHERE 
             reservations.user = ? AND
-            timeSlots.datetime
-                BETWEEN ? AND (? + timeSlotDefs.duration)`,
+            timeSlots.startDate = ?`,
 
     insertReservation: 
         `INSERT INTO reservations (user, timeSlot, attended)
@@ -73,9 +70,9 @@ class ReservationDbModule extends DbModule {
         return null;
     }
 
-    async findReservationByUserAndTime(userId, time) {
-        return this.fixType(await db.get(sql.findReservationByUserAndTime,
-            [userId, time, time]));
+    async getReservationsForUserOnDate(userId, date) {
+        const rows = await db.all(sql.getReservationsForUserOnDate, [userId, date]);
+        return rows.map(e => this.fixType(e));
     }
 
     async updateReservationAttendance(reservationId, attended) {
