@@ -3,15 +3,21 @@
 const Preparable = require('./Preparable');
 
 class TimeSlotDefinition extends Preparable {
-  constructor(id, dayOfWeek, startTime, duration, department, signUpCap, year) {
+  constructor(id, startTime, duration, department, signUpCap, repeatStartDate, repeatCount, repeatInterval, repeatSkipEvery) {
     super();
     this.id = id;
-  	this.dayOfWeek = dayOfWeek;
+
+    // relating to day of actual events
   	this.startTime = startTime;
-  	this.duration = duration;
+    this.duration = duration;
   	this.department = department;
     this.signUpCap = signUpCap;
-    this.year = year;
+
+    // relating to repeat/timeSlot cloning behaviour
+    this.repeatStartDate = repeatStartDate;
+    this.repeatCount = repeatCount;
+    this.repeatInterval = repeatInterval;
+    this.repeatSkipEvery = repeatSkipEvery;
   }
 }
 

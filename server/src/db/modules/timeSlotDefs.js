@@ -8,27 +8,32 @@ const sql = {
     createTable: 
         `CREATE TABLE IF NOT EXISTS timeSlotDefs (
             id INTEGER PRIMARY KEY,
-            dayOfWeek INTEGER,
-            startTime  INTEGER,
-            duration INTEGER,
-            department INTEGER,
-            signUpCap INTEGER,
-            year INTEGER
+            startTime TEXT NOT NULL,
+            duration INTEGER NOT NULL,
+            department INTEGER NOT NULL,
+            signUpCap INTEGER NOT NULL,
+            repeatStartDate TEXT NOT NULL,
+            repeatCount INTEGER NOT NULL,
+            repeatInterval INTEGER NOT NULL,
+            repeatSkipEvery INTEGER NOT NULL
         )`,
     listTimeSlotDefsForYear:
-        `SELECT * FROM timeSlotDefs WHERE year = ?`,
+        `SELECT * FROM timeSlotDefs WHERE repeatStartDate >= ? AND repeatStartDate <= ?`,
 
     insertTimeSlotDef: 
-        `INSERT INTO timeSlotDefs (dayOfWeek, startTime, duration, department, signupCap, year)
-        VALUES($dayOfWeek, $startTime, $duration, $department, $signUpCap, $year)`,
+        `INSERT INTO timeSlotDefs (startTime, duration, department, signupCap, repeatStartDate, repeatCount, repeatInterval, repeatSkipEvery)
+        VALUES($startTime, $duration, $department, $signUpCap, $repeatStartDate, $repeatCount, $repeatInterval, $repeatSkipEvery)`,
     
     updateTimeSlotDef:
         `UPDATE timeSlotDefs SET
-            dayOfWeek = $dayOfWeek,
             startTime = $startTime,
+            duration = $duration,
             department = $department,
             signUpCap = $signUpCap,
-            year = $year
+            repeatStartDate = $repeatStartDate,
+            repeatCount = $repeatCount,
+            repeatInterval = $repeatInterval,
+            repeatSkipEvery = $repeatSkipEvery
         WHERE id = $id`,
     
     deleteTimeSlotDef:
@@ -41,7 +46,9 @@ class TimeSlotDefDbModule extends DbModule {
     }
 
     async listTimeSlotDefsForYear(year) {
-        const rows = await db.all(sql.listTimeSlotDefsForYear, [year]);
+        const yearStart = `${year}-01-01`;
+        const yearEnd = `${year}-12-31`;
+        const rows = await db.all(sql.listTimeSlotDefsForYear, [yearStart, yearEnd]);
         return rows.map(e => this.fixType(e));
     }
 

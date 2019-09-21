@@ -15,6 +15,14 @@ router.use(basicAuth({
 	authorizeAsync: true,
 }));
 
+router.get('/departments/add', async (req, res) => {
+
+});
+
+router.get('/departments/update', async (req, res) => {
+
+});
+
 // returns the array of timeSlotDefinitions that are set up
 // no params
 router.get('/schedule', async (req, res) => {

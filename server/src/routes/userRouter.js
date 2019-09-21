@@ -13,12 +13,24 @@ router.use(basicAuth({
 	authorizeAsync: true,
 }));
 
+router.get('/departments', async (req, res) => {
+
+});
+
 router.post('/reservations/add', (req, res) => {
 	return res.status(500).send('not yet implemented');
 });
 
 router.get('/reservations', (req, res) => {
 	return res.status(500).send('not yet implemented');
+});
+
+router.get('/timeSlots', (req, res) => {
+
+});
+
+router.post('/changePassword', async(req, res) => {
+
 });
 
 module.exports = router;

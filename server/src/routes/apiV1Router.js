@@ -9,9 +9,9 @@ const publicRouter = require('./publicRouter');
 
 const router = express.Router();
 
-router.use('admin', adminRouter);
-router.use('registration', registrationRouter);
-router.use('public', publicRouter);
-router.use('user', userRouter);
+router.use('/admin', adminRouter);
+router.use('/registration', registrationRouter);
+router.use('/user', userRouter);
+router.use(publicRouter);
 
 module.exports = router;

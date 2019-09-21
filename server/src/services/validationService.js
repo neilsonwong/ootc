@@ -1,5 +1,6 @@
 'use strict';
 
+const config = require('../../config');
 const db = require('../db/db');
 
 // just use an internal object
@@ -26,6 +27,9 @@ function generateValidationCode(userId) {
 }
 
 function randomValidationCode() {
+    if (config.OVERRIDE_VALIDATION) {
+        return config.OVERRIDE_VALIDATION;
+    }
     return Math.floor(Math.random()*1000000);
 }
 

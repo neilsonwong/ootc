@@ -3,19 +3,15 @@
 const Preparable = require('./Preparable');
 
 class TimeSlot extends Preparable {
-  constructor(id, datetime, timeSlotDef) {
+  constructor(id, startDate, startTime, duration, department, signUpCap) {
     super();
   	this.id = id;
-  	this.datetime = datetime;
-    this.timeSlotDef = timeSlotDef;
 
-    // archival purposes, as timeSlotDef can change
-  	this.dayOfWeek = null;
-  	this.startTime = null;
-  	this.duration = null;
-  	this.department = null;
-    this.signUpCap = null;
-    this.year = null;
+  	this.startDate = startDate;
+  	this.startTime = startTime;
+    this.duration = duration;
+  	this.department = department;
+    this.signUpCap = signUpCap;
   }
 }
 

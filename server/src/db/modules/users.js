@@ -13,7 +13,7 @@ const sql = {
             mname TEXT,
             lname TEXT NOT NULL,
             email TEXT UNIQUE NOT NULL,
-            phone CHAR(10),
+            phone TEXT,
             age INTEGER NOT NULL,
             experience INTEGER,
             comments TEXT,
@@ -23,30 +23,13 @@ const sql = {
 
     insertUser: 
         `INSERT INTO users (
-            id,
-            fname,
-            mname,
-            lname,
-            email,
-            phone,
-            age,
-            experience,
-            comments,
-            validated,
-            admin
+            id, fname, mname, lname, email, phone,
+            age, experience, comments, validated, admin
         )
         VALUES(
-            $id,
-            $fname,
-            $mname,
-            $lname,
-            $email,
-            $phone,
-            $age,
-            $experience,
-            $comments,
-            $validated,
-            $admin)`,
+            $id, $fname, $mname, $lname, $email, $phone,
+            $age, $experience, $comments, $validated, $admin
+        )`,
 
     updateUser:
         `UPDATE users SET 

@@ -9,14 +9,15 @@ const router = express.Router();
 router.post('/register', async (req, res) => {
     const user = req.body.user;
     const password = req.body.password;
-    const registeredUser = await accountManager.register(user, password);
 
-    if (registeredUser !== null) {
-        return res.status(201).json(registeredUser);
+    if (user && password) {
+        const registeredUser = await accountManager.register(user, password);
+
+        if (registeredUser !== null) {
+            return res.status(201).json(registeredUser);
+        }
     }
-    else {
-        return res.status(500);
-    }
+    return res.status(500).json({error: 'unable to register user with data provided'});
 });
 
 router.post('/login', async (req, res) => {
@@ -28,8 +29,21 @@ router.post('/login', async (req, res) => {
         if (await (authService.isValidUser(userId, password))) {
             return res.status(200).send('OK');
         }
+        return res.status(400).json({ error: 'invalid login credentials'});
     }
-	return res.status(500).send('not yet implemented');
+	return res.status(400).json({ error: 'user has not validated their email'});
+});
+
+router.post('/resendValidation', async(req, res) => {
+    const userId = req.body.userId;
+    
+    if (await accountManager.isUserValidated(userId)) {
+        res.status(400).json({error: 'user already validated'});
+    }
+    else {
+        await accountManager.setupEmailValidation(userId);
+        res.status(200).json({res: 'validation code has been sent'})
+    }
 });
 
 router.post('/validateEmail', async (req, res) => {

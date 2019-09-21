@@ -1,5 +1,6 @@
 {
 	"LOG_DIR": "./logs",
 	"PORT": 8000,
-	"DB_PATH": "./database.db"
+	"DB_PATH": "./database.db",
+	"OVERRIDE_VALIDATION": 111111
 }

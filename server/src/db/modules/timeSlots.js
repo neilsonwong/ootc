@@ -8,39 +8,22 @@ const sql = {
     createTable: 
         `CREATE TABLE IF NOT EXISTS timeSlots (
             id INTEGER PRIMARY KEY,
-            datetime INTEGER,
-            timeSlotDef INTEGER,
-            dayOfWeek INTEGER,
-            startTime  INTEGER,
+            startDate TEXT,
+            startTime TEXT,
             duration INTEGER,
             department INTEGER,
-            signUpCap INTEGER,
-            year INTEGER
+            signUpCap INTEGER
         )`,
     
     listTimeSlots:
         `SELECT * FROM timeSlots`,
 
     listTimeSlotsByRange:
-        `SELECT * FROM timeSlots WHERE datetime BETWEEN ? AND ?`,
+        `SELECT * FROM timeSlots WHERE startDate >= ? AND startDate <= ?`,
 
     insertTimeSlot:
-        `INSERT INTO timeSlots (datetime, timeSlotDef)
-        VALUES($datetime, $timeSlotDef)`,
-    
-    archiveTimeSlot:
-        // careful this one is complicated!!
-        `WITH defs AS 
-            (SELECT dayOfWeek, startTime, duration, department, signUpCap, year FROM timeSlotDefs 
-                WHERE id=(SELECT timeSlotDef FROM timeSlots WHERE id = ?))
-        UPDATE timeSlots SET
-            dayOfWeek = (SELECT dayOfWeek FROM defs),
-            startTime = (SELECT startTime FROM defs),
-            duration = (SELECT duration FROM defs),
-            department = (SELECT department FROM defs),
-            signUpCap = (SELECT signUpCap FROM defs),
-            year = (SELECT year FROM defs)
-        WHERE id = ?`,
+        `INSERT INTO timeSlots (startDate, startTime, duration, department, signUpCap)
+        VALUES($startDate, $startTime, $duration, $department, $signUpCap)`,
 
     deleteTimeSlot:
         `DELETE FROM timeSlots WHERE id = ?`
@@ -68,10 +51,6 @@ class TimeSlotDbModule extends DbModule {
             timeSlot.id = lastID;
             return timeSlot;
         }
-    }
-
-    async archiveTimeSlot(timeSlotId) {
-        return await db.run(sql.archiveTimeSlot, [timeSlotId, timeSlotId]);
     }
 
     async deleteTimeSlot(timeSlotId) {

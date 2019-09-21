@@ -4,8 +4,7 @@ const db = require('../db/db');
 const bcrypt = require('bcrypt');
 
 async function isValidAdmin(userId, password) {
-    const isValidUser = await isValidUser(userId, password);
-    if (isValidUser) {
+    if (await isValidUser(userId, password)) {
         const user = await db.users.getUser(userId);
         if (user.admin) {
             return true;
