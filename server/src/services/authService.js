@@ -7,8 +7,10 @@ async function isValidAdmin(userId, password) {
     if (await isValidUser(userId, password)) {
         const user = await db.users.getUser(userId);
         if (user.admin) {
+            console.log(`validated ${userId} is admin`);
             return true;
         }
+        console.log(`${userId} is NOT admin`);
     }
     return false;
 }
