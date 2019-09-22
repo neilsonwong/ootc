@@ -1,0 +1,23 @@
+NOTE: For sending emails, please send from tccc.ootc@gmail.com
+
+Hello <Name>,
+
+This email is a confirmation of your sign-up for OOTC: <Dept>
+Team of <Current Year> for the following weeks and timeslots:
+
+!!!!!!!! GRAB LIST OF USER'S TIME SLOTS START !!!!!!!!!
+
+<Dept> <Date> <Time>: <Desc>
+<Dept> <Date> <Time>: <Desc>
+<Dept> <Date> <Time>: <Desc>
+<Dept> <Date> <Time>: <Desc>
+
+!!!!!!!! GRAB LIST OF USER'S TIME SLOTS END !!!!!!!!!
+
+Please mark off these time slots in your calendars if you have not done so  
+yet. Weekly reminder emails will be sent a few days in advance for the time  
+slots you have signed up for.
+
+Thank you for serving!
+
+TCCC x Gibson - Out of the Cold
