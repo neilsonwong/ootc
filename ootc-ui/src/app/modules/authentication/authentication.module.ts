@@ -8,7 +8,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
-import {MatInputModule} from '@angular/material/input'; 
+import { MatInputModule } from '@angular/material/input'; 
 
 @NgModule({
   declarations: [
@@ -22,6 +22,9 @@ import {MatInputModule} from '@angular/material/input';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule
-  ]
+  ],
+  exports: [
+    LoginComponent
+  ],
 })
 export class AuthenticationModule { }

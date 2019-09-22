@@ -6,17 +6,19 @@ import { HomeComponent } from './components/home/home.component';
 import { TopBarComponent } from './components/home/top-bar/top-bar.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { AuthenticationModule } from '../authentication/authentication.module';
 
 @NgModule({
   declarations: [
-    HomeComponent, TopBarComponent
+    HomeComponent, 
+    TopBarComponent,
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     BrowserModule,
     ReactiveFormsModule,
+    AuthenticationModule,
     RouterModule.forRoot([
       
     ])
