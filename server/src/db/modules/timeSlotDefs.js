@@ -11,7 +11,7 @@ const sql = {
             startTime TEXT NOT NULL,
             duration INTEGER NOT NULL,
             department INTEGER NOT NULL,
-            signUpCap INTEGER NOT NULL,
+            signUpCap INTEGER NOT NULL CHECK(signUpCap > 0),
             desc TEXT NOT NULL,
             repeatStartDate TEXT NOT NULL,
             repeatCount INTEGER NOT NULL,

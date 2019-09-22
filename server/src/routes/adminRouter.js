@@ -6,6 +6,7 @@ const basicAuth = require('express-basic-auth');
 const authService = require('../services/authService');
 const accountManager = require('../core/accountManager');
 const scheduleManager = require('../core/scheduleManager');
+const departmentManager = require('../core/departmentManager');
 
 const router = express.Router();
 
@@ -15,12 +16,20 @@ router.use(basicAuth({
 	authorizeAsync: true,
 }));
 
-router.get('/departments/add', async (req, res) => {
-
+router.post('/departments/add', async (req, res) => {
+	const departmentName = req.body.department;
+	const added = await departmentManager.addDepartment(departmentName);
+	return added ? 
+		res.status(200).json({res: `created department ${departmentName}`}) :
+		res.status(400).json({error: 'error creating department'});
 });
 
-router.get('/departments/update', async (req, res) => {
-
+router.post('/departments/update', async (req, res) => {
+	const department = req.body.department;
+	const updated = await departmentManager.updateDepartment(department);
+	return updated ? 
+		res.status(200).json({res: `updated department ${department}`}) :
+		res.status(400).json({error: 'error updating department'});
 });
 
 // returns the array of timeSlotDefinitions that are set up
@@ -30,7 +39,7 @@ router.get('/schedule', async (req, res) => {
 	const schedule = await scheduleManager.getSchedule(year);
 	return schedule ?
 		res.status(200).json(schedule) :
-		res.status(400);
+		res.status(400).json({error: 'error retrieving schedule'});
 });
 
 // add a timeSlotDefinition
@@ -60,18 +69,17 @@ router.post('/schedule/remove', async (req, res) => {
 router.post('/schedule/update', async (req, res) => {
 	const timeSlotDef = req.body.timeSlotDef;
 	const result = scheduleManager.updateTimeSlotDef(timeSlotDef);
-	console.log(result)
 	return result ?
 		res.status(200).json(timeSlotDef) :
 		res.status(400).json({ error: `could not update schedule slotId ${timeSlotDef.id}` });
 });
 
 router.post('/schedule/generate', async(req, res) => {
-	const start = req.body.start;
-	const end = req.body.end;
-	await scheduleManager.generateTimeSlots(start, end);
-
-	return res.status(500).json({error: 'NOT YET IMPLEMENTED'});
+	const timeSlotDef = req.body.timeSlotDef;
+	const generatedTimeSlots = await scheduleManager.generateTimeSlots(timeSlotDef);
+	return generatedTimeSlots ? 
+		res.status(201).json(generatedTimeSlots) :
+		res.status(400).json({error: 'there was na error generating the schedule using the provided time slot def'});
 });
 
 // add a reservation
@@ -100,7 +108,6 @@ router.get('/users', async (req, res) => {
 router.post('/user/update', async (req, res) => {
 	const user = req.body.user;
 	const result = await accountManager.updateUser(user);
-	console.log(result)
 	return result ?
 		res.status(200).json(user) :
 		res.status(400).json({ error: `could not update user with email ${user.email}` });

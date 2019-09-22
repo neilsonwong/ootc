@@ -217,7 +217,6 @@ async function testReservations() {
     logger.info('Get Reservation By TimeSlot');
     const slotReservations = await db.reservations.getReservationsByTimeSlot(theSlots[1].id);
     assert(slotReservations.length === 3);
-
 }
 
 async function test() {

@@ -4,6 +4,7 @@ const express = require('express');
 const logger = require('../logger');
 const basicAuth = require('express-basic-auth');
 const authService = require('../services/authService');
+const departmentManager = require('../core/departmentManager');
 
 const router = express.Router();
 
@@ -14,7 +15,10 @@ router.use(basicAuth({
 }));
 
 router.get('/departments', async (req, res) => {
-
+	const allDepts = await departmentManager.listDepartments();
+	return allDepts ?
+		res.status(200).json(allDepts) :
+		res.status(400).json({error: 'there was an error retrieving the departments list'});
 });
 
 router.post('/reservations/add', (req, res) => {
