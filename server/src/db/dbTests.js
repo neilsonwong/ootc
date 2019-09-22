@@ -158,9 +158,9 @@ async function testTimeSlots() {
     logger.info('Inserting Time Slots');
     const toBeDeleted = await db.timeSlots.insertTimeSlot(await newTimeSlot('2019-09-25'));
     await db.timeSlots.insertTimeSlot(await newTimeSlot('2019-09-30'));
-    await db.timeSlots.insertTimeSlot(await newTimeSlot('2019-10-01'));
     theSlots.push(await db.timeSlots.insertTimeSlot(await newTimeSlot('2019-10-07')));
     theSlots.push(await db.timeSlots.insertTimeSlot(await newTimeSlot('2019-10-07', '18:00')));
+    theSlots.push(await db.timeSlots.insertTimeSlot(await newTimeSlot('2019-10-01')));
 
     logger.info('Listing all Time Slots in a range');
     const someSlots = await db.timeSlots.listTimeSlotsByRange('2019-09-30', '2019-10-01');
@@ -184,8 +184,8 @@ async function testReservations() {
 
     await db.reservations.insertReservation(await newReservation(user.id, theSlots[0]));
     await db.reservations.insertReservation(await newReservation(user.id, theSlots[1]));
-    const toBeAttended = await db.reservations.insertReservation(await newReservation(allUsers[1].id));
-    const toBeDeleted = await db.reservations.insertReservation(await newReservation(allUsers[2].id));
+    const toBeAttended = await db.reservations.insertReservation(await newReservation(allUsers[1].id, theSlots[2]));
+    const toBeDeleted = await db.reservations.insertReservation(await newReservation(allUsers[2].id, theSlots[2]));
     await db.reservations.insertReservation(await newReservation(allUsers[1].id, theSlots[1]));
     await db.reservations.insertReservation(await newReservation(allUsers[2].id, theSlots[1]));
 
@@ -243,16 +243,15 @@ function newTestUser(name, email) {
 }
 
 async function newTestTimeSlotDef(time, date, count, repeatInterval) {
-    return Object.assign({}, new TimeSlotDefinition(null, time, 2, (await randomDept()).id, 10, date, count, repeatInterval, 0));
+    return Object.assign({}, new TimeSlotDefinition(null, time, 2, (await randomDept()).id, 10, 'not a generic desc', date, count, repeatInterval, 0));
 }
 
 async function newTimeSlot(date, time) {
     time = time || '16:00';
-    return Object.assign({}, new TimeSlot(undefined, date, time, 2, (await randomDept()).id, 10));
+    return Object.assign({}, new TimeSlot(undefined, date, time, 2, (await randomDept()).id, 10, 'hello'));
 }
 
 async function newReservation(userId, timeSlot) {
-    timeSlot = timeSlot || (await randomTimeSlot());
     return Object.assign({}, new Reservation(undefined, userId, timeSlot.id, false));
 }
 
@@ -261,10 +260,10 @@ async function randomDept() {
     return allDepts[Math.floor(Math.random() * allDepts.length)];
 }
 
-async function randomTimeSlot() {
-    const allSlots = await db.timeSlots.listTimeSlots();
-    return allSlots[Math.floor(Math.random() * allSlots.length)];
-}
+// async function randomTimeSlot() {
+//     const allSlots = await db.timeSlots.listTimeSlots();
+//     return allSlots[Math.floor(Math.random() * allSlots.length)];
+// }
 
 module.exports = {
     test: test
