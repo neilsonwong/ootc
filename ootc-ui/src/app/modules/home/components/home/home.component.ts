@@ -19,6 +19,9 @@ export class HomeComponent implements OnInit {
 
   constructor() { }
 
+  title = 'Welcome!';
+  description = 'Introduction: Welcome to Out of The cold';
+
   ngOnInit() {
     this.everyone$ = this.getAllUsers();
     // const [admins$$, users$$] = partition(this.everyone$.pipe(flatMap(x => x)), p => p.isAdmin);
