@@ -16,7 +16,7 @@ class DbModule {
 
     fixType(candidate) {
         if (this.baseType) {
-            return candidate instanceof this.baseType? candidate:
+            return candidate instanceof this.baseType ? candidate:
                 Object.assign(new this.baseType(), candidate);
         }
         else {

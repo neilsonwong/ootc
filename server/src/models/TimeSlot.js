@@ -3,7 +3,7 @@
 const Preparable = require('./Preparable');
 
 class TimeSlot extends Preparable {
-  constructor(id, startDate, startTime, duration, department, signUpCap) {
+  constructor(id, startDate, startTime, duration, department, signUpCap, desc) {
     super();
   	this.id = id;
 
@@ -12,6 +12,7 @@ class TimeSlot extends Preparable {
     this.duration = duration;
   	this.department = department;
     this.signUpCap = signUpCap;
+    this.desc = desc;
   }
 }
 

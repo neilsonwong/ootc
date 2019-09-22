@@ -3,7 +3,7 @@
 const Preparable = require('./Preparable');
 
 class TimeSlotDefinition extends Preparable {
-  constructor(id, startTime, duration, department, signUpCap, repeatStartDate, repeatCount, repeatInterval, repeatSkipEvery) {
+  constructor(id, startTime, duration, department, signUpCap, desc, repeatStartDate, repeatCount, repeatInterval, repeatSkipEvery) {
     super();
     this.id = id;
 
@@ -12,6 +12,7 @@ class TimeSlotDefinition extends Preparable {
     this.duration = duration;
   	this.department = department;
     this.signUpCap = signUpCap;
+    this.desc = desc;
 
     // relating to repeat/timeSlot cloning behaviour
     this.repeatStartDate = repeatStartDate;

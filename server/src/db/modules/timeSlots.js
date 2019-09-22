@@ -12,7 +12,8 @@ const sql = {
             startTime TEXT NOT NULL,
             duration INTEGER NOT NULL,
             department INTEGER NOT NULL,
-            signUpCap INTEGER NOT NULL
+            signUpCap INTEGER NOT NULL,
+            desc TEXT NOT NULL
         )`,
     
     listTimeSlots:
@@ -22,8 +23,8 @@ const sql = {
         `SELECT * FROM timeSlots WHERE startDate >= ? AND startDate <= ?`,
 
     insertTimeSlot:
-        `INSERT INTO timeSlots (startDate, startTime, duration, department, signUpCap)
-        VALUES($startDate, $startTime, $duration, $department, $signUpCap)`,
+        `INSERT INTO timeSlots (startDate, startTime, duration, department, signUpCap, desc)
+        VALUES($startDate, $startTime, $duration, $department, $signUpCap, $desc)`,
 
     deleteTimeSlot:
         `DELETE FROM timeSlots WHERE id = ?`

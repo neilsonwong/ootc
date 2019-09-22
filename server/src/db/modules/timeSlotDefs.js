@@ -12,6 +12,7 @@ const sql = {
             duration INTEGER NOT NULL,
             department INTEGER NOT NULL,
             signUpCap INTEGER NOT NULL,
+            desc TEXT NOT NULL,
             repeatStartDate TEXT NOT NULL,
             repeatCount INTEGER NOT NULL,
             repeatInterval INTEGER NOT NULL,
@@ -21,8 +22,8 @@ const sql = {
         `SELECT * FROM timeSlotDefs WHERE repeatStartDate >= ? AND repeatStartDate <= ?`,
 
     insertTimeSlotDef: 
-        `INSERT INTO timeSlotDefs (startTime, duration, department, signupCap, repeatStartDate, repeatCount, repeatInterval, repeatSkipEvery)
-        VALUES($startTime, $duration, $department, $signUpCap, $repeatStartDate, $repeatCount, $repeatInterval, $repeatSkipEvery)`,
+        `INSERT INTO timeSlotDefs (startTime, duration, department, signupCap, desc, repeatStartDate, repeatCount, repeatInterval, repeatSkipEvery)
+        VALUES($startTime, $duration, $department, $signUpCap, $desc, $repeatStartDate, $repeatCount, $repeatInterval, $repeatSkipEvery)`,
     
     updateTimeSlotDef:
         `UPDATE timeSlotDefs SET
@@ -30,6 +31,7 @@ const sql = {
             duration = $duration,
             department = $department,
             signUpCap = $signUpCap,
+            desc = $desc,
             repeatStartDate = $repeatStartDate,
             repeatCount = $repeatCount,
             repeatInterval = $repeatInterval,
