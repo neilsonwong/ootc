@@ -1,5 +1,7 @@
 NOTE: For sending emails, please send from tccc.ootc@gmail.com
 
+SUBJECT: OOTC - Schedule Confirmation
+
 Hello <Name>,
 
 This email is a confirmation of your sign-up for OOTC: <Dept>
@@ -21,3 +23,9 @@ slots you have signed up for.
 Thank you for serving!
 
 TCCC x Gibson - Out of the Cold
+
+!!!!!!!! FUTURE CONSIDERATION !!!!!!!!!!!!
+
+google/apple calendar attachement
+
+!!!!!!!! FUTURE CONSIDERATION !!!!!!!!!!!!

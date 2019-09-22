@@ -1,10 +1,12 @@
 NOTE: For sending emails, please send from tccc.ootc@gmail.com
 
+SUBJECT: OOTC - REMINDER: <Dept>: <Date> <Time>
+
 Hello <Name>,
 
 This is a reminder that you have signed up for:
 
-<Dept>: <Desc> <Date> <Time>
+<Dept>: <Date> <Time> - <Desc>
 
 If you are sick on the day of your scheduled time slot, please DO NOT show  
 up. We must make sure that other volunteers and guests do not get sick as  

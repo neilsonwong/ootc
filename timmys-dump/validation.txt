@@ -1,5 +1,7 @@
 NOTE: For sending emails, please send from tccc.ootc@gmail.com
 
+SUBJECT: OOTC - Account Validation
+
 Hello <Name>,
 
 Thank you for signing up for TCCC x Gibson - OOTC! 
