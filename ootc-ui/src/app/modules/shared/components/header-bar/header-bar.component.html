@@ -10,7 +10,7 @@
                 <div *ngFor="let link of navLinks[securityLevel]"
                     ngClass="nav-item {{ link.text === highlight ? 'highlight' : ''}}">
                     <a [routerLink]="[link.url]">
-                        {{ link.text }}
+                        {{ link.text | uppercase }}
                     </a>
                 </div>
             </ng-container>

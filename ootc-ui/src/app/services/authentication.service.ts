@@ -8,6 +8,6 @@ export class AuthenticationService {
   constructor() { }
 
   getSecurityClearance(): number {
-    return 2;
+    return 0;
   }
 }
