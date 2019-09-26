@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Location } from '@angular/common';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 class LinkItem {
@@ -20,17 +21,22 @@ export class HeaderBarComponent implements OnInit {
 
   // TODO: can convert this to input later
   navLinks: LinkItem[][];
+  highlight: string;
 
   securityLevels: number[];
   securityClearance: number = 0;
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private authService: AuthenticationService, private location: Location) { }
 
   ngOnInit() {
     this.setupLinks();
     this.securityLevels = Array(this.navLinks.length).fill(0).map((x,i)=>i);
     this.securityClearance = this.authService.getSecurityClearance();
-    console.log(this.securityClearance);
+
+    this.updateHighlight(this.location.path(false));
+    this.location.onUrlChange((url: string, state: unknown) => {
+      this.updateHighlight(url);
+    });
   }
 
   setupLinks() {
@@ -49,5 +55,17 @@ export class HeaderBarComponent implements OnInit {
       new LinkItem('Schedule', '/admin/schedule'),
       new LinkItem('Attendance', '/admin/attendance'),
     ]];
+  }
+
+  updateHighlight(newUrl: string) {
+    for (const links of this.navLinks) {
+      for (const navItem of links) {
+        if (navItem.url === newUrl) {
+          this.highlight = navItem.text;
+          console.log(this.highlight)
+          return;
+        }
+      }
+    }
   }
 }

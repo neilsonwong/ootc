@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HomeModule } from './modules/home/home.module';
+import { SharedModule } from './modules/shared/shared.module';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
 
 @NgModule({
@@ -14,6 +15,7 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
   imports: [
     BrowserModule,
     AppRoutingModule,
+    SharedModule,
     HomeModule,
     AuthenticationModule
   ],
