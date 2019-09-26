@@ -9,6 +9,9 @@ export class LandingComponent implements OnInit {
 
   constructor() { }
 
+  title = 'Welcome!';
+  description = 'Introduction: Welcome to Out of The cold';
+
   ngOnInit() {
   }
 

@@ -1,6 +1,8 @@
 <div class="header">
     <div class="logo">
-        <h1 class="title">OOTC</h1>
+        <a [routerLink]="['/']">
+            <h1 class="title">OOTC</h1>
+        </a>
     </div>
     <div class="navigation">
         <ng-container *ngFor="let securityLevel of securityLevels">

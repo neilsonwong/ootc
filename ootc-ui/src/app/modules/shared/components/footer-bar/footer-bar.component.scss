@@ -1,0 +1,26 @@
+.footer {
+    /* center the text */
+    text-align: center;
+
+    /* stick box to the bottom */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    /* add padding to bottom */
+    padding-bottom: 0.5rem;
+
+    /* font styles */
+    font-size: 0.75rem;
+    color: #999999;
+
+    .heart {
+        font-size: 1rem;
+        color: rgba(255, 0, 0, 0.75);
+    }
+
+    .cross {
+        font-size: 1rem;
+    }
+}
