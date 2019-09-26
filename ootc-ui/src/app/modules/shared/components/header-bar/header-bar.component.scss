@@ -1,0 +1,23 @@
+.header {
+    height: 3rem;
+    padding: 0.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background-color: #1976d2;
+
+    .title {
+        color: white;
+    }
+
+    .navigation {
+        display: flex;
+        align-items: flex-end;
+
+        .nav-item {
+            padding-left: 0.5rem;
+        }
+    }
+}
