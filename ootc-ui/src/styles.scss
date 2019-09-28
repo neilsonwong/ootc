@@ -6,8 +6,8 @@
 /* Global Styles */
 
 * {
-  font-family: 'Roboto', Arial, sans-serif;
-  color: #616161;
+  // font-family: 'Roboto', Arial, sans-serif;
+  font-family: 'Lato', sans-serif;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -15,6 +15,7 @@
 
 body {
   margin: 0;
+  color: #616161;
 }
 
 a {

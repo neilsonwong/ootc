@@ -1,3 +1,54 @@
+$bannerHeight: 400px;
+
 :host {
     width: 100%;
+}
+
+h1 {
+    color: rgba(34,110,147,1);
+    font-size: 3em;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+}
+
+.landing-banner {
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    right: 0;
+
+    height: $bannerHeight;
+    background-color: lime;
+    padding: 2rem;
+
+    display: flex;
+    justify-content: space-around;
+
+    .landing-inner {
+        display: flex;
+        max-width: 1080px;
+        min-width: 768px;
+    }
+
+    .landing-text {
+        flex-grow: 1;
+        padding-right: 1rem;
+    }
+
+    .login-form-wrapper {
+        min-width: 300px;
+        background-color: red;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+    }
+}
+
+.landing-page-intro {
+    margin-top: $bannerHeight;
+
+
+    .description {
+        line-height: 1.75em;
+    }
 }

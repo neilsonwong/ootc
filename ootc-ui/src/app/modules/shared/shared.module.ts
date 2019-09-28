@@ -10,9 +10,10 @@ import { MatInputModule } from '@angular/material/input';
 
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
 import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
+import { AppContainerComponent } from './components/app-container/app-container.component';
 
 @NgModule({
-  declarations: [HeaderBarComponent, FooterBarComponent],
+  declarations: [HeaderBarComponent, FooterBarComponent, AppContainerComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -22,14 +23,14 @@ import { FooterBarComponent } from './components/footer-bar/footer-bar.component
     MatInputModule,
   ],
   exports: [
-    HeaderBarComponent,
-    FooterBarComponent,
+    AppContainerComponent,
 
     // re-export ng stuff that we don't wanna import everywhere
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    RouterModule,
   ]
 })
 export class SharedModule { }
