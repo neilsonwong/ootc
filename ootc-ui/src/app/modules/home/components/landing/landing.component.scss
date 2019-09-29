@@ -12,6 +12,7 @@ h1 {
     line-height: 1.2;
 }
 
+
 .landing-banner {
     position: absolute;
     top: 4rem;
@@ -19,7 +20,9 @@ h1 {
     right: 0;
 
     height: $bannerHeight;
-    background-color: lime;
+    background-color: rgba(34,110,147,1);
+    background-image: url(https://ssl.gstatic.com/atari/images/simple-header-blended-small.png);
+    background-size: cover;
     padding: 2rem;
 
     display: flex;
@@ -32,23 +35,45 @@ h1 {
     }
 
     .landing-text {
+        color: white;
+        text-align: justify;
+        line-height: 1.75em;
+        padding-right: 3.25rem;
         flex-grow: 1;
-        padding-right: 1rem;
+
+        .sub-text {
+            font-size: 1em;
+        }
+
+        h2 {
+            font-size: 3em;
+            letter-spacing: 2px;
+            line-height: 1;
+        }
     }
 
     .login-form-wrapper {
         min-width: 300px;
-        background-color: red;
+        background-color: #ccc;
         padding: 1.5rem;
         border-radius: 0.75rem;
+        box-shadow: 1px 1px 4px #666;
     }
 }
 
 .landing-page-intro {
     margin-top: $bannerHeight;
 
-
     .description {
         line-height: 1.75em;
+    }
+
+    .pad-right {
+        width: 150px;
+        display: inline-block;
+    }
+
+    .label-value {
+        display: inline-block;
     }
 }
