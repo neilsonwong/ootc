@@ -3,30 +3,43 @@
     <div>
         <form class="" [formGroup]="registrationForm" (ngSubmit)="onRegister()">
             <mat-form-field>
-                <input matInput type="text" placeholder="First Name" formControlName="firstName">
+                <input matInput type="text" placeholder="First Name" formControlName="firstName" required>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="text" placeholder="Middle Name" formControlName="middleName">
             </mat-form-field>
             <mat-form-field>
-                <input matInput type="text" placeholder="Last Name" formControlName="lastName">
+                <input matInput type="text" placeholder="Last Name" formControlName="lastName" required>
             </mat-form-field>
             <mat-form-field>
-                <input matInput type="email" placeholder="Email" formControlName="email">
+                <input matInput type="email" placeholder="Email" formControlName="email" required>
             </mat-form-field>
             <mat-form-field>
-                <input matInput type="tel" placeholder="Phone Number" formControlName="phoneNumber">
+                <input matInput type="password" placeholder="Password" formControlName = "password" required>
             </mat-form-field>
             <mat-form-field>
-                <input matInput type="number" placeholder="Age" formControlName="age">
+                <input matInput type="number" placeholder="Phone Number" formControlName="phoneNumber" required>
             </mat-form-field>
             <mat-form-field>
-                <input matInput type="number" placeholder="Experience" formControlName="experience">
+                <input matInput type="number" placeholder="Age" formControlName="age" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="number" placeholder="Experience" formControlName="experience" required>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="text" placeholder="Comments" formControlName="comments">
             </mat-form-field>
-            <button mat-raised-button color="primary" type="submit">Register</button>
+            <button mat-raised-button color="primary" type="submit" [disabled] = "!registrationForm.valid">Register</button>
         </form>
     </div>
+    <ng-template [ngIf] = "confirmed" [ngIfElse] = "notconfirmed">
+        <p>
+            Thank you for registering
+        </p>
+    </ng-template>
+    <ng-template #notconfirmed>
+        <p>
+            Please Try again
+        </p>
+    </ng-template>
 </div>
