@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ReservationService } from 'src/app/services/reservation.service';
+import { ReservationView } from 'src/app/models/ReservationView';
 
 @Component({
   selector: 'app-reservation-management',
@@ -6,11 +8,14 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./reservation-management.component.scss']
 })
 export class ReservationManagementComponent implements OnInit {
-  @Input() listOfReservations;
+  listOfReservations: ReservationView[];
 
-  constructor() { }
+  constructor(private reservationService: ReservationService) { }
 
   ngOnInit() {
+    this.reservationService.getReservationsForUser('a@b.com').subscribe((reservations: ReservationView[]) => {
+      this.listOfReservations = reservations;
+    });
   }
 
 }
