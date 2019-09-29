@@ -12,6 +12,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class LoginFormComponent implements OnInit {
   loginForm: FormGroup;
+  error: string;
 
   constructor(private authService: AuthenticationService,
     private router: Router) { }
@@ -25,6 +26,7 @@ export class LoginFormComponent implements OnInit {
   }
   
   onLogin() {
+    this.error = null;
     this.authService.login(
       this.loginForm.get('email').value,
       this.loginForm.get('password').value)
@@ -32,6 +34,9 @@ export class LoginFormComponent implements OnInit {
       .subscribe((loginSuccess) => {
         if (loginSuccess) {
           this.router.navigate(['/reservations']);
+        }
+        else {
+          this.error = 'Invalid Login Credentials';
         }
       });
   }
