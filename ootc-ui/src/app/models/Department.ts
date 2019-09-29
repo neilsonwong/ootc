@@ -7,7 +7,7 @@ export class Department {
         id: number, 
         name: string 
         ){
-        this.id = id,
-        this.name = name
+        this.id = id;
+        this.name = name;
     }
 }
