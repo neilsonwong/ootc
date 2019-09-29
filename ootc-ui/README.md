@@ -156,4 +156,3 @@
 > we can add an auth guard which will handle which routes are permitted
 
 TODO:
-fix footer positioning overlaps
