@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-upcoming-reservation-list',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./upcoming-reservation-list.component.scss']
 })
 export class UpcomingReservationListComponent implements OnInit {
-
+  @Input() reservations: any;
+  
   constructor() { }
 
   ngOnInit() {

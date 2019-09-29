@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { ReservationRoutingModule } from './reservation-routing.module';
+
 import { ReservationSignUpComponent } from './components/reservation-sign-up/reservation-sign-up.component';
 import { ReservationManagementComponent } from './components/reservation-management/reservation-management.component';
 import { UpcomingReservationListComponent } from './components/upcoming-reservation-list/upcoming-reservation-list.component';
@@ -7,12 +11,12 @@ import { ReservationDetailsComponent } from './components/reservation-details/re
 import { DepartmentSpotlightComponent } from './components/department-spotlight/department-spotlight.component';
 import { ReservationSignUpFormComponent } from './components/reservation-sign-up-form/reservation-sign-up-form.component';
 
-
-
 @NgModule({
   declarations: [ReservationSignUpComponent, ReservationManagementComponent, UpcomingReservationListComponent, ReservationDetailsComponent, DepartmentSpotlightComponent, ReservationSignUpFormComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule,
+    ReservationRoutingModule,
   ]
 })
 export class ReservationModule { }
