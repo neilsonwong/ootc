@@ -10,25 +10,25 @@ export class ScheduleService {
 
   constructor() { }
 
-  getSchedule(): Observable<TimeSlotDef[]> {
-    return of(null);
-  }
+  // getSchedule(): Observable<TimeSlotDef[]> {
+  //   return of(null);
+  // }
 
-  addScheduleItem(timeSlotDef: TimeSlotDef): Observable<TimeSlot> {
-    return of(null);
-  }
+  // addScheduleItem(timeSlotDef: TimeSlotDef): Observable<TimeSlot> {
+  //   return of(null);
+  // }
 
   removeScheduleItem(timeSlotDefId: number): Observable<TimeSlot> {
     return of(null);
   }
 
-  updateScheduleItem(timeSlotDef: TimeSlotDef): Observable<TimeSlotDef> {
-    return of(null);
-  }
+  // updateScheduleItem(timeSlotDef: TimeSlotDef): Observable<TimeSlotDef> {
+  //   return of(null);
+  // }
 
-  generateSchedule(timeSlotDef: TimeSlotDef): Observable<Reservation[]> {
-    return of(null);
-  }
+  // generateSchedule(timeSlotDef: TimeSlotDef): Observable<Reservation[]> {
+  //   return of(null);
+  // }
 
   getTimeSlots(): Observable<TimeSlot[]>{
     return of(null);

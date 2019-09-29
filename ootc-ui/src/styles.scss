@@ -17,6 +17,17 @@ body {
   margin: 0;
   color: #616161;
   min-height: 100vh;
+  background-image: url('/assets/to_bg_long_10.png');
+  background-repeat: no-repeat;
+  background-position: right 0px bottom 0px;
+  background-attachment: fixed;
+  background-size: 2160px auto;
+}
+
+@media only screen and (min-width: 2160px) {
+  body {
+    background-size: 100% auto;
+  }
 }
 
 a {
