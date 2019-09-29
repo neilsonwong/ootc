@@ -13,9 +13,13 @@
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="email" placeholder="Email" formControlName="email" required>
+                <mat-error>{{ formErrors.pattern }}</mat-error>  
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="password" placeholder="Password" formControlName = "password" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="password" placeholder="Verify Password" formControlName = 'verifypassword' required>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="number" placeholder="Phone Number" formControlName="phoneNumber" required>
