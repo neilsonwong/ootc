@@ -7,7 +7,7 @@ import { EmailValidationComponent } from './components/email-validation/email-va
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
-  { path: 'about', component: AboutComponent },
+  // { path: 'about', component: AboutComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'validateEmail', component: EmailValidationComponent },
 ];
