@@ -86,7 +86,7 @@
 
 ## Services
 ### AuthenticationService
-* getAuthContext(): number
+* getSecurityClearance(): number
 	> gets the authorization context of the current user
 	> 0: not logged in
 	> 1: logged in as user
