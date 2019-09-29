@@ -3,10 +3,10 @@
     <div>
         <form class="" [formGroup]="loginForm" (ngSubmit)="onLogin()">
             <mat-form-field>
-                <input matInput type="email" placeholder="Email">
+                <input matInput type="email" placeholder="Email" formControlName="email">
             </mat-form-field>
             <mat-form-field>
-                <input matInput type="password" placeholder="Password">
+                <input matInput type="password" placeholder="Password" formControlName="password">
             </mat-form-field>
             <button mat-raised-button color="accent"
                 routerLink = "/register" mat-raised-button>Register</button>
