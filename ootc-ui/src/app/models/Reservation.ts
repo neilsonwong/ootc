@@ -10,9 +10,9 @@ export class Reservation {
         timeSlot: string,
         isAttended: boolean
     ){
-        this.id = id,
-        this.user = user,
-        this.timeSlot = timeSlot,
-        this.isAttended = isAttended
+        this.id = id;
+        this.user = user;
+        this.timeSlot = timeSlot;
+        this.isAttended = isAttended;
     }
 }
