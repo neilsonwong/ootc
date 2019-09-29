@@ -34,6 +34,10 @@ export class HeaderBarComponent implements OnInit {
   ngOnInit() {
     this.setupLinks();
     this.securityLevels = Array(this.navLinks.length).fill(0).map((x,i)=>i);
+    this.init();
+  }
+
+  init() {
     this.securityClearance = this.authService.getSecurityClearance();
 
     this.updateHighlight(this.location.path(false));
@@ -66,7 +70,7 @@ export class HeaderBarComponent implements OnInit {
       this.highlight = 'Home';
       return;
     }
-    
+
     for (const links of this.navLinks) {
       for (const navItem of links) {
         if (navItem.url === newUrl) {
@@ -79,6 +83,7 @@ export class HeaderBarComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/logout']);
+    this.router.navigate(['/']);
+    this.init();
   }
 }

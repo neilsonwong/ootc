@@ -9,8 +9,7 @@ const routes: Routes = [
   { path: '', component: LandingComponent },
   // { path: 'about', component: AboutComponent },
   { path: 'register', component: RegistrationComponent },
-  { path: 'validateEmail', component: EmailValidationComponent },
-  { path: 'logout', redirectTo: '' },
+  { path: 'validateEmail', component: EmailValidationComponent }
 ];
 
 @NgModule({
