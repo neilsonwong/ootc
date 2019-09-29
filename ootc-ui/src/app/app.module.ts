@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HomeModule } from './modules/home/home.module';
+import { ReservationModule } from './modules/reservation/reservation.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
 
@@ -17,7 +18,8 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
     AppRoutingModule,
     SharedModule,
     HomeModule,
-    AuthenticationModule
+    ReservationModule,
+    AuthenticationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

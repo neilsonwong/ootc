@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reservation-sign-up.component.scss']
 })
 export class ReservationSignUpComponent implements OnInit {
+  reservations: any[];
 
   constructor() { }
 
   ngOnInit() {
+    this.reservations = [];
   }
 
 }

@@ -1,1 +1,6 @@
-<p>reservation-management works!</p>
+<app-container>
+<div class="reservation-list">
+    <app-reservation-details ngFor="let reservation of listOfReservations"
+        [reservation]="reservation"></app-reservation-details>
+</div>
+</app-container>
