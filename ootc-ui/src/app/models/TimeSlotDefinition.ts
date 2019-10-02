@@ -2,24 +2,24 @@ export class TimeSlotDefinition {
     id: number;
     startTime: string;
     duration: number;
-    department: string;
+    department: number;
     signUpCap: number;
     desc: string;
     repeatStartDate: string;
     repeatCount: number;
-    repeatInterval: string;
+    repeatInterval: number;
     repeatSkipEvery: number;
 
     constructor (
         id: number,
         startTime: string,
         duration: number,
-        department: string,
+        department: number,
         signUpCap: number,
         desc: string,
         repeatStartDate: string,
         repeatCount: number,
-        repeatInterval: string,
+        repeatInterval: number,
         repeatSkipEvery: number
     ){
         this.id = id;

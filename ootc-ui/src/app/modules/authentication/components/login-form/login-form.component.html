@@ -1,16 +1,17 @@
-<div class="login-form">
+<div class="login-form-container">
     <h2 class="login-form-title">Login</h2>
-    <div>
-        <form class="" [formGroup]="loginForm" (ngSubmit)="onLogin()">
-            <mat-form-field>
-                <input matInput type="email" placeholder="Email" formControlName="email">
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput type="password" placeholder="Password" formControlName="password">
-            </mat-form-field>
-            <button mat-raised-button color="accent"
-                routerLink = "/register" mat-raised-button>Register</button>
-            <button mat-raised-button color="primary">Login</button>
-        </form>
-    </div>
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <mat-form-field>
+            <input matInput type="email" placeholder="Email" formControlName="email">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="password" placeholder="Password" formControlName="password">
+        </mat-form-field>
+        <div class="errors">
+            {{ error || '&#160;' }}
+        </div>
+        <button mat-raised-button color="primary" type="submit">Login</button>
+        <button mat-raised-button color="accent" type="button"
+            routerLink = "/register" mat-raised-button>Register</button>
+    </form>
 </div>

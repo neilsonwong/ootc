@@ -9,7 +9,7 @@ export class Reservation {
         user: string,
         timeSlot: string,
         isAttended: boolean
-    ){
+    ) {
         this.id = id;
         this.user = user;
         this.timeSlot = timeSlot;

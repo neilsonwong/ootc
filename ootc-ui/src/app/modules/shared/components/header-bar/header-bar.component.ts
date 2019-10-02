@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 class LinkItem {
@@ -26,11 +27,17 @@ export class HeaderBarComponent implements OnInit {
   securityLevels: number[];
   securityClearance: number = 0;
 
-  constructor(private authService: AuthenticationService, private location: Location) { }
+  constructor(private authService: AuthenticationService,
+    private location: Location, 
+    private router: Router) { }
 
   ngOnInit() {
     this.setupLinks();
     this.securityLevels = Array(this.navLinks.length).fill(0).map((x,i)=>i);
+    this.init();
+  }
+
+  init() {
     this.securityClearance = this.authService.getSecurityClearance();
 
     this.updateHighlight(this.location.path(false));
@@ -58,14 +65,25 @@ export class HeaderBarComponent implements OnInit {
   }
 
   updateHighlight(newUrl: string) {
+    if (newUrl.length === 0) {
+      // this on on home
+      this.highlight = 'Home';
+      return;
+    }
+
     for (const links of this.navLinks) {
       for (const navItem of links) {
         if (navItem.url === newUrl) {
           this.highlight = navItem.text;
-          console.log(this.highlight)
           return;
         }
       }
     }
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/']);
+    this.init();
   }
 }
