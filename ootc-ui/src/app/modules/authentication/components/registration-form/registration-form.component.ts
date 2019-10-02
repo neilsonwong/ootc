@@ -2,24 +2,49 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 
-/** Error when invalid control is dirty, touched, or submitted. */
-export function matchValidator(form: FormGroup){
-  const condition = form.get('password').value !== form.get('passwordConfirmation').value;
-  return condition ? { mismatch: true } : null;
+// Custom validator to confirm 3 unique characters.
+export function uniqueValidator(control: AbstractControl) {
+  const condition = new Set(control.value).size < 3;
+  return condition ? { unique: true } : null;
 }
 
-export class CrossFieldErrorMatcher implements ErrorStateMatcher {
+// https://stackoverflow.com/questions/47884655/display-custom-validator-error-with-mat-error
+export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-      return control.touched && form.invalid;
+    const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
+    const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
+
+    return (invalidCtrl || invalidParent);
   }
 }
 
+// custom validator to check that two fields match
+export function MustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+        const control = formGroup.controls[controlName];
+        const matchingControl = formGroup.controls[matchingControlName];
+
+        if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+            // return if another validator has already found an error on the matchingControl
+            return;
+        }
+
+        // set error on matchingControl if validation fails
+        if (control.value !== matchingControl.value) {
+            matchingControl.setErrors({ mustMatch: true });
+        } else {
+            matchingControl.setErrors(null);
+        }
+    }
+}
+
+// https://stackoverflow.com/questions/47884655/display-custom-validator-error-with-mat-error
 export const formErrors: { [key: string]: string } = {
   required: 'This is a required field',
-  pattern: 'Email must be a valid email address (leia@alderaan.net).',
+  pattern: 'Email must be a valid email address (abc@tccc.ca).',
   minLength: 'Password must contain at least 8 characters.',
-  mismatch: 'Passwords don\'t match.',
-  unique: 'Passwords must contain at least 3 unique characters.'
+  //mismatch: 'Passwords don\'t match.',
+  //unique: 'Passwords must contain at least 1 uppercase character'
 };
 
 @Component({
@@ -28,38 +53,39 @@ export const formErrors: { [key: string]: string } = {
   styleUrls: ['./registration-form.component.scss']
 })
 
+
 export class RegistrationFormComponent implements OnInit {
+  httpErrors: string;
+  formErrors = formErrors;
+  matcher = new MyErrorStateMatcher();
   registrationForm: FormGroup;
 
-  constructor(
-    public firstName = '',
-    public lastName = '',
-    public email = '',
-    public password = '',
-    public passwordConfirmation = '',
-  ) { }
+  matchValidator(form: FormGroup) {
+    let pass = form.get('password').value;
+    let confirmPass = form.get('verifypassword').value;
+  
+    return pass == confirmPass ? null: { notsame: true }
+  }
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     // instantiate the form control
-    this.registrationForm = new FormGroup({
-      firstName: new FormControl('', [
-      ]),
-      middleName: new FormControl(''),
-      lastName: new FormControl(''),
-      email: new FormControl('', [
-        Validators.required,
-        Validators.email
-      ]),
-      password: new FormControl(''),
-      verifypassword: new FormControl('',[
-        Validators.required
-      ]),
-      phoneNumber: new FormControl(''),
-      age: new FormControl(''),
-      experience: new FormControl(''),
-      comments: new FormControl(''),
-    });
-  }
+    this.registrationForm = this.fb.group({
+      firstName: ['', Validators.required],
+      middleName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, 
+        Validators.pattern('[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}')]],
+        password: ['', [Validators.required, 
+          Validators.minLength(8), uniqueValidator]],
+          verifypassword: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      age: ['', Validators.required],
+      experience: ['', Validators.required],
+      comments: ['', Validators.required],
+    }, { validator : MustMatch('password','verifypassword')})
+  ;}
 
   confirmed = false;
   confirmedpw = false;

@@ -12,14 +12,26 @@
                 <input matInput type="text" placeholder="Last Name" formControlName="lastName" required>
             </mat-form-field>
             <mat-form-field>
-                <input matInput type="email" placeholder="Email" formControlName="email" required>
-                <mat-error>{{ formErrors.pattern }}</mat-error>  
+                <input matInput type="email" placeholder="Email" formControlName="email" required> 
+                <mat-hint>
+                    {{ formErrors.pattern }}
+                </mat-hint>
+                <mat-error>
+                    {{ formErrors.pattern }}
+                </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="password" placeholder="Password" formControlName = "password" required>
+                    <mat-error> 
+                        {{ formErrors.minLength }}
+                    </mat-error>  
             </mat-form-field>
             <mat-form-field>
-                <input matInput type="password" placeholder="Verify Password" formControlName = 'verifypassword' required>
+                <input matInput type="password" placeholder="Verify Password" formControlName = 'verifypassword' [ngClass] = "{ 'is-invalid': submitted && f.verifypassword.errors }" required>
+                <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                        <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+                        <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+            </div>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="number" placeholder="Phone Number" formControlName="phoneNumber" required>
