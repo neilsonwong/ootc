@@ -1,5 +1,12 @@
 <div class="registration-form">
     <h2 class="registration-form-title">Registration</h2>
+    <ng-template [ngIf] = "confirmed" [ngIfElse] = "notconfirmed">
+        <p>
+            Thank you for registering!<br>
+            Check your email to validate your email!
+        </p>
+    </ng-template>
+    <ng-template #notconfirmed>
     <div>
         <form class="" [formGroup]="registrationForm" (ngSubmit)="onRegister()">
             <mat-form-field>
@@ -13,18 +20,12 @@
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="email" placeholder="Email" formControlName="email" required> 
-                <mat-hint>
-                    {{ formErrors.pattern }}
-                </mat-hint>
-                <mat-error>
-                    {{ formErrors.pattern }}
-                </mat-error>
+                <mat-hint>{{ formErrors.pattern }}</mat-hint>
+                <mat-error>{{ formErrors.pattern }}</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="password" placeholder="Password" formControlName = "password" required>
-                    <mat-error> 
-                        {{ formErrors.minLength }}
-                    </mat-error>  
+                    <mat-error> {{ formErrors.minLength }}</mat-error>  
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="password" placeholder="Verify Password" formControlName = 'verifypassword' [ngClass] = "{ 'is-invalid': submitted && f.verifypassword.errors }" required>
@@ -34,7 +35,7 @@
                 </div>
             </mat-form-field>
             <mat-form-field>
-                <input matInput type="number" placeholder="Phone Number" formControlName="phoneNumber" required>
+                <input matInput type="" placeholder="Phone Number" formControlName="phoneNumber" required>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="number" placeholder="Age" formControlName="age" required>
@@ -48,15 +49,6 @@
             <button mat-raised-button color="primary" type="submit" [disabled] = "!registrationForm.valid">Register</button>
         </form>
     </div>
-    
-    <ng-template [ngIf] = "confirmed" [ngIfElse] = "notconfirmed">
-        <p>
-            Thank you for registering
-        </p>
     </ng-template>
-    <ng-template #notconfirmed>
-        <p>
-            Please Try again
-        </p>
-    </ng-template>
+
 </div>

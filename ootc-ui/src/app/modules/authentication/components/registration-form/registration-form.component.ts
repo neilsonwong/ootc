@@ -37,6 +37,7 @@ export const formErrors: { [key: string]: string } = {
   required: 'This is a required field',
   pattern: 'Email must be a valid email address (abc@tccc.ca).',
   minLength: 'Password must contain at least 8 characters.',
+  number: 'Phone number must be a valid phone number (123-456-7890)'
   //mismatch: 'Passwords don\'t match.',
   //unique: 'Passwords must contain at least 1 uppercase character'
 };
@@ -54,35 +55,29 @@ export class RegistrationFormComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   registrationForm: FormGroup;
 
-  matchValidator(form: FormGroup) {
-    let pass = form.get('password').value;
-    let confirmPass = form.get('verifypassword').value;
-  
-    return pass == confirmPass ? null: { notsame: true }
-  }
-
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     // instantiate the form control
     this.registrationForm = this.fb.group({
-      firstName: ['', Validators.required],
-      middleName: [''],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, 
+      firstName: ['',
+        Validators.minLength(1)],
+      middleName: ['', Validators.minLength(1)],
+      lastName: ['',
+        Validators.minLength(1)],
+      email: ['', [
         Validators.pattern('[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}')]],
-        password: ['', [Validators.required, 
+        password: ['', [ 
           Validators.minLength(8)]],
-          verifypassword: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      age: ['', Validators.required],
-      experience: ['', Validators.required],
+          verifypassword: [''],
+      phoneNumber: [''],
+      age: [''],
+      experience: [''],
       comments: [''],
     }, { validator : MustMatch('password','verifypassword')})
   ;}
 
   confirmed = false;
-  confirmedpw = false;
 
   onRegister() {
     this.confirmed = true;
