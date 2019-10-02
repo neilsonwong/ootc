@@ -29,9 +29,9 @@
             <mat-form-field>
                 <input matInput type="password" placeholder="Verify Password" formControlName = 'verifypassword' [ngClass] = "{ 'is-invalid': submitted && f.verifypassword.errors }" required>
                 <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                        <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
-                        <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
-            </div>
+                    <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+                    <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+                </div>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="number" placeholder="Phone Number" formControlName="phoneNumber" required>
@@ -48,6 +48,7 @@
             <button mat-raised-button color="primary" type="submit" [disabled] = "!registrationForm.valid">Register</button>
         </form>
     </div>
+    
     <ng-template [ngIf] = "confirmed" [ngIfElse] = "notconfirmed">
         <p>
             Thank you for registering

@@ -2,12 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 
-// Custom validator to confirm 3 unique characters.
-export function uniqueValidator(control: AbstractControl) {
-  const condition = new Set(control.value).size < 3;
-  return condition ? { unique: true } : null;
-}
-
 // https://stackoverflow.com/questions/47884655/display-custom-validator-error-with-mat-error
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -73,17 +67,17 @@ export class RegistrationFormComponent implements OnInit {
     // instantiate the form control
     this.registrationForm = this.fb.group({
       firstName: ['', Validators.required],
-      middleName: ['', Validators.required],
+      middleName: [''],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, 
         Validators.pattern('[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}')]],
         password: ['', [Validators.required, 
-          Validators.minLength(8), uniqueValidator]],
+          Validators.minLength(8)]],
           verifypassword: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       age: ['', Validators.required],
       experience: ['', Validators.required],
-      comments: ['', Validators.required],
+      comments: [''],
     }, { validator : MustMatch('password','verifypassword')})
   ;}
 
