@@ -1,12 +1,13 @@
 <div class="registration-form">
-    <h2 class="registration-form-title">Registration</h2>
     <ng-template [ngIf] = "confirmed" [ngIfElse] = "notconfirmed">
+        <h2 class="registration-form-title">Registration Confirmed!</h2>
         <p>
             Thank you for registering!<br>
             Check your email to validate your email!
         </p>
     </ng-template>
     <ng-template #notconfirmed>
+    <h2 class="registration-form-title">Registration</h2>
     <div>
         <form class="" [formGroup]="registrationForm" (ngSubmit)="onRegister()">
             <mat-form-field>
@@ -35,7 +36,7 @@
                 </div>
             </mat-form-field>
             <mat-form-field>
-                <input matInput type="" placeholder="Phone Number" formControlName="phoneNumber" required>
+                <input matInput type="number" placeholder="Phone Number" formControlName="phoneNumber" required>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="number" placeholder="Age" formControlName="age" required>
