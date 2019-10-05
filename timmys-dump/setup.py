@@ -1,11 +1,15 @@
 import requests
+from requests.auth import HTTPBasicAuth
 
 # THESE ARE LEGIT
 # assume db is empty
 
-# accounts
-# departments
-# timeslotdefs
+hostname = "localhost:8000"
+
+session = requests.Session()
+
+user = "neilson@ootc.tccc.ca"
+pw = "asdfasdf"
 
 def setup_Departments():
 
@@ -13,14 +17,14 @@ def setup_Departments():
 
     headers = {'Content-type': 'application/json'}
 
-    data = ['{"department":"hospitality"}',     # 0
-            '{"department":"kitchen"}',
-            '{"department":"registration"}',
-            '{"department":"clothingbank"}',
-            '{"department":"setup_cleanup"}']   # 4
+    data = ['{"department":"Hospitality"}',     # 0
+            '{"department":"Kitchen"}',
+            '{"department":"Registration"}',
+            '{"department":"Clothing Bank"}',
+            '{"department":"Setup and Cleanup"}']   # 4
      
     for i in range(len(data)):
-        response=requests.post(url, headers=headers, data=data[i])
+        response = requests.post(url, headers=headers, data=data[i], auth=HTTPBasicAuth(user,pw))
         print(response)
 
 def setup_TimeSlotDefs():
@@ -32,7 +36,7 @@ def setup_TimeSlotDefs():
     # Need to do Time, Duration, Cap, Desc
     # Interval = 2 (WEEKLY)
 
-    # Hospitality (i=0) TimeSlotDefs
+    # Hospitality (id=1) TimeSlotDefs
     h1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                             "repeatCount": 10, 
                             "repeatInterval": 2, 
@@ -40,7 +44,7 @@ def setup_TimeSlotDefs():
                             "startTime": "15:30", 
                             "duration":150, 
                             "signUpCap":10, 
-                            "department":0, 
+                            "department":1, 
                             "desc":"Serving Snacks and Socializing with Guests"}} """
 
     h2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
@@ -50,11 +54,11 @@ def setup_TimeSlotDefs():
                             "startTime":"18:00", 
                             "duration":210, 
                             "signUpCap":25, 
-                            "department":0, 
+                            "department":1, 
                             "desc":"Serving Dinner and Socializing with Guests"}} """
 
 
-    # Kitchen (i=1) TimeSlotDefs
+    # Kitchen (id=2) TimeSlotDefs
     k1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
                             "repeatCount": 10, 
                             "repeatInterval":2, 
@@ -62,7 +66,7 @@ def setup_TimeSlotDefs():
                             "startTime":"15:30", 
                             "duration":240, 
                             "signUpCap":8, 
-                            "department":1, 
+                            "department":2, 
                             "desc":"Food Preparation and Cooking"}} """
                             
     k2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-27", 
@@ -72,7 +76,7 @@ def setup_TimeSlotDefs():
                             "startTime":"5:30", 
                             "duration":180, 
                             "signUpCap":3, 
-                            "department":1, 
+                            "department":2, 
                             "desc":"Monday Morning - Cooking Breakfast"}} """
 
     k3 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-23", 
@@ -82,11 +86,11 @@ def setup_TimeSlotDefs():
                             "startTime":"09:00", 
                             "duration":240, 
                             "signUpCap":1, 
-                            "department":1, 
+                            "department":2, 
                             "desc":"Grocery Shopping"}} """
 
 
-    # Registration (i=2) TimeSlotDefs
+    # Registration (id=3) TimeSlotDefs
     r1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
                             "repeatCount": 10, 
                             "repeatInterval":2, 
@@ -94,7 +98,7 @@ def setup_TimeSlotDefs():
                             "startTime":"15:30", 
                             "duration":180, 
                             "signUpCap":3, 
-                            "department":2, 
+                            "department":3, 
                             "desc":"Sunday Afternoon - Guest Sign-in"}} """
 
     r2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
@@ -104,7 +108,7 @@ def setup_TimeSlotDefs():
                             "startTime":"18:30", 
                             "duration":150, 
                             "signUpCap":3, 
-                            "department":2, 
+                            "department":3, 
                             "desc":"Sunday Evening - Dinner-Only Sign-Out"}} """
 
     r3 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-27", 
@@ -114,11 +118,11 @@ def setup_TimeSlotDefs():
                             "startTime":"06:00", 
                             "duration":120, 
                             "signUpCap":3, 
-                            "department":2, 
+                            "department":3, 
                             "desc":"Monday Morning - Overnight Sign-out"}} """
 
 
-    # Clothing Bank (i=3) TimeSlotDefs
+    # Clothing Bank (id=4) TimeSlotDefs
     c1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
                             "repeatCount": 10, 
                             "repeatInterval":2, 
@@ -126,7 +130,7 @@ def setup_TimeSlotDefs():
                             "startTime":"15:30", 
                             "duration":150, 
                             "signUpCap":3, 
-                            "department":3, 
+                            "department":4, 
                             "desc":"Setup and Afternoon Shift"}} """
 
     c2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
@@ -136,11 +140,11 @@ def setup_TimeSlotDefs():
                             "startTime":"17:30", 
                             "duration":120, 
                             "signUpCap":3, 
-                            "department":3, 
+                            "department":4, 
                             "desc":"Cleanup and Evening Shift"}} """
 
 
-    # Setup_Cleanup (i=4) TimeSlotDefs
+    # Setup_Cleanup (id=5) TimeSlotDefs
     s1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
                             "repeatCount": 10, 
                             "repeatInterval":2, 
@@ -148,7 +152,7 @@ def setup_TimeSlotDefs():
                             "startTime":"14:00", 
                             "duration":120, 
                             "signUpCap":4, 
-                            "department":4, 
+                            "department":5, 
                             "desc":"Afternoon Setup"}} """
 
     s2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
@@ -158,7 +162,7 @@ def setup_TimeSlotDefs():
                             "startTime":"19:30", 
                             "duration":120, 
                             "signUpCap":3, 
-                            "department":4, 
+                            "department":5, 
                             "desc":"Evening Cleanup"}} """
 
     s3 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-27", 
@@ -168,7 +172,7 @@ def setup_TimeSlotDefs():
                             "startTime":"7:00", 
                             "duration":90, 
                             "signUpCap":5, 
-                            "department":4, 
+                            "department":5, 
                             "desc":"Monday Morning Cleanup"}} """
 
     data = [h1,h2, k1, k2, k3, r1, r2, r3, c1, c2, s1, s2, s3]
@@ -183,6 +187,4 @@ if __name__ == "__main__":
     setup_Departments()
 
     # 2) Create TimeSlotDefs
-    setup_TimeSlotDefs()
-
-
+    #setup_TimeSlotDefs()
