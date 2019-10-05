@@ -1,1 +1,17 @@
-<p>department-spotlight works!</p>
+<div class = "department-spotlight">
+<ng-template [ngIf] = "select" [ngIfElse] = "notselect">
+        <h2>Form View</h2>
+        <p>
+            THIS SHOULD SAY EACH DEPARTMENT.
+        </p>
+    </ng-template>
+    <ng-template #notselect>
+    <h2>Select a department</h2>
+        <button mat-raised-button color="primary" type="submit" (ngSubmit)="onSelect()">Kitchen</button>
+        <button mat-raised-button color="primary" type="submit" (ngSubmit)="onSelect()">Hospitality</button>
+        <button mat-raised-button color="primary" type="submit" (ngSubmit)="onSelect()">Clothing Bank</button>
+        <button mat-raised-button color="primary" type="submit" (ngSubmit)="onSelect()">Setup/Cleanup</button>
+        <button mat-raised-button color="primary" type="submit" (ngSubmit)="onSelect()">Special Services</button>
+    </ng-template>
+</div>
+        
