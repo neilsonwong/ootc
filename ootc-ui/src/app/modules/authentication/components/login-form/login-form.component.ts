@@ -32,6 +32,7 @@ export class LoginFormComponent implements OnInit {
       this.loginForm.get('password').value)
       .pipe(take(1))
       .subscribe((loginSuccess) => {
+        console.log(loginSuccess)
         if (loginSuccess) {
           this.router.navigate(['/reservations']);
         }
