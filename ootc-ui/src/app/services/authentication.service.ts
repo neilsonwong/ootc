@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { of, Observable } from 'rxjs';
 import { UserAuthContext } from 'src/app/models/UserAuthContext';
 import { LoginCredentials } from 'src/app/models/LoginCredentials';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { EmailValidationCredentials } from 'src/app/models/EmailValidationCredentials';
 
 const API_URL = environment.API_URL;
@@ -24,7 +24,7 @@ export class AuthenticationService {
     return 0;
   }
 
-  login(username: string, password: string): Observable<boolean> {
+  login(username: string, password: string): Observable<string> {
     const url = `${API_URL}/login`;
     const cred = new LoginCredentials(username, password);
 
@@ -35,11 +35,18 @@ export class AuthenticationService {
             map((response: any) => {
               const authContext = new UserAuthContext(username, password, response.securityClearance);
               sessionStorage.setItem('currentUser', JSON.stringify(authContext));
-              return (authContext.securityClearance > 0);
+              return null;
+            }),
+            catchError((error: any) => {
+              if (error.status === 401) {
+                return of('Invalid Login Credentials');
+              } else  if (error.status === 400) {
+                return of('Email is missing or unvalidated.');
+              }
             })
           )
     }
-    return of(false);
+    return of('Invalid login parameters');
   }
 
   logout(): void {

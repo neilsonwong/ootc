@@ -60,10 +60,6 @@ async function createUser(user) {
 
     const insertedUser = await db.users.insertUser(user);
     if (insertedUser) {
-        if (await setPassword(createdUser.id, password)) {
-            setupEmailValidation(createdUser.id);
-            return createdUser;
-        }
         logger.verbose(`inserted user with email ${insertedUser.email} into db as id ${insertedUser.lastId}`);
         return insertedUser;
     }
