@@ -1,10 +1,12 @@
 'use strict';
 
 const bcrypt = require('bcrypt');
+const config = require('../../config');
 const db = require('../db/db');
 const logger = require('../logger');
 const validationService = require('../services/validationService');
 const emailService = require('../services/emailService');
+const User = require('../models/User');
 
 const saltRounds = 10;
 
@@ -67,6 +69,25 @@ async function createUser(user) {
     return insertedUser;
 }
 
+async function createAdmin(username, password) {
+    try {
+        const admin = new User(username, username, username, '', username, 777777777, 1, 99, '', 1, 1);
+        const insertedAdmin = await db.users.insertUser(admin);
+        const setPw = await setPassword(username, password)
+        if (insertedAdmin && setPw) {
+            logger.verbose(`inserted admin with username ${username}`);
+            return insertedAdmin;
+        }
+        else {
+            logger.error(`was not able to insert admin into db ${username}`);
+        }
+    }
+    catch(e) {
+        logger.error(`was not able to insert admin into db ${username}`);
+        logger.error(e);
+    }
+}
+
 async function isUserValidated(userId) {
     return await validationService.isUserValidated(userId);
 }
@@ -89,6 +110,41 @@ async function updateUser() {
 
 }
 
+async function isAdmin(userId) {
+    try {
+        const user = await db.users.getUser(userId);
+        return user.admin;
+    }
+    catch(e) {
+       logger.error(`an error occurred when checking if ${userId} is an admin`);
+       logger.error(e);
+    }
+    return false;
+}
+
+async function setupAdmin() {
+    // check if we have an admin file
+    if (config.ADMIN_FILE) {
+        try {
+            const adminInfo = require.main.require(config.ADMIN_FILE);
+            // check if admin is set up
+            if (await isAdmin(adminInfo.name)) {
+                return;
+            }
+            else {
+                // not an admin yet, make account
+                if (await createAdmin(adminInfo.name, adminInfo.password)) {
+                    logger.info(`created admin with username ${adminInfo.name}`);
+                }
+            }
+        }
+        catch(e) {
+            logger.warn('unable to insert admin on startup');
+            logger.warn(e);
+        }
+    }
+}
+
 module.exports = {
     register: register,
     resetPassword: resetPassword,
@@ -97,4 +153,6 @@ module.exports = {
     listUsers: listUsers,
     updateUser: updateUser,
     setupEmailValidation: setupEmailValidation,
-}
+    isAdmin: isAdmin,
+    setupAdmin: setupAdmin
+};

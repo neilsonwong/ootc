@@ -31,12 +31,12 @@ export class LoginFormComponent implements OnInit {
       this.loginForm.get('email').value,
       this.loginForm.get('password').value)
       .pipe(take(1))
-      .subscribe((loginSuccess) => {
-        if (loginSuccess) {
+      .subscribe((errorMessage) => {
+        if (errorMessage === null) {
           this.router.navigate(['/reservations']);
         }
         else {
-          this.error = 'Invalid Login Credentials';
+          this.error = errorMessage;
         }
       });
   }

@@ -27,9 +27,10 @@ router.post('/login', async (req, res) => {
     if (await accountManager.isUserValidated(userId)) {
         // check password
         if (await (authService.isValidUser(userId, password))) {
-            return res.status(200).send('OK');
+            const isAdmin = await accountManager.isAdmin(userId);
+            return res.status(200).send({securityClearance: isAdmin ? 2 : 1});
         }
-        return res.status(400).json({ error: 'invalid login credentials'});
+        return res.status(401).json({ error: 'invalid login credentials'});
     }
 	return res.status(400).json({ error: 'user has not validated their email'});
 });
