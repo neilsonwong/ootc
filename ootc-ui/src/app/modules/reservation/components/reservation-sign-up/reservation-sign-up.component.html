@@ -1,5 +1,5 @@
 <app-container>
-    <ng-container *ngIf="reservations && reservations.length > 0; else noUpcomingReservations">
+   <!--<ng-container *ngIf="reservations && reservations.length > 0; else noUpcomingReservations">
         <app-upcoming-reservation-list [reservations]="reservations">
         </app-upcoming-reservation-list>
     </ng-container>
@@ -7,8 +7,8 @@
         <div>
             
         </div>
-    </ng-template>
-
+    </ng-template>-->
+    <app-upcoming-reservation-list></app-upcoming-reservation-list>
     <app-department-spotlight></app-department-spotlight>
     <app-reservation-sign-up-form></app-reservation-sign-up-form>
 </app-container>

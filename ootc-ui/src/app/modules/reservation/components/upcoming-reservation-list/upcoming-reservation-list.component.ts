@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-upcoming-reservation-list',
@@ -6,7 +6,12 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./upcoming-reservation-list.component.scss']
 })
 export class UpcomingReservationListComponent implements OnInit {
-  @Input() reservations: any;
+ // @Input() reservations: any;
+  
+  title = 'My Scheduler';
+  dates = ['Oct 10th','Oct 17th', 'Oct 24th', 'Oct 31st'];
+  
+  myDate = this.dates[0];
   
   constructor() { }
 
@@ -14,3 +19,4 @@ export class UpcomingReservationListComponent implements OnInit {
   }
 
 }
+

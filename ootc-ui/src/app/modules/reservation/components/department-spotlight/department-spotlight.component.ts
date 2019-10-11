@@ -16,7 +16,7 @@ export class DepartmentSpotlightComponent implements OnInit {
   hospitality = false;
   clothingbank = false;
   setup = false;
-  specialservices = false;
+  registration = false;
   main = false;
   onBack(){
     this.main = false;
@@ -24,7 +24,7 @@ export class DepartmentSpotlightComponent implements OnInit {
     this.hospitality = false;
     this.clothingbank = false;
     this.setup = false;
-    this.specialservices = false;
+    this.registration = false;
   }
   onKitchen(){
     this.kitchen = true;
@@ -42,8 +42,8 @@ export class DepartmentSpotlightComponent implements OnInit {
     this.setup = true;
     this.main = true;
   }
-  onSpecialservices(){
-    this.specialservices = true;
+  onRegistration(){
+    this.registration = true;
     this.main = true;
   }
 
