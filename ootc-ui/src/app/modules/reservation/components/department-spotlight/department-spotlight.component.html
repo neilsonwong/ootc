@@ -1,1 +1,43 @@
-<p>department-spotlight works!</p>
+<div class = "department-spotlight">
+    <ng-template [ngIf] = "main" [ngIfElse] = "show">
+        <button (click) = "onBack()">Back</button>
+        <ng-template [ngIf] = "kitchen">
+            <h2>Kitchen</h2>
+            <p>
+                Kitchen description.
+            </p>
+        </ng-template>
+        <ng-template [ngIf] = "hospitality">
+            <h2>Hospitality</h2>
+            <p>
+                Hospitality description.
+            </p>
+        </ng-template>
+        <ng-template [ngIf] = "clothingbank">
+            <h2>Clothing Bank</h2>
+            <p>
+                Clothing Bank description.
+            </p>
+        </ng-template>
+        <ng-template [ngIf] = "setup">
+            <h2>Setup/Cleanup</h2>
+            <p>
+                Setup description.
+            </p>
+        </ng-template>
+        <ng-template [ngIf] = "specialservices">
+            <h2>Special Services</h2>
+            <p>
+                Special services description.
+            </p>
+        </ng-template>
+    </ng-template>
+    <ng-template #show>
+    <h2>Select a department</h2>
+        <button mat-raised-button color="primary" (click) = "onKitchen()">Kitchen</button>
+        <button mat-raised-button color="primary" (click) = "onHospitality()">Hospitality</button>
+        <button mat-raised-button color="primary" (click) = "onClothingbank()">Clothing Bank</button>
+        <button mat-raised-button color="primary" (click) = "onSetup()">Setup/Cleanup</button>
+        <button mat-raised-button color="primary" (click) = "onSpecialservices()">Special Services</button>
+    </ng-template>
+</div>
