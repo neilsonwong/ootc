@@ -10,13 +10,16 @@ const router = express.Router();
 
 // add user authentication
 router.use(basicAuth({
-	authorizer: authService.isValidUserWithCb,
+	authorizer: authService.isValidAdminWithCb,
 	authorizeAsync: true,
 }));
 
 router.post('/signin', async (req, res) => {
 	const userId = req.body.userId;
-	await reservationManager.updateAttendance(userId);
+	const signedIn = await reservationManager.updateAttendance(userId);
+	return signedIn ? 
+		res.status(200).json({res: `we have successfully signed in ${userId}`}) :
+		res.status(400).json({error: `there was an error signing in the ${userId}`});
 });
 
 module.exports = router;

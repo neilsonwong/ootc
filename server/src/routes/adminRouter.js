@@ -7,6 +7,7 @@ const authService = require('../services/authService');
 const accountManager = require('../core/accountManager');
 const scheduleManager = require('../core/scheduleManager');
 const departmentManager = require('../core/departmentManager');
+const reservationManager = require('../core/reservationManager');
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ router.post('/departments/add', async (req, res) => {
 	const departmentName = req.body.department;
 	const added = await departmentManager.addDepartment(departmentName);
 	return added ? 
-		res.status(200).json({res: `created department ${departmentName}`}) :
+		res.status(201).json(added) :
 		res.status(400).json({error: 'error creating department'});
 });
 
@@ -85,13 +86,21 @@ router.post('/schedule/generate', async(req, res) => {
 // add a reservation
 // json body contains userId and timeSlotId
 router.post('/reserve', async (req, res) => {
-	return res.status(500).send('not yet implemented');
+	const reservation = req.body.reservation;
+	const added = await reservationManager.createReservation(reservation);
+	return added ?
+		res.status(201).json(added) :
+		res.status(400).json({error: 'there was an error adding the reservation'});
 });
 
 // delete a reservation
 // json body contains userId and timeSlotId
 router.post('/reservations/delete', async (req, res) => {
-	return res.status(500).send('not yet implemented');
+	const reservationId = req.body.reservationId;
+	const deleted = await reservationManager.deleteReservation(reservationId)
+	return deleted ?
+		res.status(200).json({res: 'the reservation was deleted'}) :
+		res.status(400).json({error: 'there was an error adding the reservation'});
 });
 
 // gets the list of all users

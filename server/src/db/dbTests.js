@@ -209,7 +209,7 @@ async function testReservations() {
     assert(attended[0].attended === 1);
 
     logger.info('Deleting Reservations');
-    await db.reservations.deleteReservation(toBeDeleted.id);
+    await db.reservations.cancelReservation(toBeDeleted.id);
     const deletedReservations = (await db.reservations.getReservationsByUserId(toBeDeleted.user))
         .filter(e => e.id === toBeDeleted.id);
     assert(deletedReservations.length === 0);

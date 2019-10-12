@@ -14,10 +14,14 @@ class DbModule {
         return await db.run(this.createStmt);
     }
 
-    fixType(candidate) {
-        if (this.baseType) {
-            return candidate instanceof this.baseType ? candidate:
-                Object.assign(new this.baseType(), candidate);
+    fixType(candidate, type) {
+        if (!type) {
+            type = this.baseType;
+        }
+
+        if (type) {
+            return candidate instanceof type ? candidate:
+                Object.assign(new type(), candidate);
         }
         else {
             logger.error('fixType called without an assigned baseType');

@@ -1,13 +1,40 @@
 'use strict';
 
-// create
-async function createReservation() {
+const db = require('../db/db');
 
+// create
+async function createReservation(reservation) {
+    try {
+        return await db.reservations.insertReservation(reservation);
+    }
+    catch(e) {
+        logger.error(`there was an error inserting the reservation`);
+        logger.error(e);
+        return null;
+    }
 }
 
 // delete
-async function deleteReservation() {
+async function cancelReservation(reservationId, userId) {
+    try {
+        return await db.reservations.cancelReservation(reservationId, userId);
+    }
+    catch(e) {
+        logger.error(`there was an error deleting the reservation with id: ${reservationId}`);
+        logger.error(e);
+        return null;
+    }
+}
 
+async function getReservationsForUser(userId) {
+    try {
+        return await db.reservations.getReservationsByUserId(userId);
+    }
+    catch(e) {
+        logger.error(`there was an error retrieving the reservations for ${userId}`);
+        logger.error(e);
+        return null;
+    }
 }
 
 // sign in
@@ -21,8 +48,21 @@ async function updateAttendance(userId) {
     return null;
 }
 
+async function deleteReservation(reservationId) {
+    try {
+        return await db.reservations.deleteReservation(reservationId);
+    }
+    catch(e) {
+        logger.error(`there was an error deleting the reservation with id: ${reservationId}`);
+        logger.error(e);
+        return null;
+    }
+}
+
 module.exports = {
     createReservation: createReservation,
-    deleteReservation: deleteReservation,
+    cancelReservation: cancelReservation,
+    getReservationsForUser: getReservationsForUser,
     updateAttendance: updateAttendance,
+    deleteReservation: deleteReservation,
 };

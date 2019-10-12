@@ -3,6 +3,7 @@
 const db = require('../sqliteWrapper');
 const DbModule = require('./dbModule');
 const TimeSlot = require('../../models/TimeSlot');
+const TimeSlotView = require('../../models/TimeSlotView');
 
 const sql = {
     createTable: 
@@ -21,6 +22,13 @@ const sql = {
 
     listTimeSlotsByRange:
         `SELECT * FROM timeSlots WHERE startDate >= ? AND startDate <= ?`,
+    
+    listTimeSlotsForDept:
+        `SELECT timeSlots.id, startDate, startTime, duration, departments.name, signUpCap, desc, count(reservations.id) as reserved
+        FROM timeSlots INNER JOIN departments ON timeSlots.department = departments.id
+        LEFT JOIN reservations ON timeslots.id = reservations.timeSlot
+        WHERE departments.id = ? AND startDate >= ? AND startDate <= ?
+        GROUP BY timeSlots.id`,
 
     insertTimeSlot:
         `INSERT INTO timeSlots (startDate, startTime, duration, department, signUpCap, desc)
@@ -43,6 +51,11 @@ class TimeSlotDbModule extends DbModule {
     async listTimeSlotsByRange(start, end) {
         const rows = await db.all(sql.listTimeSlotsByRange, [start, end]);
         return rows.map(e => this.fixType(e));
+    }
+
+    async listTimeSlotsForDept(dept, start, end) {
+        const rows = await db.all(sql.listTimeSlotsForDept, [dept, start, end]);
+        return rows.map(e => this.fixType(e, TimeSlotView));
     }
 
     async insertTimeSlot(timeSlot) {

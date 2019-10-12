@@ -138,10 +138,22 @@ function getAdvanceDateFunction(interval, skipOption) {
     };
 }
 
+async function getTimeSlotsForDept(dept, start, end) {
+    try {
+        return await db.timeSlots.listTimeSlotsForDept(dept, start, end);
+    }
+    catch(e) {
+        logger.error(`there was an error getting time slots for ${dept}`);
+        logger.error(e);
+        return null;
+    }
+}
+
 module.exports = {
     getSchedule: getSchedule,
     addTimeSlotDef: addTimeSlotDef,
     deleteTimeSlotDef: deleteTimeSlotDef,
     updateTimeSlotDef: updateTimeSlotDef,
     generateTimeSlots: generateTimeSlots,
+    getTimeSlotsForDept: getTimeSlotsForDept,
 };

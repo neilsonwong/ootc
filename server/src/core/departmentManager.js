@@ -4,7 +4,6 @@ const db = require('../db/db');
 const logger = require('../logger');
 
 async function addDepartment(departmentName) {
-    console.log(departmentName);
     try {
         return await db.departments.insertDepartment(departmentName);
     }

@@ -3,6 +3,7 @@
 const db = require('../sqliteWrapper');
 const DbModule = require('./dbModule');
 const Reservation  = require('../../models/Reservation');
+const ReservationView  = require('../../models/ReservationView');
 
 const sql = {
     createTable: 
@@ -14,18 +15,24 @@ const sql = {
         )`,
 
     getReservationsByUserId:
-        `SELECT * FROM reservations WHERE user = ?`,
+        `SELECT reservations.id, reservations.user, timeSlots.startDate, timeSlots.startTime, timeSlots.duration, departments.name, timeSlots.desc
+        FROM reservations
+        INNER JOIN timeSlots ON reservations.timeSlot = timeSlots.id
+        INNER JOIN departments ON departments.id = timeSlots.department
+        WHERE user = ?`,
 
     getReservationsByTimeSlot:
-        `SELECT * FROM reservations WHERE timeSlot = ?`,
+        `SELECT reservations.id, reservations.user, timeSlots.startDate, timeSlots.startTime, timeSlots.duration, departments.name, timeSlots.desc
+        FROM reservations
+        INNER JOIN timeSlots ON reservations.timeSlot = timeSlots.id
+        INNER JOIN departments ON departments.id = timeSlots.department
+        WHERE timeSlot = ?`,
     
     getReservationsForUserOnDate:
-        `SELECT reservations.id,
-            reservations.user,
-            reservations.timeSlot,
-            reservations.attended
-        FROM reservations INNER JOIN timeSlots ON 
-            reservations.timeSlot = timeSlots.id
+        `SELECT reservations.id, reservations.user, timeSlots.startDate, timeSlots.startTime, timeSlots.duration, departments.name, timeSlots.desc
+        FROM reservations
+        INNER JOIN timeSlots ON reservations.timeSlot = timeSlots.id
+        INNER JOIN departments ON departments.id = timeSlots.department
         WHERE 
             reservations.user = ? AND
             timeSlots.startDate = ?`,
@@ -39,9 +46,14 @@ const sql = {
         SET attended = ? 
         WHERE id = ?`,
 
+    cancelReservation:
+        `DELETE FROM reservations 
+        WHERE id = ? AND user = ?`,
+
     deleteReservation:
         `DELETE FROM reservations 
         WHERE id = ?`,
+
 };
 
 class ReservationDbModule extends DbModule {
@@ -51,12 +63,12 @@ class ReservationDbModule extends DbModule {
 
     async getReservationsByUserId(userId) {
         const rows = await db.all(sql.getReservationsByUserId, [userId]);
-        return rows.map(e => this.fixType(e));
+        return rows.map(e => this.fixType(e, ReservationView));
     }
 
     async getReservationsByTimeSlot(timeSlotId) {
         const rows = await db.all(sql.getReservationsByTimeSlot, [timeSlotId]);
-        return rows.map(e => this.fixType(e));
+        return rows.map(e => this.fixType(e, ReservationView));
     }
 
     async insertReservation(reservation) {
@@ -72,11 +84,15 @@ class ReservationDbModule extends DbModule {
 
     async getReservationsForUserOnDate(userId, date) {
         const rows = await db.all(sql.getReservationsForUserOnDate, [userId, date]);
-        return rows.map(e => this.fixType(e));
+        return rows.map(e => this.fixType(e, ReservationView));
     }
 
     async updateReservationAttendance(reservationId, attended) {
         return await db.run(sql.updateReservationAttendance, [attended, reservationId]);
+    }
+
+    async cancelReservation(reservationId, userId) {
+        return await db.run(sql.cancelReservation, [reservationId, userId]);
     }
 
     async deleteReservation(reservationId) {
