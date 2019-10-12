@@ -3,64 +3,74 @@ import { Observable, of } from 'rxjs';
 import { TimeSlot } from '../models/TimeSlot';
 import { TimeSlotDefinition } from '../models/TimeSlotDefinition';
 import { TimeSlotView } from '../models/TimeSlotView';
+import { environment } from 'src/environments/environment';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+
+const API_URL = environment.API_URL;
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScheduleService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getSchedule(): Observable<TimeSlotDefinition[]> {
-    return of([
-      new TimeSlotDefinition(1, '14:00', 2 /* hourss */, 1, 10, 'hospitality setup', '2019-10-20', 5, 2, 0),
-      new TimeSlotDefinition(1, '16:00', 2 /* hourss */, 1, 10, 'hospitality serving dinner', '2019-10-20', 5, 2, 0),
-      new TimeSlotDefinition(1, '16:00', 2 /* hourss */, 1, 10, 'hospitality clean up', '2019-10-20', 5, 2, 0),
-      new TimeSlotDefinition(2, '14:00', 2 /* hourss */, 2, 10, 'cook dinner', '2019-10-20', 5, 2, 0),
-      new TimeSlotDefinition(2, '20:00', 2 /* hourss */, 2, 10, 'wash dishes', '2019-10-20', 5, 2, 0),
-    ]);
+    const url = `${API_URL}/admin/schedule`;
+    return this.http.get<TimeSlotDefinition[]>(url);
   }
 
   addScheduleItem(timeSlotDef: TimeSlotDefinition): Observable<TimeSlotDefinition> {
-    return of(timeSlotDef);
+    const url = `${API_URL}/admin/schedule/add`;
+    return this.http.post<TimeSlotDefinition>(url, { timeSlotDef: timeSlotDef });
   }
 
   removeScheduleItem(timeSlotDefId: number): Observable<boolean> {
-    return of(true);
+    const url = `${API_URL}/admin/schedule/remove`;
+    return this.http.post(url, { timeSlotDefId: timeSlotDefId })
+      .pipe(
+        map((response: any) => {
+          if (response.status === 200) {
+            return true;
+          }
+          return false;
+        })
+      );
   }
 
   updateScheduleItem(timeSlotDef: TimeSlotDefinition): Observable<TimeSlotDefinition> {
-    return of(timeSlotDef);
+    const url = `${API_URL}/admin/schedule/update`;
+    return this.http.post<TimeSlotDefinition>(url, { timeSlotDef: timeSlotDef });
   }
 
   generateSchedule(timeSlotDef: TimeSlotDefinition): Observable<TimeSlot[]> {
-    // don't need this yet
-    return of(null);
+    const url = `${API_URL}/admin/schedule/generate`;
+    return this.http.post<TimeSlot[]>(url, { timeSlotDef: timeSlotDef });
   }
 
-  getTimeSlots(): Observable<TimeSlotView[]>{
-    return of([
-      new TimeSlotView(1, '2019-10-20', '14:00', 2, 'Hospitality', 5, 10, 'hospitality setup'),
-      new TimeSlotView(2, '2019-10-20', '16:00', 2, 'Hospitality', 5, 10, 'hospitality serving dinner'),
-      new TimeSlotView(3, '2019-10-27', '14:00', 2, 'Hospitality', 5, 10, 'hospitality setup'),
-      new TimeSlotView(4, '2019-10-27', '16:00', 2, 'Hospitality', 5, 10, 'hospitality serving dinner'),
-      new TimeSlotView(5, '2019-11-03', '14:00', 2, 'Hospitality', 5, 10, 'hospitality setup'),
-      new TimeSlotView(6, '2019-11-03', '16:00', 2, 'Hospitality', 5, 10, 'hospitality serving dinner'),
-      new TimeSlotView(7, '2019-11-10', '14:00', 2, 'Hospitality', 5, 10, 'hospitality setup'),
-      new TimeSlotView(8, '2019-11-10', '16:00', 2, 'Hospitality', 5, 10, 'hospitality serving dinner'),
-    ]);
+  getTimeSlots(departmentId: number, startDate: string, endDate: string): Observable<TimeSlotView[]> {
+    const url = `${API_URL}/user/timeSlots`;
+    const options = {
+      params: new HttpParams()
+        .set('departmentId', departmentId.toString())
+        .set('startDate', startDate)
+        .set('endDate', endDate)
+    };
+    return this.http.get<TimeSlotView[]>(url, options);
   }
 
-  getAvailableTimeSlots(): Observable<TimeSlotView[]>{
-    return of([
-      new TimeSlotView(1, '2019-10-20', '14:00', 2, 'Hospitality', 5, 10, 'hospitality setup'),
-      new TimeSlotView(2, '2019-10-20', '16:00', 2, 'Hospitality', 5, 10, 'hospitality serving dinner'),
-      new TimeSlotView(3, '2019-10-27', '14:00', 2, 'Hospitality', 5, 10, 'hospitality setup'),
-      new TimeSlotView(4, '2019-10-27', '16:00', 2, 'Hospitality', 5, 10, 'hospitality serving dinner'),
-      new TimeSlotView(5, '2019-11-03', '14:00', 2, 'Hospitality', 5, 10, 'hospitality setup'),
-      new TimeSlotView(6, '2019-11-03', '16:00', 2, 'Hospitality', 5, 10, 'hospitality serving dinner'),
-      new TimeSlotView(7, '2019-11-10', '14:00', 2, 'Hospitality', 5, 10, 'hospitality setup'),
-      new TimeSlotView(8, '2019-11-10', '16:00', 2, 'Hospitality', 5, 10, 'hospitality serving dinner'),
-    ]);
-  }
+  // decided this would be handled by front end, no longer needed
+  // getAvailableTimeSlots(): Observable<TimeSlotView[]>{
+  //   return of([
+  //     new TimeSlotView(1, '2019-10-20', '14:00', 2, 'Hospitality', 5, 10, 'hospitality setup'),
+  //     new TimeSlotView(2, '2019-10-20', '16:00', 2, 'Hospitality', 5, 10, 'hospitality serving dinner'),
+  //     new TimeSlotView(3, '2019-10-27', '14:00', 2, 'Hospitality', 5, 10, 'hospitality setup'),
+  //     new TimeSlotView(4, '2019-10-27', '16:00', 2, 'Hospitality', 5, 10, 'hospitality serving dinner'),
+  //     new TimeSlotView(5, '2019-11-03', '14:00', 2, 'Hospitality', 5, 10, 'hospitality setup'),
+  //     new TimeSlotView(6, '2019-11-03', '16:00', 2, 'Hospitality', 5, 10, 'hospitality serving dinner'),
+  //     new TimeSlotView(7, '2019-11-10', '14:00', 2, 'Hospitality', 5, 10, 'hospitality setup'),
+  //     new TimeSlotView(8, '2019-11-10', '16:00', 2, 'Hospitality', 5, 10, 'hospitality serving dinner'),
+  //   ]);
+  // }
 }

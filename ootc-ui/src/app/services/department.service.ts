@@ -1,30 +1,30 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Department } from '../models/Department';
+
+const API_URL = environment.API_URL;
 
 @Injectable({
   providedIn: 'root'
 })
 export class DepartmentService {
-
-  constructor() { }
+  // TODO: TEST ALL OF THESE
+  constructor(private http: HttpClient) { }
 
   getDepartments(): Observable<Department[]> {
-    return of([
-      new Department(1, 'Hospitality'),
-      new Department(2, 'Kitchen'),
-      new Department(3, 'Clothing Bank'),
-      new Department(4, 'Registration'),
-      new Department(5, 'Setup/Cleanup'),
-      new Department(6, 'Special Services'),
-    ]);
+    const url = `${API_URL}/user/departments`;
+    return this.http.get<Department[]>(url);
   }
 
   addDepartment(departmentName: string): Observable<Department> {
-    return of(new Department(20, departmentName)); 
+    const url = `${API_URL}/admin/departments/add`;
+    return this.http.post<Department>(url, { departmentName: departmentName });
   }
 
   updateDepartment(department: Department): Observable<Department> {
-    return of(department); 
+    const url = `${API_URL}/admin/departments/update`;
+    return this.http.post<Department>(url, { department: department });
   }
 }

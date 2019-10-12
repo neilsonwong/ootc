@@ -2,33 +2,54 @@ import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { Reservation } from '../models/Reservation';
 import { ReservationView } from '../models/ReservationView';
+import { environment } from 'src/environments/environment';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+
+const API_URL = environment.API_URL;
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getReservations(): Observable<Reservation[]> {
     // not needed
     return of(null);
   }
+
   addReservation(reservation: Reservation): Observable<Reservation> {
-    return of(reservation);
+    const url = `${API_URL}/user/reservations/add`;
+    return this.http.post<Reservation>(url, {reservation: reservation});
+  }
+
+  cancelReservation(reservationId: number): Observable<boolean> {
+    const url = `${API_URL}/user/reservations/cancel`;
+    return this.http.post<Reservation>(url, {reservationId: reservationId})
+      .pipe(map((response: any) => {
+        if (response.status === 200) {
+          return true;
+        }
+        return false;
+      }));
   }
 
   deleteReservation(reservationId: number): Observable<boolean> {
-    return of(true);
+    const url = `${API_URL}/admin/reservations/delete`;
+    return this.http.post<Reservation>(url, {reservationId: reservationId})
+      .pipe(map((response: any) => {
+        if (response.status === 200) {
+          return true;
+        }
+        return false;
+      }));
   }
 
   getReservationsForUser(userId: string): Observable<ReservationView[]> {
-    return of([
-      new ReservationView(1, userId, '2019-10-20', '14:00', 2, 'Hospitality', 'Hospitality setup'),
-      new ReservationView(1, userId, '2019-10-20', '16:00', 2, 'Hospitality', 'Hospitality serving dinner'),
-      new ReservationView(1, userId, '2019-10-27', '14:00', 2, 'Hospitality', 'Hospitality setup'),
-      new ReservationView(1, userId, '2019-10-27', '16:00', 2, 'Hospitality', 'Hospitality serving dinner'),
-    ]);
+    const url = `${API_URL}/reservations`;
+    return this.http.get<ReservationView[]>(url);
   }
 
   addReservationForUser(reservation: Reservation): Observable<Reservation> {
@@ -36,6 +57,13 @@ export class ReservationService {
   }
 
   reservationSignin(userId: string): Observable<boolean> {
-    return of(true);
+    const url = `${API_URL}/registration/signin`;
+    return this.http.post<boolean>(url, {userId: userId})
+      .pipe(map((response: any) => {
+        if (response.status === 200) {
+          return true;
+        }
+        return false;
+      }));
   }
 }

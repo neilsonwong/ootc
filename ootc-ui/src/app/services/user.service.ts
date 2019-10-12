@@ -27,6 +27,7 @@ export class UserService {
   }
 
   getAllUsers(): Observable<User[]> {
+    // TODO: ADMIN FUNCTION
     return of([
       new User('a@b.com', 'a@b.com', 'Andrew', '', 'Ho', 4161234567, 20, 1, ''),
       new User('c@d.com', 'c@d.com', 'Carl', '', 'Lam', 9055111167, 25, 0, ''),
@@ -35,6 +36,7 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User> {
+    // TODO: ADMIN FUNCTION
     return of(user);
   }
 }

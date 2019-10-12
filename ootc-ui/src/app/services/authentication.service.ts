@@ -18,10 +18,7 @@ export class AuthenticationService {
 
   getSecurityClearance(): number {
     const authContext = this.getAuthContext();
-    if (authContext) {
-      return authContext.securityClearance;
-    }
-    return 0;
+    return authContext ? authContext.securityClearance : 0;
   }
 
   login(username: string, password: string): Observable<string> {
