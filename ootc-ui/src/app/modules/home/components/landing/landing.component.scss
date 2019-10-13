@@ -20,7 +20,8 @@ h1 {
 
     height: $bannerHeight;
     background-color: rgba(34,110,147,1);
-    background-image: url(https://ssl.gstatic.com/atari/images/simple-header-blended-small.png);
+    background-image: url('/assets/blackground.jpg');
+    background-position: center;
     background-size: cover;
     padding: 2rem;
 
