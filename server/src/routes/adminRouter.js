@@ -17,6 +17,35 @@ router.use(basicAuth({
 	authorizeAsync: true,
 }));
 
+/**
+ * @swagger
+ *
+ * /admin/departments/add:
+ *   post:
+ *     summary: Add a department
+ *     tags: 
+ *       - admin
+ *     consumes: application/json
+ *     produces: application/json
+ *     parameters:
+ *       - in: body
+ *         name: departmentName
+ *         description: The department name to create.
+ *         schema:
+ *           type: object
+ *           required:
+ *             - departmentName
+ *           properties:
+ *             departmentName:
+ *               type: string
+ *     responses:
+ *       201:
+ *         description: Department added
+ *       400:
+ *         description: Error adding department
+ *       401:
+ *         description: Unauthorized
+ */
 router.post('/departments/add', async (req, res) => {
 	const departmentName = req.body.department;
 	const added = await departmentManager.addDepartment(departmentName);
@@ -25,6 +54,40 @@ router.post('/departments/add', async (req, res) => {
 		res.status(400).json({error: 'error creating department'});
 });
 
+/**
+ * @swagger
+ *
+ * /admin/departments/update:
+ *   post:
+ *     summary: Update a department
+ *     tags: 
+ *       - admin
+ *     consumes: application/json
+ *     produces: application/json
+ *     parameters:
+ *       - in: body
+ *         name: department
+ *         description: The value of the department to be updated.
+ *         schema:
+ *           type: object
+ *           required:
+ *             - id
+ *             - name
+ *           properties:
+ *             id:
+ *               type: integer
+ *               minimum: 0
+ *               exclusiveMaxmum: true
+ *             name:
+ *               type: string
+ *     responses:
+ *       200:
+ *         description: Updated Department
+ *       400:
+ *         description: Error updating department
+ *       401:
+ *         description: Unauthorized
+ */
 router.post('/departments/update', async (req, res) => {
 	const department = req.body.department;
 	const updated = await departmentManager.updateDepartment(department);
@@ -33,8 +96,27 @@ router.post('/departments/update', async (req, res) => {
 		res.status(400).json({error: 'error updating department'});
 });
 
-// returns the array of timeSlotDefinitions that are set up
-// no params
+/**
+ * @swagger
+ *
+ * /admin/schedule:
+ *   get:
+ *     summary: Get all time slot definitions for a year, defaults to current year
+ *     tags: 
+ *       - admin
+ *     produces: application/json
+ *     parameters:
+ *       - in: query
+ *         name: year
+ *         description: The year for the schedule.
+ *     responses:
+ *       200:
+ *         description: Array of time slot definitions for the year
+ *       400:
+ *         description: Error retrieving schedule
+ *       401:
+ *         description: Unauthorized
+ */
 router.get('/schedule', async (req, res) => {
 	const year = req.params.year || (new Date()).getFullYear();
 	const schedule = await scheduleManager.getSchedule(year);
@@ -109,7 +191,7 @@ router.get('/users', async (req, res) => {
 	const allUsers = await accountManager.listUsers();
 	return allUsers ?
 		res.status(200).json(allUsers) :
-		res.status(500).json({ error: 'could not get all users' });
+		res.status(400).json({ error: 'could not get all users' });
 });
 
 // update a user
