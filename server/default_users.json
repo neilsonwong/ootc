@@ -1,0 +1,8 @@
+{
+    "admins": [
+        { "id": "admin", "password": "admin" }
+    ],
+    "users": [
+        { "id": "user", "password": "password" }
+    ]
+}

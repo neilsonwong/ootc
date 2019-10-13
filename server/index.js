@@ -8,7 +8,7 @@ async function main() {
     await db.init();
     // await dbTests.test();
 
-    await accountManager.setupAdmin();
+    await accountManager.setupDefaultUsers();
     restapi.init();
 }
 

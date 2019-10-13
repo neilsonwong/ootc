@@ -3,5 +3,5 @@
 	"PORT": 8000,
 	"DB_PATH": "./database.db",
 	"OVERRIDE_VALIDATION": true,
-	"ADMIN_FILE": "./admin.json"
+	"DEFAULT_USERS_FILE": "./default_users"
 }

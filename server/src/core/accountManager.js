@@ -125,24 +125,50 @@ async function isAdmin(userId) {
     return false;
 }
 
-async function setupAdmin() {
+async function userExists(userId) {
+    try {
+        const user = await db.users.getUser(userId);
+        return user.id === undefined;
+    }
+    catch(e) {
+       logger.error(`an error occurred when checking if ${userId} exists`);
+       logger.error(e);
+    }
+    return false;
+}
+
+async function setupDefaultUsers() {
     // check if we have an admin file
-    if (config.ADMIN_FILE) {
+    if (config.DEFAULT_USERS_FILE) {
         try {
-            const adminInfo = require.main.require(config.ADMIN_FILE);
-            // check if admin is set up
-            if (await isAdmin(adminInfo.name)) {
-                return;
-            }
-            else {
-                // not an admin yet, make account
-                if (await createAdmin(adminInfo.name, adminInfo.password)) {
-                    logger.info(`created admin with username ${adminInfo.name}`);
+            logger.info('creating default users');
+            const default_users = require.main.require(config.DEFAULT_USERS_FILE);
+            // make admins
+            for (const admin of default_users.admins) {
+                // check if admin is set up
+                if (!(await isAdmin(admin.id))) {
+                    // not an admin yet, make account
+                    if (await createAdmin(admin.id, admin.password)) {
+                        logger.info(`created admin with username ${admin.id}`);
+                    }
                 }
             }
+
+            // make admins
+            for (const user of default_users.users) {
+                console.log(user)
+                // check if admin is set up
+                if (!(await userExists(user.id))) {
+                    // not an admin yet, make account
+                    if (await createUser(user.id, user.password)) {
+                        logger.info(`created users with username ${user.id}`);
+                    }
+                }
+            }
+
         }
         catch(e) {
-            logger.warn('unable to insert admin on startup');
+            logger.warn('unable to insert default users on startup');
             logger.warn(e);
         }
     }
@@ -157,5 +183,5 @@ module.exports = {
     updateUser: updateUser,
     setupEmailValidation: setupEmailValidation,
     isAdmin: isAdmin,
-    setupAdmin: setupAdmin
+    setupDefaultUsers: setupDefaultUsers
 };
