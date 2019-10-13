@@ -31,14 +31,9 @@ router.use(basicAuth({
  *         schema:
  *           type: object
  *           required:
- *             - id
- *             - name
+ *             - UserId
  *           properties:
  *             id:
- *               type: string
- *               minimum: 0
- *               exclusiveMaxmum: true
- *             name:
  *               type: string
  *     responses:
  *       200:
