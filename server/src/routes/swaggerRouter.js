@@ -37,11 +37,18 @@ const swaggerUiExpressOptions = {
             const creds = options.customOptions.creds;
             // we don't want to auth it, just make auto auth buttons
 
+            function addExtraAuthButtons() {
+                const authBtns = document.getElementsByClassName('auth-btn-wrapper')[0];
+                authBtns.appendChild(makeAuthButton('admin'));
+                authBtns.appendChild(makeAuthButton('user'));
+            }
+
             function onAuthClick(authType) {
                 if (creds[authType]) {
                     username = creds[authType].id;
                     pw = creds[authType].password;
                     ui.preauthorizeBasic("basicAuth", username, pw);
+                    document.getElementsByClassName('close-modal')[0].click();
                 }
             }
 
@@ -49,17 +56,16 @@ const swaggerUiExpressOptions = {
                 const btn = document.createElement("button"); 
                 btn.classList.add('btn', 'modal-btn', 'auth', 'authorize', 'button');
                 btn.innerText = `Auth ${authType}`;
+                btn.type = 'button';
                 btn.addEventListener('click', onAuthClick.bind(null, authType), false);
                 return btn;
             }
 
             if (creds && Object.keys(creds).length > 0) {
                 // open the auth panel
-                document.getElementsByClassName('btn','authorize')[0].click();
-                const authBtns = document.getElementsByClassName('auth-btn-wrapper')[0];
-                authBtns.appendChild(makeAuthButton('admin'));
-                authBtns.appendChild(makeAuthButton('user'));
-                // document.getElementsByClassName('close-modal')[0].click();
+                const authorizeBtn = document.getElementsByClassName('btn','authorize')[0];
+                authorizeBtn.addEventListener('click', function(){setTimeout(addExtraAuthButtons, 50);}, false);
+                authorizeBtn.click();
             }
             else {
                 console.log('no creds boi')
@@ -75,9 +81,7 @@ const swaggerUiExpressOptions = {
 
 const swaggerSpec = swaggerJSDoc(options);
 
-const leUi = swaggerUi.setup(swaggerSpec, swaggerUiExpressOptions)
-
 module.exports = {
     serve: swaggerUi.serve,
-    doc: leUi
+    doc: swaggerUi.setup(swaggerSpec, swaggerUiExpressOptions)
 };

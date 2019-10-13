@@ -8,7 +8,6 @@ const compression = require('compression');
 const logger = require('./logger');
 const config = require('../config');
 const apiV1Router = require('./routes/apiV1Router');
-const swaggerDocs = require('./routes/swaggerRouter');
 
 let app = express();
 
@@ -29,7 +28,6 @@ function defineRoutes() {
   });
 
   app.use('/api/v1', apiV1Router);
-  app.use('/api/v1/swagger', swaggerDocs.serve, swaggerDocs.doc);
 }
 
 function initWebServer() {
