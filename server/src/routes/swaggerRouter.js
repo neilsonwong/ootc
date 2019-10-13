@@ -29,6 +29,21 @@ const swaggerDefinition = {
                 type: 'http',
                 scheme: 'basic'
             }
+        },
+        schemas: {
+            UserNoId: {
+                type: 'object',
+                properties: {
+                    email: { type: 'string' },
+                    fname: { type: 'string' },
+                    mname: { type: 'string' },
+                    lname: { type: 'string' },
+                    phone: { type: 'integer' },
+                    age: { type: 'integer' },
+                    experience: { type: 'integer' },
+                    comments: { type: 'string' }
+                }
+            }
         }
     },
     security: [

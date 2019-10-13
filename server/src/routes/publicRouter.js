@@ -9,41 +9,31 @@ const router = express.Router();
 /**
  * @swagger
  *
- * /registration/register:
+ * /register:
  *   post:
  *     summary: Post to register a new user
  *     tags: 
  *       - public
  *     consumes: application/json
  *     produces: application/json
- *     parameters:
- *       - in: body
- *         name: user
- *         description: The user's email
- *         schema:
- *           type: object
- *           required:
- *             - Username (or email)
- *           properties:
- *             id:
- *               type: string
- *       - in: body
- *         name: password
- *         description: The user's password
- *         schema:
- *           type: object
- *           required:
- *             - Password
- *           properties:
- *             id:
- *               type: string
+ *     requestBody:
+ *       description: Object containing user fields, and user password.
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               user: 
+ *                 $ref: '#/components/schemas/UserNoId'
+ *               password: 
+ *                 type: string
  *     responses:
  *       201:
  *         description: User has successfully registered
- *       500:
+ *       400:
  *         description: User could not register wtih data provided
  */
-
 router.post('/register', async (req, res) => {
     const user = req.body.user;
     const password = req.body.password;
@@ -55,13 +45,13 @@ router.post('/register', async (req, res) => {
             return res.status(201).json(registeredUser);
         }
     }
-    return res.status(500).json({error: 'unable to register user with data provided'});
+    return res.status(400).json({error: 'unable to register user with data provided'});
 });
 
 /**
  * @swagger
  *
- * /registration/login:
+ * /login:
  *   post:
  *     summary: Post to register a new user
  *     tags: 
@@ -97,7 +87,6 @@ router.post('/register', async (req, res) => {
  *       400:
  *         description: User could not register wtih data provided
  */
-
 router.post('/login', async (req, res) => {
     const userId = req.body.userId;
     const password = req.body.password;
@@ -116,7 +105,7 @@ router.post('/login', async (req, res) => {
 /**
  * @swagger
  *
- * /registration/resendValidation:
+ * /resendValidation:
  *   post:
  *     summary: Post request to resend validation email
  *     tags: 
@@ -140,7 +129,6 @@ router.post('/login', async (req, res) => {
  *       200:
  *         description: Validation code resent
  */
-
 router.post('/resendValidation', async(req, res) => {
     const userId = req.body.userId;
     
@@ -156,7 +144,7 @@ router.post('/resendValidation', async(req, res) => {
 /**
  * @swagger
  *
- * /registration/validateEmail:
+ * /validateEmail:
  *   post:
  *     summary: Post to validate the new user
  *     tags: 
@@ -187,10 +175,9 @@ router.post('/resendValidation', async(req, res) => {
  *     responses:
  *       200:
  *         description: User validated
- *       500:
+ *       400:
  *         description: Code invalid
  */
-
 router.post('/validateEmail', async (req, res) => {
     const userId = req.body.userId;
     const validationCode = req.body.validationCode;

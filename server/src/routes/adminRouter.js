@@ -66,22 +66,18 @@ router.post('/departments/add', async (req, res) => {
  *       - admin
  *     consumes: application/json
  *     produces: application/json
- *     parameters:
- *       - in: body
- *         name: department
- *         description: The value of the department to be updated.
- *         schema:
- *           type: object
- *           required:
- *             - id
- *             - name
- *           properties:
- *             id:
- *               type: integer
- *               minimum: 0
- *               exclusiveMaxmum: true
- *             name:
- *               type: string
+ *     requestBody:
+ *       description: The value of the department to be updated.
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - department
+ *             properties:
+ *               department:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Updated Department
