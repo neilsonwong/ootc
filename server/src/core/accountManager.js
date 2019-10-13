@@ -54,6 +54,9 @@ async function createUser(user) {
     // NO CREATING ADMINS!! MAKE USERS THEN CHANGE PERMISSIONS
     user.admin = false;
     user.validated = false;
+    if (config.OVERRIDE_VALIDATION) {
+        user.validated = true;
+    }
 
     // user.id is their email
     user.id = user.email;

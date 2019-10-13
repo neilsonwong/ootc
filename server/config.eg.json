@@ -2,6 +2,6 @@
 	"LOG_DIR": "./logs",
 	"PORT": 8000,
 	"DB_PATH": "./database.db",
-	"OVERRIDE_VALIDATION": 111111,
+	"OVERRIDE_VALIDATION": true,
 	"ADMIN_FILE": "./admin.json"
 }
