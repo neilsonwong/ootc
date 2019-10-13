@@ -156,12 +156,10 @@ async function setupDefaultUsers() {
 
             // make admins
             for (const user of default_users.users) {
-                console.log(user)
-                // check if admin is set up
+                // check if user is set up
                 if (!(await userExists(user.id))) {
-                    // not an admin yet, make account
                     if (await createUser(user.id, user.password)) {
-                        logger.info(`created users with username ${user.id}`);
+                        logger.info(`created user with username ${user.id}`);
                     }
                 }
             }

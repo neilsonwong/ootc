@@ -68,7 +68,7 @@ const swaggerUiExpressOptions = {
                 authorizeBtn.click();
             }
             else {
-                console.log('no creds boi')
+                console.log('No credentials were passed into swagger');
             }
         },
         creds: {
