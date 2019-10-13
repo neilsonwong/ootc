@@ -14,6 +14,41 @@ router.use(basicAuth({
 	authorizeAsync: true,
 }));
 
+/**
+ * @swagger
+ *
+ * /registration/signin:
+ *   post:
+ *     summary: Post for sign-in 
+ *     tags: 
+ *       - admin
+ *     consumes: application/json
+ *     produces: application/json
+ *     parameters:
+ *       - in: body
+ *         name: userId
+ *         description: The user's Id
+ *         schema:
+ *           type: object
+ *           required:
+ *             - id
+ *             - name
+ *           properties:
+ *             id:
+ *               type: string
+ *               minimum: 0
+ *               exclusiveMaxmum: true
+ *             name:
+ *               type: string
+ *     responses:
+ *       200:
+ *         description: User has successfully signed-in
+ *       400:
+ *         description: Error occured during sign-in
+ *       401:
+ *         description: Unauthorized
+ */
+
 router.post('/signin', async (req, res) => {
 	const userId = req.body.userId;
 	const signedIn = await reservationManager.updateAttendance(userId);
