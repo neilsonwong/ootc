@@ -12,12 +12,14 @@
         <form class="" [formGroup]="registrationForm" (ngSubmit)="onRegister()">
             <mat-form-field>
                 <input matInput type="text" placeholder="First Name" formControlName="firstName" required>
+                <mat-hint>{{ formErrors.required }}</mat-hint>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="text" placeholder="Middle Name" formControlName="middleName">
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="text" placeholder="Last Name" formControlName="lastName" required>
+                <mat-hint>{{ formErrors.required }}</mat-hint>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="email" placeholder="Email" formControlName="email" required> 
@@ -26,20 +28,25 @@
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="password" placeholder="Password" formControlName = "password" required>
+                    <mat-hint>{{ formErrors.minLength }}</mat-hint>
                     <mat-error> {{ formErrors.minLength }}</mat-error>  
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="password" placeholder="Verify Password" formControlName = 'verifypassword' [ngClass] = "{ 'is-invalid': submitted && f.verifypassword.errors }" required>
                 <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                    <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
-                    <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+                    <div *ngIf="f.confirmPassword.errors.required"></div>
+                    <div *ngIf="f.confirmPassword.errors.mustMatch"></div>
                 </div>
+                <mat-error>{{ formErrors.mismatch }}</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input matInput type="number" placeholder="Phone Number" formControlName="phoneNumber" required>
+                <input matInput type="tel" placeholder="Phone Number" formControlName="phoneNumber" required>
+                <mat-hint>{{ formErrors.number }}</mat-hint>
+                <mat-error>{{ formErrors.number }}</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="number" placeholder="Age" formControlName="age" required>
+                <mat-error>{{ formErrors.age }}</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="number" placeholder="Experience" formControlName="experience" required>

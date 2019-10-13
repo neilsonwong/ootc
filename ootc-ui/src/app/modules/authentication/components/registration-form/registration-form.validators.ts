@@ -1,5 +1,5 @@
 import { ErrorStateMatcher } from '@angular/material/core';
-import { FormControl, FormGroupDirective, NgForm, FormGroup } from '@angular/forms';
+import { FormControl, FormGroupDirective, NgForm, FormGroup, AbstractControl } from '@angular/forms';
 
 // https://stackoverflow.com/questions/47884655/display-custom-validator-error-with-mat-error
 export class RegistrationFormErrorStateMatcher implements ErrorStateMatcher {
@@ -31,12 +31,21 @@ export function MustMatch(controlName: string, matchingControlName: string) {
     }
 }
 
+// https://dzone.com/articles/how-to-create-custom-validators-in-angular
+export function ageRangeValidator(control: AbstractControl): { [key: string]: boolean } | null {
+  if (control.value !== undefined && (isNaN(control.value) || control.value < 18 )) {
+      return { 'ageRange': true };
+  }
+  return null;
+}
+
 // https://stackoverflow.com/questions/47884655/display-custom-validator-error-with-mat-error
 export const formErrorMessages: { [key: string]: string } = {
   required: 'This is a required field',
   pattern: 'Email must be a valid email address (abc@tccc.ca).',
   minLength: 'Password must contain at least 8 characters.',
-  number: 'Phone number must be a valid phone number (123-456-7890)'
-  //mismatch: 'Passwords don\'t match.',
+  number: 'Phone number must be a valid phone number (1234567890)',
+  mismatch: 'Passwords don\'t match.',
+  age: 'User must be 18 years or older'
   //unique: 'Passwords must contain at least 1 uppercase character'
 };

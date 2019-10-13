@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { RegistrationFormErrorStateMatcher, formErrorMessages, MustMatch } from './registration-form.validators';
+import { RegistrationFormErrorStateMatcher, formErrorMessages, MustMatch, ageRangeValidator } from './registration-form.validators';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/User';
 import { take } from 'rxjs/operators';
@@ -28,11 +28,14 @@ export class RegistrationFormComponent implements OnInit {
       lastName: ['', Validators.minLength(1)],
       email: ['', [
         Validators.pattern('[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}')]],
-        password: ['', [ 
-          Validators.minLength(8)]],
-          verifypassword: [''],
-      phoneNumber: [''],
-      age: [''],
+      password: ['', [ 
+        Validators.minLength(8)]],
+        verifypassword: [''],
+      phoneNumber: ['',[
+          Validators.minLength(10),
+          Validators.maxLength(10),
+          Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+      age: ['', [ageRangeValidator]],
       experience: [''],
       comments: [''],
     }, { validator : MustMatch('password','verifypassword')})
