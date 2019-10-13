@@ -27,17 +27,18 @@ router.use(basicAuth({
  *       - admin
  *     consumes: application/json
  *     produces: application/json
- *     parameters:
- *       - in: body
- *         name: departmentName
- *         description: The department name to create.
- *         schema:
- *           type: object
- *           required:
- *             - departmentName
- *           properties:
- *             departmentName:
- *               type: string
+ *     requestBody:
+ *       description: The department name to create.
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - departmentName
+ *             properties:
+ *               departmentName:
+ *                 type: string
  *     responses:
  *       201:
  *         description: Department added
@@ -47,7 +48,8 @@ router.use(basicAuth({
  *         description: Unauthorized
  */
 router.post('/departments/add', async (req, res) => {
-	const departmentName = req.body.department;
+	const departmentName = req.body.departmentName;
+	console.log(req.body);
 	const added = await departmentManager.addDepartment(departmentName);
 	return added ? 
 		res.status(201).json(added) :

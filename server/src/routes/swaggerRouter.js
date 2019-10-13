@@ -10,7 +10,19 @@ const swaggerDefinition = {
         version: '1.0.0',
         description: 'Out of the Cold Server API'
     },
-    basePath: '/api/v1',
+    servers: [{
+        url: 'http://{host}/api/{version}',
+        description: 'dev',
+        variables: {
+            host: {
+                default: 'localhost:8000'
+            },
+            version: {
+                enum: ['v1'],
+                default: 'v1'
+            }
+        }
+    }],    
     components: {
         securitySchemes: {
             basicAuth: {
@@ -19,9 +31,11 @@ const swaggerDefinition = {
             }
         }
     },
-    security: {
-        basicAuth: []
-    }
+    security: [
+        { 
+            basicAuth: []
+        }
+    ]
 };
 
 const options = {
