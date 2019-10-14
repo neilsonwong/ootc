@@ -53,32 +53,23 @@ router.post('/register', async (req, res) => {
  *
  * /login:
  *   post:
- *     summary: Post to register a new user
+ *     summary: Attempt to login with a username and password
  *     tags: 
  *       - public
  *     consumes: application/json
  *     produces: application/json
- *     parameters:
- *       - in: body
- *         name: userId
- *         description: The user's Id
- *         schema:
- *           type: object
- *           required:
- *             - UserId
- *           properties:
- *             id:
- *               type: string
- *       - in: body
- *         name: password
- *         description: The user's password
- *         schema:
- *           type: object
- *           required:
- *             - Password
- *           properties:
- *             id:
- *               type: string
+ *     requestBody:
+ *       description: Object containing the username and password
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId: 
+ *                 type: string
+ *               password: 
+ *                 type: string
  *     responses:
  *       200: 
  *         description: User/Admin has logged in
@@ -112,28 +103,27 @@ router.post('/login', async (req, res) => {
  *       - public
  *     consumes: application/json
  *     produces: application/json
- *     parameters:
- *       - in: body
- *         name: userId
- *         description: The user's Id
- *         schema:
- *           type: object
- *           required:
- *             - UserId
- *           properties:
- *             id:
- *               type: string
+ *     requestBody:
+ *       description: Object containing the userId
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId: 
+ *                 type: string
  *     responses:
  *       400:
- *         description: User already validated
+ *         description: Email already validated
  *       200:
- *         description: Validation code resent
+ *         description: Validation code was resent
  */
 router.post('/resendValidation', async(req, res) => {
     const userId = req.body.userId;
     
     if (await accountManager.isUserValidated(userId)) {
-        res.status(400).json({error: 'user already validated'});
+        res.status(400).json({error: 'email already validated'});
     }
     else {
         await accountManager.setupEmailValidation(userId);
@@ -151,32 +141,23 @@ router.post('/resendValidation', async(req, res) => {
  *       - public
  *     consumes: application/json
  *     produces: application/json
- *     parameters:
- *       - in: body
- *         name: userId
- *         description: The user's Id
- *         schema:
- *           type: object
- *           required:
- *             - UserId
- *           properties:
- *             id:
- *               type: string
- *       - in: body
- *         name: validationCode
- *         description: The registration validationCode 
- *         schema:
- *           type: object
- *           required:
- *             - ValidationCode
- *           properties:
- *             id:
- *               type: string
+ *     requestBody:
+ *       description: Object containing the username and validation code 
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId: 
+ *                 type: string
+ *               validationCode: 
+ *                 type: integer
  *     responses:
  *       200:
- *         description: User validated
+ *         description: Email validated
  *       400:
- *         description: Code invalid
+ *         description: Validation code is invalid
  */
 router.post('/validateEmail', async (req, res) => {
     const userId = req.body.userId;

@@ -43,6 +43,46 @@ const swaggerDefinition = {
                     experience: { type: 'integer' },
                     comments: { type: 'string' }
                 }
+            },
+            User: {
+                allOf: [{ $ref: '#/components/schemas/UserNoId'}],
+                properties: {
+                    id: { type: 'string' }
+                }
+            },
+            TimeSlotDefNoId: {
+                type: 'object',
+                properties: {
+                    startTime: { type: 'string' },
+                    duration: { type: 'integer' },
+                    department: { type: 'integer' },
+                    signUpCap: { type: 'integer' },
+                    desc: { type: 'string' },
+                    repeatStartDate: { type: 'string' },
+                    repeatCount: { type: 'integer' },
+                    repeatInterval: { type: 'integer' },
+                    repeatSkipEvery: { type: 'integer' }
+                }
+            },
+            TimeSlotDef: {
+                allOf: [{ $ref: '#/components/schemas/TimeSlotDefNoId'}],
+                properties: {
+                    id: { type: 'integer' }
+                }
+            },
+            ReservationNoId: {
+                type: 'object',
+                properties: {
+                    user: { type: 'string' },
+                    timeSlot: { type: 'integer' },
+                    attended: { type: 'boolean' }
+                }
+            },
+            Reservation: {
+                allOf: [{ $ref: '#/components/schemas/ReservationNoId'}],
+                properties: {
+                    id: { type: 'integer' }
+                }
             }
         }
     },

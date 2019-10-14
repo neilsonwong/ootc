@@ -123,8 +123,31 @@ router.get('/schedule', async (req, res) => {
 		res.status(400).json({error: 'error retrieving schedule'});
 });
 
-// add a timeSlotDefinition
-// json body contains timeSlotDefinition to add
+/**
+ * @swagger
+ *
+ * /admin/schedule/add:
+ *   post:
+ *     summary: Add a time slot definition 
+ *     tags: 
+ *       - admin
+ *     consumes: application/json
+ *     produces: application/json
+ *     requestBody:
+ *       description: The value of the time slot def to be added
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TimeSlotDefNoId'
+ *     responses:
+ *       200:
+ *         description: Time Slot Definition was added sucessfully
+ *       400:
+ *         description: Unable to add time slot definition
+ *       401:
+ *         description: Unauthorized
+ */
 router.post('/schedule/add', async (req, res) => {
 	const timeSlotDef = req.body.timeSlotDef;
 	const addedTimeSlotDef = await scheduleManager.addTimeSlotDef(timeSlotDef);
@@ -133,9 +156,36 @@ router.post('/schedule/add', async (req, res) => {
 		res.status(400).json({error: 'could not add schedule slot'});
 });
 
-// remove a timeSlotDefinition
-// json body contains timeSlotDef to remove
-// can use an Id or use a combination of dayOfWeek + startTIme + activityType
+/**
+ * @swagger
+ *
+ * /admin/schedule/remove:
+ *   post:
+ *     summary: Add a time slot definition 
+ *     tags: 
+ *       - admin
+ *     consumes: application/json
+ *     produces: application/json
+ *     requestBody:
+ *       description: An Object containing the time slot def id to be removed
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - timeSlotDefId
+ *             properties:
+ *               timeSlotDefId:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: Time Slot Definition was removed 
+ *       400:
+ *         description: Unable to remove the time slot definition
+ *       401:
+ *         description: Unauthorized
+ */
 router.post('/schedule/remove', async (req, res) => {
 	const timeSlotDefId = req.body.timeSlotDefId;
 	const result = scheduleManager.deleteTimeSlotDef(timeSlotDefId);
@@ -145,8 +195,31 @@ router.post('/schedule/remove', async (req, res) => {
 
 });
 
-// update a timeSlotDefinition
-// json body contains timeSlotDefinition to update
+/**
+ * @swagger
+ *
+ * /admin/schedule/update:
+ *   post:
+ *     summary: Update a time slot definition 
+ *     tags: 
+ *       - admin
+ *     consumes: application/json
+ *     produces: application/json
+ *     requestBody:
+ *       description: The value of the time slot def to be updated
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TimeSlotDef'
+ *     responses:
+ *       200:
+ *         description: Time Slot Definition was updated sucessfully
+ *       400:
+ *         description: Unable to update time slot definition
+ *       401:
+ *         description: Unauthorized
+ */
 router.post('/schedule/update', async (req, res) => {
 	const timeSlotDef = req.body.timeSlotDef;
 	const result = scheduleManager.updateTimeSlotDef(timeSlotDef);
@@ -155,6 +228,31 @@ router.post('/schedule/update', async (req, res) => {
 		res.status(400).json({ error: `could not update schedule slotId ${timeSlotDef.id}` });
 });
 
+/**
+ * @swagger
+ *
+ * /admin/schedule/generate:
+ *   post:
+ *     summary: generate a list of time slots based on a time slot definition 
+ *     tags: 
+ *       - admin
+ *     consumes: application/json
+ *     produces: application/json
+ *     requestBody:
+ *       description: The value of the time slot def to be generated
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TimeSlotDef'
+ *     responses:
+ *       200:
+ *         description: Time Slots were generated based on the definition
+ *       400:
+ *         description: Unable to generate time slots using the given definition
+ *       401:
+ *         description: Unauthorized
+ */
 router.post('/schedule/generate', async(req, res) => {
 	const timeSlotDef = req.body.timeSlotDef;
 	const generatedTimeSlots = await scheduleManager.generateTimeSlots(timeSlotDef);
@@ -163,8 +261,31 @@ router.post('/schedule/generate', async(req, res) => {
 		res.status(400).json({error: 'there was na error generating the schedule using the provided time slot def'});
 });
 
-// add a reservation
-// json body contains userId and timeSlotId
+/**
+ * @swagger
+ *
+ * /admin/reserve:
+ *   post:
+ *     summary: Add a reservation on behalf of a user
+ *     tags: 
+ *       - admin
+ *     consumes: application/json
+ *     produces: application/json
+ *     requestBody:
+ *       description: An object containing the reservation to be added
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ReservationNoId'
+ *     responses:
+ *       200:
+ *         description: Time Slots were generated based on the definition
+ *       400:
+ *         description: Unable to generate time slots using the given definition
+ *       401:
+ *         description: Unauthorized
+ */
 router.post('/reserve', async (req, res) => {
 	const reservation = req.body.reservation;
 	const added = await reservationManager.createReservation(reservation);
@@ -173,8 +294,36 @@ router.post('/reserve', async (req, res) => {
 		res.status(400).json({error: 'there was an error adding the reservation'});
 });
 
-// delete a reservation
-// json body contains userId and timeSlotId
+/**
+ * @swagger
+ *
+ * /admin/reservations/delete:
+ *   post:
+ *     summary: Add a time slot definition 
+ *     tags: 
+ *       - admin
+ *     consumes: application/json
+ *     produces: application/json
+ *     requestBody:
+ *       description: An Object containing the time slot def id to be removed
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - reservationId
+ *             properties:
+ *               reservationId:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: The reservation was deleted
+ *       400:
+ *         description: Unable to delete the reservation
+ *       401:
+ *         description: Unauthorized
+ */
 router.post('/reservations/delete', async (req, res) => {
 	const reservationId = req.body.reservationId;
 	const deleted = await reservationManager.deleteReservation(reservationId)
@@ -183,8 +332,23 @@ router.post('/reservations/delete', async (req, res) => {
 		res.status(400).json({error: 'there was an error adding the reservation'});
 });
 
-// gets the list of all users
-// no params
+/**
+ * @swagger
+ *
+ * /admin/users:
+ *   get:
+ *     summary: Gets a list of all users.
+ *     tags: 
+ *       - admin
+ *     produces: application/json
+ *     responses:
+ *       200:
+ *         description: Array of users 
+ *       400:
+ *         description: Error retrieving list of all users
+ *       401:
+ *         description: Unauthorized
+ */
 router.get('/users', async (req, res) => {
 	const allUsers = await accountManager.listUsers();
 	return allUsers ?
@@ -192,8 +356,31 @@ router.get('/users', async (req, res) => {
 		res.status(400).json({ error: 'could not get all users' });
 });
 
-// update a user
-// json body contains user details
+/**
+ * @swagger
+ *
+ * /admin/user/update:
+ *   post:
+ *     summary: Update information for a particular user.
+ *     tags: 
+ *       - admin
+ *     consumes: application/json
+ *     produces: application/json
+ *     requestBody:
+ *       description: An Object containing the updated user.
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       200:
+ *         description: Updated User Object
+ *       400:
+ *         description: Error updating db with provided user object
+ *       401:
+ *         description: Unauthorized
+ */
 router.post('/user/update', async (req, res) => {
 	const user = req.body.user;
 	const result = await accountManager.updateUser(user);
