@@ -21,7 +21,7 @@ function compareKeys(a, b) {
             return key;
         }
         // this bottom part might not be perfect, but don't need it now
-        else if (typeof a[key] === 'object') {
+        else if (typeof a[key] === 'object' && !Array.isArray(a[key])) {
             if (compareKeys(a[key], b[key]) !== null) {
                 return key;
             }

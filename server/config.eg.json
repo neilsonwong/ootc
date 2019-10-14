@@ -2,6 +2,9 @@
 	"LOG_DIR": "./logs",
 	"PORT": 8000,
 	"DB_PATH": "./database.db",
-	"OVERRIDE_VALIDATION": true,
-	"DEFAULT_USERS_FILE": "./default_users"
+	"DEFAULT_USERS_FILE": "./default_users",
+	"DEV_OPTIONS" : {
+		"ENABLED": true,
+		"OVERRIDE_VALIDATION": true
+	}
 }

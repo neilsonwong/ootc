@@ -54,7 +54,7 @@ async function createUser(user) {
     // NO CREATING ADMINS!! MAKE USERS THEN CHANGE PERMISSIONS
     user.admin = false;
     user.validated = false;
-    if (config.OVERRIDE_VALIDATION) {
+    if (config.DEV_OPTIONS.ENABLED && config.DEV_OPTIONS.OVERRIDE_VALIDATION) {
         user.validated = true;
     }
 
