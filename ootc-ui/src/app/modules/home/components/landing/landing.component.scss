@@ -19,10 +19,7 @@ h1 {
     right: 0;
 
     height: $bannerHeight;
-    background-color: rgba(34,110,147,1);
-    background-image: url('/assets/blackground.jpg');
-    background-position: center;
-    background-size: cover;
+    background-color: rgba(0,0,0,0.4);
     padding: 2rem;
 
     display: flex;
@@ -59,6 +56,22 @@ h1 {
         border-radius: 0.75rem;
         box-shadow: 1px 1px 4px #666;
     }
+}
+
+.landing-banner::after {
+    content: 'I am smiling at you... do you see me? https://youtu.be/xpck4IdClZg';
+    color: rgba(0, 0, 0, 0);
+    position: absolute;
+    height: $bannerHeight;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #000000;
+    background-image: url('/assets/blackground.jpg');
+    background-position: center;
+    background-size: cover;
+    opacity: 1;
+    z-index: -1;
 }
 
 .landing-page-intro {
