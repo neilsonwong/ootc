@@ -1,3 +1,5 @@
+$smallTextSize: 0.8em;
+
 .login-form-container {
     max-width: 300px;
     height: 100%;
@@ -20,12 +22,19 @@
         }
 
         button {
-            margin-top: 1rem;
+            margin-top: 0.75rem;
             width: 100%;
         }
 
         .errors {
+            font-size: $smallTextSize;
             color: red;
+        }
+
+        .forgot-password {
+            font-size: $smallTextSize;
+            margin-top: 0.75rem;
+            width: 100%;
         }
     }
 }
