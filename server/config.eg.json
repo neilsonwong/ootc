@@ -10,5 +10,8 @@
 	"DEV_OPTIONS" : {
 		"ENABLED": true,
 		"OVERRIDE_VALIDATION": true
+	},
+	"LINKS": {
+		"VALIDATE_EMAIL": "http://localhost:4200/validateEmail"
 	}
 }

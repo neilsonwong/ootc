@@ -1,6 +1,8 @@
 'use strict';
 
+const querystring = require('querystring');
 const db = require('../db/db');
+const config = require('../../config');
 
 // just use an internal object
 const validationCodes = {};
@@ -29,8 +31,17 @@ function randomValidationCode() {
     return Math.floor(Math.random()*1000000);
 }
 
+function makeValidationLink(email, code) {
+    const qs = querystring.stringify({
+        code: Buffer.from(`${email}:${code}`).toString('base64')
+    });
+
+    return `${config.LINKS.VALIDATE_EMAIL}?${qs}`;
+}
+
 module.exports = {
     isUserValidated: isUserValidated,
     validateUser: validateUser,
     generateValidationCode: generateValidationCode,
+    makeValidationLink: makeValidationLink,
 };

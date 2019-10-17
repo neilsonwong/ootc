@@ -164,10 +164,10 @@ router.post('/validateEmail', async (req, res) => {
     const validationCode = req.body.validationCode;
 
     if (await accountManager.validateUser(userId, validationCode)) {
-        res.status(200).send('OK');
+        res.status(200).send({res: `validated ${userId}`});
     }
     else {
-        return res.status(400).send('Invalid validation code');
+        return res.status(400).send({error: 'Invalid validation code'});
     }
 });
 

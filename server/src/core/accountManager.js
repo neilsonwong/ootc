@@ -100,9 +100,11 @@ async function validateUser(userId, validationCode) {
 }
 
 async function setupEmailValidation(userId) {
-    const validationCode = validationService.generateValidationCode(userId);
+    const validationLink = validationService.makeValidationLink(userId, 
+        validationService.generateValidationCode(userId));
     const user = await db.users.getUser(userId);
-    return await emailService.sendValidationEmail(userId, user.fname, validationCode);
+
+    return await emailService.sendValidationEmail(userId, user.fname, validationLink);
 }
 
 async function listUsers() {

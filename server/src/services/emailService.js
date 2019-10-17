@@ -44,7 +44,7 @@ async function sendValidationEmail(userEmail, name, validationLink) {
                     return rej(err);
                 }
                 else {
-                    logger.verbose(info);
+                    logger.info(info);
                     return res();
                 }
             });
