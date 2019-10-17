@@ -1,3 +1,23 @@
 <app-container>
-    <p>email-validation works!</p>
+    <div *ngIf="!isValidating; else validating">
+        <ng-container *ngIf="validationSuccess; else validationFailed">
+            <h2 class="email-validation-title">Validation Success!</h2>
+            <p>
+                Your email has been validated! Please <a [routerLink]="['/']">Login</a>.
+            </p>
+        </ng-container>
+        <ng-template #validationFailed>
+            <h2 class="email-validation-title">Validation Error</h2>
+            <p>
+                We were unable to validate your email. <br />
+                <a (click)="resendValidation()">Click here to send another validation code.</a>
+            </p>
+        </ng-template>
+    </div>
+    <ng-template #validating>
+        <h2 class="email-validation-title">Validation in progress</h2>
+        <p>
+            We are validating your email, please wait a moment!
+        </p>
+    </ng-template>
 </app-container>
