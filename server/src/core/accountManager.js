@@ -6,6 +6,7 @@ const db = require('../db/db');
 const logger = require('../logger');
 const validationService = require('../services/validationService');
 const emailService = require('../services/emailService');
+const authService = require('../services/authService');
 const User = require('../models/User');
 
 const saltRounds = 10;
@@ -40,9 +41,48 @@ async function setPassword(userId, password) {
     return null;
 }
 
+async function changePassword(userId, resetCode, oldPassword, newPassword) {
+    if (resetCode) {
+        const curResetCode = await db.passwords.getResetCode(userId);
+        if (resetCode === curResetCode) {
+            if (await updatePassword(userId, newPassword)) {
+                await db.passwords.updateResetCode(userId, null);
+                return true;
+            }
+        }
+    }
+    else if (oldPassword) {
+        if (await authService.isValidUser(userId, oldPassword)) {
+            if (await updatePassword(userId, newPassword)) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+async function updatePassword(userId, password) {
+    try {
+        const pwHash = await bcrypt.hash(password, saltRounds);
+        await db.passwords.updatePassword(userId, pwHash);
+        return pwHash;
+    }
+    catch(e) {
+       logger.error('an error occurred when setting the password');
+       logger.error(e);
+    }
+    return null;
+}
+
 async function resetPassword(userId) {
-    const randomPassword =  Math.random().toString(36).substring(2, 15);
-    return await setPassword(userId, randomPassword);
+    // if user exists, update the reset code then send an email
+    const resetCode = Math.random().toString(36).substring(2, 15);
+    await db.passwords.updateResetCode(userId, resetCode);
+    // send the reset password email
+    console.log(`reset code is ${resetCode}`);
+    return;
+    // return await setPassword(userId, randomPassword);
 }
 
 async function ban(user) {
@@ -174,6 +214,7 @@ async function setupDefaultUsers() {
 
 module.exports = {
     register: register,
+    changePassword: changePassword,
     resetPassword: resetPassword,
     isUserValidated: isUserValidated,
     validateUser: validateUser,
