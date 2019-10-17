@@ -78,6 +78,13 @@ export class AuthenticationService {
   }
 
   getAuthContext(): UserAuthContext {
-    return <UserAuthContext> (JSON.parse(sessionStorage.getItem('currentUser')));
+    try {
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      return <UserAuthContext> currentUser;
+    }
+    catch(e) {
+      console.log(e);
+      return <UserAuthContext> {};
+    }
   }
 }
