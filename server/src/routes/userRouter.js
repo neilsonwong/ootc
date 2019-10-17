@@ -4,6 +4,7 @@ const express = require('express');
 const logger = require('../logger');
 const basicAuth = require('express-basic-auth');
 const authService = require('../services/authService');
+const accountManager = require('../core/accountManager');
 const departmentManager = require('../core/departmentManager');
 const reservationManager = require('../core/reservationManager');
 const scheduleManager = require('../core/scheduleManager');
@@ -19,7 +20,7 @@ router.use(basicAuth({
 /**
  * @swagger
  *
- * /departments:
+ * /user/departments:
  *   get:
  *     summary: Get all departmenets
  *     tags: 
@@ -43,7 +44,7 @@ router.get('/departments', async (req, res) => {
 /**
  * @swagger
  *
- * /reservations/add:
+ * /user/reservations/add:
  *   post:
  *     summary: Post to add reservations to a user's schedule
  *     tags: 
@@ -86,7 +87,7 @@ router.post('/reservations/add', async (req, res) => {
 /**
  * @swagger
  *
- * /reservations/cancel:
+ * /user/reservations/cancel:
  *   post:
  *     summary: Post to cancel reservation from a user's schedule
  *     tags: 
@@ -121,7 +122,7 @@ router.post('/reservations/cancel', async (req, res) => {
 /**
  * @swagger
  *
- * /reservations:
+ * /user/reservations:
  *   get:
  *     summary: Get all reservations for the user
  *     tags: 
@@ -137,7 +138,6 @@ router.post('/reservations/cancel', async (req, res) => {
  *       400:
  *         description: Error retrieving reservations for user
  */
-
 router.get('/reservations', async (req, res) => {
 	// get reservations for user id
 	const userId = req.auth.user;
@@ -150,7 +150,7 @@ router.get('/reservations', async (req, res) => {
 /**
  * @swagger
  *
- * /timesSlots:
+ * /user/timesSlots:
  *   get:
  *     summary: Get all timeslots for Dept
  *     tags: 
@@ -170,7 +170,6 @@ router.get('/reservations', async (req, res) => {
  *       400:
  *         description: Error retrieving reservations for user
  */
-
 router.get('/timeSlots', async (req, res) => {
 	const departmentId = req.query.departmentId;
 	const startDate = req.query.startDate;
@@ -179,10 +178,6 @@ router.get('/timeSlots', async (req, res) => {
 	return timeSlots ?
 		res.status(200).json(timeSlots) :
 		res.status(400).json({error: `there was an error retrieving time slots for ${departmentId}`});
-});
-
-router.post('/changePassword', async(req, res) => {
-	return res.status(500).send('not yet implemented');
 });
 
 module.exports = router;

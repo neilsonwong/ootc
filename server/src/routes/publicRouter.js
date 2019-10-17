@@ -171,4 +171,84 @@ router.post('/validateEmail', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ *
+ * /resetPassword:
+ *   post:
+ *     summary: Post to send a reset password email to the user
+ *     tags: 
+ *       - public 
+ *     consumes: application/json
+ *     produces: application/json
+ *     requestBody:
+ *       description: Object containing the username
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId: 
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: If email is valid, a reset password email was sent
+ */
+router.post('/resetPassword', async(req, res) => {
+    const userId = req.body.userId;
+    accountManager.resetPassword(userId);
+    return res.status(200).json(
+        {res: 'reset password email sent if account exists'});
+});
+
+/**
+ * @swagger
+ *
+ * /changePassword:
+ *   post:
+ *     summary: Post to change the users password
+ *     tags: 
+ *       - public
+ *     consumes: application/json
+ *     produces: application/json
+ *     requestBody:
+ *       description: Object containing fields required to change a password
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - userId 
+ *               - newPassword
+ *             properties:
+ *               userId:
+ *                 type: string
+ *               resetCode:
+ *                 type: string
+ *               oldPassword:
+ *                 type: string
+ *               newPassword:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Password was successfully changed
+ *       400:
+ *         description: Error changing the password
+ */
+router.post('/changePassword', async(req, res) => {
+    const userId = req.body.userId;
+    const resetCode = req.body.resetCode;
+    const oldPassword = req.body.oldPassword;
+    const newPassword = req.body.newPassword;
+    
+    const pwChanged = await accountManager.changePassword(
+        userId, resetCode, oldPassword, newPassword);
+
+    return pwChanged ?
+        res.status(200).json({res: 'password was updated'}) :
+        res.status(400).json({err: 'unable to update password'});
+});
+
 module.exports = router;
