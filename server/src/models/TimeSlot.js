@@ -1,6 +1,6 @@
 'use strict';
 
-const Preparable = require('./Preparable');
+const Preparable = require('../classes/Preparable');
 
 class TimeSlot extends Preparable {
   constructor(id, startDate, startTime, duration, department, signUpCap, desc) {

@@ -3,7 +3,7 @@
 const db = require('../sqliteWrapper');
 const DbModule = require('./dbModule');
 const TimeSlot = require('../../models/TimeSlot');
-const TimeSlotView = require('../../models/TimeSlotView');
+const TimeSlotView = require('../../classes/TimeSlotView');
 
 const sql = {
     createTable: 

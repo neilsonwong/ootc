@@ -3,7 +3,7 @@
 const db = require('../sqliteWrapper');
 const DbModule = require('./dbModule');
 const Reservation  = require('../../models/Reservation');
-const ReservationView  = require('../../models/ReservationView');
+const ReservationView  = require('../../classes/ReservationView');
 
 const sql = {
     createTable: 

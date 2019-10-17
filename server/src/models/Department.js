@@ -1,6 +1,6 @@
 'use strict';
 
-const Preparable = require('./Preparable');
+const Preparable = require('../classes/Preparable');
 
 class Department extends Preparable {
   constructor(id, name) {

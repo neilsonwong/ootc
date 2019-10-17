@@ -1,6 +1,6 @@
 'use strict';
 
-const Preparable = require('./Preparable');
+const Preparable = require('../classes/Preparable');
 
 class Reservation extends Preparable {
   constructor(id, user, timeSlot, attended) {
