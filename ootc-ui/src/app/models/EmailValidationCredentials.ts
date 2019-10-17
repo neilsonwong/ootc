@@ -1,8 +1,8 @@
 export class EmailValidationCredentials {
     userId: string;
-    validationCode: string;
+    validationCode: number;
 
-    constructor (userId: string, validationCode: string) {
+    constructor (userId: string, validationCode: number) {
         this.userId = userId;
         this.validationCode = validationCode;
     }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { of, Observable } from 'rxjs';
 import { UserAuthContext } from 'src/app/models/UserAuthContext';
@@ -52,14 +52,17 @@ export class AuthenticationService {
 
   validateEmail(userId: string, validationCode: number): Observable<boolean> {
     const url = `${API_URL}/validateEmail`;
-    const cred = new EmailValidationCredentials(userId, validationCode.toString());
-    return this.http.post(url, cred)
+    const cred = new EmailValidationCredentials(userId, validationCode);
+    return this.http.post(url, cred, { observe: 'response' })
       .pipe(
         map((response: any) => {
           if (response.status === 200) {
             return true;
           }
           return false;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          return of(false);
         })
       );
   }
