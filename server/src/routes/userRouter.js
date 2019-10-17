@@ -16,6 +16,22 @@ router.use(basicAuth({
 	authorizeAsync: true,
 }));
 
+/**
+ * @swagger
+ *
+ * /departments:
+ *   get:
+ *     summary: Get all departmenets
+ *     tags: 
+ *       - user
+ *     produces: application/json
+ *     responses:
+ *       200:
+ *         description: Array of Depts
+ *       400:
+ *         description: Error retrieving Depts
+ */
+
 router.get('/departments', async (req, res) => {
 	const allDepts = await departmentManager.listDepartments();
 	return allDepts ?
@@ -23,6 +39,35 @@ router.get('/departments', async (req, res) => {
 		res.status(400).json({error: 'there was an error retrieving the departments list'});
 });
 
+
+/**
+ * @swagger
+ *
+ * /reservations/add:
+ *   post:
+ *     summary: Post to add reservations to a user's schedule
+ *     tags: 
+ *       - user
+ *     consumes: application/json
+ *     produces: application/json
+ *     requestBody:
+ *       description: Object containing user fields
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               user: 
+ *                 $ref: '#/components/schemas/UserNoId'
+ *     responses:
+ *       201:
+ *         description: User has added reservations
+ *       400:
+ *         description: Error adding reservations
+ *       401:
+ * 	       description: Not authorized
+ */
 router.post('/reservations/add', async (req, res) => {
 	const reservation = req.body.reservation;
 	const userId = req.auth.user;
@@ -37,6 +82,33 @@ router.post('/reservations/add', async (req, res) => {
 	}
 });
 
+
+/**
+ * @swagger
+ *
+ * /reservations/cancel:
+ *   post:
+ *     summary: Post to cancel reservation from a user's schedule
+ *     tags: 
+ *       - user
+ *     consumes: application/json
+ *     produces: application/json
+ *     requestBody:
+ *       description: Object containing user fields
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               user: 
+ *                 $ref: '#/components/schemas/UserNoId'
+ *     responses:
+ *       201:
+ *         description: User has cancelled reservation
+ *       400:
+ *         description: Error cancelling reservation
+ */
 router.post('/reservations/cancel', async (req, res) => {
 	const userId = req.auth.user;
 	const reservationId = req.body.reservationId;
@@ -46,6 +118,26 @@ router.post('/reservations/cancel', async (req, res) => {
 		res.status(400).json({error: 'there was an error cancelling the reservation'});
 });
 
+/**
+ * @swagger
+ *
+ * /reservations:
+ *   get:
+ *     summary: Get all reservations for the user
+ *     tags: 
+ *       - user
+ *     produces: application/json
+ *     parameters:
+ *       - in: query
+ *         name: year
+ *         description: The year for the schedule.
+ *     responses:
+ *       200:
+ *         description: Array of user's reservations
+ *       400:
+ *         description: Error retrieving reservations for user
+ */
+
 router.get('/reservations', async (req, res) => {
 	// get reservations for user id
 	const userId = req.auth.user;
@@ -54,6 +146,30 @@ router.get('/reservations', async (req, res) => {
 		res.status(200).json(reservations) :
 		res.status(400).json({error: `there was an error retrieving reservations for ${userId}`});
 });
+
+/**
+ * @swagger
+ *
+ * /timesSlots:
+ *   get:
+ *     summary: Get all timeslots for Dept
+ *     tags: 
+ *       - user
+ *     produces: application/json
+ *     parameters:
+ *       - in: query
+ *         name: startDate
+ *         description: The startDate of the range
+ *        - in: query
+ *         name: endDate
+ *         description: The endDate of the range
+ * 
+ *     responses:
+ *       200:
+ *         description: Array of user's reservations
+ *       400:
+ *         description: Error retrieving reservations for user
+ */
 
 router.get('/timeSlots', async (req, res) => {
 	const departmentId = req.query.departmentId;
