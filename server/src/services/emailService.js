@@ -1,12 +1,62 @@
 'use strict';
 
+const config = require('../../config');
+const nodemailer = require('nodemailer');
+const aws = require('aws-sdk');
 const logger = require('../logger');
+const Email = require('../classes/Email');
+const emailTemplates = require('../util/emailTemplates');
 
-async function sendValidationEmail(email, validationCode) {
-    logger.info(`sending validation email to ${email}
-    validation code is "${validationCode}"`);
+let transporter;
+
+function init() {
+    try {
+        // configure AWS SDK
+        aws.config.loadFromPath('./aws.json');
+
+        // create Nodemailer SES transporter
+        transporter = nodemailer.createTransport({
+            SES: new aws.SES({
+                apiVersion: '2010-12-01'
+            }),
+            sendingRate: config.EMAIL.MAX_CONCURRENT
+        });
+    }
+    catch(e) {
+        logger.error('unable to initialize email service');
+        logger.error(e);
+    }
+}
+
+async function sendValidationEmail(userEmail, name, validationLink) {
+    logger.info(`sending validation email to ${userEmail}
+    validation link is "${validationLink}"`);
+
+    const email = new Email(config.EMAIL.MASTER, userEmail,
+        emailTemplates.VERIFICATION.subject(), '', {
+            text: emailTemplates.VERIFICATION.text(name, validationLink)
+        });
+    
+    try {
+        await new Promise((res, rej) => {
+            transporter.sendMail(email, (err, info) => {
+                if (err) {
+                    return rej(err);
+                }
+                else {
+                    logger.verbose(info);
+                    return res();
+                }
+            });
+        });
+    }
+    catch(err) {
+        logger.error('There was an error when sending the email');
+        logger.error(err);
+    }
 }
 
 module.exports = {
+    init: init,
     sendValidationEmail: sendValidationEmail
 };

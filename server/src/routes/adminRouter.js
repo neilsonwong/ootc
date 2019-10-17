@@ -49,7 +49,6 @@ router.use(basicAuth({
  */
 router.post('/departments/add', async (req, res) => {
 	const departmentName = req.body.departmentName;
-	console.log(req.body);
 	const added = await departmentManager.addDepartment(departmentName);
 	return added ? 
 		res.status(201).json(added) :

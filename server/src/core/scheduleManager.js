@@ -4,7 +4,7 @@ const moment = require('moment');
 const logger = require('../logger');
 const db = require('../db/db');
 const { strToDate } = require('../util/dateUtil');
-const REPEAT_INTERVAL = require('../models/RepeatIntervalEnum');
+const REPEAT_INTERVAL = require('../classes/RepeatIntervalEnum');
 const TimeSlot = require('../models/TimeSlot');
 
 async function getSchedule(year) {

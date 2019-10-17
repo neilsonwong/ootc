@@ -160,7 +160,7 @@ router.get('/reservations', async (req, res) => {
  *       - in: query
  *         name: startDate
  *         description: The startDate of the range
- *        - in: query
+ *       - in: query
  *         name: endDate
  *         description: The endDate of the range
  * 

@@ -9,6 +9,7 @@ class Email {
 
         // optional
         if (options) {
+            this.text = options.text || undefined;
             this.cc = options.cc || undefined;
             this.bcc = options.bcc || undefined;
             this.replyTo = options.replyTo || undefined;

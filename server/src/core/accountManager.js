@@ -12,10 +12,8 @@ const saltRounds = 10;
 
 async function register(user, password) {
     try {
-        console.log('creating user')
         const createdUser = await createUser(user);
         if (createdUser) {
-            console.log('setting password');
             if (await setPassword(createdUser.id, password)) {
                 setupEmailValidation(createdUser.id);
                 return createdUser;
@@ -102,7 +100,6 @@ async function validateUser(userId, validationCode) {
 }
 
 async function setupEmailValidation(userId) {
-    console.log('setting up email validation');
     const validationCode = validationService.generateValidationCode(userId);
     const user = await db.users.getUser(userId);
     return await emailService.sendValidationEmail(userId, user.fname, validationCode);

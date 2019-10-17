@@ -8,7 +8,7 @@ const User = require('../models/User');
 const TimeSlotDefinition = require('../models/TimeSlotDefinition');
 const TimeSlot = require('../models/TimeSlot');
 const Reservation = require('../models/Reservation');
-const RepeatIntervalEnum = require('../models/RepeatIntervalEnum');
+const RepeatIntervalEnum = require('../classes/RepeatIntervalEnum');
 
 async function testUsers() {
     logger.info('Running tests for Users');

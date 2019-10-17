@@ -1,8 +1,9 @@
 'use strict';
 
-const defaultUsers = require('../../default_users');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const defaultUsers = require('../../default_users');
+
 const swaggerDefinition = {
     openapi: '3.0.0',
     info: {
@@ -137,6 +138,7 @@ const swaggerUiExpressOptions = {
                 authorizeBtn.click();
             }
             else {
+                // this console log is OK cuz it is on the swagger website
                 console.log('No credentials were passed into swagger');
             }
         },
