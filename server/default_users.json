@@ -3,6 +3,16 @@
         { "id": "admin", "password": "admin" }
     ],
     "users": [
-        { "id": "user", "password": "password" }
+        {
+            "email": "user",
+            "fname": "user",
+            "mname": "",
+            "lname": "user",
+            "phone": "1111111111",
+            "age": 5,
+            "experience": 0,
+            "comments": "",
+            "password": "password"
+        }
     ]
 }

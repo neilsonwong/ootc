@@ -12,8 +12,10 @@ const saltRounds = 10;
 
 async function register(user, password) {
     try {
+        console.log('creating user')
         const createdUser = await createUser(user);
         if (createdUser) {
+            console.log('setting password');
             if (await setPassword(createdUser.id, password)) {
                 setupEmailValidation(createdUser.id);
                 return createdUser;
@@ -100,9 +102,10 @@ async function validateUser(userId, validationCode) {
 }
 
 async function setupEmailValidation(userId) {
+    console.log('setting up email validation');
     const validationCode = validationService.generateValidationCode(userId);
-    return await emailService.sendValidationEmail(userId, validationCode);
-
+    const user = await db.users.getUser(userId);
+    return await emailService.sendValidationEmail(userId, user.fname, validationCode);
 }
 
 async function listUsers() {
@@ -128,7 +131,7 @@ async function isAdmin(userId) {
 async function userExists(userId) {
     try {
         const user = await db.users.getUser(userId);
-        return user.id === undefined;
+        return user.id !== undefined;
     }
     catch(e) {
        logger.error(`an error occurred when checking if ${userId} exists`);
@@ -157,9 +160,9 @@ async function setupDefaultUsers() {
             // make admins
             for (const user of default_users.users) {
                 // check if user is set up
-                if (!(await userExists(user.id))) {
-                    if (await createUser(user.id, user.password)) {
-                        logger.info(`created user with username ${user.id}`);
+                if (!(await userExists(user.email))) {
+                    if (await createUser(user, user.password)) {
+                        logger.info(`created user with username ${user.email}`);
                     }
                 }
             }
