@@ -85,8 +85,11 @@ router.post('/login', async (req, res) => {
     if (await accountManager.isUserValidated(userId)) {
         // check password
         if (await (authService.isValidUser(userId, password))) {
-            const isAdmin = await accountManager.isAdmin(userId);
-            return res.status(200).send({securityClearance: isAdmin ? 2 : 1});
+            const user = await accountManager.getUser(userId);
+            return res.status(200).send({
+                name: user.fname,
+                securityClearance: (user.admin) ? 2 : 1
+            });
         }
         return res.status(401).json({ error: 'invalid login credentials'});
     }

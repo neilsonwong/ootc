@@ -155,6 +155,18 @@ async function updateUser() {
 
 }
 
+async function getUser(userId) {
+    try {
+        const user = await db.users.getUser(userId);
+        return user;
+    }
+    catch(e) {
+       logger.error(`an error occurred when retrieving ${userId} from the db`);
+       logger.error(e);
+    }
+    return false;
+}
+
 async function isAdmin(userId) {
     try {
         const user = await db.users.getUser(userId);
@@ -224,5 +236,6 @@ module.exports = {
     updateUser: updateUser,
     setupEmailValidation: setupEmailValidation,
     isAdmin: isAdmin,
-    setupDefaultUsers: setupDefaultUsers
+    setupDefaultUsers: setupDefaultUsers,
+    getUser: getUser
 };
