@@ -11,10 +11,12 @@ import { LandingComponent } from './components/landing/landing.component';
 import { AboutComponent } from './components/about/about.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { EmailValidationComponent } from './components/email-validation/email-validation.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @NgModule({
   declarations: [
-    LandingComponent, AboutComponent, RegistrationComponent, EmailValidationComponent,
+    LandingComponent, AboutComponent, RegistrationComponent, EmailValidationComponent, ForgotPasswordComponent, ChangePasswordComponent,
   ],
   imports: [
     CommonModule,
