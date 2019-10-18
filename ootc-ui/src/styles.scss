@@ -44,3 +44,13 @@ h1 {
 button:focus {
   outline: none;
 }
+
+.stand-alone-box {
+  width: 500px;
+  min-height: 300px;
+  margin: auto;
+  background-color: #f5f5f5;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 1px 1px 4px #ccc;
+}
