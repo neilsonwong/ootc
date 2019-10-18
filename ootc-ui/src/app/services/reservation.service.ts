@@ -47,8 +47,8 @@ export class ReservationService {
       }));
   }
 
-  getReservationsForUser(userId: string): Observable<ReservationView[]> {
-    const url = `${API_URL}/reservations`;
+  getReservationsForUser(): Observable<ReservationView[]> {
+    const url = `${API_URL}/user/reservations`;
     return this.http.get<ReservationView[]>(url);
   }
 
