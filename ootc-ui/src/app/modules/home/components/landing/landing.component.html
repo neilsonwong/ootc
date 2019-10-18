@@ -11,7 +11,7 @@
 					to overnight shelter to various social services.
 				</div>
 			</div>
-			<div class="login-form-wrapper">
+			<div *ngIf="!loggedInAs" class="login-form-wrapper">
 				<app-login-form id="login"></app-login-form>
 			</div>
 		</div>

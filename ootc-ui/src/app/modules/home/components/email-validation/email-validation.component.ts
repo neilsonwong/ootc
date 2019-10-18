@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-email-validation',
@@ -28,9 +26,7 @@ export class EmailValidationComponent implements OnInit {
 
   validate() {
     try {
-      const validationCode = parseInt(this.validationCodeString);
-      console.log(this.email)
-      console.log(validationCode)
+      const validationCode:number = parseInt(this.validationCodeString);
       this.authService.validateEmail(this.email, validationCode)
         .subscribe((result: boolean) => {
           this.validationSuccess = result;
@@ -40,8 +36,6 @@ export class EmailValidationComponent implements OnInit {
     catch(e) {
       this.validationSuccess = false;
       this.isValidating = false;
-      console.log('there was an error validating the email');
-      console.log(e);
     }
   }
 

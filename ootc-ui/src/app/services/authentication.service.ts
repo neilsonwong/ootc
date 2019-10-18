@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { of, Observable } from 'rxjs';
+import { of, Observable, Subject } from 'rxjs';
 import { UserAuthContext } from 'src/app/models/UserAuthContext';
 import { LoginCredentials } from 'src/app/models/LoginCredentials';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, shareReplay } from 'rxjs/operators';
 import { EmailValidationCredentials } from 'src/app/models/EmailValidationCredentials';
 
 const API_URL = environment.API_URL;
@@ -13,6 +13,8 @@ const API_URL = environment.API_URL;
   providedIn: 'root'
 })
 export class AuthenticationService {
+  private authContextEmitter: Subject<UserAuthContext> = new Subject();
+  private $authContext: Observable<UserAuthContext> = this.authContextEmitter.pipe(shareReplay(1));
 
   constructor(private http: HttpClient) { }
 
@@ -32,6 +34,9 @@ export class AuthenticationService {
             map((response: any) => {
               const authContext = new UserAuthContext(username, password, response.securityClearance);
               sessionStorage.setItem('currentUser', JSON.stringify(authContext));
+
+              // emit for subject
+              this.authContextEmitter.next(authContext);
               return null;
             }),
             catchError((error: any) => {
@@ -48,6 +53,8 @@ export class AuthenticationService {
 
   logout(): void {
     sessionStorage.removeItem('currentUser');
+    // emit for subject
+    this.authContextEmitter.next({} as UserAuthContext);
   }
 
   validateEmail(userId: string, validationCode: number): Observable<boolean> {
@@ -86,8 +93,12 @@ export class AuthenticationService {
       return <UserAuthContext> currentUser;
     }
     catch(e) {
-      console.log(e);
-      return <UserAuthContext> {};
+      return ({} as UserAuthContext);
     }
+  }
+
+  getAuthContextStream(): Observable<UserAuthContext> {
+    this.authContextEmitter.next(this.getAuthContext());
+    return this.$authContext;
   }
 }

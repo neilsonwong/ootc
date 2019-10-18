@@ -58,8 +58,6 @@ export class RegistrationFormComponent implements OnInit {
     this.userService.registerUser(registerThisGuy, pw)
       .pipe(take(1))
       .subscribe((user: User) => {
-        console.log('Registered User');
-        console.log(user);
         this.confirmed = true;
       });
   }
