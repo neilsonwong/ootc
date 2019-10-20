@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { AdminRoutingModule } from './admin-routing.module';
+
 import { UserManagementComponent } from './components/user-management/user-management.component';
 import { ScheduleManagementComponent } from './components/schedule-management/schedule-management.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
@@ -10,12 +14,22 @@ import { TimeSlotDefDetailsComponent } from './components/time-slot-def-details/
 import { TimeSlotDetailsComponent } from './components/time-slot-details/time-slot-details.component';
 import { ReservationFullDetailsComponent } from './components/reservation-full-details/reservation-full-details.component';
 
-
-
 @NgModule({
-  declarations: [UserManagementComponent, ScheduleManagementComponent, AttendanceComponent, ScheduleCreationComponent, UserListComponent, AddTimeSlotDefComponent, TimeSlotDefDetailsComponent, TimeSlotDetailsComponent, ReservationFullDetailsComponent],
+  declarations: [
+    UserManagementComponent,
+    ScheduleManagementComponent,
+    AttendanceComponent,
+    ScheduleCreationComponent,
+    UserListComponent,
+    AddTimeSlotDefComponent,
+    TimeSlotDefDetailsComponent,
+    TimeSlotDetailsComponent,
+    ReservationFullDetailsComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule,
+    AdminRoutingModule
   ]
 })
 export class AdminModule { }
