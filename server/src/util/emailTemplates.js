@@ -12,6 +12,11 @@ const TEMPLATES = {
     SCHEDULE: {
         subject: () => 'OOTC - Schedule Confirmation',
         text: generateScheduleEmail
+    },
+    RESET_PASSWORD: {
+        subject: () => 'OOTC - Reset Password',
+        text: (name, passwordResetLink) => (`Hello ${name},
+        Your password reset link is: ${passwordResetLink}`)
     }
 };
 

@@ -77,12 +77,14 @@ async function updatePassword(userId, password) {
 
 async function resetPassword(userId) {
     // if user exists, update the reset code then send an email
-    const resetCode = Math.random().toString(36).substring(2, 15);
-    await db.passwords.updateResetCode(userId, resetCode);
-    // send the reset password email
-    console.log(`reset code is ${resetCode}`);
-    return;
-    // return await setPassword(userId, randomPassword);
+    const user = await db.users.getUser(userId);
+    if (user) {
+        const resetCode = Math.random().toString(36).substring(2, 15);
+        await db.passwords.updateResetCode(userId, resetCode);
+        // send the reset password email
+        const resetLink = await authService.makeResetPasswordLink(userId, resetCode);
+        return await emailService.sendResetPasswordEmail(userId, user.fname, resetLink);
+    }
 }
 
 async function ban(user) {

@@ -106,4 +106,9 @@ export class AuthenticationService {
     const url = `${API_URL}/resetPassword`;
     return this.http.post(url, {userId: email});
   }
+
+  changePassword(email: string, resetCode: string, oldPassword: string, newPassword: string): Observable<any> {
+    const url = `${API_URL}/changePassword`;
+    return this.http.post(url, {userId: email, resetCode: resetCode, oldPassword: oldPassword, newPassword: newPassword});
+  }
 }

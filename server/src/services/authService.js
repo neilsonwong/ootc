@@ -3,6 +3,8 @@
 const logger = require('../logger');
 const db = require('../db/db');
 const bcrypt = require('bcrypt');
+const config = require('../../config');
+const querystring = require('querystring');
 
 async function isValidAdmin(userId, password) {
     if (await isValidUser(userId, password)) {
@@ -42,9 +44,18 @@ function isValidAdminWithCb(userId, password, cb) {
     );
 }
 
+function makeResetPasswordLink(email, code) {
+    const qs = querystring.stringify({
+        code: Buffer.from(`${email}:${code}`).toString('base64')
+    });
+
+    return `${config.LINKS.RESET_PASSWORD}?${qs}`;
+}
+
 module.exports = {
     isValidAdmin: isValidAdmin,
     isValidUser: isValidUser,
     isValidAdminWithCb: isValidAdminWithCb,
     isValidUserWithCb: isValidUserWithCb,
+    makeResetPasswordLink: makeResetPasswordLink
 };

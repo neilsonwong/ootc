@@ -13,7 +13,7 @@ export class ReservationManagementComponent implements OnInit {
   constructor(private reservationService: ReservationService) { }
 
   ngOnInit() {
-    this.reservationService.getReservationsForUser('a@b.com').subscribe((reservations: ReservationView[]) => {
+    this.reservationService.getReservationsForUser().subscribe((reservations: ReservationView[]) => {
       this.listOfReservations = reservations;
     });
   }

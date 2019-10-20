@@ -5,13 +5,15 @@ import { AboutComponent } from './components/about/about.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { EmailValidationComponent } from './components/email-validation/email-validation.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
   // { path: 'about', component: AboutComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'validateEmail', component: EmailValidationComponent },
-  { path: 'forgotPassword', component: ForgotPasswordComponent }
+  { path: 'forgotPassword', component: ForgotPasswordComponent },
+  { path: 'changePassword', component: ChangePasswordComponent }
 ];
 
 @NgModule({

@@ -28,6 +28,20 @@ function init() {
     }
 }
 
+function sendMail(email) {
+    return new Promise((res, rej) => {
+        transporter.sendMail(email, (err, info) => {
+            if (err) {
+                return rej(err);
+            }
+            else {
+                logger.info(info);
+                return res();
+            }
+        });
+    });
+}
+
 async function sendValidationEmail(userEmail, name, validationLink) {
     logger.info(`sending validation email to ${userEmail}
     validation link is "${validationLink}"`);
@@ -38,17 +52,25 @@ async function sendValidationEmail(userEmail, name, validationLink) {
         });
     
     try {
-        await new Promise((res, rej) => {
-            transporter.sendMail(email, (err, info) => {
-                if (err) {
-                    return rej(err);
-                }
-                else {
-                    logger.info(info);
-                    return res();
-                }
-            });
+        return await sendMail(email);
+    }
+    catch(err) {
+        logger.error('There was an error when sending the email');
+        logger.error(err);
+    }
+}
+
+async function sendResetPasswordEmail(userEmail, name, resetLink) {
+    logger.info(`sending reset password email to ${userEmail}
+    reset link is "${resetLink}"`);
+
+    const email = new Email(config.EMAIL.MASTER, userEmail,
+        emailTemplates.RESET_PASSWORD.subject(), '', {
+            text: emailTemplates.RESET_PASSWORD.text(name, resetLink)
         });
+    
+    try {
+        return await sendMail(email);
     }
     catch(err) {
         logger.error('There was an error when sending the email');
@@ -58,5 +80,6 @@ async function sendValidationEmail(userEmail, name, validationLink) {
 
 module.exports = {
     init: init,
-    sendValidationEmail: sendValidationEmail
+    sendValidationEmail: sendValidationEmail,
+    sendResetPasswordEmail: sendResetPasswordEmail,
 };
