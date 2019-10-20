@@ -51,6 +51,13 @@
                 margin-left: 1rem;
             }
         }
+
+        /* hide register button when logged in */
+        &.loggedIn {
+            .Register {
+                display: none;
+            }
+        }
     }
 }
 

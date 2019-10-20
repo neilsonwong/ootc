@@ -4,11 +4,12 @@
             <h1 class="title">OOTC</h1>
         </a>
     </div>
-    <div class="navigation">
+    <div class="navigation" [class.loggedIn]="securityClearance > 0">
         <ng-container *ngFor="let securityLevel of securityLevels">
             <ng-container *ngIf="securityClearance >= securityLevel">
                 <div *ngFor="let link of navLinks[securityLevel]"
-                    ngClass="nav-item {{ link.text === highlight ? 'highlight' : ''}}">
+                    class="nav-item {{ link.text }}"
+                    [class.highlight]="link.text === highlight">
                     <a [routerLink]="[link.url]">
                         {{ link.text | uppercase }}
                     </a>
