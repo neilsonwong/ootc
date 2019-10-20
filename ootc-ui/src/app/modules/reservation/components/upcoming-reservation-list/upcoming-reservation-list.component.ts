@@ -5,13 +5,16 @@ import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
   templateUrl: './upcoming-reservation-list.component.html',
   styleUrls: ['./upcoming-reservation-list.component.scss']
 })
+
 export class UpcomingReservationListComponent implements OnInit {
  // @Input() reservations: any;
   
   title = 'My Scheduler';
-  dates = ['Oct 10th','Oct 17th', 'Oct 24th', 'Oct 31st'];
   
-  myDate = this.dates[0];
+  mock_date_1 = 'Oct 12th';
+  mock_date_2 = 'Oct 19th';
+  mock_date_3 = 'Oct 26th';
+  mock_date_4 = 'Nov 2nd';
   
   constructor() { }
 
