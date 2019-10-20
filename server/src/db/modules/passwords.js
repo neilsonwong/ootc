@@ -33,13 +33,13 @@ class PasswordDbModule extends DbModule {
     }
 
     async getPassword(userId) {
-        const { password } = await db.get(sql.getPassword, [userId]);
-        return password;
+        const response = await db.get(sql.getPassword, [userId]);
+        return response ? response.password : undefined;
     }
 
     async getResetCode(userId) {
-        const { resetCode } = await db.get(sql.getResetCode, [userId]);
-        return resetCode;
+        const response = await db.get(sql.getResetCode, [userId]);
+        return response ? response.resetCode : undefined;
     }
 
     // passwords should be encrypted prior to this step!!
