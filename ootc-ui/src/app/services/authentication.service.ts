@@ -54,7 +54,9 @@ export class AuthenticationService {
   logout(): void {
     sessionStorage.removeItem('currentUser');
     // emit for subject
-    this.authContextEmitter.next({} as UserAuthContext);
+    this.authContextEmitter.next({
+      securityClearance: 0
+    } as UserAuthContext);
   }
 
   validateEmail(userId: string, validationCode: number): Observable<boolean> {

@@ -39,10 +39,7 @@ export class HeaderBarComponent implements OnInit {
     this.authService.getAuthContextStream().subscribe((authContext: UserAuthContext) => {
       if (authContext) {
         this.securityClearance = authContext.securityClearance;
-        this.name = authContext.fname;
-      }
-      else {
-
+        this.name = authContext.fname || '';
       }
       this.updateHighlight(this.location.path(false));
     });
