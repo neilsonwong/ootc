@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { UserAuthContext } from 'src/app/models/UserAuthContext';
 
 class LinkItem {
   text: string;
@@ -26,6 +27,7 @@ export class HeaderBarComponent implements OnInit {
 
   securityLevels: number[];
   securityClearance: number = 0;
+  name: string;
 
   constructor(private authService: AuthenticationService,
     private location: Location, 
@@ -34,13 +36,17 @@ export class HeaderBarComponent implements OnInit {
   ngOnInit() {
     this.setupLinks();
     this.securityLevels = Array(this.navLinks.length).fill(0).map((x,i)=>i);
-    this.init();
-  }
+    this.authService.getAuthContextStream().subscribe((authContext: UserAuthContext) => {
+      if (authContext) {
+        this.securityClearance = authContext.securityClearance;
+        this.name = authContext.fname;
+      }
+      else {
 
-  init() {
-    this.securityClearance = this.authService.getSecurityClearance();
+      }
+      this.updateHighlight(this.location.path(false));
+    });
 
-    this.updateHighlight(this.location.path(false));
     this.location.onUrlChange((url: string, state: unknown) => {
       this.updateHighlight(url);
     });
@@ -49,7 +55,6 @@ export class HeaderBarComponent implements OnInit {
   setupLinks() {
     this.navLinks = [[
       new LinkItem('Home', '/'),
-      // new LinkItem('About', '/about'),
       new LinkItem('Register', '/register'),
     ],
     [
@@ -84,6 +89,5 @@ export class HeaderBarComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigate(['/']);
-    this.init();
   }
 }

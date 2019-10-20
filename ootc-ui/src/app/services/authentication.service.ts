@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { of, Observable, Subject } from 'rxjs';
+import { of, Observable, Subject, ReplaySubject } from 'rxjs';
 import { UserAuthContext } from 'src/app/models/UserAuthContext';
 import { LoginCredentials } from 'src/app/models/LoginCredentials';
 import { map, catchError, shareReplay } from 'rxjs/operators';
@@ -13,7 +13,7 @@ const API_URL = environment.API_URL;
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private authContextEmitter: Subject<UserAuthContext> = new Subject();
+  private authContextEmitter: Subject<UserAuthContext> = new ReplaySubject(1);
   private $authContext: Observable<UserAuthContext> = this.authContextEmitter.pipe(shareReplay(1));
 
   constructor(private http: HttpClient) { }
@@ -32,7 +32,7 @@ export class AuthenticationService {
         return this.http.post<number>(url, cred)
           .pipe(
             map((response: any) => {
-              const authContext = new UserAuthContext(username, password, response.securityClearance);
+              const authContext = new UserAuthContext(username, password, response.securityClearance, response.name);
               sessionStorage.setItem('currentUser', JSON.stringify(authContext));
 
               // emit for subject

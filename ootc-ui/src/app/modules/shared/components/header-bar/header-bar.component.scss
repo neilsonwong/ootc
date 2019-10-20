@@ -1,6 +1,6 @@
 .header {
     height: 4rem;
-    padding: 1rem;
+    padding: 0 1rem;
 
     display: flex;
     align-items: center;
@@ -14,7 +14,7 @@
 
     .navigation {
         display: flex;
-        align-items: flex-end;
+        align-items: center;
         font-size: 1rem;
 
         .nav-item {
@@ -34,6 +34,23 @@
             }
         }
 
+        .logout-box {
+            margin-left: 1.5rem;
+            color: white;
+ 
+            .welcome-message::before {
+                content: '';
+                margin-right: 1rem;
+            }
+
+            .welcome-message {
+                font-weight: bold;
+            }
+
+            button {
+                margin-left: 1rem;
+            }
+        }
     }
 }
 
