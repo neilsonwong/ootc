@@ -25,6 +25,6 @@ export class DepartmentService {
 
   updateDepartment(department: Department): Observable<Department> {
     const url = `${API_URL}/admin/departments/update`;
-    return this.http.post<Department>(url, { department: department });
+    return this.http.post<Department>(url, department);
   }
 }

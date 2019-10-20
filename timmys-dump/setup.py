@@ -156,11 +156,11 @@ def setup_Departments():
 
     headers = {'Content-type': 'application/json'}
 
-    data = ['{"department":"Hospitality"}',     # 0
-            '{"department":"Kitchen"}',
-            '{"department":"Registration"}',
-            '{"department":"Clothing Bank"}',
-            '{"department":"Setup and Cleanup"}']   # 4
+    data = ['{"departmentName":"Hospitality"}',     # 0
+            '{"departmentName":"Kitchen"}',
+            '{"departmentName":"Registration"}',
+            '{"departmentName":"Clothing Bank"}',
+            '{"departmentName":"Setup and Cleanup"}']   # 4
      
     for i in range(len(data)):
         response = requests.post(url, headers=headers, data=data[i], auth=HTTPBasicAuth(user,pw))
