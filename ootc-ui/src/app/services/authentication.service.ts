@@ -101,4 +101,9 @@ export class AuthenticationService {
     this.authContextEmitter.next(this.getAuthContext());
     return this.$authContext;
   }
+
+  resetPassword(email: string): Observable<any> {
+    const url = `${API_URL}/resetPassword`;
+    return this.http.post(url, {userId: email});
+  }
 }

@@ -28,23 +28,23 @@ export class RegistrationFormComponent implements OnInit {
       lastName: ['', Validators.minLength(1)],
       email: ['', [
         Validators.pattern('[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}')]],
-      password: ['', [ 
-        Validators.minLength(8)]],
-        verifypassword: [''],
-      phoneNumber: ['',[
-          Validators.minLength(10),
-          Validators.maxLength(10),
-          Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+      password: ['', Validators.minLength(8)],
+      verifypassword: [''],
+      phoneNumber: ['', [
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern(/^-?(0|[1-9]\d*)?$/)
+      ]],
       age: ['', [ageRangeValidator]],
       experience: [''],
       comments: [''],
-    }, { validator : MustMatch('password','verifypassword')})
+    }, { validator : MustMatch('password', 'verifypassword')})
   ;}
 
   onRegister() {
     const pw = this.registrationForm.get('password').value;
     const registerThisGuy = new User(
-      undefined, 
+      undefined,
       this.registrationForm.get('email').value,
       this.registrationForm.get('firstName').value,
       this.registrationForm.get('middleName').value,
