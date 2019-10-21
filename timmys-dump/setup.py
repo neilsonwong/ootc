@@ -156,11 +156,11 @@ def setup_Departments():
 
     headers = {'Content-type': 'application/json'}
 
-    data = ['{"departmentName":"Hospitality"}',     # 0
-            '{"departmentName":"Kitchen"}',
-            '{"departmentName":"Registration"}',
-            '{"departmentName":"Clothing Bank"}',
-            '{"departmentName":"Setup and Cleanup"}']   # 4
+    data = ['{"departmentName":"Hospitality", "description":"The Hospitality Team focuses on providing a warm and friendly experience to guests.\\nThe team handles serving snacks and dinner, replenishing coffee and tea, and is highly encouraged to spend time with guests in conversation or activity.\\n\\nTasks include: serving snacks (3:30pm-6pm), serving dinner (6pm-9:30pm), socializing with guests, and other general duties required."}',     # 0
+            '{"departmentName":"Kitchen", "description":"The Kitchen Team focuses on preparing, cooking, and serving 60+ meals to our guests during the dinner service. The team prepares a unique menu each week consisting of soup, main and dessert.\\n\\nTasks include: grocery shopping, food prep, cooking, dish-washing, and other kitchen duties as required\\n\\nNote: Volunteers are especially needed for Monday morning to prepare breakfast for overnight guests.\\n\\nIMPORTANT: The Kitchen Team is recommended for highly experienced cooks and not beginners. If you sign up for one of these roles, we may contact you to follow up for more information."}',
+            '{"departmentName":"Clothing Bank", "description":"The Clothing Bank Team focuses on distributing various clothing items to our guests and organizing new apparel that is purchased or donated. The team aims to assist guest in finding what they need and ensuring that all guests are able to get what they what they need.\\n\\nTasks include: organizing and categorizing apparel, assisting guests in selecting apparel, and other duties as required."}',
+            '{"departmentName":"Registration", "description":"The Registration Team focuses on attending to guests and volunteers entering and exiting the premises. The team checks-in guests and coordinates services for the guests such as showers, hair cuts, medical services and social services. \\n\\nTasks include: front desk administration, service scheduling and coordination, and other duties as required. \\n\\nNote: Volunteers are especially needed for Monday morning during the departure of overnight guests."}',
+            '{"departmentName":"Setup and Cleanup", "description":"The Setup/Cleanup Team focuses on setting up and cleaning up the rooms for dining and various services. The team handles setup Sunday afternoon before guests arrive and cleanup on Monday morning after guests depart. \\n\\nTasks include: setting up tables, chairs, and specialized layouts for service rooms.\\n\\nNote: Volunteers are especially needed for Monday morning to cleanup the area."}']   # 4
      
     for i in range(len(data)):
         response = requests.post(url, headers=headers, data=data[i], auth=HTTPBasicAuth(user,pw))
