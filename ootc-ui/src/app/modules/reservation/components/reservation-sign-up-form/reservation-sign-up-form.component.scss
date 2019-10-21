@@ -1,0 +1,11 @@
+.button-bar {
+    margin: auto;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+
+    button {
+        margin: 0 1rem;
+        min-width: 10rem;
+    }
+}

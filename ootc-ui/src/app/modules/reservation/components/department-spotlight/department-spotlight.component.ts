@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Department } from 'src/app/models/Department';
 
 @Component({
@@ -8,6 +8,8 @@ import { Department } from 'src/app/models/Department';
 })
 export class DepartmentSpotlightComponent implements OnInit, OnChanges {
   @Input() departments: Department[];
+  @Output() deptSelected = new EventEmitter<Department>();
+
   public selectedIndex: number;
   public blurbs: string[][];
   
@@ -35,6 +37,7 @@ export class DepartmentSpotlightComponent implements OnInit, OnChanges {
 
     if (found !== undefined) {
       this.selectedIndex = found;
+      this.deptSelected.emit(this.departments[this.selectedIndex]);
     }
     else {
       console.log('could not select department with id ' + departmentId);

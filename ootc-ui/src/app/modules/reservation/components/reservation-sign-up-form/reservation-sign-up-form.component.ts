@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
 import { ScheduleService } from 'src/app/services/schedule.service';
+import { Department } from 'src/app/models/Department';
 
 const twoMonthsInMillis = 60*60*24*60*1000;
 
@@ -9,29 +10,33 @@ const twoMonthsInMillis = 60*60*24*60*1000;
   templateUrl: './reservation-sign-up-form.component.html',
   styleUrls: ['./reservation-sign-up-form.component.scss']
 })
-export class ReservationSignUpFormComponent implements OnInit {
-  @Input() departmentId: number;
+export class ReservationSignUpFormComponent implements OnInit, OnChanges {
+  @Input() department: Department;
+  
   private startDate: string;
   private endDate: string;
 
   public available: TimeSlotView[];
 
-  constructor(private scheduleService: ScheduleService) {
+  constructor(private scheduleService: ScheduleService) { }
+
+  ngOnInit(): void {
     const today = new Date();
     const twoMonthsLater = new Date(Date.now() + twoMonthsInMillis);
+    const fourMonthsLater = new Date(Date.now() + 2*twoMonthsInMillis);
 
-    this.startDate = this.dateToYYYYMMDD(today);
-    this.endDate = this.dateToYYYYMMDD(twoMonthsLater);
+    this.startDate = this.dateToYYYYMMDD(twoMonthsLater);
+    this.endDate = this.dateToYYYYMMDD(fourMonthsLater);
   }
 
-  ngOnInit() {
-    if (this.departmentId !== undefined) {
+  ngOnChanges() {
+    if (this.department !== undefined) {
       this.getAvailableTimeSlots();
     }
   }
 
   getAvailableTimeSlots() {
-    this.scheduleService.getTimeSlots(this.departmentId, this.startDate, this.endDate)
+    this.scheduleService.getTimeSlots(this.department.id, this.startDate, this.endDate)
       .subscribe((timeSlots: TimeSlotView[]) => {
         this.available = timeSlots;
       });

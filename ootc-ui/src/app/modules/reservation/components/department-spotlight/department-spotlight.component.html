@@ -1,5 +1,4 @@
 <div class="department-spotlight">
-    <p>{{ selectedIndex }}</p>
     <ng-container *ngIf="selectedIndex !== -1; else deptButtons">
         <button mat-raised-button color="warn" (click)="onBack()">Back</button>
         <h2>{{ departments[selectedIndex].name }}</h2>
@@ -11,6 +10,9 @@
         <h2>Select a department</h2>
         <button *ngFor="let dept of departments"
             mat-raised-button color="primary"
+
+            class="department-buttons"
+
             (click)="selectDept(dept.id)">{{ dept.name }}</button>
     </ng-template>
 </div>

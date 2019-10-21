@@ -1,1 +1,14 @@
-<p>reservation-sign-up-form works!</p>
+<div *ngIf="department"
+    class="reservation-sign-up-form stand-alone-wide-box">
+    <mat-selection-list #reservationsList>
+        <mat-list-option *ngFor="let timeSlot of available">
+            <app-reservation-sign-up-line 
+                [timeSlot]="timeSlot">
+            </app-reservation-sign-up-line>
+        </mat-list-option>
+    </mat-selection-list>
+    <div class="button-bar">
+        <button mat-raised-button color="accent" type="button">Clear</button>
+        <button mat-raised-button color="primary" type="submit">Reserve</button>
+    </div>
+</div>

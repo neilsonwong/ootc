@@ -4,7 +4,7 @@ export class TimeSlotView {
     startTime: string; 
     duration: number;
     department: string;
-    availableSpots: number;
+    reserved: number;
     signUpCap: number;
     desc: string;
 
@@ -14,7 +14,7 @@ export class TimeSlotView {
         startTime: string, 
         duration: number,
         department: string,
-        availableSpots: number,
+        reserved: number,
         signUpCap: number,
         desc: string
     ) {
@@ -24,7 +24,7 @@ export class TimeSlotView {
         this.startTime = startTime;
         this.duration = duration;
         this.department = department;
-        this.availableSpots = availableSpots;
+        this.reserved = reserved;
         this.signUpCap = signUpCap;
         this.desc = desc;
     }

@@ -45,6 +45,7 @@ button:focus {
   outline: none;
 }
 
+.stand-alone-wide-box,
 .stand-alone-box {
   width: 500px;
   min-height: 300px;
@@ -53,4 +54,8 @@ button:focus {
   padding: 1.5rem;
   border-radius: 0.75rem;
   box-shadow: 1px 1px 4px #ccc;
+}
+
+.stand-alone-wide-box {
+  width: auto;
 }

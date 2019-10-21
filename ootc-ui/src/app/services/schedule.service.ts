@@ -57,7 +57,19 @@ export class ScheduleService {
         .set('startDate', startDate)
         .set('endDate', endDate)
     };
-    return this.http.get<TimeSlotView[]>(url, options);
+    return this.http.get<TimeSlotView[]>(url, options)
+      .pipe(
+        map((timeSlots: TimeSlowView[]) => {
+          return timeSlots.sort((a,b) => {
+            if (a.startDate < b.startDate) {
+              return -1;
+            } else if (a.startDate === b.startDate) {
+              return a.startTime - b.startTime;
+            }
+            return 1;
+          })
+        })
+      );
   }
 
   // decided this would be handled by front end, no longer needed

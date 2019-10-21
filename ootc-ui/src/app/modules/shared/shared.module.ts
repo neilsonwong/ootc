@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatInputModule } from '@angular/material/input'; 
+import { MatListModule } from '@angular/material/list';
 
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
 import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
@@ -21,6 +22,7 @@ import { AppContainerComponent } from './components/app-container/app-container.
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatListModule,
   ],
   exports: [
     AppContainerComponent,
@@ -30,6 +32,7 @@ import { AppContainerComponent } from './components/app-container/app-container.
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatListModule,
     RouterModule,
   ]
 })

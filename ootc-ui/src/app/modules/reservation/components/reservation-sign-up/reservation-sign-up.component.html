@@ -9,6 +9,11 @@
         </div>
     </ng-template>-->
     <app-upcoming-reservation-list></app-upcoming-reservation-list>
-    <app-department-spotlight [departments]="departments"></app-department-spotlight>
-    <app-reservation-sign-up-form></app-reservation-sign-up-form>
+    <app-department-spotlight
+        [departments]="departments"
+        (deptSelected)="onDeptSelected($event)">
+    </app-department-spotlight>
+    <app-reservation-sign-up-form
+        [department]="selectedDepartment">
+    </app-reservation-sign-up-form>
 </app-container>

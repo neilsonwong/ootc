@@ -10,6 +10,7 @@ import { Department } from 'src/app/models/Department';
 export class ReservationSignUpComponent implements OnInit {
   public reservations: any[];
   public departments: Department[];
+  public selectedDepartment: Department;
 
   constructor(private departmentService: DepartmentService) { }
 
@@ -27,4 +28,7 @@ export class ReservationSignUpComponent implements OnInit {
       });
   }
 
+  onDeptSelected(department: Department) {
+    this.selectedDepartment = department;
+  }
 }
