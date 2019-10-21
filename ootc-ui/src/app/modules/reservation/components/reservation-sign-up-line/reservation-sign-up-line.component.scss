@@ -1,4 +1,24 @@
 .reservation-sign-up-line {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+
+    .col-role {
+        flex-grow: 1;
+    }
+
+    .col-date {
+        width: 150px;
+    }
+
+    .col-time {
+        width: 200px;
+    }
+
+    .col-duration {
+        width: 100px;
+    }
+
+    .col-spots {
+        width: 100px;
+    }
 }
