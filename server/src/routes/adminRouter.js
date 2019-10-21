@@ -49,7 +49,8 @@ router.use(basicAuth({
  */
 router.post('/departments/add', async (req, res) => {
 	const departmentName = req.body.departmentName;
-	const added = await departmentManager.addDepartment(departmentName);
+	const description = req.body.description;
+	const added = await departmentManager.addDepartment(departmentName, description);
 	return added ? 
 		res.status(201).json(added) :
 		res.status(400).json({error: 'error creating department'});

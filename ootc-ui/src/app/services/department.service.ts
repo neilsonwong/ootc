@@ -18,9 +18,9 @@ export class DepartmentService {
     return this.http.get<Department[]>(url);
   }
 
-  addDepartment(departmentName: string): Observable<Department> {
+  addDepartment(departmentName: string, description: string): Observable<Department> {
     const url = `${API_URL}/admin/departments/add`;
-    return this.http.post<Department>(url, { departmentName: departmentName });
+    return this.http.post<Department>(url, { departmentName: departmentName, description: description });
   }
 
   updateDepartment(department: Department): Observable<Department> {

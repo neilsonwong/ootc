@@ -9,14 +9,16 @@ const sql = {
     createTable: 
         `CREATE TABLE IF NOT EXISTS departments (
             id INTEGER PRIMARY KEY,
-            name TEXT NOT NULL
+            name TEXT NOT NULL,
+            description TEXT
         )`,
 
     insertDepartment: 
-        `INSERT INTO departments (name) VALUES(?)`,
+        `INSERT INTO departments (name, description) VALUES(?,?)`,
     
     updateDepartment: 
         `UPDATE departments SET name = $name WHERE id = $id`,
+    // TODO: allow description updates
     
     listDepartments: 
         `SELECT * FROM departments`,
@@ -29,9 +31,9 @@ class DepartmentDbModule extends DbModule {
         super('departments', sql.createTable, Department);
     }
 
-    async insertDepartment(departmentName) {
-        const { lastID } = await db.run(sql.insertDepartment, [departmentName]);
-        return lastID ? new Department(lastID, departmentName) : null;
+    async insertDepartment(departmentName, description) {
+        const { lastID } = await db.run(sql.insertDepartment, [departmentName, description]);
+        return lastID ? new Department(lastID, departmentName, description) : null;
     }
 
     async updateDepartment(department) {

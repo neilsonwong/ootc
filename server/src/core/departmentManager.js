@@ -3,9 +3,9 @@
 const db = require('../db/db');
 const logger = require('../logger');
 
-async function addDepartment(departmentName) {
+async function addDepartment(departmentName, description) {
     try {
-        return await db.departments.insertDepartment(departmentName);
+        return await db.departments.insertDepartment(departmentName, description);
     }
     catch (e) {
         logger.error(`there was an error adding department ${departmentName}`);
