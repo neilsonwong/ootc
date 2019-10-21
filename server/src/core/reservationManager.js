@@ -1,10 +1,12 @@
 'use strict';
 
 const db = require('../db/db');
+const logger = require('../logger');
 
 // create
 async function createReservation(reservation) {
     try {
+        reservation.attended = false;
         return await db.reservations.insertReservation(reservation);
     }
     catch(e) {

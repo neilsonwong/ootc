@@ -59,12 +59,12 @@ export class ScheduleService {
     };
     return this.http.get<TimeSlotView[]>(url, options)
       .pipe(
-        map((timeSlots: TimeSlowView[]) => {
+        map((timeSlots: TimeSlotView[]) => {
           return timeSlots.sort((a,b) => {
             if (a.startDate < b.startDate) {
               return -1;
             } else if (a.startDate === b.startDate) {
-              return a.startTime - b.startTime;
+              return a.startTime.localeCompare(b.startTime);
             }
             return 1;
           })

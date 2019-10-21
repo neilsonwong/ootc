@@ -1,13 +1,13 @@
 export class Reservation {
     id: number;
     user: string;
-    timeSlot: string;
+    timeSlot: number;
     isAttended: boolean;
 
     constructor (
         id: number,
         user: string,
-        timeSlot: string,
+        timeSlot: number,
         isAttended: boolean
     ) {
         this.id = id;
