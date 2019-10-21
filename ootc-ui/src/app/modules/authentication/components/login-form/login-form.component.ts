@@ -33,7 +33,7 @@ export class LoginFormComponent implements OnInit {
       .pipe(take(1))
       .subscribe((errorMessage) => {
         if (errorMessage === null) {
-          this.router.navigate(['/reservations']);
+          this.router.navigate(['/signup']);
         }
         else {
           this.error = errorMessage;
