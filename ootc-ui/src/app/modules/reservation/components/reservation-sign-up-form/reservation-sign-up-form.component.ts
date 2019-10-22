@@ -1,12 +1,16 @@
 import { Component, OnInit, Input, OnChanges, ViewChild } from '@angular/core';
-import { TimeSlotView } from 'src/app/models/TimeSlotView';
-import { ScheduleService } from 'src/app/services/schedule.service';
-import { Department } from 'src/app/models/Department';
-import { MatSelectionList, MatListOption } from '@angular/material/list';
-import { ReservationService } from 'src/app/services/reservation.service';
-import { Reservation } from 'src/app/models/Reservation';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { MatSelectionList } from '@angular/material/list';
 import { forkJoin } from 'rxjs';
+
+import { TimeSlotView } from 'src/app/models/TimeSlotView';
+import { Department } from 'src/app/models/Department';
+import { Reservation } from 'src/app/models/Reservation';
+
+import { ScheduleService } from 'src/app/services/schedule.service';
+import { ReservationService } from 'src/app/services/reservation.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+
+import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
 
 const twoMonthsInMillis = 60*60*24*60*1000;
 
@@ -36,8 +40,8 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
     const twoMonthsLater = new Date(Date.now() + twoMonthsInMillis);
     const fourMonthsLater = new Date(Date.now() + 2*twoMonthsInMillis);
 
-    this.startDate = this.dateToYYYYMMDD(twoMonthsLater);
-    this.endDate = this.dateToYYYYMMDD(fourMonthsLater);
+    this.startDate = reservationDisplayUtils.dateToYYYYMMDD(twoMonthsLater);
+    this.endDate = reservationDisplayUtils.dateToYYYYMMDD(fourMonthsLater);
 
     this.userId = this.authService.getAuthContext().username;
   }
@@ -69,13 +73,5 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
       .subscribe((timeSlots: TimeSlotView[]) => {
         this.available = timeSlots;
       });
-  }
-
-  private dateToYYYYMMDD(date: Date): string {
-    return [
-      date.getFullYear(),
-      ('0' + (date.getMonth() + 1)).slice(-2),
-      ('0' + date.getDate()).slice(-2)
-    ].join('-');
   }
 }
