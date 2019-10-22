@@ -1,6 +1,10 @@
-<h1>{{title}}</h1>
+<h2>At a Glance</h2>
 <div>
-    <span>
-        {{mock_date_1}}
-    </span>
+    <div *ngFor="let day of dayList">
+        <h3>{{ day }}</h3>
+        <div *ngFor="let reservation of days[day]">
+            <span>{{ reservation.desc }}</span>
+            <span>{{ reservation.startTime }}</span>
+        </div>
+    </div>
 </div>

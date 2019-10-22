@@ -1,14 +1,8 @@
 <app-container>
-   <!--<ng-container *ngIf="reservations && reservations.length > 0; else noUpcomingReservations">
+   <ng-container *ngIf="reservations && reservations.length > 0; else noUpcomingReservations">
         <app-upcoming-reservation-list [reservations]="reservations">
         </app-upcoming-reservation-list>
     </ng-container>
-    <ng-template #elseBlock>
-        <div>
-            
-        </div>
-    </ng-template>-->
-    <app-upcoming-reservation-list></app-upcoming-reservation-list>
     <app-department-spotlight
         [departments]="departments"
         (deptSelected)="onDeptSelected($event)">
