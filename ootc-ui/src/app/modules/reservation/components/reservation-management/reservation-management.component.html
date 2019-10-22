@@ -1,6 +1,15 @@
 <app-container>
-<div class="reservation-list">
-    <app-reservation-details ngFor="let reservation of listOfReservations"
-        [reservation]="reservation"></app-reservation-details>
-</div>
+    <div class="reservation-list stand-alone-wide-box">
+        <mat-selection-list #reservationList>
+            <mat-list-option *ngFor="let reservation of reservations"
+                [value]="reservation">
+                <app-reservation-details [reservation]="reservation">
+                </app-reservation-details>
+            </mat-list-option>
+        </mat-selection-list>
+        <div class="button-bar">
+            <button mat-raised-button color="accent" type="button" (click)="clearSelected()">Clear</button>
+            <button mat-raised-button color="warn" type="button" (click)="cancelSelected()">Cancel</button>
+        </div>
+    </div>
 </app-container>

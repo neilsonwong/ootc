@@ -27,7 +27,7 @@ export class ReservationService {
 
   cancelReservation(reservationId: number): Observable<boolean> {
     const url = `${API_URL}/user/reservations/cancel`;
-    return this.http.post<Reservation>(url, {reservationId: reservationId})
+    return this.http.post(url, {reservationId: reservationId}, { observe: 'response' })
       .pipe(map((response: any) => {
         if (response.status === 200) {
           return true;
