@@ -19,10 +19,7 @@ export class UpcomingReservationListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reservations = this.reservations.map((r: ReservationView) => {
-      r.startTime = reservationDisplayUtils.to12HourClock(r.startTime);
-      return r;
-    })
+    // this.reservations;
     this.processReservations();
   }
 
@@ -34,6 +31,19 @@ export class UpcomingReservationListComponent implements OnInit {
       }), {});
     
     this.dayList = Object.keys(this.days).sort((a, b) => (a.localeCompare(b)));
+    if (this.dayList.length > 3) {
+      this.dayList = this.dayList.slice(0, 3);
+    }
+
+    for (const day of this.dayList) {
+      console.log(day)
+      this.days[day] = this.days[day]
+        .sort((a,b) => (a.startTime.localeCompare(b.startTime)))
+        .map((r: ReservationView) => {
+          r.startTime = reservationDisplayUtils.to12HourClock(r.startTime);
+          return r;
+        });
+    }
     console.log(this.dayList);
     console.log(this.days);
   }

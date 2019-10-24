@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input'; 
 import { MatListModule } from '@angular/material/list';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
 
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
 import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
@@ -25,6 +26,7 @@ import { AppContainerComponent } from './components/app-container/app-container.
     MatInputModule,
     MatListModule,
     MatButtonToggleModule,
+    MatCardModule,
   ],
   exports: [
     AppContainerComponent,
@@ -36,6 +38,7 @@ import { AppContainerComponent } from './components/app-container/app-container.
     MatInputModule,
     MatListModule,
     MatButtonToggleModule,
+    MatCardModule,
     RouterModule,
   ]
 })

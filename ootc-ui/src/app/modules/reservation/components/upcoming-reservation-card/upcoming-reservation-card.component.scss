@@ -1,0 +1,29 @@
+@import "~src/colours";
+
+.upcoming-reservation-card {
+    margin: 0.5rem;
+
+    .reservation-summary {
+        padding: 0.5rem;
+        background-color: $primary;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+        color: #ffffff;
+
+        // copy the shadow from mat card
+        box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+
+        .reservation-role {
+            margin-bottom: 0.5rem;
+        }
+
+        .reservation-start-time {
+            font-size: 1.2em;
+            font-weight: 700;
+        }
+    }
+
+    .reservation-summary:last-of-type {
+        margin-bottom: 0;
+    }
+}

@@ -1,10 +1,9 @@
-<h2>At a Glance</h2>
-<div>
-    <div *ngFor="let day of dayList">
-        <h3>{{ day }}</h3>
-        <div *ngFor="let reservation of days[day]">
-            <span>{{ reservation.desc }}</span>
-            <span>{{ reservation.startTime }}</span>
-        </div>
-    </div>
+<h2>What's Coming Up!</h2>
+<div class="coming-up">
+    <app-upcoming-reservation-card
+        *ngFor="let day of dayList"
+        class="coming-up-card"
+        [date]="day"
+        [reservations]="days[day]">
+    </app-upcoming-reservation-card>
 </div>

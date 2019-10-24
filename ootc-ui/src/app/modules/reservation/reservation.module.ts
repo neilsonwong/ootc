@@ -11,6 +11,7 @@ import { ReservationDetailsComponent } from './components/reservation-details/re
 import { DepartmentSpotlightComponent } from './components/department-spotlight/department-spotlight.component';
 import { ReservationSignUpFormComponent } from './components/reservation-sign-up-form/reservation-sign-up-form.component';
 import { ReservationSignUpLineComponent } from './components/reservation-sign-up-line/reservation-sign-up-line.component';
+import { UpcomingReservationCardComponent } from './components/upcoming-reservation-card/upcoming-reservation-card.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ReservationSignUpLineComponent } from './components/reservation-sign-up
     ReservationDetailsComponent,
     DepartmentSpotlightComponent,
     ReservationSignUpFormComponent,
-    ReservationSignUpLineComponent
+    ReservationSignUpLineComponent,
+    UpcomingReservationCardComponent
   ],
   imports: [
     CommonModule,
