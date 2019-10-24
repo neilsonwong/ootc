@@ -1,14 +1,16 @@
 <div class="department-spotlight">
-    <!-- <ng-container *ngIf="selectedIndex !== -1; else deptButtons">
-        <button mat-raised-button color="warn" (click)="onBack()">Back</button>
-        <h2>{{ departments[selectedIndex].name }}</h2>
-        <p *ngFor="let descFragment of blurbs[selectedIndex]">
-            {{ descFragment }}
-        </p>
-    </ng-container> -->
-    <h2>Sign Up</h2>
     <mat-button-toggle-group (change)="selectDept($event)">
         <mat-button-toggle *ngFor="let dept of departments"
             [value]="dept.id">{{ dept.name }}</mat-button-toggle>
     </mat-button-toggle-group>
+    <ng-container *ngIf="selectedIndex !== -1; else pickSomething">
+        <p *ngFor="let descFragment of blurbs[selectedIndex]">
+            {{ descFragment }}
+        </p>
+    </ng-container>
+    <ng-template #pickSomething>
+        <div class="no-selection-desc">
+            <app-emoji-text text="Pick a department!!"></app-emoji-text>
+        </div>
+    </ng-template>
 </div>
