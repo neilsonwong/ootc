@@ -29,7 +29,8 @@ export class DepartmentSpotlightComponent implements OnInit, OnChanges {
     });
   }
 
-  selectDept(departmentId: number) {
+  selectDept(event) {
+    const departmentId: number = event.value;
     // find the right dept and set it as selected
     const found = this.departments.findIndex(d => {
       return d.id === departmentId
