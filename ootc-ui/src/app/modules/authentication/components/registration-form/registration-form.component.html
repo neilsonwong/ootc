@@ -1,13 +1,13 @@
 <div class="registration-form  stand-alone-box">
     <ng-container *ngIf="confirmed; else notconfirmed">
-        <h2 class="registration-form-title">Registration Confirmed!</h2>
+        <h3 class="registration-form-title">Registration Confirmed!</h3>
         <p>
             Thank you for registering!<br />
             Check your email to validate your email!
         </p>
     </ng-container>
     <ng-template #notconfirmed>
-        <h2 class="registration-form-title">Registration</h2>
+        <h3 class="registration-form-title">Registration</h3>
         <div>
             <form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
                 <mat-form-field>

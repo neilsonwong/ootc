@@ -1,10 +1,12 @@
 @import '~@angular/material/theming';
 
 $app-primary: mat-palette($mat-deep-purple);
+$app-secondary: mat-palette($mat-purple);
 $app-accent: mat-palette($mat-amber);
 $app-warn: mat-palette($mat-red);
 
 $primary: mat-color($app-primary);
+$secondary: mat-color($app-secondary);
 $accent: mat-color($app-accent);
 $warn: mat-color($app-warn);
 
