@@ -1,6 +1,7 @@
 <div class="department-spotlight">
-    <mat-button-toggle-group (change)="selectDept($event)">
+    <mat-button-toggle-group class="toggle-menu" (change)="selectDept($event)">
         <mat-button-toggle *ngFor="let dept of departments"
+            class="toggle-button"
             [value]="dept.id">{{ dept.name }}</mat-button-toggle>
     </mat-button-toggle-group>
     <ng-container *ngIf="selectedIndex !== -1; else pickSomething">

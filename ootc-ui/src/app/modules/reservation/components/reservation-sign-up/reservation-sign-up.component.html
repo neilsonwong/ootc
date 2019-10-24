@@ -4,13 +4,15 @@
         </app-upcoming-reservation-list>
     </ng-container>
     <h2>Sign Up</h2>
-    <div class="stand-alone-wide-box">
-        <app-department-spotlight
-            [departments]="departments"
-            (deptSelected)="onDeptSelected($event)">
-        </app-department-spotlight>
-        <app-reservation-sign-up-form
-            [department]="selectedDepartment">
-        </app-reservation-sign-up-form>
+    <div [class.sign-up-box-wrapper]="selectedDepartment">
+        <div class="sign-up-box stand-alone-wide-box">
+            <app-department-spotlight
+                [departments]="departments"
+                (deptSelected)="onDeptSelected($event)">
+            </app-department-spotlight>
+            <app-reservation-sign-up-form
+                [department]="selectedDepartment">
+            </app-reservation-sign-up-form>
+        </div>
     </div>
 </app-container>

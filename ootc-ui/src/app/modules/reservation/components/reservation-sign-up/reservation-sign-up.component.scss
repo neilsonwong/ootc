@@ -1,0 +1,5 @@
+.sign-up-box-wrapper {
+    // force the wrapper to have a large height so even if the list
+    // isn't long enough, the page doesnt move, when changing categories
+    min-height: 80vh;
+}
