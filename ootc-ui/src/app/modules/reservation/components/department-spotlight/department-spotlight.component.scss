@@ -1,3 +1,10 @@
+@import "~src/colours";
+
 .department-spotlight {
     margin-bottom: 1rem;
+}
+
+.mat-button-toggle-checked {
+    color: $light-text-colour;
+    background-color: $primary;
 }

@@ -1,9 +1,24 @@
 @import '~@angular/material/theming';
 
 $app-primary: mat-palette($mat-deep-purple);
-$app-accent:  mat-palette($mat-amber);
-$app-warn:    mat-palette($mat-red);
+$app-accent: mat-palette($mat-amber);
+$app-warn: mat-palette($mat-red);
 
 $primary: mat-color($app-primary);
 $accent: mat-color($app-accent);
 $warn: mat-color($app-warn);
+
+$light-text-colour: #ffffff;
+$very-light-text-colour: #aaaaaa;
+$semi-light-text-colour: #999999;
+$normal-text-colour: #616161;
+$dark-text-colour: #333333;
+
+$lightest-background: #ffffff;
+$light-background: #f5f5f5;
+$dark-background: #666666;
+$darkest-background: #000000;
+
+/* misc colours */
+$transparent: rgba(0,0,0,0);
+$heart-red: rgba(255, 0, 0, 0.75);

@@ -1,3 +1,5 @@
+@import "~src/colours";
+
 $smallTextSize: 0.8em;
 
 .login-form-container {
@@ -28,7 +30,7 @@ $smallTextSize: 0.8em;
 
         .errors {
             font-size: $smallTextSize;
-            color: red;
+            color: $warn;
         }
 
         .forgot-password {

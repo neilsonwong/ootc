@@ -1,3 +1,5 @@
+@import "~src/colours";
+
 .footer {
     /* center the text */
     text-align: center;
@@ -13,13 +15,13 @@
 
     /* font styles */
     font-size: 0.75rem;
-    color: #999;
+    color: $semi-light-text-colour;
 
     text-shadow: 0 0 2px #aaa;
 
     .heart {
         font-size: 1rem;
-        color: rgba(255, 0, 0, 0.75);
+        color: $heart-red;
     }
 
     .cross {

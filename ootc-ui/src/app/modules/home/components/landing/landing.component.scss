@@ -1,3 +1,5 @@
+@import "~src/colours";
+
 $bannerHeight: 425px;
 
 :host {
@@ -5,7 +7,7 @@ $bannerHeight: 425px;
 }
 
 h1 {
-    color: rgba(34,110,147,1);
+    color: $primary;
     font-size: 3em;
     font-weight: 300;
     letter-spacing: 0.5px;
@@ -37,7 +39,7 @@ h1 {
     }
 
     .landing-text {
-        color: white;
+        color: $light-text-colour;
         text-align: justify;
         line-height: 1.75em;
         padding-right: 3.25rem;
@@ -62,15 +64,14 @@ h1 {
 
 .landing-banner::after {
     content: 'I am smiling at you... do you see me? https://youtu.be/xpck4IdClZg';
-    color: rgba(0, 0, 0, 0);
+    color: $transparent;
     position: absolute;
     height: $bannerHeight;
     top: 0;
     left: 0;
     right: 0;
-    background-color: #000000;
+    background-color: $darkest-background;
     background-image: url('/assets/blackground.jpg');
-    // background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     opacity: 1;

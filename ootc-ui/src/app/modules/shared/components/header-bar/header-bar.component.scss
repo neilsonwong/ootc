@@ -1,3 +1,5 @@
+@import "~src/colours";
+
 .header {
     height: 4rem;
     padding: 0 1rem;
@@ -6,10 +8,10 @@
     align-items: center;
     justify-content: space-between;
 
-    background-color: #1976d2;
+    background-color: $primary;
     
     .title {
-        color: #ffffff;
+        color: $light-text-colour;
     }
 
     .navigation {
@@ -21,12 +23,12 @@
             padding-left: 1rem;
             a {
                 font-weight: 400;
-                color: #ffffff;
+                color: $light-text-colour;
             }
 
             &.highlight a,
             a:hover {
-                color: #aaaaaa;
+                color: $very-light-text-colour;
             }
 
             &:hover {
@@ -36,7 +38,7 @@
 
         .logout-box {
             margin-left: 1.5rem;
-            color: white;
+            color: $light-text-colour;
  
             .welcome-message::before {
                 content: '';
