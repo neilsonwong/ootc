@@ -2,9 +2,12 @@
     class="reservation-sign-up-form">
     <mat-selection-list #reservations>
         <mat-list-option *ngFor="let timeSlot of available"
+            class="reservation-sign-up-selection-item"
             [value]="timeSlot">
             <app-reservation-sign-up-line 
-                [timeSlot]="timeSlot">
+                [simple]="false"
+                [clear]="true"
+                [event]="timeSlot">
             </app-reservation-sign-up-line>
         </mat-list-option>
     </mat-selection-list>

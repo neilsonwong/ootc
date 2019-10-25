@@ -3,10 +3,9 @@
         <mat-card-title>{{ date | date:'fullDate' }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <div *ngFor="let reservation of reservations"
-            class="reservation-summary">
-            <div class="reservation-role">{{ reservation.desc }}</div>
-            <div class="reservation-start-time">{{ reservation.startTime }}</div>
-        </div>
+        <app-reservation-details *ngFor="let reservation of reservations"
+            [event]="reservation"
+            [simple]="true"
+            [clear]="false"></app-reservation-details>
     </mat-card-content>
 </mat-card>

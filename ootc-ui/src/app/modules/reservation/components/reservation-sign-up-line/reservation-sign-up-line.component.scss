@@ -1,24 +1,38 @@
+@import "~src/colours";
+
 .reservation-sign-up-line {
-    display: flex;
-    justify-content: flex-end;
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
 
-    .col-role {
-        flex-grow: 1;
+    background-color: $primary;
+    color: $light-text-colour;
+
+    // copy the shadow from mat card
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+
+    &.clear {
+        background: none;
+        color: $normal-text-colour;
+        box-shadow: none;
     }
 
-    .col-date {
-        width: 150px;
+    .line {
+        margin-bottom: 0.5rem;
     }
 
-    .col-time {
-        width: 200px;
+    .line:last-of-type {
+        margin-bottom: 0;
     }
 
-    .col-duration {
-        width: 100px;
+    .role-line {
+        font-size: 1.2em;
+        font-weight: 700;
     }
 
-    .col-spots {
-        width: 100px;
+    .time-details-line,
+    .additional-details-line {
+        display: flex;
+        justify-content: space-between;
     }
 }

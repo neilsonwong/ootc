@@ -3,7 +3,7 @@
         <mat-selection-list #reservationList>
             <mat-list-option *ngFor="let reservation of reservations"
                 [value]="reservation">
-                <app-reservation-details [reservation]="reservation">
+                <app-reservation-details [event]="reservation">
                 </app-reservation-details>
             </mat-list-option>
         </mat-selection-list>

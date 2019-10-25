@@ -1,7 +1,13 @@
-<div class="reservation-sign-up-line">
-    <div class="col-role">{{ timeSlot.desc }}</div>
-    <div class="col-date">{{ timeSlot.startDate }}</div>
-    <div class="col-time">{{ startTime }} - {{ endTime }}</div>
-    <div class="col-duration">{{ duration }}</div>
-    <div class="col-spots">{{ spotsLeft }} spots left</div>
+<div class="reservation-sign-up-line"
+    [class.clear]="clear">
+
+    <div class="role-line line">{{ desc }}</div>
+    <div class="time-details-line line">
+        <div class="date">{{ startDate | date:'fullDate' }}</div>
+        <div class="time">{{ startTime }} - {{ endTime }}</div>
+    </div>
+    <div class="additional-details-line line">
+        <div class="duration">{{ duration }}</div>
+        <div class="spots">{{ spotsLeft }} spots left</div>
+    </div>
 </div>

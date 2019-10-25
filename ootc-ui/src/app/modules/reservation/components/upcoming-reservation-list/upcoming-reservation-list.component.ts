@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ReservationView } from 'src/app/models/ReservationView';
-import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
 
 interface GroupedReservations { [s: string]: ReservationView[]; }
 
@@ -36,13 +35,8 @@ export class UpcomingReservationListComponent implements OnInit {
     }
 
     for (const day of this.dayList) {
-      console.log(day)
       this.days[day] = this.days[day]
-        .sort((a,b) => (a.startTime.localeCompare(b.startTime)))
-        .map((r: ReservationView) => {
-          r.startTime = reservationDisplayUtils.to12HourClock(r.startTime);
-          return r;
-        });
+        .sort((a,b) => (a.startTime.localeCompare(b.startTime)));
     }
     console.log(this.dayList);
     console.log(this.days);
