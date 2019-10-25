@@ -8,15 +8,44 @@
     background-color: $primary;
     color: $light-text-colour;
 
-    &.clear {
-        background-color: $lightest-background;
-        color: $normal-text-colour;
-    }
-
     // copy the shadow from mat card
     box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
 
+    &.clear {
+        background: none;
+        color: $normal-text-colour;
+        box-shadow: none;
+    }
+
+    &.embedded {
+        padding: 0;;
+    }
+
+    .line {
+        margin-bottom: 0.5rem;
+    }
+
+    .line:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .role-line {
+        font-size: 1.2em;
+        font-weight: 700;
+    }
+
+    .time-details-line,
+    .additional-details-line {
+        display: flex;
+        justify-content: space-between;
+    }
+
     &.simple {
+        .role-line {
+            font-size: 1em;
+            font-weight: 400;
+        }
+
         .role {
             margin-bottom: 0.5rem;
         }

@@ -6,6 +6,7 @@ export class EventDetailsComponent implements OnInit {
   @Input() event: IEvent;
   @Input() simple?: boolean;
   @Input() clear?: boolean;
+  @Input() embedded?: boolean;
 
   public startDate: string;
   public startTime: string;

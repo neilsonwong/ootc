@@ -5,11 +5,14 @@
             class="reservation-sign-up-selection-item"
             color="primary"
             [value]="timeSlot">
-            <app-reservation-sign-up-line 
-                [simple]="false"
-                [clear]="true"
-                [event]="timeSlot">
-            </app-reservation-sign-up-line>
+            <div class="pad-wrap">
+                <app-reservation-sign-up-line 
+                    [simple]="false"
+                    [clear]="true"
+                    [embedded]="true"
+                    [event]="timeSlot">
+                </app-reservation-sign-up-line>
+            </div>
         </mat-list-option>
     </mat-selection-list>
     <div class="button-bar">

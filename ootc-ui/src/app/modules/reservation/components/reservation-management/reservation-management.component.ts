@@ -14,7 +14,6 @@ import { forkJoin } from 'rxjs';
 export class ReservationManagementComponent implements OnInit {
   reservations: ReservationView[];
 
-  @ViewChild('reservationList', {static: false}) reservationList: MatSelectionList;
 
   constructor(private reservationService: ReservationService) { }
 
@@ -29,20 +28,16 @@ export class ReservationManagementComponent implements OnInit {
       });
   }
 
-  clearSelected(): void {
-    this.reservationList.deselectAll();
-  }
-
   cancelSelected() {
     // TODO: pop a modal 
 
-    const newReservationsReqs = this.reservationList.selectedOptions.selected.map(o => {
-      const reservation: ReservationView = <ReservationView> o.value;
-      return this.reservationService.cancelReservation(reservation.id);
-    });
+    // const newReservationsReqs = this.reservationList.selectedOptions.selected.map(o => {
+    //   const reservation: ReservationView = <ReservationView> o.value;
+    //   return this.reservationService.cancelReservation(reservation.id);
+    // });
 
-    forkJoin(newReservationsReqs).subscribe(results => {
-      console.log(results);
-    });    
+    // forkJoin(newReservationsReqs).subscribe(results => {
+    //   console.log(results);
+    // });    
   }
 }

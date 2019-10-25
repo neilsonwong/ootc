@@ -17,6 +17,10 @@
         box-shadow: none;
     }
 
+    &.embedded {
+        padding: 0;;
+    }
+
     .line {
         margin-bottom: 0.5rem;
     }

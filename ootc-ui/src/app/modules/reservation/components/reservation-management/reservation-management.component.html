@@ -1,15 +1,20 @@
 <app-container>
+    <h2>My Reservations</h2>
     <div class="reservation-list stand-alone-wide-box">
-        <mat-selection-list #reservationList>
-            <mat-list-option *ngFor="let reservation of reservations"
-                [value]="reservation">
-                <app-reservation-details [event]="reservation">
-                </app-reservation-details>
-            </mat-list-option>
-        </mat-selection-list>
-        <div class="button-bar">
-            <button mat-raised-button color="accent" type="button" (click)="clearSelected()">Clear</button>
-            <button mat-raised-button color="warn" type="button" (click)="cancelSelected()">Cancel</button>
-        </div>
+        <mat-list #reservationList>
+            <mat-list-item *ngFor="let reservation of reservations"
+                class="reservation-list-item">
+                <div class="reservation-list-item-inner-wrapper">
+                    <app-reservation-details
+                        [event]="reservation"
+                        [embedded]="true"
+                        [clear]="true">
+                    </app-reservation-details>
+                    <div class="button-bar">
+                        <button mat-raised-button color="warn" type="button" (click)="cancelSelected()">Cancel</button>
+                    </div>
+                </div>
+            </mat-list-item>
+        </mat-list>
     </div>
 </app-container>
