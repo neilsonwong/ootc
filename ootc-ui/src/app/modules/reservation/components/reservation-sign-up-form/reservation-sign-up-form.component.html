@@ -3,6 +3,7 @@
     <mat-selection-list #reservations>
         <mat-list-option *ngFor="let timeSlot of available"
             class="reservation-sign-up-selection-item"
+            color="primary"
             [value]="timeSlot">
             <app-reservation-sign-up-line 
                 [simple]="false"

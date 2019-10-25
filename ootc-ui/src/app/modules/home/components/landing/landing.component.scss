@@ -82,9 +82,10 @@ $bannerHeight: 425px;
 
 .landing-page-intro {
     margin-top: $bannerHeight;
+    line-height: 1.75em;
 
     .description {
-        line-height: 1.75em;
+        margin-bottom: 2rem;
     }
 
     .pad-right {
