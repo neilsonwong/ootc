@@ -23,6 +23,5 @@ export class ReservationSignUpLineComponent extends EventDetailsComponent implem
     this.timeSlot = this.event as TimeSlotView;
     this.spotsLeft = this.timeSlot.signUpCap - this.timeSlot.reserved;
     this.endTime = reservationDisplayUtils.getEndTime(this.timeSlot.startDate, this.timeSlot.startTime, this.timeSlot.duration);
-    console.log(this.clear)
   }
 }

@@ -38,8 +38,6 @@ export class UpcomingReservationListComponent implements OnInit {
       this.days[day] = this.days[day]
         .sort((a,b) => (a.startTime.localeCompare(b.startTime)));
     }
-    console.log(this.dayList);
-    console.log(this.days);
   }
 }
 

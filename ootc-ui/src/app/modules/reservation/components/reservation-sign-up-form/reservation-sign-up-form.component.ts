@@ -11,6 +11,7 @@ import { ReservationService } from 'src/app/services/reservation.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
+import { map } from 'rxjs/operators';
 
 const twoMonthsInMillis = 60*60*24*60*1000;
 
@@ -71,7 +72,10 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   private getAvailableTimeSlots(): void {
     this.scheduleService.getTimeSlots(this.department.id, this.startDate, this.endDate)
       .subscribe((timeSlots: TimeSlotView[]) => {
-        this.available = timeSlots;
+        this.available = timeSlots.map((timeSlotView: TimeSlotView) => {
+          timeSlotView.hasSpace = timeSlotView.reserved < timeSlotView.signUpCap;
+          return timeSlotView;
+        });
       });
   }
 }

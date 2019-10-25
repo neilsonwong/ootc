@@ -11,7 +11,7 @@
                         [clear]="true">
                     </app-reservation-details>
                     <div class="button-bar">
-                        <button mat-raised-button color="warn" type="button" (click)="cancelSelected()">Cancel</button>
+                        <button mat-raised-button color="warn" type="button" (click)="onCancel(reservation.id)">Cancel</button>
                     </div>
                 </div>
             </mat-list-item>

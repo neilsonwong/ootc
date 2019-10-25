@@ -28,16 +28,9 @@ export class ReservationManagementComponent implements OnInit {
       });
   }
 
-  cancelSelected() {
+  onCancel(reservationId: number) {
     // TODO: pop a modal 
 
-    // const newReservationsReqs = this.reservationList.selectedOptions.selected.map(o => {
-    //   const reservation: ReservationView = <ReservationView> o.value;
-    //   return this.reservationService.cancelReservation(reservation.id);
-    // });
-
-    // forkJoin(newReservationsReqs).subscribe(results => {
-    //   console.log(results);
-    // });    
+    return this.reservationService.cancelReservation(reservationId).subscribe();
   }
 }

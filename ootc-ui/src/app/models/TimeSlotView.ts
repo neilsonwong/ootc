@@ -7,6 +7,7 @@ export class TimeSlotView {
     reserved: number;
     signUpCap: number;
     desc: string;
+    hasSpace?: boolean;
 
     constructor (
         id: number,

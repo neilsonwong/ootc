@@ -4,6 +4,8 @@
         <mat-list-option *ngFor="let timeSlot of available"
             class="reservation-sign-up-selection-item"
             color="primary"
+            [disabled]="timeSlot.hasSpace === false"
+            [class.disabled]="timeSlot.hasSpace === false"
             [value]="timeSlot">
             <div class="pad-wrap">
                 <app-reservation-sign-up-line 
