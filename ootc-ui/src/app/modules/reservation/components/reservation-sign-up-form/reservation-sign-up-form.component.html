@@ -17,6 +17,7 @@
     </mat-selection-list>
     <div class="button-bar">
         <button mat-raised-button color="accent" type="button" (click)="clearSelected()">Clear</button>
-        <button mat-raised-button color="primary" type="button" (click)="reserveSelected()">Reserve</button>
+        <button mat-raised-button color="primary" type="button" (click)="reserveSelected()"
+            [disabled]="reservations.selectedOptions.selected.length === 0">Reserve</button>
     </div>
 </div>
