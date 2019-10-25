@@ -6,16 +6,8 @@
 }
 
 .emoji {
-    font-family: 'Roboto Mono', monospace;
-    font-size: 7rem;
     text-align: right;
-    color: $semi-light-text-colour;
-
     margin-top: 1rem;
-
-    &.long {
-        font-size: 5rem;
-    }
 }
 
 .message {

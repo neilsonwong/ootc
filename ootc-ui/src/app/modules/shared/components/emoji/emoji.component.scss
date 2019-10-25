@@ -1,0 +1,11 @@
+@import "~src/colours";
+
+.emoji {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 7rem;
+    color: $semi-light-text-colour;
+
+    &.long {
+        font-size: 5rem;
+    }
+}
