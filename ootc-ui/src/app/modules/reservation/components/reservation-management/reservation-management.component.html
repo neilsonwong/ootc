@@ -1,7 +1,8 @@
 <app-container>
     <h2>My Reservations</h2>
     <div class="reservation-list stand-alone-wide-box">
-        <mat-list #reservationList>
+        <mat-list #reservationList
+            [class.hidden]="reservations && reservations.length > 0">
             <mat-list-item *ngFor="let reservation of reservations"
                 class="reservation-list-item">
                 <div class="reservation-list-item-inner-wrapper">
@@ -16,5 +17,9 @@
                 </div>
             </mat-list-item>
         </mat-list>
+        <div *ngIf="!reservations || reservations.length === 0"
+            class="no-reservations-desc">
+            <app-emoji-text text="You haven't signed up for anything yet!"></app-emoji-text>
+        </div>
     </div>
 </app-container>

@@ -7,14 +7,12 @@
             [disabled]="timeSlot.hasSpace === false"
             [class.disabled]="timeSlot.hasSpace === false"
             [value]="timeSlot">
-            <div class="pad-wrap">
-                <app-reservation-sign-up-line 
-                    [simple]="false"
-                    [clear]="true"
-                    [embedded]="true"
-                    [event]="timeSlot">
-                </app-reservation-sign-up-line>
-            </div>
+            <app-reservation-sign-up-line 
+                [simple]="false"
+                [clear]="true"
+                [embedded]="true"
+                [event]="timeSlot">
+            </app-reservation-sign-up-line>
         </mat-list-option>
     </mat-selection-list>
     <div class="button-bar">

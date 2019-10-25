@@ -1,5 +1,9 @@
 @import "~src/colours";
 
+:host {
+    width: 100%;
+}
+
 .emoji-text-container {
     display: flex;
     flex-direction: column;
@@ -14,7 +18,4 @@
     padding-left: 1rem;
     font-size: 2rem;
     color: $normal-text-colour;
-
-    line-height: 21px;
-    margin-top: 60px;
 }
