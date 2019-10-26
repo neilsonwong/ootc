@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material';
 
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -29,7 +30,8 @@ import { ReservationFullDetailsComponent } from './components/reservation-full-d
   imports: [
     CommonModule,
     SharedModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    MatTableModule
   ]
 })
 export class AdminModule { }
