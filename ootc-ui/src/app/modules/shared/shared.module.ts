@@ -10,12 +10,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
 import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
 import { AppContainerComponent } from './components/app-container/app-container.component';
 import { EmojiTextComponent } from './components/emoji-text/emoji-text.component';
 import { EmojiComponent } from './components/emoji/emoji.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { EmojiComponent } from './components/emoji/emoji.component';
     AppContainerComponent,
     EmojiTextComponent,
     EmojiComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -35,11 +38,12 @@ import { EmojiComponent } from './components/emoji/emoji.component';
     MatListModule,
     MatButtonToggleModule,
     MatCardModule,
+    MatDialogModule,
   ],
   exports: [
     AppContainerComponent,
     EmojiTextComponent,
-    EmojiComponent,
+    ConfirmationDialogComponent,
 
     // re-export ng stuff that we don't wanna import everywhere
     ReactiveFormsModule,
@@ -49,7 +53,11 @@ import { EmojiComponent } from './components/emoji/emoji.component';
     MatListModule,
     MatButtonToggleModule,
     MatCardModule,
+    MatDialogModule,
     RouterModule,
+  ],
+  entryComponents: [
+    ConfirmationDialogComponent
   ]
 })
 export class SharedModule { }
