@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-emoji',
@@ -9,7 +9,8 @@ export class EmojiComponent implements OnInit {
   public face: string;
   private emojis = [
     `(* ^ ω ^)`, `(´ ∀ \` *)`, `(´｡•ω•｡\`)`, `(◕‿◕)`,
-    `(ノ*°▽°*)`, `\(^Д^)/`, `(>_<)`, `(^-^*)`
+    `(ノ*°▽°*)`, `\\(^Д^)/`, `ヽ(*・ω・)ﾉ`, `(^-^*)`,
+    `\\(★ω★)/`, `ヽ(°〇°)ﾉ`, `(´• ω •\`)ﾉ`, `(つ✧ω✧)つ`
   ];
 
   constructor() { }

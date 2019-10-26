@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ActivatedRoute } from '@angular/router';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-change-password',
@@ -12,6 +13,7 @@ export class ChangePasswordComponent implements OnInit {
   public changePasswordForm: FormGroup;
   public passwordChanged: boolean = false;
   public email: string;
+  public error: string;
 
   private resetCode: string;
 
@@ -46,6 +48,16 @@ export class ChangePasswordComponent implements OnInit {
       this.changePasswordForm.get('newPassword').value)
       .subscribe((data) => {
         this.passwordChanged = true;
-      });
+      },
+      catchError((error) => {
+        console.log('we are here');
+        if (this.resetCode) {
+          this.error = 'Unable to change password. Has this link already been used?';
+        }
+        else {
+          this.error = 'Unable to change password. Is your password correct?';
+        }
+        return error;
+      }));
   }
 }

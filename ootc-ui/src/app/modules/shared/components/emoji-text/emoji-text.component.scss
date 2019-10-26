@@ -19,3 +19,21 @@
     font-size: 2rem;
     color: $normal-text-colour;
 }
+
+.thin {
+    display: flex;
+
+    .message {
+        padding-left: 0;
+        font-size: 1rem;
+    }
+
+    .emoji {
+        text-align: right;
+        margin-top: 2rem;
+    }
+
+    .emoji {
+        text-align: center;
+    }
+}
