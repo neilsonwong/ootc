@@ -9,6 +9,7 @@
     </div>
     <div class="additional-details-line line">
         <div class="duration">{{ duration }}</div>
-        <div class="spots">{{ spotsLeft }} spots left</div>
+        <div class="spots"
+            [class.last-few]="spotsLeft < 4">{{ spotsLeft }} spots left</div>
     </div>
 </div>
