@@ -8,8 +8,8 @@
         <div class="time">{{ startTime }} - {{ endTime }}</div>
     </div>
     <div class="additional-details-line line">
-        <div class="duration">{{ duration }}</div>
+        <div class="duration">{{ duration | i18nPlural: durationPluralMapping }}</div>
         <div class="spots"
-            [class.last-few]="spotsLeft < 4">{{ spotsLeft }} spots left</div>
+            [class.last-few]="spotsLeft < 4">{{ spotsLeft | i18nPlural: spotsPluralMapping }}</div>
     </div>
 </div>

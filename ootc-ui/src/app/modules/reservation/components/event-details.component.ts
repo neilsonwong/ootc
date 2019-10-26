@@ -12,7 +12,13 @@ export class EventDetailsComponent implements OnInit {
   public startTime: string;
   public endTime: string;
   public desc: string;
-  public duration: string ;
+  public duration: number;
+
+  public durationPluralMapping = {
+    '=0.5':'30 mins',
+    '=1': '1 hour',
+    'other': '# hours',
+  };
 
   constructor() { }
   
@@ -21,6 +27,6 @@ export class EventDetailsComponent implements OnInit {
     this.startTime = reservationDisplayUtils.to12HourClock(this.event.startTime);
     this.endTime = reservationDisplayUtils.getEndTime(this.event.startDate, this.event.startTime, this.event.duration);
     this.desc = this.event.desc;
-    this.duration = reservationDisplayUtils.minutesToHourString(this.event.duration);
+    this.duration = this.event.duration / 60;
   }
 }

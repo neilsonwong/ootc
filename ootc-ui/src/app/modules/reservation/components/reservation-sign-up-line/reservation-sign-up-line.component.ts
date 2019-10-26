@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
 import { EventDetailsComponent } from '../event-details.component';
+import { I18nPluralPipe } from '@angular/common';
 
 @Component({
   selector: 'app-reservation-sign-up-line',
@@ -11,8 +12,13 @@ import { EventDetailsComponent } from '../event-details.component';
 
 export class ReservationSignUpLineComponent extends EventDetailsComponent implements OnInit{
   private timeSlot: TimeSlotView;
+
   public endTime: string;
   public spotsLeft: number;
+  public spotsPluralMapping = {
+    '=1': '1 spot left',
+    'other': '# spots left',
+  };
 
   constructor() {
     super();
