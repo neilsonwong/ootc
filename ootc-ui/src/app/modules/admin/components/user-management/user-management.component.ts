@@ -14,7 +14,7 @@ export class UserManagementComponent implements OnInit {
   ngOnInit() {
   }
 
-  displayedColumns: string[] = ['position', 'name'];
+  displayedColumns: string[] = ['id', 'email', 'fname', 'mname', 'lname', 'phone', 'age'];
   dataSource = new MatTableDataSource(Users);
 
   applyFilter(filterValue: string) {
