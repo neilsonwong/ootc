@@ -12,6 +12,7 @@ import { DepartmentSpotlightComponent } from './components/department-spotlight/
 import { ReservationSignUpFormComponent } from './components/reservation-sign-up-form/reservation-sign-up-form.component';
 import { ReservationSignUpLineComponent } from './components/reservation-sign-up-line/reservation-sign-up-line.component';
 import { UpcomingReservationCardComponent } from './components/upcoming-reservation-card/upcoming-reservation-card.component';
+import { AvailabilityCheckDirective } from './directives/availability-check.directive';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UpcomingReservationCardComponent } from './components/upcoming-reservat
     DepartmentSpotlightComponent,
     ReservationSignUpFormComponent,
     ReservationSignUpLineComponent,
-    UpcomingReservationCardComponent
+    UpcomingReservationCardComponent,
+    AvailabilityCheckDirective
   ],
   imports: [
     CommonModule,

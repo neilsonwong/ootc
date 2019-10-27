@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ReservationView } from 'src/app/models/ReservationView';
-
-interface GroupedReservations { [s: string]: ReservationView[]; }
+import { IGroupedReservations } from 'src/app/interfaces/IGroupedReservations';
 
 @Component({
   selector: 'app-upcoming-reservation-list',
@@ -12,7 +11,7 @@ export class UpcomingReservationListComponent implements OnInit {
   @Input() reservations: ReservationView[];
 
   public dayList: string[];
-  public days: GroupedReservations;
+  public days: IGroupedReservations;
 
   constructor() {
   }

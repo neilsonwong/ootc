@@ -11,7 +11,8 @@ import { ReservationService } from 'src/app/services/reservation.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
-import { map } from 'rxjs/operators';
+import { ReservationView } from 'src/app/models/ReservationView';
+import { IGroupedBlockedTimes } from 'src/app/interfaces/IGroupedBlockedTimes';
 
 const twoMonthsInMillis = 60*60*24*60*1000;
 
@@ -22,14 +23,16 @@ const twoMonthsInMillis = 60*60*24*60*1000;
 })
 export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   @Input() department: Department;
+  @Input() reservations: ReservationView[];
 
-  @ViewChild('reservations', {static: false}) reservations: MatSelectionList;
-  
+  @ViewChild('timeSlots', {static: false}) timeSlots: MatSelectionList;
+
   private startDate: string;
   private endDate: string;
   private userId: string;
 
   public available: TimeSlotView[];
+  public blocked: IGroupedBlockedTimes = {};
 
   constructor(private reservationService: ReservationService,
     private scheduleService: ScheduleService,
@@ -50,15 +53,16 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.department !== undefined) {
       this.getAvailableTimeSlots();
+      this.initBlocked();
     }
   }
 
   clearSelected(): void {
-    this.reservations.deselectAll();
+    this.timeSlots.deselectAll();
   }
 
   reserveSelected() {
-    const newReservationsReqs = this.reservations.selectedOptions.selected.map(o => {
+    const newReservationsReqs = this.timeSlots.selectedOptions.selected.map(o => {
       const timeSlot: TimeSlotView = <TimeSlotView> o.value;
       const reservation = new Reservation(undefined, this.userId, timeSlot.id, false);
       return this.reservationService.addReservation(reservation);
@@ -66,7 +70,7 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
 
     forkJoin(newReservationsReqs).subscribe(results => {
       console.log(results);
-    });    
+    });
   }
 
   private getAvailableTimeSlots(): void {
@@ -77,5 +81,20 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
           return timeSlotView;
         });
       });
+  }
+
+  private initBlocked() {
+    if (this.reservations) {
+      for(const reservation of this.reservations) {
+        if (this.blocked[reservation.startDate] === undefined) {
+          this.blocked[reservation.startDate] = [];
+        }
+  
+        this.blocked[reservation.startDate].push({
+          startTime: reservationDisplayUtils.getDateTime(reservation.startDate, reservation.startTime),
+          endTime: reservationDisplayUtils.getDateTime(reservation.startDate, reservation.startTime, reservation.duration)
+        });
+      }
+    }
   }
 }

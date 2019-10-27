@@ -12,6 +12,7 @@
                 (deptSelected)="onDeptSelected($event)">
             </app-department-spotlight>
             <app-reservation-sign-up-form
+                [reservations]="reservations"
                 [department]="selectedDepartment">
             </app-reservation-sign-up-form>
         </div>
