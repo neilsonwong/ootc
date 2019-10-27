@@ -5,13 +5,13 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/User';
 
 interface UserTableData {
-  id: string;
   email: string;
   fname: string;
-  mname: string;
   lname: string;
   phone: number;
   age: number;
+  experience: number;
+  //isAdmin: boolean;
 }
 
 @Component({
@@ -30,7 +30,7 @@ export class UserManagementComponent implements OnInit {
     this.getAllUsers();
   }
 
-  displayedColumns: string[] = ['id', 'email', 'fname', 'mname', 'lname', 'phone', 'age'];
+  displayedColumns: string[] = ['lname', 'email', 'fname', 'phone', 'age', 'experience', 'isAdmin'];
   dataSource = new MatTableDataSource(Users);
 
   applyFilter(filterValue: string) {
@@ -42,13 +42,13 @@ export class UserManagementComponent implements OnInit {
       this.users = users;
       this.usersData = users.map((user: User) => {
         return {
-          id: user.id,
           email: user.email,
           fname: user.fname,
-          mname: user.mname,
           lname: user.lname,
           phone: user.phone,
           age: user.age,
+          experience: user.experience,
+          //isAdmin: user.isAdmin
       }});
       console.log(this.usersData);
       console.log(Users)
