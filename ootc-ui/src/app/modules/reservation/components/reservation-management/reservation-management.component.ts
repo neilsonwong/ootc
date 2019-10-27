@@ -37,9 +37,7 @@ export class ReservationManagementComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       if (result === true) {
-        console.log('we are cancelling')
         this.reservationService.cancelReservation(reservationId).subscribe();
       }
     });

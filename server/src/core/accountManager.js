@@ -150,7 +150,15 @@ async function setupEmailValidation(userId) {
 }
 
 async function listUsers() {
-
+    try {
+        const users = await db.users.listUsers();
+        return users;
+    }
+    catch(e) {
+       logger.error(`an error occurred when getting a list of all the users`);
+       logger.error(e);
+    }
+    return false;
 }
 
 async function updateUser() {
