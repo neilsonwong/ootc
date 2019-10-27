@@ -1,10 +1,8 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { ReservationService } from 'src/app/services/reservation.service';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ReservationView } from 'src/app/models/ReservationView';
-import { MatSelectionList } from '@angular/material/list';
-import { TimeSlotView } from 'src/app/models/TimeSlotView';
-import { Reservation } from 'src/app/models/Reservation';
-import { forkJoin } from 'rxjs';
+import { ConfirmationDialogComponent } from 'src/app/modules/shared/components/confirmation-dialog/confirmation-dialog.component';
+import { ReservationService } from 'src/app/services/reservation.service';
 
 @Component({
   selector: 'app-reservation-management',
@@ -15,7 +13,8 @@ export class ReservationManagementComponent implements OnInit {
   reservations: ReservationView[];
 
 
-  constructor(private reservationService: ReservationService) { }
+  constructor(private reservationService: ReservationService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getReservations();
@@ -29,8 +28,20 @@ export class ReservationManagementComponent implements OnInit {
   }
 
   onCancel(reservationId: number) {
-    // TODO: pop a modal 
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'Cancel Reservation',
+        text: 'Are you sure you want to cancel this reservation?',
+        yesNo: true
+      }
+    });
 
-    return this.reservationService.cancelReservation(reservationId).subscribe();
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result === true) {
+        console.log('we are cancelling')
+        this.reservationService.cancelReservation(reservationId).subscribe();
+      }
+    });
   }
 }
