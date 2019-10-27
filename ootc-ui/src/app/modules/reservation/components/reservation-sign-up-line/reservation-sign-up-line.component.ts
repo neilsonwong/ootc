@@ -15,18 +15,20 @@ export class ReservationSignUpLineComponent extends EventDetailsComponent implem
 
   public endTime: string;
   public spotsLeft: number;
+  public totalSpots: number;
   public spotsPluralMapping = {
-    '=1': '1 spot left',
-    'other': '# spots left',
+    '=1': 'spot left',
+    'other': 'spots left',
   };
 
   constructor() {
     super();
-  }getEndTimeString
+  }
 
   ngOnInit() {
     super.ngOnInit();
     this.timeSlot = this.event as TimeSlotView;
+    this.totalSpots = this.timeSlot.signUpCap;
     this.spotsLeft = this.timeSlot.signUpCap - this.timeSlot.reserved;
     this.endTime = reservationDisplayUtils.getEndTimeString(this.timeSlot.startDate, this.timeSlot.startTime, this.timeSlot.duration);
   }

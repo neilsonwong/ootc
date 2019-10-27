@@ -10,6 +10,6 @@
     <div class="additional-details-line line">
         <div class="duration">{{ duration | i18nPlural: durationPluralMapping }}</div>
         <div class="spots"
-            [class.last-few]="spotsLeft < 4">{{ spotsLeft | i18nPlural: spotsPluralMapping }}</div>
+            [class.last-few]="spotsLeft < 4">{{ spotsLeft }}/{{ totalSpots }} {{ spotsLeft | i18nPlural: spotsPluralMapping }}</div>
     </div>
 </div>
