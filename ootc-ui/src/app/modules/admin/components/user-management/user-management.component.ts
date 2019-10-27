@@ -4,6 +4,16 @@ import { Users } from '../user-list/user-list.component';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/User';
 
+interface UserTableData {
+  email: string;
+  fname: string;
+  lname: string;
+  phone: number;
+  age: number;
+  experience: number;
+  //isAdmin: boolean;
+}
+
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
@@ -11,7 +21,8 @@ import { User } from 'src/app/models/User';
 })
 export class UserManagementComponent implements OnInit {
 
-  public users: User[];
+  private users: User[];
+  public usersData: UserTableData[];
 
   constructor(private userService: UserService) { }
 
@@ -19,7 +30,7 @@ export class UserManagementComponent implements OnInit {
     this.getAllUsers();
   }
 
-  displayedColumns: string[] = ['position', 'name'];
+  displayedColumns: string[] = ['lname', 'email', 'fname', 'phone', 'age', 'experience', 'isAdmin'];
   dataSource = new MatTableDataSource(Users);
 
   applyFilter(filterValue: string) {
@@ -29,7 +40,18 @@ export class UserManagementComponent implements OnInit {
   private getAllUsers() {
     this.userService.getAllUsers().subscribe((users: User[]) => {
       this.users = users;
-      console.log(this.users);
+      this.usersData = users.map((user: User) => {
+        return {
+          email: user.email,
+          fname: user.fname,
+          lname: user.lname,
+          phone: user.phone,
+          age: user.age,
+          experience: user.experience,
+          //isAdmin: user.isAdmin
+      }});
+      console.log(this.usersData);
+      console.log(Users)
     });
   }
 }

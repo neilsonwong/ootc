@@ -14,6 +14,7 @@ import { AddTimeSlotDefComponent } from './components/add-time-slot-def/add-time
 import { TimeSlotDefDetailsComponent } from './components/time-slot-def-details/time-slot-def-details.component';
 import { TimeSlotDetailsComponent } from './components/time-slot-details/time-slot-details.component';
 import { ReservationFullDetailsComponent } from './components/reservation-full-details/reservation-full-details.component';
+import { UserUpdateDialogComponent } from './components/user-update-dialog/user-update-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ReservationFullDetailsComponent } from './components/reservation-full-d
     AddTimeSlotDefComponent,
     TimeSlotDefDetailsComponent,
     TimeSlotDetailsComponent,
-    ReservationFullDetailsComponent
+    ReservationFullDetailsComponent,
+    UserUpdateDialogComponent
   ],
   imports: [
     CommonModule,
