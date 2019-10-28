@@ -1,6 +1,7 @@
 <div *ngIf="department"
     class="reservation-sign-up-form">
-    <mat-selection-list #timeSlots>
+    <mat-selection-list #timeSlots
+        (selectionChange)="onSelectionChange($event)">
         <mat-list-option *ngFor="let timeSlot of available"
             appAvailabilityCheck
             class="reservation-sign-up-selection-item"

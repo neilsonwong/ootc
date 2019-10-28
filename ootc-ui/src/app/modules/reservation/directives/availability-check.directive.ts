@@ -16,9 +16,12 @@ export class AvailabilityCheckDirective implements OnChanges {
   constructor(@Host() private hostInput: MatListOption) { }
 
   ngOnChanges(): void {
-    this.setDisabled(
-      (this.value.hasSpace === false) ||
-      this.isBusy());
+    // don't disable a live checkbox
+    if (this.hostInput.selected === false) {
+      this.setDisabled(
+        (this.value.hasSpace === false) ||
+        this.isBusy());
+    }
   }
 
   private isBusy(): boolean {

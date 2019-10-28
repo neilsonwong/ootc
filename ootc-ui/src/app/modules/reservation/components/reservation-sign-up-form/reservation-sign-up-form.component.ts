@@ -1,18 +1,20 @@
 import { Component, OnInit, Input, OnChanges, ViewChild } from '@angular/core';
-import { MatSelectionList } from '@angular/material/list';
+import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
 import { forkJoin } from 'rxjs';
 
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
 import { Department } from 'src/app/models/Department';
 import { Reservation } from 'src/app/models/Reservation';
+import { ReservationView } from 'src/app/models/ReservationView';
+
+import { IGroupedBlockedTimes } from 'src/app/interfaces/IGroupedBlockedTimes';
+import { IBlockedTime } from 'src/app/interfaces/IBlockedTime';
 
 import { ScheduleService } from 'src/app/services/schedule.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
-import { ReservationView } from 'src/app/models/ReservationView';
-import { IGroupedBlockedTimes } from 'src/app/interfaces/IGroupedBlockedTimes';
 
 const twoMonthsInMillis = 60*60*24*60*1000;
 
@@ -34,7 +36,8 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   public available: TimeSlotView[];
   public blocked: IGroupedBlockedTimes = {};
 
-  constructor(private reservationService: ReservationService,
+  constructor(
+    private reservationService: ReservationService,
     private scheduleService: ScheduleService,
     private authService: AuthenticationService) { }
 
@@ -96,5 +99,35 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
         });
       }
     }
+  }
+
+  onSelectionChange(event: MatSelectionListChange) {
+    const timeSlot: TimeSlotView = event.option.value;
+    if (event.option.selected) {
+      this.addBlocked(timeSlot);
+    }
+    else {
+      this.removeBlocked(timeSlot);
+    }
+  }
+
+  private addBlocked(timeSlot: TimeSlotView): void {
+    if (this.blocked[timeSlot.startDate] === undefined) {
+      this.blocked[timeSlot.startDate] = [];
+    }
+
+    const temp: IBlockedTime[] = [...this.blocked[timeSlot.startDate]];
+    temp.push({
+      startTime: reservationDisplayUtils.getDateTime(timeSlot.startDate, timeSlot.startTime),
+      endTime: reservationDisplayUtils.getDateTime(timeSlot.startDate, timeSlot.startTime, timeSlot.duration),
+      timeSlotId: timeSlot.id,
+    });
+    this.blocked[timeSlot.startDate] = temp;
+  }
+
+  private removeBlocked(timeSlot: TimeSlotView): void {
+    this.blocked[timeSlot.startDate] = this.blocked[timeSlot.startDate].filter((e: IBlockedTime) => {
+      return (e.timeSlotId !== timeSlot.id);
+    });
   }
 }
