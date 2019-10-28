@@ -19,12 +19,12 @@ async function isValidAdmin(userId, password) {
 }
 
 async function isValidUser(userId, password) {
-    const pwHash = await db.passwords.getPassword(userId);
+    const pwHash = await db.passwords.getPassword(userId) || '';
     try {
         return await bcrypt.compare(password, pwHash);
     }
     catch(e) {
-        logger.error('an error occured when validating user');
+        logger.error(`an error occured when validating user: ${userId}`);
         logger.error(e);
     }
     return false;

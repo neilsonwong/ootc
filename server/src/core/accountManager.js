@@ -222,7 +222,7 @@ async function setupDefaultUsers() {
             for (const user of default_users.users) {
                 // check if user is set up
                 if (!(await userExists(user.email))) {
-                    if (await createUser(user, user.password)) {
+                    if (await register(user, user.password)) {
                         logger.info(`created user with username ${user.email}`);
                     }
                 }
