@@ -24,5 +24,14 @@
 }
 
 .disabled {
-    opacity: 0.5;
+    opacity: 0.25;
+    // display: none !important;
+}
+
+.role-filter {
+    width: 100%;
+}
+
+.role-filter-container {
+    text-align: right;
 }

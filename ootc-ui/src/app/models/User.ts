@@ -8,7 +8,7 @@ export class User {
   age: number;
   experience: number;
   comments: string;
-  isValidated: boolean; // Check this type pls
+  isValidated: boolean;
   isAdmin: boolean;
 
   constructor (
@@ -20,7 +20,9 @@ export class User {
       phone: number,
       age: number,
       experience: number,
-      comments: string
+      comments: string,
+      isValidated?: boolean,
+      isAdmin?: boolean,
     ){
      this.id = id;
      this.email = email;
@@ -31,5 +33,7 @@ export class User {
      this.age = age;
      this.experience = experience;
      this.comments = comments;
+     this.isValidated = isValidated;
+     this.isAdmin = isAdmin;
   }
 }

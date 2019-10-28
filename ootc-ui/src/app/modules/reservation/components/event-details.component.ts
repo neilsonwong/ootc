@@ -1,5 +1,5 @@
 import { OnInit, Input } from '@angular/core';
-import { IEvent } from 'src/app/models/IEvent';
+import { IEvent } from 'src/app/interfaces/IEvent';
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
 
 export class EventDetailsComponent implements OnInit {
@@ -25,7 +25,7 @@ export class EventDetailsComponent implements OnInit {
   ngOnInit() {
     this.startDate = this.event.startDate;
     this.startTime = reservationDisplayUtils.to12HourClock(this.event.startTime);
-    this.endTime = reservationDisplayUtils.getEndTime(this.event.startDate, this.event.startTime, this.event.duration);
+    this.endTime = reservationDisplayUtils.getEndTimeString(this.event.startDate, this.event.startTime, this.event.duration);
     this.desc = this.event.desc;
     this.duration = this.event.duration / 60;
   }

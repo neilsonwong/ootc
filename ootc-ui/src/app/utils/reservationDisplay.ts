@@ -1,3 +1,6 @@
+import * as moment from 'moment';
+import { IBlockedTime } from '../interfaces/IBlockedTime';
+import { TimeSlotView } from '../models/TimeSlotView';
 
 export function dateToYYYYMMDD(date: Date): string {
     return [
@@ -28,15 +31,28 @@ export function to12HourClock(time: string) {
     return `${fixedHours}:${fixedMins} ${AMPM}`;
 }
 
-export function getEndTime(startDate: string, startTime: string, duration: number): string {
-    const [year, month, day] = startDate.split('-').map(e => (parseInt(e)));
-    const [hour, min] = startTime.split(':').map(e => (parseInt(e)));
-    const jsStartDate = new Date(year, month - 1, day, hour, min);
-    const jsEndDate = new Date(jsStartDate.getTime() + 60 * 1000 * duration);
+export function getEndTimeString(startDate: string, startTime: string, duration: number): string {
+    const endDateTime = getDateTime(startDate, startTime).add(duration, 'minutes');
+    return endDateTime.format('h:mm A');
+}
 
-    // i'm leaving this hear for clarity, but this actually is rerun in to12HourClock
-    // const endHours = ('0' + jsEndDate.getHours()).slice(-2);
-    // const endMinutes = ('0' + jsEndDate.getMinutes()).slice(-2);
+export function conflicts(busyTime: IBlockedTime, timeSlot: TimeSlotView): boolean {
+    const timeSlotStart = getDateTime(timeSlot.startDate, timeSlot.startTime);
+    const timeSlotEnd = moment(timeSlotStart).add(timeSlot.duration, 'minutes');
 
-    return this.to12HourClock(`${jsEndDate.getHours()}:${jsEndDate.getMinutes()}`);
+    const isConflict = busyTime.startTime.isBefore(timeSlotStart) ?
+        timeSlotStart.isBetween(busyTime.startTime, busyTime.endTime, 'minute', '[)') :
+        busyTime.startTime.isBetween(timeSlotStart, timeSlotEnd, 'minute', '[)');
+
+    return isConflict;
+}
+
+export function getDateTime(startDate: string, startTime: string, offset?: number): moment.Moment {
+    const paddedStartTime = ('0' + startTime).slice(-5);
+    const base = moment(`${startDate} ${paddedStartTime}`);
+    if (offset) {
+        const basePlus = base.add(offset, 'minutes');
+        return basePlus;
+    }
+    return base;
 }

@@ -1,18 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Users } from '../user-list/user-list.component';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/User';
-
-interface UserTableData {
-  email: string;
-  fname: string;
-  lname: string;
-  phone: number;
-  age: number;
-  experience: number;
-  //isAdmin: boolean;
-}
+import { MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-user-management',
@@ -22,36 +13,28 @@ interface UserTableData {
 export class UserManagementComponent implements OnInit {
 
   private users: User[];
-  public usersData: UserTableData[];
+  public displayedColumns: string[];
+  public dataSource: MatTableDataSource<User>;
+  
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.displayedColumns = ['email', 'fname', 'lname', 'phone', 'age', 'experience', 'isAdmin'];
     this.getAllUsers();
   }
 
-  displayedColumns: string[] = ['lname', 'email', 'fname', 'phone', 'age', 'experience', 'isAdmin'];
-  dataSource = new MatTableDataSource(Users);
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   private getAllUsers() {
-    this.userService.getAllUsers().subscribe((users: User[]) => {
+    this.userService.getAllUsers().subscribe((users: any[]) => {
       this.users = users;
-      this.usersData = users.map((user: User) => {
-        return {
-          email: user.email,
-          fname: user.fname,
-          lname: user.lname,
-          phone: user.phone,
-          age: user.age,
-          experience: user.experience,
-          //isAdmin: user.isAdmin
-      }});
-      console.log(this.usersData);
-      console.log(Users)
+      this.dataSource = new MatTableDataSource(this.users);
+      this.dataSource.sort = this.sort;
     });
   }
 }

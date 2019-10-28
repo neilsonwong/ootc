@@ -1,12 +1,24 @@
 <div *ngIf="department"
     class="reservation-sign-up-form">
-    <mat-selection-list #reservations>
+    <div class="role-filter-container">
+        <mat-form-field class="role-filter">
+            <mat-label>Role Filter</mat-label>
+            <mat-select value="All" (selectionChange)="onFilterChanged($event)">
+                <mat-option value="All">All</mat-option>
+                <mat-option *ngFor="let role of roles" [value]="role">
+                    {{ role }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <mat-selection-list #timeSlots
+        (selectionChange)="onSelectionChange($event)">
         <mat-list-option *ngFor="let timeSlot of available"
+            appAvailabilityCheck
             class="reservation-sign-up-selection-item"
             color="primary"
-            [disabled]="timeSlot.hasSpace === false"
-            [class.disabled]="timeSlot.hasSpace === false"
-            [value]="timeSlot">
+            [value]="timeSlot"
+            [blocked]="blocked[timeSlot.startDate]">
             <app-reservation-sign-up-line 
                 [simple]="false"
                 [clear]="true"
@@ -18,6 +30,6 @@
     <div class="button-bar">
         <button mat-raised-button color="accent" type="button" (click)="clearSelected()">Clear</button>
         <button mat-raised-button color="primary" type="button" (click)="reserveSelected()"
-            [disabled]="reservations.selectedOptions.selected.length === 0">Reserve</button>
+            [disabled]="timeSlots.selectedOptions.selected.length === 0">Reserve</button>
     </div>
 </div>

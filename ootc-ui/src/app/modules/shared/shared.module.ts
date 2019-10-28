@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -18,6 +19,7 @@ import { AppContainerComponent } from './components/app-container/app-container.
 import { EmojiTextComponent } from './components/emoji-text/emoji-text.component';
 import { EmojiComponent } from './components/emoji/emoji.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { MatTableModule, MatSortModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -36,9 +38,12 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
+    MatSelectModule,
     MatButtonToggleModule,
     MatCardModule,
     MatDialogModule,
+    MatTableModule,
+    MatSortModule,
   ],
   exports: [
     AppContainerComponent,
@@ -51,9 +56,12 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
+    MatSelectModule,
     MatButtonToggleModule,
     MatCardModule,
     MatDialogModule,
+    MatTableModule,
+    MatSortModule,
     RouterModule,
   ],
   entryComponents: [
