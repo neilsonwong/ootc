@@ -15,6 +15,7 @@ import { ReservationService } from 'src/app/services/reservation.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
+import { MatSelectChange } from '@angular/material';
 
 const twoMonthsInMillis = 60*60*24*60*1000;
 
@@ -33,8 +34,10 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   private endDate: string;
   private userId: string;
 
+  public originalAvailable: TimeSlotView[];
   public available: TimeSlotView[];
   public blocked: IGroupedBlockedTimes = {};
+  public roles: string[];
 
   constructor(
     private reservationService: ReservationService,
@@ -57,10 +60,15 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
     if (this.department !== undefined) {
       this.getAvailableTimeSlots();
       this.initBlocked();
+      this.clearSelected();
     }
   }
 
   clearSelected(): void {
+    this.timeSlots.selectedOptions.selected.forEach(o => {
+      const timeSlot: TimeSlotView = <TimeSlotView> o.value;
+      this.removeBlocked(timeSlot);
+    });
     this.timeSlots.deselectAll();
   }
 
@@ -79,10 +87,13 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   private getAvailableTimeSlots(): void {
     this.scheduleService.getTimeSlots(this.department.id, this.startDate, this.endDate)
       .subscribe((timeSlots: TimeSlotView[]) => {
-        this.available = timeSlots.map((timeSlotView: TimeSlotView) => {
+        this.originalAvailable = timeSlots.map((timeSlotView: TimeSlotView) => {
           timeSlotView.hasSpace = timeSlotView.reserved < timeSlotView.signUpCap;
           return timeSlotView;
         });
+
+        this.available = [].concat(this.originalAvailable);
+        this.initRoles();
       });
   }
 
@@ -98,6 +109,14 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
           endTime: reservationDisplayUtils.getDateTime(reservation.startDate, reservation.startTime, reservation.duration)
         });
       }
+    }
+  }
+
+  private initRoles() {
+    if (this.available) {
+      this.roles = this.available
+        .map((e: TimeSlotView) => (e.desc))
+        .filter((v, i, a) => a.indexOf(v) === i); 
     }
   }
 
@@ -129,5 +148,21 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
     this.blocked[timeSlot.startDate] = this.blocked[timeSlot.startDate].filter((e: IBlockedTime) => {
       return (e.timeSlotId !== timeSlot.id);
     });
+  }
+
+  onFilterChanged(event: MatSelectChange) {
+    // clear our check boxes and remove from blocked
+    this.clearSelected();
+
+    // run the filter
+    const filterRole: string = event.value;
+    if (filterRole === 'All') {
+      this.available = [].concat(this.originalAvailable);
+    }
+    else {
+      this.available = this.originalAvailable.filter((t: TimeSlotView) => {
+        return t.desc === filterRole;
+      });
+    }
   }
 }
