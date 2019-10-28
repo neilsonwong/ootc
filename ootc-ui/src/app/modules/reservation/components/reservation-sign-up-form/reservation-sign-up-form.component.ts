@@ -65,11 +65,13 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   }
 
   clearSelected(): void {
-    this.timeSlots.selectedOptions.selected.forEach(o => {
-      const timeSlot: TimeSlotView = <TimeSlotView> o.value;
-      this.removeBlocked(timeSlot);
-    });
-    this.timeSlots.deselectAll();
+    if (this.timeSlots) {
+      this.timeSlots.selectedOptions.selected.forEach(o => {
+        const timeSlot: TimeSlotView = <TimeSlotView> o.value;
+        this.removeBlocked(timeSlot);
+      });
+      this.timeSlots.deselectAll();
+    }
   }
 
   reserveSelected() {

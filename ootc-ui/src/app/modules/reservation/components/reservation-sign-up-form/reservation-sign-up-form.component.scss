@@ -25,10 +25,11 @@
 
 .disabled {
     opacity: 0.25;
+    // display: none !important;
 }
 
 .role-filter {
-    width: 500px;
+    width: 100%;
 }
 
 .role-filter-container {

@@ -13,7 +13,7 @@ const sql = {
             mname TEXT,
             lname TEXT NOT NULL,
             email TEXT UNIQUE NOT NULL,
-            phone TEXT,
+            phone INTEGER,
             age INTEGER NOT NULL,
             experience INTEGER,
             comments TEXT,

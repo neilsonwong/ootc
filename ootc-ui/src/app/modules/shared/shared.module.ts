@@ -19,6 +19,7 @@ import { AppContainerComponent } from './components/app-container/app-container.
 import { EmojiTextComponent } from './components/emoji-text/emoji-text.component';
 import { EmojiComponent } from './components/emoji/emoji.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { MatTableModule, MatSortModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,8 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     MatButtonToggleModule,
     MatCardModule,
     MatDialogModule,
+    MatTableModule,
+    MatSortModule,
   ],
   exports: [
     AppContainerComponent,
@@ -57,6 +60,8 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     MatButtonToggleModule,
     MatCardModule,
     MatDialogModule,
+    MatTableModule,
+    MatSortModule,
     RouterModule,
   ],
   entryComponents: [
