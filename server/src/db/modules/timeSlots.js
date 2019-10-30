@@ -24,7 +24,7 @@ const sql = {
         `SELECT * FROM timeSlots WHERE startDate >= ? AND startDate <= ?`,
     
     listTimeSlotsForDept:
-        `SELECT timeSlots.id, startDate, startTime, duration, departments.name, signUpCap, desc, count(reservations.id) as reserved
+        `SELECT timeSlots.id, startDate, startTime, duration, departments.id as departmentId, departments.name, signUpCap, desc, count(reservations.id) as reserved
         FROM timeSlots INNER JOIN departments ON timeSlots.department = departments.id
         LEFT JOIN reservations ON timeslots.id = reservations.timeSlot
         WHERE departments.id = ? AND startDate >= ? AND startDate <= ?
