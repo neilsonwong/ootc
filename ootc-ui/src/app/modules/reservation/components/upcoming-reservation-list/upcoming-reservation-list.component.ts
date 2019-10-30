@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges} from '@angular/core';
 import { ReservationView } from 'src/app/models/ReservationView';
 import { IGroupedReservations } from 'src/app/interfaces/IGroupedReservations';
 
@@ -7,7 +7,7 @@ import { IGroupedReservations } from 'src/app/interfaces/IGroupedReservations';
   templateUrl: './upcoming-reservation-list.component.html',
   styleUrls: ['./upcoming-reservation-list.component.scss']
 })
-export class UpcomingReservationListComponent implements OnInit {
+export class UpcomingReservationListComponent implements OnChanges {
   @Input() reservations: ReservationView[];
 
   public dayList: string[];
@@ -16,7 +16,7 @@ export class UpcomingReservationListComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnChanges() {
     // this.reservations;
     this.processReservations();
   }

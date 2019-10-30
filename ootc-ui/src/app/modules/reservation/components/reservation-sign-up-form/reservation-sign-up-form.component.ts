@@ -79,12 +79,19 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   }
 
   reserveSelected() {
-    const dialogRef = this.dialog.open(LoadingDialogComponent, {
-      data: {
-        title: 'Reserving',
-        text: 'Booking your reservation'
+    let dialogRef;
+    let done = false;
+
+    setTimeout(() => {
+      if (!done) {
+        dialogRef = this.dialog.open(LoadingDialogComponent, {
+          data: {
+            title: 'Reserving',
+            text: 'Booking your reservation'
+          }
+        });
       }
-    });
+    }, 300);
 
     const newReservationsReqs = this.timeSlots.selectedOptions.selected.map(o => {
       const timeSlot: TimeSlotView = <TimeSlotView> o.value;
@@ -93,8 +100,11 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
     });
 
     forkJoin(newReservationsReqs).subscribe(results => {
+      done = true;
       // close the modal
-      dialogRef.close();
+      if (dialogRef) {
+        dialogRef.close();
+      }
 
       // check refresh the reservation list
       this.reservationsChanged.emit(true);
