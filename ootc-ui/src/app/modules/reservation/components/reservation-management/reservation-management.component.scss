@@ -18,6 +18,10 @@ $wrapper-padding: 1rem;
     align-items: center;
 }
 
+.reservation-list mat-list {
+    width: 100%;
+}
+
 .reservation-list-item {
     border-radius: 4px;
     display: inline-block !important;

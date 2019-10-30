@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ReservationView } from 'src/app/models/ReservationView';
 import { ConfirmationDialogComponent } from 'src/app/modules/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { ReservationService } from 'src/app/services/reservation.service';
+import { LoadingDialogComponent } from 'src/app/modules/shared/components/loading-dialog/loading-dialog.component';
 
 @Component({
   selector: 'app-reservation-management',
@@ -11,7 +12,6 @@ import { ReservationService } from 'src/app/services/reservation.service';
 })
 export class ReservationManagementComponent implements OnInit {
   reservations: ReservationView[];
-
 
   constructor(private reservationService: ReservationService,
     public dialog: MatDialog) { }
@@ -38,8 +38,36 @@ export class ReservationManagementComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.reservationService.cancelReservation(reservationId).subscribe();
+        this.cancelReservation(reservationId);
       }
+    });
+  }
+  
+  private cancelReservation(reservationId: number) {
+    let dialogRef;
+    let done = false;
+
+    setTimeout(() => {
+      if (!done) {
+        dialogRef = this.dialog.open(LoadingDialogComponent, {
+          data: {
+            title: 'Deleting',
+            text: 'Deleting your reservation'
+          }
+        });
+      }
+    }, 300);
+
+    this.reservationService.cancelReservation(reservationId).subscribe(() => {
+      done = true;
+
+      // close the modal
+      if (dialogRef) {
+        dialogRef.close();
+      }
+
+      // refresh the reservations list
+      this.getReservations();
     });
   }
 }
