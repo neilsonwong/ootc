@@ -41,4 +41,8 @@ export class ReservationSignUpComponent implements OnInit {
   onDeptSelected(department: Department) {
     this.selectedDepartment = department;
   }
+
+  onReservationsChanged() {
+    this.getReservations();
+  }
 }

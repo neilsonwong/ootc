@@ -20,6 +20,7 @@ import { EmojiTextComponent } from './components/emoji-text/emoji-text.component
 import { EmojiComponent } from './components/emoji/emoji.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { MatTableModule, MatSortModule } from '@angular/material';
+import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MatTableModule, MatSortModule } from '@angular/material';
     EmojiTextComponent,
     EmojiComponent,
     ConfirmationDialogComponent,
+    LoadingDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +51,7 @@ import { MatTableModule, MatSortModule } from '@angular/material';
     AppContainerComponent,
     EmojiTextComponent,
     ConfirmationDialogComponent,
+    LoadingDialogComponent,
 
     // re-export ng stuff that we don't wanna import everywhere
     ReactiveFormsModule,
@@ -65,7 +68,8 @@ import { MatTableModule, MatSortModule } from '@angular/material';
     RouterModule,
   ],
   entryComponents: [
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    LoadingDialogComponent,
   ]
 })
 export class SharedModule { }

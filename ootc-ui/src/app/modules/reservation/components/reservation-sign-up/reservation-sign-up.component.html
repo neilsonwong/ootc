@@ -13,7 +13,8 @@
             </app-department-spotlight>
             <app-reservation-sign-up-form
                 [reservations]="reservations"
-                [department]="selectedDepartment">
+                [department]="selectedDepartment"
+                (reservationsChanged)="onReservationsChanged()">
             </app-reservation-sign-up-form>
         </div>
     </div>

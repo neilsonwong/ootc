@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, OnChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
+import { MatSelectChange, MatDialog } from '@angular/material';
 import { forkJoin } from 'rxjs';
 
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
@@ -15,7 +16,7 @@ import { ReservationService } from 'src/app/services/reservation.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
-import { MatSelectChange } from '@angular/material';
+import { LoadingDialogComponent } from 'src/app/modules/shared/components/loading-dialog/loading-dialog.component';
 
 const twoMonthsInMillis = 60*60*24*60*1000;
 
@@ -27,6 +28,7 @@ const twoMonthsInMillis = 60*60*24*60*1000;
 export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   @Input() department: Department;
   @Input() reservations: ReservationView[];
+  @Output() reservationsChanged = new EventEmitter<boolean>();
 
   @ViewChild('timeSlots', {static: false}) timeSlots: MatSelectionList;
 
@@ -40,6 +42,7 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   public roles: string[];
 
   constructor(
+    public dialog: MatDialog,
     private reservationService: ReservationService,
     private scheduleService: ScheduleService,
     private authService: AuthenticationService) { }
@@ -75,6 +78,13 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   }
 
   reserveSelected() {
+    const dialogRef = this.dialog.open(LoadingDialogComponent, {
+      data: {
+        title: 'Reserving',
+        text: 'Booking your reservation'
+      }
+    });
+
     const newReservationsReqs = this.timeSlots.selectedOptions.selected.map(o => {
       const timeSlot: TimeSlotView = <TimeSlotView> o.value;
       const reservation = new Reservation(undefined, this.userId, timeSlot.id, false);
@@ -82,7 +92,11 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
     });
 
     forkJoin(newReservationsReqs).subscribe(results => {
-      console.log(results);
+      // close the modal
+      dialogRef.close();
+
+      // check refresh the reservation list
+      this.reservationsChanged.emit(true);
     });
   }
 
