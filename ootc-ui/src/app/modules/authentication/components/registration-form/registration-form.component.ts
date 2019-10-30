@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { RegistrationFormErrorStateMatcher, formErrorMessages, MustMatch, ageRangeValidator } from './registration-form.validators';
-import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/models/User';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
+import { User } from 'src/app/models/User';
+import { UserService } from 'src/app/services/user.service';
+import { ageRangeValidator, formErrorMessages, MustMatch } from './registration-form.validators';
 
 @Component({
   selector: 'app-registration-form',
@@ -11,11 +11,9 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./registration-form.component.scss']
 })
 export class RegistrationFormComponent implements OnInit {
-  httpErrors: string;
-  formErrors = formErrorMessages;
-  matcher = new RegistrationFormErrorStateMatcher();
-  registrationForm: FormGroup;
-  private confirmed = false;
+  public registrationForm: FormGroup;
+  public formErrors = formErrorMessages;
+  public confirmed = false;
 
   constructor(private fb: FormBuilder,
     private userService: UserService) { }
@@ -54,7 +52,6 @@ export class RegistrationFormComponent implements OnInit {
       this.registrationForm.get('experience').value,
       this.registrationForm.get('comments').value);
     
-    // do something here
     this.userService.registerUser(registerThisGuy, pw)
       .pipe(take(1))
       .subscribe((user: User) => {
