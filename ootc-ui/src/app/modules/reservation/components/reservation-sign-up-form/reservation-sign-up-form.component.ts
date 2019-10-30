@@ -39,6 +39,7 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   public originalAvailable: TimeSlotView[];
   public available: TimeSlotView[];
   public blocked: IGroupedBlockedTimes = {};
+  public reservedTimeSlotIds: number[];
   public roles: string[];
 
   constructor(
@@ -62,7 +63,7 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.department !== undefined) {
       this.getAvailableTimeSlots();
-      this.initBlocked();
+      this.initReservationBasedFields();
       this.clearSelected();
     }
   }
@@ -113,9 +114,15 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
       });
   }
 
-  private initBlocked() {
+  private initReservationBasedFields() {
+    this.reservedTimeSlotIds = [];
+
     if (this.reservations) {
       for(const reservation of this.reservations) {
+        // init reserved quick access
+        this.reservedTimeSlotIds.push(reservation.timeSlotId);
+
+        // init blocked array
         if (this.blocked[reservation.startDate] === undefined) {
           this.blocked[reservation.startDate] = [];
         }

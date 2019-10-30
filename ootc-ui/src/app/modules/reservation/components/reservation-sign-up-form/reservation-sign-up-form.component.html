@@ -13,19 +13,25 @@
     </div>
     <mat-selection-list #timeSlots
         (selectionChange)="onSelectionChange($event)">
-        <mat-list-option *ngFor="let timeSlot of available"
-            appAvailabilityCheck
-            class="reservation-sign-up-selection-item"
-            color="primary"
-            [value]="timeSlot"
-            [blocked]="blocked[timeSlot.startDate]">
-            <app-reservation-sign-up-line 
-                [simple]="false"
-                [clear]="true"
-                [embedded]="true"
-                [event]="timeSlot">
-            </app-reservation-sign-up-line>
-        </mat-list-option>
+        <ng-container *ngFor="let timeSlot of available">
+            <div class="reservation-sign-up-selection-item-wrapper"
+                [class.reserved-item]="reservedTimeSlotIds.indexOf(timeSlot.id) !== -1">
+                <mat-list-option
+                    appAvailabilityCheck
+                    class="reservation-sign-up-selection-item"
+                    color="primary"
+                    [value]="timeSlot"
+                    [blocked]="blocked[timeSlot.startDate]">
+                    <app-reservation-sign-up-line 
+                        [simple]="false"
+                        [clear]="true"
+                        [embedded]="true"
+                        [event]="timeSlot">
+                    </app-reservation-sign-up-line>
+                </mat-list-option>
+                <div class="reserved" *ngIf="reservedTimeSlotIds.indexOf(timeSlot.id) !== -1">Reserved</div>
+            </div>
+        </ng-container>
     </mat-selection-list>
     <div class="button-bar">
         <button mat-raised-button color="accent" type="button" (click)="clearSelected()">Clear</button>

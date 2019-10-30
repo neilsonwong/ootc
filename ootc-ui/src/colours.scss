@@ -10,6 +10,9 @@ $secondary: mat-color($app-secondary);
 $accent: mat-color($app-accent);
 $warn: mat-color($app-warn);
 
+// opacity
+$primary-light: mat-color($app-primary, 100);
+
 $light-text-colour: #ffffff;
 $very-light-text-colour: #aaaaaa;
 $semi-light-text-colour: #999999;

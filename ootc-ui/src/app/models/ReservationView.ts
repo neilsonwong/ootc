@@ -1,6 +1,7 @@
 export class ReservationView {
     id: number;
     user: string;
+    timeSlotId: number;
     startDate: string;
     startTime: string; 
     duration: number;
@@ -10,6 +11,7 @@ export class ReservationView {
     constructor (
         id: number,
         user: string,
+        timeSlotId: number,
         startDate: string,
         startTime: string, 
         duration: number,
@@ -18,6 +20,7 @@ export class ReservationView {
     ) {
         this.id = id;
         this.user = user;
+        this.timeSlotId = timeSlotId;
         this.startDate = startDate;
         this.startTime = startTime;
         this.duration = duration;

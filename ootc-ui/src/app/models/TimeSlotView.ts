@@ -3,6 +3,7 @@ export class TimeSlotView {
     startDate: string;
     startTime: string; 
     duration: number;
+    departmentId: number;
     department: string;
     reserved: number;
     signUpCap: number;
@@ -14,6 +15,7 @@ export class TimeSlotView {
         startDate: string,
         startTime: string, 
         duration: number,
+        departmentId: number,
         department: string,
         reserved: number,
         signUpCap: number,
@@ -24,6 +26,7 @@ export class TimeSlotView {
         this.startDate = startDate;
         this.startTime = startTime;
         this.duration = duration;
+        this.departmentId = departmentId;
         this.department = department;
         this.reserved = reserved;
         this.signUpCap = signUpCap;
