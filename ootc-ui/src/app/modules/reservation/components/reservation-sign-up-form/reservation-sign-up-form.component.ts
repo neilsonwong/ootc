@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
-import { MatSelectChange, MatDialog } from '@angular/material';
+import { MatSelectChange, MatDialog, MatSelect } from '@angular/material';
 import { forkJoin } from 'rxjs';
 
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
@@ -17,6 +17,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
 import { LoadingDialogComponent } from 'src/app/modules/shared/components/loading-dialog/loading-dialog.component';
+import { map } from 'rxjs/operators';
 
 const twoMonthsInMillis = 60*60*24*60*1000;
 
@@ -31,6 +32,7 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   @Output() reservationsChanged = new EventEmitter<boolean>();
 
   @ViewChild('timeSlots', {static: false}) timeSlots: MatSelectionList;
+  @ViewChild('booboo', {static: false}) roleFilter: MatSelect;
 
   private startDate: string;
   private endDate: string;
@@ -61,10 +63,19 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    this.setupForm();
+  }
+
+  private setupForm() {
     if (this.department !== undefined) {
-      this.getAvailableTimeSlots();
-      this.initReservationBasedFields();
-      this.clearSelected();
+      this.getAvailableTimeSlots(() => {
+        this.initRoles();
+        this.initReservationBasedFields();
+        this.clearSelected();
+        if (this.roleFilter) {
+          this.onFilterChanged(this.roleFilter.value);
+        }
+      });
     }
   }
 
@@ -108,19 +119,24 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
 
       // check refresh the reservation list
       this.reservationsChanged.emit(true);
+      this.setupForm();
     });
   }
 
-  private getAvailableTimeSlots(): void {
+  private getAvailableTimeSlots(postRun: () => void): void {
     this.scheduleService.getTimeSlots(this.department.id, this.startDate, this.endDate)
-      .subscribe((timeSlots: TimeSlotView[]) => {
-        this.originalAvailable = timeSlots.map((timeSlotView: TimeSlotView) => {
+      .pipe(map((timeSlots: TimeSlotView[]) => {
+        return timeSlots.map((timeSlotView: TimeSlotView) => {
           timeSlotView.hasSpace = timeSlotView.reserved < timeSlotView.signUpCap;
           return timeSlotView;
         });
-
-        this.available = [].concat(this.originalAvailable);
-        this.initRoles();
+      }))
+      .subscribe((timeSlots: TimeSlotView[]) => {
+        this.originalAvailable = timeSlots;
+        if (!this.available) {
+          this.available = [].concat(this.originalAvailable);
+        }
+        postRun();
       });
   }
 
@@ -146,8 +162,8 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   }
 
   private initRoles() {
-    if (this.available) {
-      this.roles = this.available
+    if (this.originalAvailable) {
+      this.roles = this.originalAvailable
         .map((e: TimeSlotView) => (e.desc))
         .filter((v, i, a) => a.indexOf(v) === i); 
     }
@@ -183,12 +199,12 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
     });
   }
 
-  onFilterChanged(event: MatSelectChange) {
+  onFilterChanged(event: MatSelectChange | string) {
     // clear our check boxes and remove from blocked
     this.clearSelected();
 
     // run the filter
-    const filterRole: string = event.value;
+    const filterRole: string = typeof event === 'string' ? event : event.value;
     if (filterRole === 'All') {
       this.available = [].concat(this.originalAvailable);
     }
