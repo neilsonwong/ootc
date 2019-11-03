@@ -14,6 +14,7 @@ import { TimeSlotDefDetailsComponent } from './components/time-slot-def-details/
 import { TimeSlotDetailsComponent } from './components/time-slot-details/time-slot-details.component';
 import { ReservationFullDetailsComponent } from './components/reservation-full-details/reservation-full-details.component';
 import { UserUpdateDialogComponent } from './components/user-update-dialog/user-update-dialog.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,10 @@ import { UserUpdateDialogComponent } from './components/user-update-dialog/user-
     CommonModule,
     SharedModule,
     AdminRoutingModule,
+    FormsModule,
+  ],
+  entryComponents: [
+    UserUpdateDialogComponent
   ]
 })
 export class AdminModule { }

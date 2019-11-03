@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
 import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
@@ -46,6 +47,7 @@ import { LoadingDialogComponent } from './components/loading-dialog/loading-dial
     MatDialogModule,
     MatTableModule,
     MatSortModule,
+    MatCheckboxModule,
   ],
   exports: [
     AppContainerComponent,
@@ -65,6 +67,7 @@ import { LoadingDialogComponent } from './components/loading-dialog/loading-dial
     MatDialogModule,
     MatTableModule,
     MatSortModule,
+    MatCheckboxModule,
     RouterModule,
   ],
   entryComponents: [
