@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ActivatedRoute } from '@angular/router';
 import { catchError } from 'rxjs/operators';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-change-password',
@@ -19,7 +20,8 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private authService: AuthenticationService) { }
+    private authService: AuthenticationService,
+    private userService: UserService) { }
 
   ngOnInit() {
     if (this.activatedRoute.snapshot.queryParamMap.has('code')) {
@@ -41,7 +43,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   changePassword() {
-    this.authService.changePassword(
+    this.userService.changePassword(
       this.email,
       this.resetCode,
       this.changePasswordForm.get('oldPassword').value,

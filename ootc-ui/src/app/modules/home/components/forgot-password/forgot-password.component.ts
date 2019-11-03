@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -12,7 +12,7 @@ export class ForgotPasswordComponent implements OnInit {
   public resetSent: boolean = false;
 
   constructor(private fb: FormBuilder,
-    private authService: AuthenticationService) { }
+    private userService: UserService) { }
 
   ngOnInit() {
     this.resetPasswordForm = this.fb.group({
@@ -21,7 +21,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   resetPassword() {
-    this.authService.resetPassword(this.resetPasswordForm.get('email').value)
+    this.userService.resetPassword(this.resetPasswordForm.get('email').value)
       .subscribe();
   	this.resetSent = true;
   }

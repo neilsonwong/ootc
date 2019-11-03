@@ -19,12 +19,14 @@ export class UserService {
     return this.http.post<User>(url, {user: user, password: password });
   }
 
-  changePasswordRequest(userId: string): Observable<boolean> {
-    return of(true);
+  resetPassword(email: string): Observable<any> {
+    const url = `${API_URL}/resetPassword`;
+    return this.http.post(url, {userId: email});
   }
 
-  changePassword(newPassword: string): Observable<boolean> {
-    return of(true);
+  changePassword(email: string, resetCode: string, oldPassword: string, newPassword: string): Observable<any> {
+    const url = `${API_URL}/changePassword`;
+    return this.http.post(url, {userId: email, resetCode: resetCode, oldPassword: oldPassword, newPassword: newPassword});
   }
 
   getAllUsers(): Observable<User[]> {
@@ -32,6 +34,7 @@ export class UserService {
     return this.http.get<any[]>(url)
       .pipe(map((rawUsers: any[]) => {
         return rawUsers.map((raw) => {
+          // we need to remap as the fields don't match up without model field names
           return new User(raw.id, raw.email, raw.fname, raw.mname, raw.lname,
             raw.phone, raw.age, raw.experience, raw.comments,
             (raw.validated === 1), (raw.admin === 1));
@@ -40,7 +43,7 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User> {
-    // TODO: ADMIN FUNCTION
-    return of(user);
+    const url = `${API_URL}/admin/user/update`;
+    return this.http.post<User>(url, {user: user});
   }
 }
