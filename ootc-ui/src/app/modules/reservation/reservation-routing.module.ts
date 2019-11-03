@@ -6,7 +6,7 @@ import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   { path: 'signup', component: ReservationSignUpComponent, canActivate: [AuthGuard] },
-  { path: 'reservations', component: ReservationManagementComponent, canActivate: [AuthGuard] },
+  { path: 'myschedule', component: ReservationManagementComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
