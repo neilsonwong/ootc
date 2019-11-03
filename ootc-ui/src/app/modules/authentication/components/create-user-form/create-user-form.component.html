@@ -26,6 +26,10 @@
             <input matInput type="number" placeholder="Age" formControlName="age" required>
             <mat-error>{{ formErrors.age }}</mat-error>
         </mat-form-field>
+        <mat-form-field>
+            <input matInput type="number" placeholder="Volunteer Experience (years)" formControlName="experience" required>
+            <mat-error>{{ formErrors.experience }}</mat-error>
+        </mat-form-field>
         <button mat-raised-button color="primary" type="submit" [disabled]="!createUserForm.valid">Create User</button>
     </form>
 </div>

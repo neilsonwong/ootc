@@ -34,7 +34,7 @@ export class RegistrationFormComponent implements OnInit {
         Validators.pattern(/^-?(0|[1-9]\d*)?$/)
       ]],
       age: ['', [ageRangeValidator]],
-      experience: [''],
+      experience: ['', [Validators.min(0)]],
       comments: [''],
     }, { validator : MustMatch('password', 'verifypassword')})
   ;}

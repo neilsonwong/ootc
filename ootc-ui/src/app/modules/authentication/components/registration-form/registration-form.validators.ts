@@ -46,6 +46,7 @@ export const formErrorMessages: { [key: string]: string } = {
   minLength: 'Password must contain at least 8 characters.',
   number: 'Phone number must be a valid phone number (1234567890)',
   mismatch: 'Passwords don\'t match.',
-  age: 'User must be 18 years or older'
+  age: 'User must be 18 years or older',
+  experience: 'Experience cannot be negative'
   //unique: 'Passwords must contain at least 1 uppercase character'
 };

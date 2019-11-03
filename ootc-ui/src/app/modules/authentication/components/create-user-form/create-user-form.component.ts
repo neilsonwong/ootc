@@ -28,7 +28,8 @@ export class CreateUserFormComponent implements OnInit {
         Validators.maxLength(10),
         Validators.pattern(/^-?(0|[1-9]\d*)?$/)
       ]],
-      age: ['', [Validators.min(18)]]
+      age: ['', [Validators.min(18)]],
+      experience: ['', [Validators.min(0)]],
     });
   }
 
@@ -44,7 +45,7 @@ export class CreateUserFormComponent implements OnInit {
       this.createUserForm.get('lastName').value,
       this.createUserForm.get('phoneNumber').value,
       this.createUserForm.get('age').value,
-      0,
+      this.createUserForm.get('experience').value,
       '');
     
     const randomPw = Date.now().toString();
