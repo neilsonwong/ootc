@@ -56,7 +56,7 @@ export class HeaderBarComponent implements OnInit {
     ],
     [
       new LinkItem('Sign Up', '/signup'),
-      new LinkItem('Reservations', '/reservations'),
+      new LinkItem('My Schedule', '/myschedule'),
     ]
     ,[
       new LinkItem('Users', '/admin/users'),

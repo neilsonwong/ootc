@@ -15,7 +15,7 @@ h1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                         "duration":150, 
                         "signUpCap":10, 
                         "department":1, 
-                        "desc":"Serving Snacks and Socializing with Guests"}} """
+                        "desc":"Serving Snacks and Socializing"}} """
 
 h2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
                         "repeatCount": 10, 
@@ -25,7 +25,7 @@ h2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                         "duration":210, 
                         "signUpCap":25, 
                         "department":1, 
-                        "desc":"Serving Dinner and Socializing with Guests"}} """
+                        "desc":"Serving Dinner and Socializing"}} """
 
 
 # Kitchen (id=2) TimeSlotDefs
@@ -37,7 +37,7 @@ k1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                         "duration":240, 
                         "signUpCap":8, 
                         "department":2, 
-                        "desc":"Food Preparation and Cooking"}} """
+                        "desc":"Sunday - Food Prep and Cooking"}} """
                         
 k2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-27", 
                         "repeatCount": 10, 
@@ -47,7 +47,7 @@ k2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-27",
                         "duration":180, 
                         "signUpCap":3, 
                         "department":2, 
-                        "desc":"Monday Morning - Cooking Breakfast"}} """
+                        "desc":"Monday - Cooking Breakfast"}} """
 
 k3 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-23", 
                         "repeatCount": 10, 
@@ -69,7 +69,7 @@ r1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                         "duration":180, 
                         "signUpCap":3, 
                         "department":3, 
-                        "desc":"Sunday Afternoon - Guest Sign-in"}} """
+                        "desc":"Sunday - Afternoon Sign-in"}} """
 
 r2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
                         "repeatCount": 10, 
@@ -79,7 +79,7 @@ r2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                         "duration":150, 
                         "signUpCap":3, 
                         "department":3, 
-                        "desc":"Sunday Evening - Dinner-Only Sign-Out"}} """
+                        "desc":"Sunday - Evening Sign-Out"}} """
 
 r3 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-27", 
                         "repeatCount": 10, 
@@ -89,7 +89,7 @@ r3 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-27",
                         "duration":120, 
                         "signUpCap":3, 
                         "department":3, 
-                        "desc":"Monday Morning - Overnight Sign-out"}} """
+                        "desc":"Monday - Morning Sign-Out"}} """
 
 
 # Clothing Bank (id=4) TimeSlotDefs
@@ -123,7 +123,7 @@ s1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                         "duration":120, 
                         "signUpCap":4, 
                         "department":5, 
-                        "desc":"Afternoon Setup"}} """
+                        "desc":"Venue Setup"}} """
 
 s2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
                         "repeatCount": 10, 
@@ -133,7 +133,7 @@ s2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                         "duration":120, 
                         "signUpCap":3, 
                         "department":5, 
-                        "desc":"Evening Cleanup"}} """
+                        "desc":"Venue Cleanup"}} """
 
 s3 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-27", 
                         "repeatCount": 10, 
@@ -143,7 +143,7 @@ s3 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-27",
                         "duration":90, 
                         "signUpCap":5, 
                         "department":5, 
-                        "desc":"Monday Morning Cleanup"}} """
+                        "desc":"Monday - Morning Cleanup"}} """
 
 data = [h1, h2, k1, k2, k3, r1, r2, r3, c1, c2, s1, s2, s3]
 
@@ -156,10 +156,10 @@ def setup_Departments():
 
     headers = {'Content-type': 'application/json'}
 
-    data = ['{"departmentName":"Hospitality", "description":"The Hospitality Team focuses on providing a warm and friendly experience to guests.\\nThe team handles serving snacks and dinner, replenishing coffee and tea, and is highly encouraged to spend time with guests in conversation or activity.\\n\\nTasks include: serving snacks (3:30pm-6pm), serving dinner (6pm-9:30pm), socializing with guests, and other general duties required."}',     # 0
-            '{"departmentName":"Kitchen", "description":"The Kitchen Team focuses on preparing, cooking, and serving 60+ meals to our guests during the dinner service. The team prepares a unique menu each week consisting of soup, main and dessert.\\n\\nTasks include: grocery shopping, food prep, cooking, dish-washing, and other kitchen duties as required\\n\\nNote: Volunteers are especially needed for Monday morning to prepare breakfast for overnight guests.\\n\\nIMPORTANT: The Kitchen Team is recommended for highly experienced cooks and not beginners. If you sign up for one of these roles, we may contact you to follow up for more information."}',
-            '{"departmentName":"Clothing Bank", "description":"The Clothing Bank Team focuses on distributing various clothing items to our guests and organizing new apparel that is purchased or donated. The team aims to assist guest in finding what they need and ensuring that all guests are able to get what they what they need.\\n\\nTasks include: organizing and categorizing apparel, assisting guests in selecting apparel, and other duties as required."}',
-            '{"departmentName":"Registration", "description":"The Registration Team focuses on attending to guests and volunteers entering and exiting the premises. The team checks-in guests and coordinates services for the guests such as showers, hair cuts, medical services and social services. \\n\\nTasks include: front desk administration, service scheduling and coordination, and other duties as required. \\n\\nNote: Volunteers are especially needed for Monday morning during the departure of overnight guests."}',
+    data = ['{"departmentName":"Hospitality", "description":"The Hospitality Team focuses on providing a warm and friendly experience to guests.\\nThe team handles serving food, replenishing refreshments, and is highly encouraged to spend time with guests in conversation or activity.\\n\\nTasks include: serving snacks (3:30pm-6pm), serving dinner (6pm-9:30pm), socializing with guests, and other general duties required."}',     # 0
+            '{"departmentName":"Kitchen", "description":"The Kitchen Team focuses on preparing and cooking 60+ meals to our guests during the dinner service. The team prepares a unique menu each week consisting of soup, main and dessert.\\n\\nTasks include: grocery shopping, food prep, cooking, dish-washing, and other kitchen duties as required\\n\\nNote: Volunteers are especially needed for Monday morning to prepare breakfast for overnight guests.\\n\\nIMPORTANT: The Kitchen Team is recommended for highly experienced cooks and not beginners. If you sign up for one of these roles, we may contact you to follow up for more information."}',
+            '{"departmentName":"Clothing Bank", "description":"The Clothing Bank Team focuses on distributing various clothing items to our guests and organizing new apparel that is purchased or donated. The team aims to assist guest in finding what they need and ensuring that all guests access what they what they need.\\n\\nTasks include: organizing and categorizing apparel, assisting guests in selecting apparel, and other duties as required."}',
+            '{"departmentName":"Registration", "description":"The Registration Team focuses on attending to guests and volunteers entering and exiting the premises. The team checks-in guests and coordinates services for the guests such as showers, hair cuts, medical services and social services. \\n\\nTasks include: front desk admin, service coordination, and other duties as required. \\n\\nNote: Volunteers are especially needed for Monday morning during the departure of overnight guests."}',
             '{"departmentName":"Setup and Cleanup", "description":"The Setup/Cleanup Team focuses on setting up and cleaning up the rooms for dining and various services. The team handles setup Sunday afternoon before guests arrive and cleanup on Monday morning after guests depart. \\n\\nTasks include: setting up tables, chairs, and specialized layouts for service rooms.\\n\\nNote: Volunteers are especially needed for Monday morning to cleanup the area."}']   # 4
      
     for i in range(len(data)):
