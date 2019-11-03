@@ -7,6 +7,8 @@
 
 /* Global Styles */
 
+
+
 * {
   // font-family: 'Roboto', Arial, sans-serif;
   font-family: 'Lato', sans-serif;
@@ -29,6 +31,14 @@ body {
   min-height: 100vh;
   position: relative
 }
+
+// Google Maps Integration
+#map {
+  width: 100%;
+  height: 400px;
+  background-color: grey;
+}
+
 
 @media only screen and (min-width: 2160px) {
   body {
