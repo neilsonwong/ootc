@@ -68,28 +68,9 @@
 			</ul>
 		</div>
 		
-
-		<!-- Google Maps Integration-->
-		<div id="map"></div>
-
-		<script>
-			// Initialize and add the map
-			function initMap() {
-				// The location of Uluru
-				var uluru = {lat: 43.8208222, lng: -79.3284713};
-				// The map, centered at Uluru
-				var map = new google.maps.Map(
-					document.getElementById('map'), {zoom: 4, center: uluru});
-				// The marker, positioned at Uluru
-				var marker = new google.maps.Marker({position: uluru, map: map});
-			}
-		</script>
-
-		<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlckSIe4OTCFqPqVgBX45x4GWZdzca-nw&callback=initMap">
-		</script>
-
-
+		<br>
+		<h3>Directions</h3>
+		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2878.5998978747457!2d-79.33073908449674!3d43.822657879115866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4d387463738c1%3A0xaf13769b74cf64b9!2s105%20Gibson%20Dr%2C%20Markham%2C%20ON%20L3R%202Z3!5e0!3m2!1sen!2sca!4v1572815777790!5m2!1sen!2sca" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
 
 	</div>
 </app-container>
