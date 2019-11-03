@@ -1,34 +1,38 @@
 # OOTC-UI Application Architecture
 
 ## Main Pages
-* Landing Page
-* Registration Page
-* About Page
-* Email Validation Page
-* user Sign Up Page
-* user Reservations
-* admin user management
-* admin schedule creation
-* admin schedule management
-* admin attendance page
+* Landing Page **[ / ]**
+* Registration Page **[ /register ]**
+* About Page **[ / ]**
+* Email Validation Page **[ /validateEmail ]**
+* user Sign Up Page **[ /signup ]**
+* user Reservations **[ /reservations ]**
+* admin user management **[ /admin/users ]** 
+* admin schedule creation  **[ /admin/setup ]**
+* admin schedule management **[ /admin/schedule ]**
+* admin attendance page **[ /admin/attendance ]**
 
 ## Module Breakdown
 ### Home Module (home)
 * Pages
-	* Landing Page (also handles login)
+	* Landing Page (also handles login) **[ / ]**
 		* shared/headerBarComponent
 		* shared/footerBarComponent
 		* auth/loginFormComponent
-	* About Page
+	* About Page **[ / ]**
 		* shared/headerBarComponent
 		* shared/footerBarComponent
-	* Registration Page
+	* Registration Page **[ /register ]**
 		* shared/headerBarComponent
 		* shared/footerBarComponent
 		* auth/registrationFormComponent
-	* Email Validation Page
+	* Email Validation Page **[ /validateEmail ]**
 		* shared/headerBarComponent
 		* shared/footerBarComponent
+	* Forgot Password Page **[ /forgotPassword ]**
+
+	* Change Password Page **[ /changePassword ]**
+
 
 ### Authentication Module (auth)
 * Components
@@ -37,13 +41,13 @@
 
 ### Reservation Module
 * Pages
-	* Reservation Sign Up Page
+	* Reservation Sign Up Page **[ /signup ]**
 		* shared/headerBarComponent
 		* shared/footerBarComponent
 		* upcomingReservationsListComponent (at a glance)
 		* departmentSpotlightComponent
 		* reservationSignUpFormComponent
-	* Reservation Management Page
+	* Reservation Management Page  **[ /reservations ]**
 		* shared/headerBarComponent
 		* shared/footerBarComponent
 		* reservationDetailsComponent
@@ -55,21 +59,21 @@
 
 ### Admin Module
 * Pages 
-	* User Management Page
+	* User Management Page **[ /admin/users ]** 
 		* shared/headerBarComponent
 		* shared/footerBarComponent
 		* userListComponent
-	* Schedule Creation Page (define time slot defs)
+	* Schedule Creation Page (define time slot defs) **[ /admin/setup ]**
 		* shared/headerBarComponent
 		* shared/footerBarComponent
 		* addTimeSlotDefComponent
 		* timeSlotDefDetailsComponent
-	* Schedule Management Page (define time slots)
+	* Schedule Management Page (define time slots) **[ /admin/schedule ]**
 		* shared/headerBarComponent
 		* shared/footerBarComponent
 		* shared/confirmationModal
 		* timeSlotDetailComponent
-	* Attendance page
+	* Attendance page **[ /admin/attendance ]**
 		* shared/headerBarComponent
 		* shared/footerBarComponent
 * Components
