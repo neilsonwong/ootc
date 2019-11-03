@@ -47,7 +47,7 @@
 		* upcomingReservationsListComponent (at a glance)
 		* departmentSpotlightComponent
 		* reservationSignUpFormComponent
-	* Reservation Management Page  **[ /reservations ]**
+	* Reservation Management Page  **[ /myschedule ]**
 		* shared/headerBarComponent
 		* shared/footerBarComponent
 		* reservationDetailsComponent
