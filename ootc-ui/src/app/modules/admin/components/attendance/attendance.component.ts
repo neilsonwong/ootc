@@ -10,9 +10,7 @@ import { User } from 'src/app/models/User';
 })
 export class AttendanceComponent implements OnInit {
 
-  private users: User[];
-  private date: Date = new Date();
-  
+  public date: Date = new Date();
   public userIdentifyForm: FormGroup;
   public userFound: boolean = false;
   public confirmed = false;
@@ -29,9 +27,9 @@ export class AttendanceComponent implements OnInit {
   }
 
   userCheckIn() {
-    this.reservationService.reservationSignin(this.userIdentifyForm.get('email').value).subscribe();
-    this.confirmed = true;
-    console.log("it works");
+    this.reservationService.reservationSignin(this.userIdentifyForm.get('email').value).subscribe((res: boolean) => {
+      this.confirmed = true;
+      console.log("it works");
+    });
   }  
-
 }

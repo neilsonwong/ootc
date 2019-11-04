@@ -1,32 +1,30 @@
 <h1 mat-dialog-title>Update User</h1>
-  <div mat-dialog-content>Please manually change the following text fields</div>
-  <!--THIS SHOULD BE THE MAT FORM FIELD FOR THE USER: NAME, AGE, ... -->
+<div mat-dialog-content>Please manually change the following text fields</div>
+<!--THIS SHOULD BE THE MAT FORM FIELD FOR THE USER: NAME, AGE, ... -->
+<form [formGroup] = "editUser" (ngSubmit)="onUpdate()">
   <div>
-    <form [formGroup] = "editUser" (ngSubmit)="updateUser()">
-        <mat-form-field>
-            <input matInput type="email" placeholder="Email" formControlName="email"> 
-        </mat-form-field><br>
-        <mat-form-field>
-          <input matInput type="text" placeholder="First Name" formControlName="firstName">
-        </mat-form-field><br>
-        <mat-form-field>
-            <input matInput type="text" placeholder="Last Name" formControlName="lastName">
-        </mat-form-field><br>
-        <mat-form-field>
-            <input matInput type="tel" placeholder="Phone Number" formControlName="phoneNumber" maxlength=10>
-        </mat-form-field><br>
-        <mat-form-field>
-            <input matInput type="number" placeholder="Age" formControlName="age">
-        </mat-form-field><br>
-        <mat-form-field>
-            <input matInput type="number" placeholder="Experience" formControlName="experience">
-        </mat-form-field><br>
-        <mat-checkbox formControlName="isAdmin">Admin</mat-checkbox>
-    </form>
+      <mat-form-field>
+          <input matInput type="email" placeholder="Email" formControlName="email"> 
+      </mat-form-field><br>
+      <mat-form-field>
+        <input matInput type="text" placeholder="First Name" formControlName="firstName">
+      </mat-form-field><br>
+      <mat-form-field>
+          <input matInput type="text" placeholder="Last Name" formControlName="lastName">
+      </mat-form-field><br>
+      <mat-form-field>
+          <input matInput type="tel" placeholder="Phone Number" formControlName="phoneNumber" maxlength=10>
+      </mat-form-field><br>
+      <mat-form-field>
+          <input matInput type="number" placeholder="Age" formControlName="age">
+      </mat-form-field><br>
+      <mat-form-field>
+          <input matInput type="number" placeholder="Experience" formControlName="experience">
+      </mat-form-field><br>
+      <mat-checkbox formControlName="isAdmin">Admin</mat-checkbox>
   </div>
-<mat-dialog-actions align="center">
-    <button mat-raised-button color="warn"
-      [mat-dialog-close]="false">Cancel</button>
-    <button mat-raised-button color="primary" type = "submit"
-      [mat-dialog-close]="true" (click)="onUpdate()" cdkFocusInitial>Update</button>
-</mat-dialog-actions>
+  <mat-dialog-actions align="center">
+      <button mat-raised-button color="warn" type="button" [mat-dialog-close]="false">Cancel</button>
+      <button mat-raised-button color="primary" type="submit" cdkFocusInitial>Update</button>
+  </mat-dialog-actions>
+</form>

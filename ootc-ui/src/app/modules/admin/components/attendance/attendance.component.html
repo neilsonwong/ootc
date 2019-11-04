@@ -1,17 +1,12 @@
 <app-container>
     <div class="attendance-container stand-alone-wide-box">
         <h2 class="attendance-table-title">Attendance for {{ date | date:'fullDate' }}</h2>
-
         <p>Enter the email of the user</p>
-
         <form class="attendance-form" [formGroup]="userIdentifyForm" (ngSubmit)="userCheckIn()">
-
             <mat-form-field>
                 <input matInput type="email" placeholder="Email" formControlName="email">
             </mat-form-field>
             <button mat-raised-button color="primary" type="submit" [disabled]="!userIdentifyForm.valid">Check-in</button>
-
         </form>
-
     </div>
 </app-container>

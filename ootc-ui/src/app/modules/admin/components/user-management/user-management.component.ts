@@ -88,4 +88,8 @@ export class UserManagementComponent implements OnInit {
       })
   }
 
+  onCreateUser() {
+    console.log('make a user here');
+  }
+
 }

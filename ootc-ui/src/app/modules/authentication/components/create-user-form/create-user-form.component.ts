@@ -4,6 +4,9 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/User';
 import { take } from 'rxjs/operators';
 
+// TODO: this is really bad, fix later
+import { formErrorMessages } from '../registration-form/registration-form.validators';
+
 @Component({
   selector: 'app-create-user-form',
   templateUrl: './create-user-form.component.html',
@@ -13,6 +16,7 @@ export class CreateUserFormComponent implements OnInit {
   @Output() userCreated = new EventEmitter<User>();
 
   public createUserForm: FormGroup;
+  public formErrors = formErrorMessages;
 
   constructor(private fb: FormBuilder,
     private userService: UserService) { }
