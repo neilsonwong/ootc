@@ -72,17 +72,26 @@ export class ScheduleService {
       );
   }
 
-  // decided this would be handled by front end, no longer needed
-  // getAvailableTimeSlots(): Observable<TimeSlotView[]>{
-  //   return of([
-  //     new TimeSlotView(1, '2019-10-20', '14:00', 2, 'Hospitality', 5, 10, 'hospitality setup'),
-  //     new TimeSlotView(2, '2019-10-20', '16:00', 2, 'Hospitality', 5, 10, 'hospitality serving dinner'),
-  //     new TimeSlotView(3, '2019-10-27', '14:00', 2, 'Hospitality', 5, 10, 'hospitality setup'),
-  //     new TimeSlotView(4, '2019-10-27', '16:00', 2, 'Hospitality', 5, 10, 'hospitality serving dinner'),
-  //     new TimeSlotView(5, '2019-11-03', '14:00', 2, 'Hospitality', 5, 10, 'hospitality setup'),
-  //     new TimeSlotView(6, '2019-11-03', '16:00', 2, 'Hospitality', 5, 10, 'hospitality serving dinner'),
-  //     new TimeSlotView(7, '2019-11-10', '14:00', 2, 'Hospitality', 5, 10, 'hospitality setup'),
-  //     new TimeSlotView(8, '2019-11-10', '16:00', 2, 'Hospitality', 5, 10, 'hospitality serving dinner'),
-  //   ]);
-  // }
+  getAllTimeSlots(startDate: string, endDate: string): Observable<TimeSlotView[]> {
+    const url = `${API_URL}/admin/timeSlots`;
+    const options = {
+      params: new HttpParams()
+        .set('startDate', startDate)
+        .set('endDate', endDate)
+    };
+    return this.http.get<TimeSlotView[]>(url, options)
+      .pipe(
+        map((timeSlots: TimeSlotView[]) => {
+          return timeSlots.sort((a,b) => {
+            if (a.startDate < b.startDate) {
+              return -1;
+            } else if (a.startDate === b.startDate) {
+              return a.startTime.localeCompare(b.startTime);
+            }
+            return 1;
+          })
+        })
+      );
+
+  }
 }

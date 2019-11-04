@@ -149,6 +149,17 @@ async function getTimeSlotsForDept(dept, start, end) {
     }
 }
 
+async function getTimeSlotsByTimeRange(start, end) {
+    try {
+        return await db.timeSlots.listTimeSlotsByRange(start, end);
+    }
+    catch(e) {
+        logger.error(`there was an error getting all time slots`);
+        logger.error(e);
+        return null;
+    }
+}
+
 module.exports = {
     getSchedule: getSchedule,
     addTimeSlotDef: addTimeSlotDef,
@@ -156,4 +167,5 @@ module.exports = {
     updateTimeSlotDef: updateTimeSlotDef,
     generateTimeSlots: generateTimeSlots,
     getTimeSlotsForDept: getTimeSlotsForDept,
+    getTimeSlotsByTimeRange: getTimeSlotsByTimeRange,
 };

@@ -52,7 +52,6 @@ export class ChangePasswordComponent implements OnInit {
         this.passwordChanged = true;
       },
       catchError((error) => {
-        console.log('we are here');
         if (this.resetCode) {
           this.error = 'Unable to change password. Has this link already been used?';
         }
