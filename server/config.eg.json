@@ -14,6 +14,6 @@
 	},
 	"LINKS": {
 		"VALIDATE_EMAIL": "http://localhost:4200/validateEmail",
-		"RESET_PASSWORD": "http://localhost:4200/resetPassword"
+		"RESET_PASSWORD": "http://localhost:4200/changePassword"
 	}
 }
