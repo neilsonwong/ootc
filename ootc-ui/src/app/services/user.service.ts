@@ -44,6 +44,6 @@ export class UserService {
 
   updateUser(user: User): Observable<User> {
     const url = `${API_URL}/admin/user/update`;
-    return this.http.post<User>(url, {user: user});
+    return this.http.post<User>(url, user);
   }
 }

@@ -161,8 +161,22 @@ async function listUsers() {
     return false;
 }
 
-async function updateUser() {
+async function updateUser(user) {
+    try {
+        const dbUser = await db.users.getUser(user.id);
+        const updatedUser = await db.users.updateUser(user);
 
+        // update the admin status if needed
+        if (!!user.admin !== !!dbUser.admin) {
+            await db.users.updateAdminStatus(user.id, user.admin);
+        }
+        return user;
+    }
+    catch(e) {
+       logger.error(`an error occurred when retrieving ${userId} from the db`);
+       logger.error(e);
+    }
+    return false;
 }
 
 async function getUser(userId) {

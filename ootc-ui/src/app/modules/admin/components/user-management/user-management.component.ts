@@ -48,7 +48,8 @@ export class UserManagementComponent implements OnInit {
     let dialogRef;
     let done = false;
 
-    console.log(userdata);
+    // set the admin value, this is a work around for now
+    userdata.admin = userdata.isAdmin;
 
     setTimeout(() => {
       if (!done) {
@@ -62,10 +63,9 @@ export class UserManagementComponent implements OnInit {
     }, 300);
 
     this.userService.updateUser(userdata).subscribe(res => {
-      console.log(res);
       done = true;
 
-      // close the modal
+      // close the loading modal
       if (dialogRef) {
         dialogRef.close();
       }
@@ -82,8 +82,8 @@ export class UserManagementComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        if (result === true){
-          this.updateUser(this.userdata);
+        if (result){
+          this.updateUser(result);
         }
       })
   }

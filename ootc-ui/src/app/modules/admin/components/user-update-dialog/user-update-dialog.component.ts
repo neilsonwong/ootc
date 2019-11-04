@@ -17,13 +17,9 @@ export class UserUpdateDialogComponent implements OnInit {
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  isAdmin(){
-    this.user.isAdmin = true;
-  }
-
   ngOnInit() {
-    console.log(this.data);
     this.user = this.data.user;
+
     this.editUser = this.fb.group({
       email: [this.user.email], 
       firstName: [this.user.fname, Validators.minLength(1)],
@@ -37,7 +33,18 @@ export class UserUpdateDialogComponent implements OnInit {
       experience: [this.user.experience, [Validators.min(0)]],
       isAdmin: [this.user.isAdmin]
     })
-    console.log(this.data.user)
   }
 
+  onUpdate() {
+    // update the user object then return it back to the page
+    // no updating email
+    this.user.fname = this.editUser.get('firstName').value;
+    this.user.lname = this.editUser.get('lastName').value;
+    this.user.phone = this.editUser.get('phoneNumber').value;
+    this.user.age = this.editUser.get('age').value;
+    this.user.experience = this.editUser.get('experience').value;
+    this.user.isAdmin = this.editUser.get('isAdmin').value;
+
+    this.dialogRef.close(this.user);
+  }
 }
