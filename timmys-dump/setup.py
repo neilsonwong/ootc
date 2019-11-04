@@ -3,6 +3,7 @@ from requests.auth import HTTPBasicAuth
 
 user = "admin"
 pw = "admin"
+api_url = "http://localhost:8000"
 
 ### TIMESLOT DEFINITIONS FOR 2020 ###
 
@@ -152,7 +153,7 @@ data = [h1, h2, k1, k2, k3, r1, r2, r3, c1, c2, s1, s2, s3]
 
 def setup_Departments():
 
-    url = "http://localhost:8000/api/v1/admin/departments/add"
+    url = api_url + "/api/v1/admin/departments/add"
 
     headers = {'Content-type': 'application/json'}
 
@@ -168,7 +169,7 @@ def setup_Departments():
 
 def setup_TimeSlotDefs():
 
-    url = "http://localhost:8000/api/v1/admin/schedule/add"
+    url = api_url + "/api/v1/admin/schedule/add"
 
     headers = {'Content-type': 'application/json'}
 
@@ -178,7 +179,7 @@ def setup_TimeSlotDefs():
 
 def generate():
 
-    url = "http://localhost:8000/api/v1/admin/schedule/generate"
+    url = api_url + "/api/v1/admin/schedule/generate"
 
     headers = {'Content-type': 'application/json'}
 
