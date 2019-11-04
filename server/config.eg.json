@@ -3,6 +3,7 @@
 	"PORT": 8000,
 	"DB_PATH": "./database.db",
 	"DEFAULT_USERS_FILE": "./default_users",
+	"SWAGGER_HOST": "localhost:8000",
 	"EMAIL": {
 		"MAX_CONCURRENT": 10,
 		"MASTER": "me@mail.com"

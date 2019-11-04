@@ -3,6 +3,7 @@
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const defaultUsers = require('../../default_users');
+const config = require('../../config');
 
 const swaggerDefinition = {
     openapi: '3.0.0',
@@ -16,7 +17,7 @@ const swaggerDefinition = {
         description: 'dev',
         variables: {
             host: {
-                default: 'localhost:8000'
+                default: config.SWAGGER_HOST
             },
             version: {
                 enum: ['v1'],
