@@ -4,7 +4,6 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const greenlock = require("greenlock-express"); 
 
 const logger = require('./logger');
 const config = require('../config');
@@ -26,7 +25,7 @@ function setup() {
 
 function defineRoutes() {
   app.get('/', (req, res) => {  
-    res.send('Hello this is Sylvanas!');
+    res.send('Hello this is TOSHINO KYOUKO!');
   });
 
   app.use('/api/v1', apiV1Router);
@@ -36,26 +35,9 @@ function initWebServer() {
   setup();
   defineRoutes();
 
-  if (config.DEV_OPTIONS.ENABLED) {
-    app.listen(config.PORT, function () {  
-      logger.info(`server running on ${config.PORT}`);
-    });
-  }
-  else {
-    greenlock
-      .init(getConfig)
-      .serve((server) => {
-        server.serveApp(app);
-      });
-  }
-}
-
-function getConfig() {
-  return {
-    package: { name: 'ootc-ui', version: '0.8' },
-    maintainerEmail: 'ootc.tccc.test@gmail.com',
-    cluster: false
-  };
+  app.listen(config.PORT, function () {  
+    logger.info(`server running on ${config.PORT}`);
+  });
 }
 
 module.exports = {
