@@ -7,12 +7,13 @@ const logger = require('../logger');
 const Email = require('../classes/Email');
 const emailTemplates = require('../util/emailTemplates');
 
+const awsCred = './aws.json';
 let transporter;
 
 function init() {
     try {
         // configure AWS SDK
-        aws.config.loadFromPath('./aws.json');
+        aws.config.loadFromPath(awsCred);
 
         // create Nodemailer SES transporter
         transporter = nodemailer.createTransport({
@@ -23,23 +24,33 @@ function init() {
         });
     }
     catch(e) {
-        logger.error('unable to initialize email service');
-        logger.error(e);
+        if (e.code === 'ENOENT' && e.path.indexOf(awsCred) !== -1) {
+            logger.error('aws credentials not present. Unable to initialize email service');
+        }
+        else {
+            logger.error('unable to initialize email service');
+            logger.error(e);
+        }
     }
 }
 
 function sendMail(email) {
-    return new Promise((res, rej) => {
-        transporter.sendMail(email, (err, info) => {
-            if (err) {
-                return rej(err);
-            }
-            else {
-                logger.info(info);
-                return res();
-            }
+    if (transporter) {
+        return new Promise((res, rej) => {
+            transporter.sendMail(email, (err, info) => {
+                if (err) {
+                    return rej(err);
+                }
+                else {
+                    logger.info(info);
+                    return res();
+                }
+            });
         });
-    });
+    }
+    else {
+        logger.debug('no email transporter available');
+    }
 }
 
 async function sendValidationEmail(userEmail, name, validationLink) {
