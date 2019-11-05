@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'validateEmail', component: EmailValidationComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
-  { path: 'changePassword', component: ChangePasswordComponent }
+  { path: 'changePassword', component: ChangePasswordComponent },
+  { path: '**', redirectTo: ''}
 ];
 
 @NgModule({
