@@ -53,12 +53,17 @@ export class ReservationService {
   }
 
   addReservationForUser(reservation: Reservation): Observable<Reservation> {
-    return of(reservation);
+    const url = `${API_URL}/admin/reserve`;
+    return this.http.post<Reservation>(url, reservation);
   }
 
-  reservationSignin(userId: string): Observable<boolean> {
+  reservationSignin(userId: string, date?: string): Observable<boolean> {
     const url = `${API_URL}/registration/signin`;
-    return this.http.post<boolean>(url, {userId: userId})
+    const reqBody = {userId: userId, date: undefined};
+    if (date) {
+      reqBody.date = date;
+    }
+    return this.http.post<boolean>(url, reqBody)
       .pipe(map((response: any) => {
         if (response.status === 200) {
           return true;

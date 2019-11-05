@@ -72,7 +72,7 @@ export class ScheduleService {
       );
   }
 
-  getAllTimeSlots(startDate: string, endDate: string): Observable<TimeSlotView[]> {
+  getAllTimeSlotsBetween(startDate: string, endDate: string): Observable<TimeSlotView[]> {
     const url = `${API_URL}/admin/timeSlots`;
     const options = {
       params: new HttpParams()

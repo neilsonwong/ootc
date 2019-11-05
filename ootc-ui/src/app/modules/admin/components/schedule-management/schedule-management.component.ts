@@ -3,6 +3,7 @@ import { ScheduleService } from 'src/app/services/schedule.service';
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
 
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
+import { ReservationService } from 'src/app/services/reservation.service';
 
 @Component({
   selector: 'app-schedule-management',
@@ -14,9 +15,11 @@ export class ScheduleManagementComponent implements OnInit {
   public startDate: string;
   public endDate: string;
 
-  constructor(private scheduleService: ScheduleService) { }
+  constructor(
+    private scheduleService: ScheduleService) { }
 
   ngOnInit() {
+    // change to week
     const monthStart = new Date();
     const monthEnd = new Date();
     monthStart.setDate(1);
@@ -29,10 +32,13 @@ export class ScheduleManagementComponent implements OnInit {
   }
 
   getSchedule() {
-    this.scheduleService.getAllTimeSlots(this.startDate, this.endDate)
+    this.scheduleService.getAllTimeSlotsBetween(this.startDate, this.endDate)
       .subscribe((res: TimeSlotView[]) => {
         this.schedule = res;
         console.log(res);
       });
+  }
+
+  testStuff() {
   }
 }
