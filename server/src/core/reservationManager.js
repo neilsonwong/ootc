@@ -1,5 +1,7 @@
 'use strict';
 
+const moment = require('moment');
+
 const db = require('../db/db');
 const logger = require('../logger');
 
@@ -42,11 +44,16 @@ async function getReservationsForUser(userId) {
 // sign in
 async function updateAttendance(userId) {
     // check whether there is a sign in for the time
-    const now = Date.now();
-    const reservation = await db.reservations.findReservationByUserAndTime(userId, now);
-    if (reservation) {
-        return await db.reservations.updateReservationAttendance(reservation.id, true);
+    const now = moment().format("YYYY-MM-DD");
+    const reservations = await db.reservations.getReservationsForUserOnDate(userId, '2020-01-26');
+    console.log(reservations)
+    if (reservations && reservations.length > 0) {
+        return Promise.all(reservations.map(async (reservation) => {
+            await db.reservations.updateReservationAttendance(reservation.id, true);
+            return reservation;
+        }));
     }
+    console.log('we done?')
     return null;
 }
 

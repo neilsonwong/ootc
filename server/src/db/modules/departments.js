@@ -17,7 +17,7 @@ const sql = {
         `INSERT INTO departments (name, description) VALUES(?,?)`,
     
     updateDepartment: 
-        `UPDATE departments SET name = $name WHERE id = $id`,
+        `UPDATE departments SET name = $name, description = $description WHERE id = $id`,
     // TODO: allow description updates
     
     listDepartments: 

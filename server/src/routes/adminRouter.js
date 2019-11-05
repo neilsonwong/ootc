@@ -72,12 +72,7 @@ router.post('/departments/add', async (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             required:
- *               - department
- *             properties:
- *               department:
- *                 type: string
+ *             $ref: '#/components/schemas/Department'
  *     responses:
  *       200:
  *         description: Updated Department
@@ -87,10 +82,10 @@ router.post('/departments/add', async (req, res) => {
  *         description: Unauthorized
  */
 router.post('/departments/update', async (req, res) => {
-	const department = req.body.department;
+	const department = req.body;
 	const updated = await departmentManager.updateDepartment(department);
 	return updated ? 
-		res.status(200).json({res: `updated department ${department}`}) :
+		res.status(200).json({res: `updated department ${department.name}`}) :
 		res.status(400).json({error: 'error updating department'});
 });
 
@@ -116,7 +111,7 @@ router.post('/departments/update', async (req, res) => {
  *         description: Unauthorized
  */
 router.get('/schedule', async (req, res) => {
-	const year = req.params.year || (new Date()).getFullYear();
+	const year = req.query.year || (new Date()).getFullYear();
 	const schedule = await scheduleManager.getSchedule(year);
 	return schedule ?
 		res.status(200).json(schedule) :
@@ -149,7 +144,7 @@ router.get('/schedule', async (req, res) => {
  *         description: Unauthorized
  */
 router.post('/schedule/add', async (req, res) => {
-	const timeSlotDef = req.body.timeSlotDef;
+	const timeSlotDef = req.body;
 	const addedTimeSlotDef = await scheduleManager.addTimeSlotDef(timeSlotDef);
 	return addedTimeSlotDef ?
 		res.status(201).json(addedTimeSlotDef) :
@@ -161,7 +156,7 @@ router.post('/schedule/add', async (req, res) => {
  *
  * /admin/schedule/remove:
  *   post:
- *     summary: Add a time slot definition 
+ *     summary: Remove a time slot definition 
  *     tags: 
  *       - admin
  *     consumes: application/json
@@ -221,7 +216,7 @@ router.post('/schedule/remove', async (req, res) => {
  *         description: Unauthorized
  */
 router.post('/schedule/update', async (req, res) => {
-	const timeSlotDef = req.body.timeSlotDef;
+	const timeSlotDef = req.body;
 	const result = scheduleManager.updateTimeSlotDef(timeSlotDef);
 	return result ?
 		res.status(200).json(timeSlotDef) :
@@ -254,7 +249,7 @@ router.post('/schedule/update', async (req, res) => {
  *         description: Unauthorized
  */
 router.post('/schedule/generate', async(req, res) => {
-	const timeSlotDef = req.body.timeSlotDef;
+	const timeSlotDef = req.body;
 	const generatedTimeSlots = await scheduleManager.generateTimeSlots(timeSlotDef);
 	return generatedTimeSlots ? 
 		res.status(201).json(generatedTimeSlots) :
@@ -287,7 +282,7 @@ router.post('/schedule/generate', async(req, res) => {
  *         description: Unauthorized
  */
 router.post('/reserve', async (req, res) => {
-	const reservation = req.body.reservation;
+	const reservation = req.body;
 	const added = await reservationManager.createReservation(reservation);
 	return added ?
 		res.status(201).json(added) :

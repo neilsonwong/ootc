@@ -8,7 +8,7 @@ api_url = "http://localhost:8000"
 ### TIMESLOT DEFINITIONS FOR 2020 ###
 
 # Hospitality (id=1) TimeSlotDefs
-h1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
+h1 = """ {"repeatStartDate":"2020-01-26",
                         "repeatCount": 10, 
                         "repeatInterval": 2, 
                         "repeatSkipEvery": 0, 
@@ -16,9 +16,9 @@ h1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                         "duration":150, 
                         "signUpCap":10, 
                         "department":1, 
-                        "desc":"Serving Snacks and Socializing"}} """
+                        "desc":"Serving Snacks and Socializing"} """
 
-h2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
+h2 = """ {"repeatStartDate":"2020-01-26", 
                         "repeatCount": 10, 
                         "repeatInterval":2, 
                         "repeatSkipEvery":0, 
@@ -26,11 +26,11 @@ h2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                         "duration":210, 
                         "signUpCap":25, 
                         "department":1, 
-                        "desc":"Serving Dinner and Socializing"}} """
+                        "desc":"Serving Dinner and Socializing"} """
 
 
 # Kitchen (id=2) TimeSlotDefs
-k1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
+k1 = """ {"repeatStartDate":"2020-01-26", 
                         "repeatCount": 10, 
                         "repeatInterval":2, 
                         "repeatSkipEvery":0, 
@@ -38,9 +38,9 @@ k1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                         "duration":240, 
                         "signUpCap":8, 
                         "department":2, 
-                        "desc":"Sunday - Food Prep and Cooking"}} """
+                        "desc":"Sunday - Food Prep and Cooking"} """
                         
-k2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-27", 
+k2 = """ {"repeatStartDate":"2020-01-27", 
                         "repeatCount": 10, 
                         "repeatInterval":2, 
                         "repeatSkipEvery":0, 
@@ -48,9 +48,9 @@ k2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-27",
                         "duration":180, 
                         "signUpCap":3, 
                         "department":2, 
-                        "desc":"Monday - Cooking Breakfast"}} """
+                        "desc":"Monday - Cooking Breakfast"} """
 
-k3 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-23", 
+k3 = """ {"repeatStartDate":"2020-01-23", 
                         "repeatCount": 10, 
                         "repeatInterval":2, 
                         "repeatSkipEvery":0, 
@@ -58,11 +58,11 @@ k3 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-23",
                         "duration":240, 
                         "signUpCap":1, 
                         "department":2, 
-                        "desc":"Grocery Shopping"}} """
+                        "desc":"Grocery Shopping"} """
 
 
 # Registration (id=3) TimeSlotDefs
-r1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
+r1 = """ {"repeatStartDate":"2020-01-26", 
                         "repeatCount": 10, 
                         "repeatInterval":2, 
                         "repeatSkipEvery":0, 
@@ -70,9 +70,9 @@ r1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                         "duration":180, 
                         "signUpCap":3, 
                         "department":3, 
-                        "desc":"Sunday - Afternoon Sign-in"}} """
+                        "desc":"Sunday - Afternoon Sign-in"} """
 
-r2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
+r2 = """ {"repeatStartDate":"2020-01-26", 
                         "repeatCount": 10, 
                         "repeatInterval":2, 
                         "repeatSkipEvery":0, 
@@ -80,9 +80,9 @@ r2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                         "duration":150, 
                         "signUpCap":3, 
                         "department":3, 
-                        "desc":"Sunday - Evening Sign-Out"}} """
+                        "desc":"Sunday - Evening Sign-Out"} """
 
-r3 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-27", 
+r3 = """ {"repeatStartDate":"2020-01-27", 
                         "repeatCount": 10, 
                         "repeatInterval":2, 
                         "repeatSkipEvery":0, 
@@ -90,11 +90,11 @@ r3 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-27",
                         "duration":120, 
                         "signUpCap":3, 
                         "department":3, 
-                        "desc":"Monday - Morning Sign-Out"}} """
+                        "desc":"Monday - Morning Sign-Out"} """
 
 
 # Clothing Bank (id=4) TimeSlotDefs
-c1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
+c1 = """ {"repeatStartDate":"2020-01-26", 
                         "repeatCount": 10, 
                         "repeatInterval":2, 
                         "repeatSkipEvery":0, 
@@ -102,9 +102,9 @@ c1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                         "duration":150, 
                         "signUpCap":3, 
                         "department":4, 
-                        "desc":"Setup and Afternoon Shift"}} """
+                        "desc":"Setup and Afternoon Shift"} """
 
-c2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
+c2 = """ {"repeatStartDate":"2020-01-26", 
                         "repeatCount": 10, 
                         "repeatInterval":2, 
                         "repeatSkipEvery":0, 
@@ -112,11 +112,11 @@ c2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                         "duration":120, 
                         "signUpCap":3, 
                         "department":4, 
-                        "desc":"Cleanup and Evening Shift"}} """
+                        "desc":"Cleanup and Evening Shift"} """
 
 
 # Setup_Cleanup (id=5) TimeSlotDefs
-s1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
+s1 = """ {"repeatStartDate":"2020-01-26", 
                         "repeatCount": 10, 
                         "repeatInterval":2, 
                         "repeatSkipEvery":0, 
@@ -124,9 +124,9 @@ s1 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                         "duration":120, 
                         "signUpCap":4, 
                         "department":5, 
-                        "desc":"Venue Setup"}} """
+                        "desc":"Venue Setup"} """
 
-s2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26", 
+s2 = """ {"repeatStartDate":"2020-01-26", 
                         "repeatCount": 10, 
                         "repeatInterval":2, 
                         "repeatSkipEvery":0, 
@@ -134,9 +134,9 @@ s2 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-26",
                         "duration":120, 
                         "signUpCap":3, 
                         "department":5, 
-                        "desc":"Venue Cleanup"}} """
+                        "desc":"Venue Cleanup"} """
 
-s3 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-27", 
+s3 = """ {"repeatStartDate":"2020-01-27", 
                         "repeatCount": 10, 
                         "repeatInterval":2, 
                         "repeatSkipEvery":0, 
@@ -144,7 +144,7 @@ s3 = """ {"timeSlotDef":{"repeatStartDate":"2020-01-27",
                         "duration":90, 
                         "signUpCap":5, 
                         "department":5, 
-                        "desc":"Monday - Morning Cleanup"}} """
+                        "desc":"Monday - Morning Cleanup"} """
 
 data = [h1, h2, k1, k2, k3, r1, r2, r3, c1, c2, s1, s2, s3]
 
@@ -154,6 +154,7 @@ data = [h1, h2, k1, k2, k3, r1, r2, r3, c1, c2, s1, s2, s3]
 def setup_Departments():
 
     url = api_url + "/api/v1/admin/departments/add"
+    print url
 
     headers = {'Content-type': 'application/json'}
 
@@ -170,6 +171,7 @@ def setup_Departments():
 def setup_TimeSlotDefs():
 
     url = api_url + "/api/v1/admin/schedule/add"
+    print url
 
     headers = {'Content-type': 'application/json'}
 
@@ -180,6 +182,7 @@ def setup_TimeSlotDefs():
 def generate():
 
     url = api_url + "/api/v1/admin/schedule/generate"
+    print url
 
     headers = {'Content-type': 'application/json'}
 

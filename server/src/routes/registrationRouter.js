@@ -24,17 +24,18 @@ router.use(basicAuth({
  *       - admin
  *     consumes: application/json
  *     produces: application/json
- *     parameters:
- *       - in: body
- *         name: userId
- *         description: The user's Id
- *         schema:
- *           type: object
- *           required:
- *             - UserId
- *           properties:
- *             id:
- *               type: string
+ *     requestBody:
+ *       description: The value of the user id to sign in 
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - userId
+ *             properties:
+ *               userId:
+ *                 type: string
  *     responses:
  *       200:
  *         description: User has successfully signed-in
@@ -47,6 +48,7 @@ router.use(basicAuth({
 router.post('/signin', async (req, res) => {
 	const userId = req.body.userId;
 	const signedIn = await reservationManager.updateAttendance(userId);
+	console.log(signedIn)
 	return signedIn ? 
 		res.status(200).json({res: `we have successfully signed in ${userId}`}) :
 		res.status(400).json({error: `there was an error signing in the ${userId}`});

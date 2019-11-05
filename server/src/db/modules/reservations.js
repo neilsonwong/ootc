@@ -15,21 +15,21 @@ const sql = {
         )`,
 
     getReservationsByUserId:
-        `SELECT reservations.id, reservations.user, timeSlots.id as timeSlotId, timeSlots.startDate, timeSlots.startTime, timeSlots.duration, departments.name, timeSlots.desc
+        `SELECT reservations.id, reservations.user, timeSlots.id as timeSlotId, timeSlots.startDate, timeSlots.startTime, timeSlots.duration, departments.name AS department, timeSlots.desc
         FROM reservations
         INNER JOIN timeSlots ON reservations.timeSlot = timeSlots.id
         INNER JOIN departments ON departments.id = timeSlots.department
         WHERE user = ?`,
 
     getReservationsByTimeSlot:
-        `SELECT reservations.id, reservations.user, timeSlots.id as timeSlotId, timeSlots.startDate, timeSlots.startTime, timeSlots.duration, departments.name, timeSlots.desc
+        `SELECT reservations.id, reservations.user, timeSlots.id as timeSlotId, timeSlots.startDate, timeSlots.startTime, timeSlots.duration, departments.name AS department, timeSlots.desc
         FROM reservations
         INNER JOIN timeSlots ON reservations.timeSlot = timeSlots.id
         INNER JOIN departments ON departments.id = timeSlots.department
         WHERE timeSlot = ?`,
     
     getReservationsForUserOnDate:
-        `SELECT reservations.id, reservations.user, timeSlots.id as timeSlotId, timeSlots.startDate, timeSlots.startTime, timeSlots.duration, departments.name, timeSlots.desc
+        `SELECT reservations.id, reservations.user, timeSlots.id as timeSlotId, timeSlots.startDate, timeSlots.startTime, timeSlots.duration, departments.name AS department, timeSlots.desc
         FROM reservations
         INNER JOIN timeSlots ON reservations.timeSlot = timeSlots.id
         INNER JOIN departments ON departments.id = timeSlots.department
