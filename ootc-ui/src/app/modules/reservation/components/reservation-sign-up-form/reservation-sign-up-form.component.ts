@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
-import { MatSelectChange, MatDialog, MatSelect } from '@angular/material';
+import { MatSelectChange, MatDialog, MatSelect, MatOption } from '@angular/material';
 import { forkJoin } from 'rxjs';
 
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
@@ -32,7 +32,8 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   @Output() reservationsChanged = new EventEmitter<boolean>();
 
   @ViewChild('timeSlots', {static: false}) timeSlots: MatSelectionList;
-  @ViewChild('booboo', {static: false}) roleFilter: MatSelect;
+  @ViewChild('roleSelect', {static: false}) roleFilter: MatSelect;
+  @ViewChild('allRolesOption', {static: false}) allRolesOption: MatOption;
 
   private startDate: string;
   private endDate: string;
@@ -73,7 +74,13 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
         this.initReservationBasedFields();
         this.clearSelected();
         if (this.roleFilter) {
-          this.onFilterChanged(this.roleFilter.value);
+          if (this.roles.indexOf(this.roleFilter.value) !== -1) {
+            this.onFilterChanged(this.roleFilter.value);
+          }
+          else {
+            this.allRolesOption.select();
+            this.onFilterChanged('All');
+          }
         }
       });
     }
