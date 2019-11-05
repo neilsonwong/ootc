@@ -42,10 +42,10 @@ async function getReservationsForUser(userId) {
 }
 
 // sign in
-async function updateAttendance(userId) {
+async function updateAttendance(userId, overrideDate) {
     // check whether there is a sign in for the time
-    const now = moment().format("YYYY-MM-DD");
-    const reservations = await db.reservations.getReservationsForUserOnDate(userId, '2020-01-26');
+    const now = overrideDate || moment().format("YYYY-MM-DD");
+    const reservations = await db.reservations.getReservationsForUserOnDate(userId, now);
     console.log(reservations)
     if (reservations && reservations.length > 0) {
         return Promise.all(reservations.map(async (reservation) => {

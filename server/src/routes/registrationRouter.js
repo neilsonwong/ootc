@@ -19,13 +19,13 @@ router.use(basicAuth({
  *
  * /registration/signin:
  *   post:
- *     summary: Post for sign-in 
+ *     summary: Sign in a user for all reservations for that day
  *     tags: 
  *       - admin
  *     consumes: application/json
  *     produces: application/json
  *     requestBody:
- *       description: The value of the user id to sign in 
+ *       description: The value of the user id to sign in, and an option date override (yyyy-mm-dd)
  *       required: true
  *       content:
  *         application/json:
@@ -35,6 +35,8 @@ router.use(basicAuth({
  *               - userId
  *             properties:
  *               userId:
+ *                 type: string
+ *               date:
  *                 type: string
  *     responses:
  *       200:
@@ -47,6 +49,7 @@ router.use(basicAuth({
 
 router.post('/signin', async (req, res) => {
 	const userId = req.body.userId;
+	const date = req.body.date;
 	const signedIn = await reservationManager.updateAttendance(userId);
 	console.log(signedIn)
 	return signedIn ? 
