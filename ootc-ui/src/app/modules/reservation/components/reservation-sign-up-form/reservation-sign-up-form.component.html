@@ -3,9 +3,9 @@
     <div class="role-filter-container">
         <mat-form-field class="role-filter">
             <mat-label>Role Filter</mat-label>
-            <mat-select #booboo
+            <mat-select #roleSelect
                 value="All" (selectionChange)="onFilterChanged($event)">
-                <mat-option value="All">All</mat-option>
+                <mat-option #allRolesOption value="All">All</mat-option>
                 <mat-option *ngFor="let role of roles" [value]="role">
                     {{ role }}
                 </mat-option>

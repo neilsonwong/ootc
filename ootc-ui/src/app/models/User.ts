@@ -10,6 +10,7 @@ export class User {
   comments: string;
   isValidated: boolean;
   isAdmin: boolean;
+  admin?: boolean;
 
   constructor (
       id: string,

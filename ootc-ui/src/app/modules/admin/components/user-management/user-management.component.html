@@ -1,5 +1,6 @@
 <app-container>
   <div class="stand-alone-wide-box">
+      <button mat-button (click)="onCreateUser">Create User</button>
     <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>
@@ -47,9 +48,17 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Admin </th>
             <td mat-cell *matCellDef="let user"> {{user.isAdmin ? 'Admin' : 'User'}} </td>
         </ng-container>
+
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="updateUser">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let user">
+                <button mat-raised-button (click)="openDialog(user)">Update User</button>
+            </td>
+        </ng-container>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </div>
-</app-container>
+  </app-container>

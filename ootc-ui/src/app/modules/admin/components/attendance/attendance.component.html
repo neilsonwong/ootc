@@ -1,7 +1,6 @@
 <app-container>
     <div class="attendance-container stand-alone-wide-box">
         <h2 class="attendance-table-title">Attendance for {{ date | date:'fullDate' }}</h2>
-
         <p>Enter the email of the user</p>
 
         <form class="attendance-form" [formGroup]="userIdentifyForm" (ngSubmit)="onSignIn()">
@@ -12,6 +11,5 @@
             <button mat-raised-button color="primary" type="submit">Check-in</button>
 
         </form>
-
     </div>
 </app-container>

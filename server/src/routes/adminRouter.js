@@ -299,13 +299,13 @@ router.post('/reserve', async (req, res) => {
  *
  * /admin/reservations/delete:
  *   post:
- *     summary: Add a time slot definition 
+ *     summary: Delete a reservation
  *     tags: 
  *       - admin
  *     consumes: application/json
  *     produces: application/json
  *     requestBody:
- *       description: An Object containing the time slot def id to be removed
+ *       description: An Object containing the reservation id to be removed
  *       required: true
  *       content:
  *         application/json:
@@ -382,11 +382,43 @@ router.get('/users', async (req, res) => {
  *         description: Unauthorized
  */
 router.post('/user/update', async (req, res) => {
-	const user = req.body.user;
+	const user = req.body;
 	const result = await accountManager.updateUser(user);
 	return result ?
 		res.status(200).json(user) :
 		res.status(400).json({ error: `could not update user with email ${user.email}` });
+});
+
+/**
+ * @swagger
+ *
+ * /admin/timeslots:
+ *   get:
+ *     summary: Get all timeslots between a time range
+ *     tags: 
+ *       - admin 
+ *     produces: application/json
+ *     parameters:
+ *       - in: query
+ *         name: startDate
+ *         description: The startDate of the range
+ *       - in: query
+ *         name: endDate
+ *         description: The endDate of the range
+ * 
+ *     responses:
+ *       200:
+ *         description: Array of user's reservations
+ *       400:
+ *         description: Error retrieving reservations for user
+ */
+router.get('/timeslots', async (req, res) => {
+	const startDate = req.query.startDate;
+	const endDate = req.query.endDate;
+	const timeSlots = await scheduleManager.getTimeSlotsByTimeRange(startDate, endDate);
+	return timeSlots ?
+		res.status(200).json(timeSlots) :
+		res.status(400).json({error: `there was an error retrieving time slots`});
 });
 
 module.exports = router;

@@ -10,9 +10,7 @@ import { User } from 'src/app/models/User';
 })
 export class AttendanceComponent implements OnInit {
 
-  private users: User[];
-  private date: Date = new Date();
-  
+  public date: Date = new Date();
   public userIdentifyForm: FormGroup;
   public userFound: boolean = false;
   public confirmed = false;
@@ -29,6 +27,7 @@ export class AttendanceComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   onSignIn() {
     this.id = this.userIdentifyForm.get('email').value;
     this.reservationService.reservationSignin(this.id).subscribe(
@@ -37,6 +36,12 @@ export class AttendanceComponent implements OnInit {
      );
     this.confirmed = true;
     console.log("it works");
+=======
+  userCheckIn() {
+    this.reservationService.reservationSignin(this.userIdentifyForm.get('email').value).subscribe((res: boolean) => {
+      this.confirmed = true;
+      console.log("it works");
+    });
+>>>>>>> d31b14a75a197dfbf9cfd3efe6bd9c3e1dca7241
   }  
-
 }

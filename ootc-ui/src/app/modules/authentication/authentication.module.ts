@@ -20,7 +20,8 @@ import { CreateUserFormComponent } from './components/create-user-form/create-us
   ],
   exports: [
     LoginFormComponent,
-    RegistrationFormComponent
+    RegistrationFormComponent,
+    CreateUserFormComponent
   ],
 })
 export class AuthenticationModule { }

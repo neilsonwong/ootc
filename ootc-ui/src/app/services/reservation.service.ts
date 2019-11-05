@@ -15,9 +15,9 @@ export class ReservationService {
 
   constructor(private http: HttpClient) { }
 
-  getReservations(): Observable<Reservation[]> {
-    // not needed
-    return of(null);
+  getTimeSlots(): Observable<ReservationView[]> {
+    const url = `${API_URL}/admin/reservations/all`;
+    return this.http.get<ReservationView[]>(url);
   }
 
   addReservation(reservation: Reservation): Observable<Reservation> {

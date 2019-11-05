@@ -3,6 +3,7 @@
 	"PORT": 8000,
 	"DB_PATH": "./database.db",
 	"DEFAULT_USERS_FILE": "./default_users",
+	"SWAGGER_HOST": "localhost:8000",
 	"EMAIL": {
 		"MAX_CONCURRENT": 10,
 		"MASTER": "me@mail.com"
@@ -13,6 +14,6 @@
 	},
 	"LINKS": {
 		"VALIDATE_EMAIL": "http://localhost:4200/validateEmail",
-		"RESET_PASSWORD": "http://localhost:4200/resetPassword"
+		"RESET_PASSWORD": "http://localhost:4200/changePassword"
 	}
 }

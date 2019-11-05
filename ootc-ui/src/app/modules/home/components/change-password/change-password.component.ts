@@ -15,6 +15,7 @@ export class ChangePasswordComponent implements OnInit {
   public passwordChanged: boolean = false;
   public email: string;
   public error: string;
+  public resetCodeExists: boolean = false;;
 
   private resetCode: string;
 
@@ -29,6 +30,7 @@ export class ChangePasswordComponent implements OnInit {
       // decode the combined code
       const combinedString: string = window.atob(combinedCode);
       [this.email, this.resetCode] = combinedString.split(':');
+      this.resetCodeExists = true;
     }
     else {
       // no code passed, this means the user navigated here so we are probably logged in
@@ -52,7 +54,6 @@ export class ChangePasswordComponent implements OnInit {
         this.passwordChanged = true;
       },
       catchError((error) => {
-        console.log('we are here');
         if (this.resetCode) {
           this.error = 'Unable to change password. Has this link already been used?';
         }

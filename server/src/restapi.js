@@ -12,6 +12,7 @@ const apiV1Router = require('./routes/apiV1Router');
 let app = express();
 
 function setup() {
+  app.set('port', config.PORT);
   app.use((req, res, next) => {
     logger.trace(req);
     return next();
@@ -24,7 +25,7 @@ function setup() {
 
 function defineRoutes() {
   app.get('/', (req, res) => {  
-    res.send('Hello this is Sylvanas!');
+    res.send('Hello this is TOSHINO KYOUKO!');
   });
 
   app.use('/api/v1', apiV1Router);
@@ -33,7 +34,7 @@ function defineRoutes() {
 function initWebServer() {
   setup();
   defineRoutes();
-  
+
   app.listen(config.PORT, function () {  
     logger.info(`server running on ${config.PORT}`);
   });

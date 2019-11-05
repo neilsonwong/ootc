@@ -32,8 +32,7 @@
                         <mat-error>{{ formErrors.minLength }}</mat-error>  
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput type="password" placeholder="Verify Password" formControlName='verifypassword' 
-                        [class.is-invalid]="submitted && f.verifypassword.errors" required>
+                    <input matInput type="password" placeholder="Verify Password" formControlName="verifypassword" required>
                     <mat-error>{{ formErrors.mismatch }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
