@@ -16,6 +16,7 @@ export class AttendanceComponent implements OnInit {
   public userIdentifyForm: FormGroup;
   public userFound: boolean = false;
   public confirmed = false;
+  public id: any;
 
   constructor(private fb: FormBuilder,
     private reservationService: ReservationService) { }
@@ -28,8 +29,12 @@ export class AttendanceComponent implements OnInit {
     });
   }
 
-  userCheckIn() {
-    this.reservationService.reservationSignin(this.userIdentifyForm.get('email').value).subscribe();
+  onSignIn() {
+    this.id = this.userIdentifyForm.get('email').value;
+    this.reservationService.reservationSignin(this.id).subscribe(
+      // This db.reservations.findReservationByUserAndTime is missing
+      //{next(thing) { console.log('hello' + thing);}}
+     );
     this.confirmed = true;
     console.log("it works");
   }  

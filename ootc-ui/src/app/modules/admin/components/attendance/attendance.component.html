@@ -4,12 +4,12 @@
 
         <p>Enter the email of the user</p>
 
-        <form class="attendance-form" [formGroup]="userIdentifyForm" (ngSubmit)="userCheckIn()">
+        <form class="attendance-form" [formGroup]="userIdentifyForm" (ngSubmit)="onSignIn()">
 
             <mat-form-field>
                 <input matInput type="email" placeholder="Email" formControlName="email">
             </mat-form-field>
-            <button mat-raised-button color="primary" type="submit" [disabled]="!userIdentifyForm.valid">Check-in</button>
+            <button mat-raised-button color="primary" type="submit">Check-in</button>
 
         </form>
 
