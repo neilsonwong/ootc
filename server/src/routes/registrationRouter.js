@@ -50,8 +50,7 @@ router.use(basicAuth({
 router.post('/signin', async (req, res) => {
 	const userId = req.body.userId;
 	const date = req.body.date;
-	const signedIn = await reservationManager.updateAttendance(userId);
-	console.log(signedIn)
+	const signedIn = await reservationManager.updateAttendance(userId, date);
 	return signedIn ? 
 		res.status(200).json({res: `we have successfully signed in ${userId}`}) :
 		res.status(400).json({error: `there was an error signing in the ${userId}`});

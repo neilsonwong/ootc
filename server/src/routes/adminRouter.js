@@ -36,8 +36,11 @@ router.use(basicAuth({
  *             type: object
  *             required:
  *               - departmentName
+ *               - description
  *             properties:
  *               departmentName:
+ *                 type: string
+ *               description:
  *                 type: string
  *     responses:
  *       201:
