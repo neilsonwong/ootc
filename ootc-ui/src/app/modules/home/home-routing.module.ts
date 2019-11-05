@@ -14,7 +14,6 @@ const routes: Routes = [
   { path: 'validateEmail', component: EmailValidationComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
   { path: 'changePassword', component: ChangePasswordComponent },
-  { path: '**', redirectTo: ''}
 ];
 
 @NgModule({

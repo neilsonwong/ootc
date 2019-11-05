@@ -19,13 +19,15 @@ import { BasicAuthInterceptor } from 'src/app/helpers/basic-auth.interceptor';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     SharedModule,
     HomeModule,
     ReservationModule,
     AdminModule,
     AuthenticationModule,
     HttpClientModule,
+    
+    // make sure app routing is last so the catch-all is imported last!!!
+    AppRoutingModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true }
