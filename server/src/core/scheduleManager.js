@@ -160,6 +160,18 @@ async function getTimeSlotsByTimeRange(start, end) {
     }
 }
 
+async function getReservationsForTimeSlot(timeSlotId) {
+    try {
+        const id = parseInt(timeSlotId);
+        return await db.reservations.getReservationsByTimeSlot(id);
+    }
+    catch(e) {
+        logger.error(`there was an error getting all time slots`);
+        logger.error(e);
+        return null;
+    }
+}
+
 module.exports = {
     getSchedule: getSchedule,
     addTimeSlotDef: addTimeSlotDef,
@@ -168,4 +180,5 @@ module.exports = {
     generateTimeSlots: generateTimeSlots,
     getTimeSlotsForDept: getTimeSlotsForDept,
     getTimeSlotsByTimeRange: getTimeSlotsByTimeRange,
+    getReservationsForTimeSlot: getReservationsForTimeSlot
 };

@@ -52,7 +52,7 @@ router.get('/departments', async (req, res) => {
  *     consumes: application/json
  *     produces: application/json
  *     requestBody:
- *       description: Object containing user fields
+ *       description: Object containing the reservation to add
  *       required: true
  *       content:
  *         application/json:
@@ -60,7 +60,7 @@ router.get('/departments', async (req, res) => {
  *             type: object
  *             properties:
  *               user: 
- *                 $ref: '#/components/schemas/UserNoId'
+ *                 $ref: '#/components/schemas/ReservationNoId'
  *     responses:
  *       201:
  *         description: User has added reservations
@@ -95,15 +95,17 @@ router.post('/reservations/add', async (req, res) => {
  *     consumes: application/json
  *     produces: application/json
  *     requestBody:
- *       description: Object containing user fields
+ *       description: An object containing the reservation id to be cancelled
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - reservationId
  *             properties:
- *               user: 
- *                 $ref: '#/components/schemas/UserNoId'
+ *               reservationId:
+ *                 type: integer
  *     responses:
  *       201:
  *         description: User has cancelled reservation
@@ -150,13 +152,16 @@ router.get('/reservations', async (req, res) => {
 /**
  * @swagger
  *
- * /user/timesSlots:
+ * /user/timeSlots:
  *   get:
  *     summary: Get all timeslots for Dept
  *     tags: 
  *       - user
  *     produces: application/json
  *     parameters:
+ *       - in: query
+ *         name: departmentId 
+ *         description: The id of the department
  *       - in: query
  *         name: startDate
  *         description: The startDate of the range

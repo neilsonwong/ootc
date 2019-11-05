@@ -22,10 +22,7 @@ const sql = {
         WHERE user = ?`,
 
     getReservationsByTimeSlot:
-        `SELECT reservations.id, reservations.user, timeSlots.id as timeSlotId, timeSlots.startDate, timeSlots.startTime, timeSlots.duration, departments.name AS department, timeSlots.desc
-        FROM reservations
-        INNER JOIN timeSlots ON reservations.timeSlot = timeSlots.id
-        INNER JOIN departments ON departments.id = timeSlots.department
+        `SELECT * FROM reservations
         WHERE timeSlot = ?`,
     
     getReservationsForUserOnDate:
@@ -68,7 +65,8 @@ class ReservationDbModule extends DbModule {
 
     async getReservationsByTimeSlot(timeSlotId) {
         const rows = await db.all(sql.getReservationsByTimeSlot, [timeSlotId]);
-        return rows.map(e => this.fixType(e, ReservationView));
+        // don't fix to ReservationView as most of it is duplicate data
+        return rows.map(e => this.fixType(e));
     }
 
     async insertReservation(reservation) {
