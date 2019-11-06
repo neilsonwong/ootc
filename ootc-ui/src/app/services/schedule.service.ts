@@ -6,6 +6,7 @@ import { TimeSlotView } from '../models/TimeSlotView';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Reservation } from '../models/Reservation';
 
 const API_URL = environment.API_URL;
 
@@ -92,6 +93,14 @@ export class ScheduleService {
           })
         })
       );
+  }
 
+  getReservationsForTimeslot(timeSlotId: number): Observable<Reservation[]> {
+    const url = `${API_URL}/admin/timeSlot/reservations`;
+    const options = {
+      params: new HttpParams()
+        .set('timeSlotId', timeSlotId.toString())
+    };
+    return this.http.get<Reservation[]>(url, options);
   }
 }

@@ -1,4 +1,17 @@
 <app-container>
-    <p>schedule-management works!</p>
+    <h2>Schedule Management</h2>
+    <div class="management-box stand-alone-wide-box">
+        <div class="management-box-header">
+            <button>prev</button>
+            <h3>{{ startDate }} - {{ endDate }}</h3>
+            <button>next</button>
+        </div>
+        <div class="management-box-body">
+            <app-time-slot-details
+                *ngFor="let timeSlot of schedule"
+                [timeSlot]="timeSlot">
+            </app-time-slot-details>
+        </div>
+    </div>
     <button (click)="testStuff()">test stuff</button>
 </app-container>

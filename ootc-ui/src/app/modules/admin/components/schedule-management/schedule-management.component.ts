@@ -24,7 +24,7 @@ export class ScheduleManagementComponent implements OnInit {
     const monthEnd = new Date();
     monthStart.setDate(1);
 
-    monthEnd.setMonth(monthEnd.getMonth()+1);
+    monthEnd.setMonth(monthEnd.getMonth() + 1);
     monthEnd.setDate(1);
 
     this.startDate = reservationDisplayUtils.dateToYYYYMMDD(monthStart);

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { TimeSlotView } from 'src/app/models/TimeSlotView';
 
 @Component({
   selector: 'app-time-slot-details',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./time-slot-details.component.scss']
 })
 export class TimeSlotDetailsComponent implements OnInit {
+  @Input() timeSlot: TimeSlotView;
 
   constructor() { }
 
