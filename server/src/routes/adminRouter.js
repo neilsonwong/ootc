@@ -447,4 +447,32 @@ router.get('/timeslot/reservations', async (req, res) => {
 		res.status(400).json({error: `there was an error retrieving reservations for the time slot`});
 });
 
+/**
+ * @swagger
+ *
+ * /admin/timeslot/refresh:
+ *   get:
+ *     summary: Get a particular time slot via id
+ *     tags: 
+ *       - admin 
+ *     produces: application/json
+ *     parameters:
+ *       - in: query
+ *         name: timeSlotId
+ *         description: timeSlotId
+ * 
+ *     responses:
+ *       200:
+ *         description: Time slot for requested id
+ *       400:
+ *         description: Error retrieving the time slot
+ */
+router.get('/timeslot/refresh', async (req, res) => {
+	const timeSlotId = req.query.timeSlotId;
+	const reservations = await scheduleManager.getTimeSlot(timeSlotId);
+	return reservations ?
+		res.status(200).json(reservations) :
+		res.status(400).json({error: `there was an error retrieving the time slot`});
+});
+
 module.exports = router;

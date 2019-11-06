@@ -16,15 +16,26 @@ const sql = {
             signUpCap INTEGER NOT NULL,
             desc TEXT NOT NULL
         )`,
+
+    getTimeSlot:
+        `SELECT timeSlots.id, startDate, startTime, duration, departments.id as departmentId, departments.name AS department, signUpCap, desc, count(reservations.id) as reserved
+        FROM timeSlots INNER JOIN departments ON timeSlots.department = departments.id
+        LEFT JOIN reservations ON timeslots.id = reservations.timeSlot
+        WHERE timeSlots.id = ? 
+        GROUP BY timeSlots.id`,
     
     listTimeSlots:
         `SELECT * FROM timeSlots`,
 
     listTimeSlotsByRange:
-        `SELECT * FROM timeSlots WHERE startDate >= ? AND startDate <= ?`,
+        `SELECT timeSlots.id, startDate, startTime, duration, departments.id as departmentId, departments.name AS department, signUpCap, desc, count(reservations.id) as reserved
+        FROM timeSlots INNER JOIN departments ON timeSlots.department = departments.id
+        LEFT JOIN reservations ON timeslots.id = reservations.timeSlot
+        WHERE startDate >= ? AND startDate <= ?
+        GROUP BY timeSlots.id`,
     
     listTimeSlotsForDept:
-        `SELECT timeSlots.id, startDate, startTime, duration, departments.id as departmentId, departments.name, signUpCap, desc, count(reservations.id) as reserved
+        `SELECT timeSlots.id, startDate, startTime, duration, departments.id as departmentId, departments.name AS department, signUpCap, desc, count(reservations.id) as reserved
         FROM timeSlots INNER JOIN departments ON timeSlots.department = departments.id
         LEFT JOIN reservations ON timeslots.id = reservations.timeSlot
         WHERE departments.id = ? AND startDate >= ? AND startDate <= ?
@@ -41,6 +52,11 @@ const sql = {
 class TimeSlotDbModule extends DbModule {
     constructor() {
         super('timeSlots', sql.createTable, TimeSlot);
+    }
+
+    async getTimeSlot(timeSlotId) {
+        const timeSlot = await db.get(sql.getTimeSlot, [timeSlotId]);
+        return this.fixType(timeSlot);
     }
 
     async listTimeSlots() {
