@@ -11,7 +11,7 @@ import { AdminModule } from 'src/app/modules/admin/admin.module';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { AuthenticationModule } from 'src/app/modules/authentication/authentication.module';
 
-import { BasicAuthInterceptor } from 'src/app/helpers/basic-auth.interceptor';
+import { BasicAuthInterceptor } from 'src/app/interceptors/basic-auth.interceptor';
 
 @NgModule({
   declarations: [
