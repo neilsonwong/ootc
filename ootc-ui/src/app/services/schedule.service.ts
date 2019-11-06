@@ -103,4 +103,13 @@ export class ScheduleService {
     };
     return this.http.get<Reservation[]>(url, options);
   }
+
+  getTimeSlot(timeSlotId: number): Observable<TimeSlotView> {
+    const url = `${API_URL}/admin/timeSlot/refresh`;
+    const options = {
+      params: new HttpParams()
+        .set('timeSlotId', timeSlotId.toString())
+    };
+    return this.http.get<TimeSlotView>(url, options);
+  }
 }
