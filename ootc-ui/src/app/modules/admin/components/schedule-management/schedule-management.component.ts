@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ScheduleService } from 'src/app/services/schedule.service';
-import { TimeSlotView } from 'src/app/models/TimeSlotView';
-
-import { IGroupedTimeSlotViews } from 'src/app/interfaces/IGroupedTimeSlotViews';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDatepicker } from '@angular/material';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import * as moment from 'moment';
+import { IGroupedTimeSlotViews } from 'src/app/interfaces/IGroupedTimeSlotViews';
+import { TimeSlotView } from 'src/app/models/TimeSlotView';
+import { ScheduleService } from 'src/app/services/schedule.service';
+
 
 @Component({
   selector: 'app-schedule-management',
@@ -12,6 +13,8 @@ import * as moment from 'moment';
   styleUrls: ['./schedule-management.component.scss']
 })
 export class ScheduleManagementComponent implements OnInit {
+  @ViewChild('picker', {static: true}) datePicker: MatDatepicker<Date>;
+
   public schedule: TimeSlotView[];
   public days: string[];
   public groupedTimeSlots: IGroupedTimeSlotViews = {};
@@ -22,13 +25,19 @@ export class ScheduleManagementComponent implements OnInit {
   public lastWeek: string;
   public nextWeek: string;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private scheduleService: ScheduleService) { }
 
   ngOnInit() {
     this.activatedRoute.queryParamMap.subscribe((params: ParamMap) => {
       this.setupPage(params.get('start'));
+    });
+    this.datePicker._selectedChanged.subscribe((date: Date) => {
+      const datePickerDate = moment(date).format('YYYY-MM-DD');
+      // console.log(datePickerDate);
+      this.setupPage(datePickerDate);
     });
   }
 
