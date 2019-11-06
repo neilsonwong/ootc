@@ -13,6 +13,7 @@
                 <mat-form-field>
                     <input matInput type="text" placeholder="First Name" formControlName="firstName" required>
                     <mat-hint>{{ formErrors.required }}</mat-hint>
+                    <mat-error>{{ formErrors.fsymbol }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="text" placeholder="Middle Name" formControlName="middleName">
@@ -20,6 +21,7 @@
                 <mat-form-field>
                     <input matInput type="text" placeholder="Last Name" formControlName="lastName" required>
                     <mat-hint>{{ formErrors.required }}</mat-hint>
+                    <mat-error>{{ formErrors.lsymbol }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="email" placeholder="Email" formControlName="email" required> 

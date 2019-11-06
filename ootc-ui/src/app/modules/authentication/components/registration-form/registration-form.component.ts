@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user.service';
-import { ageRangeValidator, formErrorMessages, MustMatch } from './registration-form.validators';
+import { ageRangeValidator, formErrorMessages, MustMatch, expRangeValidator } from './registration-form.validators';
 
 @Component({
   selector: 'app-registration-form',
@@ -21,9 +21,16 @@ export class RegistrationFormComponent implements OnInit {
   ngOnInit() {
     // instantiate the form control
     this.registrationForm = this.fb.group({
-      firstName: ['', Validators.minLength(1)],
-      middleName: ['', Validators.minLength(1)],
-      lastName: ['', Validators.minLength(1)],
+      firstName: ['', [
+        Validators.minLength(1),
+        Validators.pattern('[a-zA-Z ]*')]
+        ],
+      middleName: ['', [
+        Validators.minLength(1),
+        Validators.pattern('[a-zA-Z ]*')]],
+      lastName: ['', 
+        [Validators.minLength(1),
+        Validators.pattern('[a-zA-Z ]*')]],
       email: ['', [
         Validators.pattern('[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}')]],
       password: ['', Validators.minLength(8)],
@@ -33,8 +40,15 @@ export class RegistrationFormComponent implements OnInit {
         Validators.maxLength(10),
         Validators.pattern(/^-?(0|[1-9]\d*)?$/)
       ]],
-      age: ['', [ageRangeValidator]],
-      experience: ['', [Validators.min(0)]],
+      age: ['', [
+        ageRangeValidator,
+        Validators.pattern(/^-?(0|[1-9]\d*)?$/)],
+        Validators.maxLength(3)],
+      experience: ['', [
+        expRangeValidator,
+        Validators.min(0),
+        Validators.pattern(/^-?(0|[1-9]\d*)?$/),
+        Validators.maxLength(3)]],
       comments: [''],
     }, { validator : MustMatch('password', 'verifypassword')})
   ;}
