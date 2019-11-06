@@ -17,8 +17,7 @@
                 <mat-accordion>
                     <app-time-slot-details
                         *ngFor="let timeSlot of groupedTimeSlots[day]"
-                        [event]="timeSlot"
-                        (refreshTimeSlot)="onTimeSlotChanged">
+                        [event]="timeSlot">
                     </app-time-slot-details>
                 </mat-accordion>
             </div>

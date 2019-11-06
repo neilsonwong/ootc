@@ -3,23 +3,23 @@
         <div *ngIf="!isValidating; else validating">
             <ng-container *ngIf="validationSuccess; else validationFailed">
                 <h2 class="email-validation-title">Validation Success!</h2>
-                <p>
+                <app-emoji-text [thin]="true">
                     Your email has been validated! Please <a [routerLink]="['/']">Login</a>.
-                </p>
+                </app-emoji-text>
             </ng-container>
             <ng-template #validationFailed>
                 <h2 class="email-validation-title">Validation Error</h2>
-                <p>
-                    We were unable to validate your email. <br />
-                    <a (click)="resendValidation()">Click here to send another validation code.</a>
-                </p>
+                    <app-emoji-text [thin]="true">
+                        We were unable to validate your email. <br />
+                        <a [routerLink]="" (click)="resendValidation()">Click here</a> to send another validation code.
+                    </app-emoji-text>
             </ng-template>
         </div>
         <ng-template #validating>
             <h2 class="email-validation-title">Validation in progress</h2>
-            <p>
+			<app-emoji-text [thin]="true">
                 We are validating your email, please wait a moment!
-            </p>
+            </app-emoji-text>
         </ng-template>
     </div>
 </app-container>

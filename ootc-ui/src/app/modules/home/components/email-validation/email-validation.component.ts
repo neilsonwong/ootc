@@ -40,6 +40,8 @@ export class EmailValidationComponent implements OnInit {
   }
 
   resendValidation() {
-    alert('resend validation');
+    if (this.email !== '') {
+      this.authService.resendValidationEmail(this.email).subscribe();
+    }
   }
 }

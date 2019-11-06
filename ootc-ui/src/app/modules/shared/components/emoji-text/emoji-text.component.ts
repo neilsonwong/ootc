@@ -6,7 +6,6 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./emoji-text.component.scss']
 })
 export class EmojiTextComponent implements OnInit {
-  @Input() text: string;
   @Input() thin?: boolean;
 
   constructor() { }

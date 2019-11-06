@@ -1,5 +1,7 @@
 <div class="emoji-text-container"
     [class.thin]="thin">
-    <div class="message">{{ text }}</div>
+    <div class="message">
+        <ng-content></ng-content>
+    </div>
     <app-emoji class="emoji"></app-emoji>
 </div>
