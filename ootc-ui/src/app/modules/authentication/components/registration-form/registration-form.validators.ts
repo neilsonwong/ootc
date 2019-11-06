@@ -40,7 +40,7 @@ export function ageRangeValidator(control: AbstractControl): { [key: string]: bo
 }
 
 export function expRangeValidator(control: AbstractControl): { [key: string]: boolean } | null {
-  if (control.value !== undefined && (isNaN(control.value) || control.value < 0 || control.value > 100)) {
+  if (control.value !== undefined && (isNaN(control.value) || control.value < 0 || control.value > 10 )) {
       return { 'expRange': true };
   }
   return null;

@@ -43,12 +43,12 @@ export class RegistrationFormComponent implements OnInit {
       age: ['', [
         ageRangeValidator,
         Validators.pattern(/^-?(0|[1-9]\d*)?$/)],
-        Validators.maxLength(3)],
+        ],
       experience: ['', [
         expRangeValidator,
         Validators.min(0),
-        Validators.pattern(/^-?(0|[1-9]\d*)?$/),
-        Validators.maxLength(3)]],
+        Validators.pattern(/^-?(0|[1-9]\d*)?$/)]
+        ],
       comments: [''],
     }, { validator : MustMatch('password', 'verifypassword')})
   ;}
