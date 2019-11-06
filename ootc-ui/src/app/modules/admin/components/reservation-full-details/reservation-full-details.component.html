@@ -1,1 +1,6 @@
-<p>reservation-full-details works!</p>
+<mat-chip
+    [removable]="true"
+    (removed)="deleteReservation()">
+    {{ user }}
+    <mat-icon matChipRemove>cancel</mat-icon>
+</mat-chip>

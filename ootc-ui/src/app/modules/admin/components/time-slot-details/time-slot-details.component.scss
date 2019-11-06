@@ -1,0 +1,37 @@
+@import "~src/colours";
+
+.panel-desc {
+    display: flex;
+    width: 100%;
+    padding-right: 2rem;
+    justify-content: space-between;
+
+    .panel-department {
+        width: 30%;
+    }
+
+    .panel-role {
+        flex-grow: 1;
+    }
+
+    .panel-spots {
+        font-weight: 600;
+    }
+
+    .attention {
+        color: $warn;
+    }
+}
+
+.nobody {
+    padding-right: 1rem;
+}
+
+mat-panel-title {
+    padding-right: 2rem;
+    flex-grow:0 !important;
+}
+
+mat-panel-description {
+    flex-grow: 2;
+}

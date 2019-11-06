@@ -1,4 +1,4 @@
-import { OnInit, Input } from '@angular/core';
+import { OnInit, Input, Component } from '@angular/core';
 import { IEvent } from 'src/app/interfaces/IEvent';
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
 

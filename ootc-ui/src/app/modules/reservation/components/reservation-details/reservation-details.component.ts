@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { EventDetailsComponent } from '../event-details.component';
+import { Component, OnInit } from '@angular/core';
+import { EventDetailsComponent } from 'src/app/helpers/event-details.component';
 
 @Component({
   selector: 'app-reservation-details',

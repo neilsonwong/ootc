@@ -2,16 +2,26 @@
     <h2>Schedule Management</h2>
     <div class="management-box stand-alone-wide-box">
         <div class="management-box-header">
-            <button>prev</button>
-            <h3>{{ startDate }} - {{ endDate }}</h3>
-            <button>next</button>
+            <button mat-icon-button color="primary" (click)="goPreviousWeek()">
+                <mat-icon>navigate_before</mat-icon>
+            </button>
+            <h3>{{ startDate | date:'EEE, MMMM d, y' }} - {{ endDate | date:'EEE, MMMM d, y' }}</h3>
+            <button mat-icon-button color="primary" (click)="goNextWeek()">
+                <mat-icon>navigate_next</mat-icon>
+            </button>
         </div>
         <div class="management-box-body">
-            <app-time-slot-details
-                *ngFor="let timeSlot of schedule"
-                [timeSlot]="timeSlot">
-            </app-time-slot-details>
+            <div class="day-box"
+                *ngFor="let day of days">
+                <h4>{{ day | date:'fullDate' }}</h4>
+                <mat-accordion>
+                    <app-time-slot-details
+                        *ngFor="let timeSlot of groupedTimeSlots[day]"
+                        [event]="timeSlot"
+                        (refreshTimeSlot)="onTimeSlotChanged">
+                    </app-time-slot-details>
+                </mat-accordion>
+            </div>
         </div>
     </div>
-    <button (click)="testStuff()">test stuff</button>
 </app-container>

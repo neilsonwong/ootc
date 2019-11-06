@@ -1,5 +1,5 @@
-import { ReservationView } from '../models/ReservationView';
+import { Reservation } from '../models/Reservation';
 
 export interface IGroupedReservations {
-    [s: string]: ReservationView[];
+    [s: string]: Reservation[];
 }

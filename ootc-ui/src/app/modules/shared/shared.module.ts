@@ -13,6 +13,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
 import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
@@ -48,6 +51,9 @@ import { LoadingDialogComponent } from './components/loading-dialog/loading-dial
     MatTableModule,
     MatSortModule,
     MatCheckboxModule,
+    MatExpansionModule,
+    MatChipsModule,
+    MatIconModule,
   ],
   exports: [
     AppContainerComponent,
@@ -68,6 +74,9 @@ import { LoadingDialogComponent } from './components/loading-dialog/loading-dial
     MatTableModule,
     MatSortModule,
     MatCheckboxModule,
+    MatExpansionModule,
+    MatChipsModule,
+    MatIconModule,
     RouterModule,
   ],
   entryComponents: [

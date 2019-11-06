@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
-import { EventDetailsComponent } from '../event-details.component';
-import { I18nPluralPipe } from '@angular/common';
+import { EventDetailsComponent } from 'src/app/helpers/event-details.component';
 
 @Component({
   selector: 'app-reservation-sign-up-line',
@@ -30,6 +29,5 @@ export class ReservationSignUpLineComponent extends EventDetailsComponent implem
     this.timeSlot = this.event as TimeSlotView;
     this.totalSpots = this.timeSlot.signUpCap;
     this.spotsLeft = this.timeSlot.signUpCap - this.timeSlot.reserved;
-    this.endTime = reservationDisplayUtils.getEndTimeString(this.timeSlot.startDate, this.timeSlot.startTime, this.timeSlot.duration);
   }
 }

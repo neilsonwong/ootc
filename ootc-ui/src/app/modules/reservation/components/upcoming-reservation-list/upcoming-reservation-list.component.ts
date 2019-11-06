@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges} from '@angular/core';
 import { ReservationView } from 'src/app/models/ReservationView';
-import { IGroupedReservations } from 'src/app/interfaces/IGroupedReservations';
+import { IGroupedReservationViews } from 'src/app/interfaces/IGroupedReservationViews';
 
 @Component({
   selector: 'app-upcoming-reservation-list',
@@ -11,7 +11,7 @@ export class UpcomingReservationListComponent implements OnChanges {
   @Input() reservations: ReservationView[];
 
   public dayList: string[];
-  public days: IGroupedReservations;
+  public days: IGroupedReservationViews;
 
   constructor() {
   }
