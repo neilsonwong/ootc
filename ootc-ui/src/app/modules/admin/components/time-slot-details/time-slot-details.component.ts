@@ -6,6 +6,10 @@ import { Reservation } from 'src/app/models/Reservation';
 import { MatDialog } from '@angular/material';
 import { ConfirmationDialogComponent } from 'src/app/modules/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { ReservationService } from 'src/app/services/reservation.service';
+import { AssignReservationDialogComponent } from '../assign-reservation-dialog/assign-reservation-dialog.component';
+import { User } from 'src/app/models/User';
+import { UserService } from 'src/app/services/user.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-time-slot-details',
@@ -15,6 +19,7 @@ import { ReservationService } from 'src/app/services/reservation.service';
 export class TimeSlotDetailsComponent extends EventDetailsComponent implements OnInit {
 
   private timeSlot: TimeSlotView;
+  private userList: User[];
   public reservations: Reservation[];
 
   public department: string;
@@ -30,7 +35,9 @@ export class TimeSlotDetailsComponent extends EventDetailsComponent implements O
   public duration: number;
   */
 
-  constructor(private scheduleService: ScheduleService,
+  constructor(
+    private userService: UserService,
+    private scheduleService: ScheduleService,
     private reservationService: ReservationService,
     public dialog: MatDialog) {
     super();
@@ -38,6 +45,8 @@ export class TimeSlotDetailsComponent extends EventDetailsComponent implements O
 
   ngOnInit() {
     this.setupFields();
+    // run in parallel
+    this.getAllUsers();
   }
 
   setupFields() {
@@ -58,12 +67,6 @@ export class TimeSlotDetailsComponent extends EventDetailsComponent implements O
     }
   }
 
-  loadReservations() {
-    this.scheduleService.getReservationsForTimeslot(this.timeSlot.id)
-      .subscribe((reservations: Reservation[]) => {
-        this.reservations = reservations;
-      });
-  }
 
   onDeleteReservation(reservation: Reservation) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
@@ -83,22 +86,49 @@ export class TimeSlotDetailsComponent extends EventDetailsComponent implements O
 
   deleteReservation(reservation: Reservation) {
     this.reservationService.deleteReservation(reservation.id)
-      .subscribe((res) => {
-        this.loadReservations();
-        this.refreshTimeSlot(this.timeSlot.id);
-      })
+      .pipe(tap(() => this.refreshState()))
+      .subscribe();
   }
 
+  makeReservationForUser() {
+    const dialogRef = this.dialog.open(AssignReservationDialogComponent, {
+      data: {
+        timeSlotId: this.timeSlot.id,
+        userList: this.userList
+      }
+      });
 
-  refreshTimeSlot(timeSlotId: number) {
-    this.scheduleService.getTimeSlot(timeSlotId)
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('making the reservation');
+        console.log(result);
+        this.reservationService.addReservationForUser(result)
+          .pipe(tap(() => this.refreshState()))
+          .subscribe(res => {
+            console.log('reservation made');
+          });
+      }
+    });
+  }
+
+  private getAllUsers() {
+    // TODO: optimize this later, should not be in this level, makes it slow
+    this.userService.getAllUsers().subscribe((users: any[]) => {
+      this.userList = users;
+      console.log('users obtained');
+    });
+  }
+
+  private refreshState() {
+    this.scheduleService.getReservationsForTimeslot(this.timeSlot.id)
+      .subscribe((reservations: Reservation[]) => {
+        this.reservations = reservations;
+      });
+
+    this.scheduleService.getTimeSlot(this.timeSlot.id)
       .subscribe((timeSlot: TimeSlotView) => {
         this.event = timeSlot;
         this.setupFields();
       });
-  }
-
-  makeReservationForUser() {
-    console.log('Not Done Yet');
   }
 }

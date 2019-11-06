@@ -15,6 +15,7 @@ import { TimeSlotDetailsComponent } from './components/time-slot-details/time-sl
 import { ReservationFullDetailsComponent } from './components/reservation-full-details/reservation-full-details.component';
 import { UserUpdateDialogComponent } from './components/user-update-dialog/user-update-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { AssignReservationDialogComponent } from './components/assign-reservation-dialog/assign-reservation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { FormsModule } from '@angular/forms';
     TimeSlotDefDetailsComponent,
     TimeSlotDetailsComponent,
     ReservationFullDetailsComponent,
-    UserUpdateDialogComponent
+    UserUpdateDialogComponent,
+    AssignReservationDialogComponent
   ],
   imports: [
     CommonModule,
