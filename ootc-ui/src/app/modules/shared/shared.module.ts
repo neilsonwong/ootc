@@ -28,6 +28,7 @@ import { EmojiComponent } from './components/emoji/emoji.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { MatTableModule, MatSortModule } from '@angular/material';
 import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component';
+import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { LoadingDialogComponent } from './components/loading-dialog/loading-dial
     EmojiComponent,
     ConfirmationDialogComponent,
     LoadingDialogComponent,
+    ErrorDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -91,6 +93,7 @@ import { LoadingDialogComponent } from './components/loading-dialog/loading-dial
   entryComponents: [
     ConfirmationDialogComponent,
     LoadingDialogComponent,
+    ErrorDialogComponent,
   ]
 })
 export class SharedModule { }
