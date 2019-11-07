@@ -19,7 +19,8 @@ const sql = {
         FROM reservations
         INNER JOIN timeSlots ON reservations.timeSlot = timeSlots.id
         INNER JOIN departments ON departments.id = timeSlots.department
-        WHERE user = ?`,
+        WHERE user = ?
+        ORDER BY timeSlots.startDate, timeSlots.startTime`,
 
     getReservationsByTimeSlot:
         `SELECT * FROM reservations
@@ -32,7 +33,8 @@ const sql = {
         INNER JOIN departments ON departments.id = timeSlots.department
         WHERE 
             reservations.user = ? AND
-            timeSlots.startDate = ?`,
+            timeSlots.startDate = ?
+        ORDER BY timeSlots.startTime`,
 
     insertReservation: 
         `INSERT INTO reservations (user, timeSlot, attended)
