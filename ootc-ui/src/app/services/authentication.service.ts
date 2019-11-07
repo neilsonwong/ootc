@@ -6,6 +6,7 @@ import { UserAuthContext } from 'src/app/models/UserAuthContext';
 import { LoginCredentials } from 'src/app/models/LoginCredentials';
 import { map, catchError, shareReplay } from 'rxjs/operators';
 import { EmailValidationCredentials } from 'src/app/models/EmailValidationCredentials';
+import { suppressError, map200toTrue, errorsAreFalse } from '../utils/httpUtil';
 
 const API_URL = environment.API_URL;
 
@@ -29,7 +30,7 @@ export class AuthenticationService {
 
     if (username && username.length > 0 &&
       password && password.length > 0) {
-        return this.http.post<number>(url, cred)
+        return this.http.post<number>(url, cred, suppressError(['400', '401']))
           .pipe(
             map((response: any) => {
               const authContext = new UserAuthContext(username, password, response.securityClearance, response.name);
@@ -61,32 +62,15 @@ export class AuthenticationService {
 
   validateEmail(userId: string, validationCode: number): Observable<boolean> {
     const url = `${API_URL}/validateEmail`;
-    const cred = new EmailValidationCredentials(userId, validationCode);
-    return this.http.post(url, cred, { observe: 'response' })
-      .pipe(
-        map((response: any) => {
-          if (response.status === 200) {
-            return true;
-          }
-          return false;
-        }),
-        catchError((error: HttpErrorResponse) => {
-          return of(false);
-        })
-      );
+    const cred = new EmailValidationCredentials(userId, validationCode, );
+    return this.http.post(url, cred, {...suppressError(), observe: 'response' })
+      .pipe(map200toTrue(), errorsAreFalse());
   }
 
   resendValidationEmail(userId: string): Observable<boolean> {
     const url = `${API_URL}/resendValidation`;
-    return this.http.post(url, { userId: userId })
-      .pipe(
-        map((response: any) => {
-          if (response.status === 200) {
-            return true;
-          }
-          return false;
-        })
-      );
+    return this.http.post(url, { userId: userId }, {...suppressError(), observe: 'response' })
+      .pipe(map200toTrue(), errorsAreFalse());
   }
 
   getAuthContext(): UserAuthContext {

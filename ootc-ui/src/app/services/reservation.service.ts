@@ -1,10 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Reservation } from '../models/Reservation';
 import { ReservationView } from '../models/ReservationView';
-import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { errorsAreFalse, map200toTrue } from '../utils/httpUtil';
 
 const API_URL = environment.API_URL;
 
@@ -28,23 +28,13 @@ export class ReservationService {
   cancelReservation(reservationId: number): Observable<boolean> {
     const url = `${API_URL}/user/reservations/cancel`;
     return this.http.post(url, {reservationId: reservationId}, { observe: 'response' })
-      .pipe(map((response: any) => {
-        if (response.status === 200) {
-          return true;
-        }
-        return false;
-      }));
+      .pipe(map200toTrue(), errorsAreFalse());
   }
 
   deleteReservation(reservationId: number): Observable<boolean> {
     const url = `${API_URL}/admin/reservations/delete`;
     return this.http.post<Reservation>(url, {reservationId: reservationId})
-      .pipe(map((response: any) => {
-        if (response.status === 200) {
-          return true;
-        }
-        return false;
-      }));
+      .pipe(map200toTrue(), errorsAreFalse());
   }
 
   getReservationsForUser(): Observable<ReservationView[]> {
@@ -64,11 +54,6 @@ export class ReservationService {
       reqBody.date = date;
     }
     return this.http.post<boolean>(url, reqBody)
-      .pipe(map((response: any) => {
-        if (response.status === 200) {
-          return true;
-        }
-        return false;
-      }));
+      .pipe(map200toTrue(), errorsAreFalse());
   }
 }

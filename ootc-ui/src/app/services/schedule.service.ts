@@ -59,18 +59,7 @@ export class ScheduleService {
         .set('endDate', endDate)
     };
     return this.http.get<TimeSlotView[]>(url, options)
-      .pipe(
-        map((timeSlots: TimeSlotView[]) => {
-          return timeSlots.sort((a,b) => {
-            if (a.startDate < b.startDate) {
-              return -1;
-            } else if (a.startDate === b.startDate) {
-              return a.startTime.localeCompare(b.startTime);
-            }
-            return 1;
-          })
-        })
-      );
+      .pipe(map(mapAndSortTimeSlotViews));
   }
 
   getAllTimeSlotsBetween(startDate: string, endDate: string): Observable<TimeSlotView[]> {
@@ -81,18 +70,7 @@ export class ScheduleService {
         .set('endDate', endDate)
     };
     return this.http.get<TimeSlotView[]>(url, options)
-      .pipe(
-        map((timeSlots: TimeSlotView[]) => {
-          return timeSlots.sort((a,b) => {
-            if (a.startDate < b.startDate) {
-              return -1;
-            } else if (a.startDate === b.startDate) {
-              return a.startTime.localeCompare(b.startTime);
-            }
-            return 1;
-          })
-        })
-      );
+      .pipe(map(mapAndSortTimeSlotViews));
   }
 
   getReservationsForTimeslot(timeSlotId: number): Observable<Reservation[]> {
@@ -112,4 +90,15 @@ export class ScheduleService {
     };
     return this.http.get<TimeSlotView>(url, options);
   }
+}
+
+function mapAndSortTimeSlotViews(timeSlots: TimeSlotView[]) {
+  return timeSlots.sort((a,b) => {
+    if (a.startDate < b.startDate) {
+      return -1;
+    } else if (a.startDate === b.startDate) {
+      return a.startTime.localeCompare(b.startTime);
+    }
+    return 1;
+  })
 }
