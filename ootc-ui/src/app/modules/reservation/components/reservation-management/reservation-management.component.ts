@@ -4,6 +4,7 @@ import { ReservationView } from 'src/app/models/ReservationView';
 import { ConfirmationDialogComponent } from 'src/app/modules/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { LoadingDialogComponent } from 'src/app/modules/shared/components/loading-dialog/loading-dialog.component';
+import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
 
 @Component({
   selector: 'app-reservation-management',
@@ -33,7 +34,8 @@ export class ReservationManagementComponent implements OnInit {
         title: 'Cancel Reservation',
         text: 'Are you sure you want to cancel this reservation?',
         yesNo: true
-      }
+      },
+      width: DIALOG_WIDTHS.CONFIRMATION
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -53,7 +55,8 @@ export class ReservationManagementComponent implements OnInit {
           data: {
             title: 'Deleting',
             text: 'Deleting your reservation'
-          }
+          },
+          width: DIALOG_WIDTHS.LOADING
         });
       }
     }, 300);

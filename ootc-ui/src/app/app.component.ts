@@ -30,7 +30,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   popError(error: HttpErrorResponse) {
-    console.log(error)
     const errorMsg = (error.error && error.error.error) ?
       error.error.error : error.message;
      

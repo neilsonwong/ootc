@@ -7,6 +7,7 @@ import { MatSort, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/mate
 import { UserUpdateDialogComponent } from '../user-update-dialog/user-update-dialog.component';
 import { CreateUserFormComponent } from 'src/app/modules/authentication/components/create-user-form/create-user-form.component'
 import { LoadingDialogComponent } from 'src/app/modules/shared/components/loading-dialog/loading-dialog.component';
+import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
 
 @Component({
   selector: 'app-user-management',
@@ -57,7 +58,8 @@ export class UserManagementComponent implements OnInit {
           data: {
             title: 'Updating',
             text: 'Updating the user...'
-          }
+          },
+          width: DIALOG_WIDTHS.LOADING
         });
       }
     }, 300);
@@ -78,7 +80,8 @@ export class UserManagementComponent implements OnInit {
     const dialogRef = this.dialog.open(UserUpdateDialogComponent, {
       data: {
         user: user
-        }
+      },
+      width: DIALOG_WIDTHS.UPDATE_USER
       });
 
       dialogRef.afterClosed().subscribe(result => {

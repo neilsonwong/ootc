@@ -18,6 +18,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
 import { LoadingDialogComponent } from 'src/app/modules/shared/components/loading-dialog/loading-dialog.component';
 import { map } from 'rxjs/operators';
+import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
 
 const twoMonthsInMillis = 60*60*24*60*1000;
 
@@ -106,7 +107,8 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
           data: {
             title: 'Reserving',
             text: 'Booking your reservation'
-          }
+          },
+          width: DIALOG_WIDTHS.LOADING
         });
       }
     }, 300);

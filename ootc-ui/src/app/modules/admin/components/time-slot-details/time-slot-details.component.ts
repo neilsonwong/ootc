@@ -10,6 +10,7 @@ import { AssignReservationDialogComponent } from '../assign-reservation-dialog/a
 import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user.service';
 import { tap } from 'rxjs/operators';
+import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
 
 @Component({
   selector: 'app-time-slot-details',
@@ -73,7 +74,8 @@ export class TimeSlotDetailsComponent extends EventDetailsComponent implements O
         title: 'Delete Reservation',
         text: 'Are you sure you want to delete this reservation?',
         yesNo: true
-      }
+      },
+      width: DIALOG_WIDTHS.CONFIRMATION
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -94,8 +96,9 @@ export class TimeSlotDetailsComponent extends EventDetailsComponent implements O
       data: {
         userList: this.userList
       },
-      width: '600px'
+      width: DIALOG_WIDTHS.ASSIGN_RESERVATION
     });
+
     dialogRef.componentInstance.event = this.timeSlot;
 
     dialogRef.afterClosed().subscribe(result => {

@@ -12,7 +12,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         const ignoredErrors: string[] = request.headers.getAll('x-suppressed-errors');
 
         return next.handle(request).pipe(catchError((error: HttpErrorResponse) => {
-            console.log('caught')
             if ((ignoredErrors === null) || (ignoredErrors.indexOf('' + error.status) === -1)) {
                 this.errorService.add(error);
             }
