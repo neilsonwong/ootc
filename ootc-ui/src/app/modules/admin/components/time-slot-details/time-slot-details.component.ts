@@ -101,7 +101,6 @@ export class TimeSlotDetailsComponent extends EventDetailsComponent implements O
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         console.log('making the reservation');
-        console.log(result);
         this.reservationService.addReservationForUser(result)
           .pipe(tap(() => this.refreshState()))
           .subscribe(res => {
@@ -115,15 +114,18 @@ export class TimeSlotDetailsComponent extends EventDetailsComponent implements O
     // TODO: optimize this later, should not be in this level, makes it slow
     this.userService.getAllUsers().subscribe((users: any[]) => {
       this.userList = users;
-      console.log('users obtained');
     });
   }
 
-  private refreshState() {
+  private loadReservations() {
     this.scheduleService.getReservationsForTimeslot(this.timeSlot.id)
       .subscribe((reservations: Reservation[]) => {
         this.reservations = reservations;
       });
+  }
+
+  private refreshState() {
+    this.loadReservations();
 
     this.scheduleService.getTimeSlot(this.timeSlot.id)
       .subscribe((timeSlot: TimeSlotView) => {
