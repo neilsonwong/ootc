@@ -67,7 +67,6 @@ export class TimeSlotDetailsComponent extends EventDetailsComponent implements O
     }
   }
 
-
   onDeleteReservation(reservation: Reservation) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: {
@@ -93,10 +92,11 @@ export class TimeSlotDetailsComponent extends EventDetailsComponent implements O
   makeReservationForUser() {
     const dialogRef = this.dialog.open(AssignReservationDialogComponent, {
       data: {
-        timeSlotId: this.timeSlot.id,
         userList: this.userList
-      }
-      });
+      },
+      width: '600px'
+    });
+    dialogRef.componentInstance.event = this.timeSlot;
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

@@ -5,15 +5,17 @@ import { Reservation } from 'src/app/models/Reservation';
 import { User } from 'src/app/models/User';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { TimeSlotView } from 'src/app/models/TimeSlotView';
+import { EventDetailsComponent } from 'src/app/helpers/event-details.component';
 
 @Component({
   selector: 'app-assign-reservation-dialog',
   templateUrl: './assign-reservation-dialog.component.html',
   styleUrls: ['./assign-reservation-dialog.component.scss']
 })
-export class AssignReservationDialogComponent implements OnInit {
+export class AssignReservationDialogComponent extends EventDetailsComponent implements OnInit {
   public assignReservationForm: FormGroup;
-  private timeSlotId: number;
+  private timeSlot: TimeSlotView;
   private userList: User[];
 
   public filteredUsers: Observable<User[]>;
@@ -21,11 +23,15 @@ export class AssignReservationDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<AssignReservationDialogComponent>,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) { 
+      super();
+    }
 
   ngOnInit() {
+    super.ngOnInit();
+
     this.userList = this.data.userList;
-    this.timeSlotId = this.data.timeSlotId;
+    this.timeSlot = this.event as TimeSlotView;
 
     this.assignReservationForm = this.fb.group({
       user: ['', [Validators.required, this.isInUserList.bind(this)]]
@@ -42,7 +48,7 @@ export class AssignReservationDialogComponent implements OnInit {
   onSubmit() {
     const reservation = new Reservation(undefined,
       this.assignReservationForm.get('user').value,
-      this.timeSlotId,
+      this.timeSlot.id,
       false);
 
     this.dialogRef.close(reservation);
@@ -59,9 +65,10 @@ export class AssignReservationDialogComponent implements OnInit {
   }
 
   private isInUserList(control: FormControl) {
-    if (this.userList.findIndex((user: User) => (control.value === user.id)) !== -1) {
-      return { validUser: true };
-    }
-    return null;
+    const foundIndex = this.userList.findIndex((user: User) => {
+      return control.value === user.id;
+    });
+
+    return (foundIndex !== -1) ? null : { validUser: true };
   }
 }

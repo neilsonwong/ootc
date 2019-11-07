@@ -1,7 +1,35 @@
+@import "~src/colours";
+
 .option-email {
-    font-weight: 400;
+    font-weight: 700;
 }
 
 .option-name {
     font-style: italic;
+    padding-left: 1rem;
+}
+
+.time-slot-details {
+    line-height: 1.5em;
+}
+
+.cheeky-quote {
+    color: $semi-light-text-colour;
+    text-align: right;
+    padding-right: 1rem;
+}
+
+mat-form-field {
+    display: block;
+    width: 100%;
+}
+
+mat-dialog-actions {
+    margin-bottom: 0;
+    margin-top: 1rem;
+
+    button {
+        margin: 0 1rem;
+        min-width: 10rem;
+    }
 }

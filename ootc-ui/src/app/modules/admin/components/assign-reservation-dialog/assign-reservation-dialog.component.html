@@ -1,19 +1,31 @@
 <form [formGroup]="assignReservationForm" (ngSubmit)="onSubmit()">
-  <mat-form-field>
-    <input matInput type="text"
-        placeholder="Pick a user"
-        formControlName="email"
-        [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let user of filteredUsers | async" [value]="user.id">
-        <span class="option-email">{{ user.email }}</span>
-        <span class="option-name">{{ user.fname | titlecase }} {{ user.lname | titlecase }}</span>
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+  <h1 mat-dialog-title>Sign people up!</h1>
+  <div mat-dialog-content>
+    <p class="time-slot-details">
+      <span class="time-slot-name">{{ timeSlot.department }}: {{ desc }}</span> <br />
+      {{ startDate | date:'fullDate' }} <br />
+      {{ startTime }}
+    </p>
+    <p class="cheeky-quote"><em>
+      If you won't make a decision, I'll make it for you!<br />
+      - anonymous 
+    </em></p>
+    <mat-form-field>
+      <input matInput type="text"
+          placeholder="Pick a user"
+          formControlName="user"
+          [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let user of filteredUsers | async" [value]="user.id">
+          <span class="option-email">{{ user.email }}</span>
+          <span class="option-name">{{ user.fname | titlecase }} {{ user.lname | titlecase }}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
   <mat-dialog-actions align="center">
       <button mat-raised-button color="warn" type="button" [mat-dialog-close]="false">Cancel</button>
       <button mat-raised-button color="primary" type="submit"
-        [disabled]="!registrationForm.valid" cdkFocusInitial>Sign 'em up!</button>
+        [disabled]="!assignReservationForm.valid">Sign 'em up!</button>
   </mat-dialog-actions>
 </form>
