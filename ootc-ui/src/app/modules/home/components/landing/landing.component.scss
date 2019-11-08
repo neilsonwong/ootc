@@ -1,6 +1,8 @@
 @import "~src/colours";
+@import "~src/screens";
 
 $bannerHeight: 425px;
+$mobileBannerHeight: 100vh;
 
 :host {
     width: 100%;
@@ -26,10 +28,9 @@ $bannerHeight: 425px;
 
     .landing-inner {
         display: flex;
-        max-width: 1080px;
-        min-width: 768px;
+        min-width: $app-container-min-width;
+        max-width: $app-container-max-width;
     }
-
 
     .landing-text {
         color: $light-text-colour;
@@ -49,10 +50,10 @@ $bannerHeight: 425px;
 
         .banner-title {
             color: $light-text-colour;
-            font-size: 3em;
             letter-spacing: 2px;
             line-height: 1;
             font-weight: 600;
+            font-size: 3em;
             margin: 3rem 0;
         }
     }
@@ -74,12 +75,6 @@ $bannerHeight: 425px;
     z-index: -1;
 }
 
-@media (min-width: 1250px) {
-    .landing-banner::after {
-        background-size: 1230px;
-    }
-}
-
 .landing-page-intro {
     margin-top: $bannerHeight;
     line-height: 1.75em;
@@ -99,11 +94,110 @@ $bannerHeight: 425px;
 }
 
 .map-border {
-    
-    iframe{
+    iframe {
         display:block;
         width:100%;
     }
 
     box-shadow: 0 3px 2px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+}
+
+/* for mobile */
+@media only screen and (max-width: $max-mobile-width) {
+    .landing-banner {
+        height: $mobileBannerHeight;
+        top: 0;
+
+        background: rgba(0,0,0,0.9);
+
+        .landing-inner {
+            min-width: 0px;
+            max-width: 100vw;
+            flex-direction: column;
+
+            .landing-text {
+                padding-right: 0;
+                position: relative;
+
+                .banner-title {
+                    margin: 0;
+                    font-size: 10vw;
+                    margin-bottom: 2rem;
+                    line-height: 15vw;
+                }
+
+                .sub-text {
+                    font-size: 4.5vw;
+                    line-height: 8vw; 
+                }
+
+                .sub-text::after {
+                    content: "";
+                    width: 0px;
+                    height: 0px;
+                    border-left: 8vw solid transparent;
+                    border-right: 8vw solid transparent;
+                    border-top: 8vw solid $very-light-text-colour;
+                    position: absolute;
+                    bottom: 0;
+                    left: calc(42vw - 2rem);
+                }
+            }
+
+            .login-form-wrapper {
+                display: none;
+            }
+        }
+    }
+
+    .landing-banner::after {
+        height: $mobileBannerHeight;
+    }
+
+    .landing-page-intro {
+        margin-top: $mobileBannerHeight;
+    }
+
+    ul {
+        padding-left: 0.5rem;
+
+        li {
+            list-style: none;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .label-value {
+        padding-top: 0.25rem;
+    }
+
+    .year-overview,
+    .opportunities {
+        margin-bottom: 2rem;
+    }
+
+    .map-border iframe {
+        height: 70vh;
+    }
+}
+
+@media only screen and (min-width: $max-mobile-width) and (max-width: $min-wide-screen-width) {
+    .landing-banner {
+        .landing-inner {
+            .landing-text {
+                padding-right: 2rem;
+
+                .banner-title {
+                    font-size: 3.5vw;
+                    margin: 4vw 0;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: $min-wide-screen-width) {
+    .landing-banner::after {
+        background-size: 1230px;
+    }
 }
