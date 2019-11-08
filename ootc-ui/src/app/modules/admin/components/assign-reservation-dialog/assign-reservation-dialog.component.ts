@@ -6,14 +6,14 @@ import { User } from 'src/app/models/User';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
-import { EventDetailsComponent } from 'src/app/helpers/event-details.component';
+import { EventDetails } from 'src/app/helpers/event-details';
 
 @Component({
   selector: 'app-assign-reservation-dialog',
   templateUrl: './assign-reservation-dialog.component.html',
   styleUrls: ['./assign-reservation-dialog.component.scss']
 })
-export class AssignReservationDialogComponent extends EventDetailsComponent implements OnInit {
+export class AssignReservationDialogComponent extends EventDetails implements OnInit {
   public assignReservationForm: FormGroup;
   private timeSlot: TimeSlotView;
   private userList: User[];

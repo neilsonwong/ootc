@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
-import { EventDetailsComponent } from 'src/app/helpers/event-details.component';
+import { EventDetails } from 'src/app/helpers/event-details';
 import { ScheduleService } from 'src/app/services/schedule.service';
 import { Reservation } from 'src/app/models/Reservation';
 import { MatDialog } from '@angular/material';
@@ -17,7 +17,7 @@ import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
   templateUrl: './time-slot-details.component.html',
   styleUrls: ['./time-slot-details.component.scss']
 })
-export class TimeSlotDetailsComponent extends EventDetailsComponent implements OnInit {
+export class TimeSlotDetailsComponent extends EventDetails implements OnInit {
 
   private timeSlot: TimeSlotView;
   private userList: User[];
