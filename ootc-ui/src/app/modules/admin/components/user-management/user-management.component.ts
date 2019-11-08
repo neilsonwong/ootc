@@ -88,7 +88,18 @@ export class UserManagementComponent implements OnInit {
       })
   }
 
-  onCreateUser() {
+  onCreateUser(user: User) {
+    const dialogRef = this.dialog.open(CreateUserFormComponent, {
+      data: {
+        user: user
+      }
+    } )
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result){
+        this.onCreateUser(result);
+      }
+    })
     console.log('make a user here');
   }
 

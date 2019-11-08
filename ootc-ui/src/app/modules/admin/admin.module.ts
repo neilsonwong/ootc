@@ -15,6 +15,7 @@ import { TimeSlotDetailsComponent } from './components/time-slot-details/time-sl
 import { ReservationFullDetailsComponent } from './components/reservation-full-details/reservation-full-details.component';
 import { UserUpdateDialogComponent } from './components/user-update-dialog/user-update-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { CreateUserFormComponent } from '../authentication/components/create-user-form/create-user-form.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
   ],
   entryComponents: [
-    UserUpdateDialogComponent
+    UserUpdateDialogComponent,
+    CreateUserFormComponent
   ]
 })
 export class AdminModule { }
