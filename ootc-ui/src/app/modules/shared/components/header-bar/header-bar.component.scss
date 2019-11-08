@@ -56,8 +56,14 @@
         }
     }
 
-    .mobile-nav {
-        display: none;
+    .logo {
+        display: flex;
+        align-items: baseline;
+
+        .sub-title {
+            color: $very-light-text-colour;
+            font-size: 1.25em;
+        }
     }
 }
 
@@ -65,7 +71,7 @@
     display: none;
 }
 
-@media only screen and (max-width: $max-mobile-width) {
+// @media only screen and (max-width: $max-mobile-width) {
     .header {
         .mobile-nav {
             display: block;
@@ -79,4 +85,4 @@
             display: none;
         }
     }
-}
+// }

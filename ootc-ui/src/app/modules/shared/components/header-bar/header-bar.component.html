@@ -1,10 +1,12 @@
 <div class="header">
-    <div class="logo">
-        <a [routerLink]="['/']">
+    <a [routerLink]="['/']">
+        <div class="logo">
             <h1 class="title">OOTC</h1>
-        </a>
-    </div>
-    <div class="navigation" [class.loggedIn]="securityClearance > 0">
+            <span class="sub-title">&nbsp;x TCCC</span>
+        </div>
+    </a>
+    <!--
+    <div class="navigation">
         <ng-container *ngFor="let securityLevel of securityLevels">
             <ng-container *ngIf="securityClearance >= securityLevel">
                 <div *ngFor="let link of navLinks[securityLevel]"
@@ -24,6 +26,7 @@
             </div>
         </ng-container>
     </div>
+    -->
     <div class="mobile-nav">
         <button mat-icon-button class="mobile-nav-hamburger" [matMenuTriggerFor]="menu">
             <mat-icon>menu</mat-icon>
