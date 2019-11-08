@@ -90,11 +90,8 @@ export class UserManagementComponent implements OnInit {
       });
   }
 
-  onCreateUser(user: User) {
+  onCreateUser() {
     const dialogRef = this.dialog.open(CreateUserDialogComponent, {
-      data: {
-        user: user
-      },
       width: DIALOG_WIDTHS.CREATE_USER
     });
 
