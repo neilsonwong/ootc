@@ -3,9 +3,9 @@ import { MatDialog, MatSort } from '@angular/material';
 import { MatTableDataSource } from '@angular/material/table';
 import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
 import { User } from 'src/app/models/User';
-import { CreateUserFormComponent } from 'src/app/modules/authentication/components/create-user-form/create-user-form.component';
 import { LoadingDialogComponent } from 'src/app/modules/shared/components/loading-dialog/loading-dialog.component';
 import { UserService } from 'src/app/services/user.service';
+import { CreateUserDialogComponent } from '../create-user-dialog/create-user-dialog.component';
 import { UserUpdateDialogComponent } from '../user-update-dialog/user-update-dialog.component';
 
 @Component({
@@ -91,7 +91,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   onCreateUser(user: User) {
-    const dialogRef = this.dialog.open(CreateUserFormComponent, {
+    const dialogRef = this.dialog.open(CreateUserDialogComponent, {
       data: {
         user: user
       }

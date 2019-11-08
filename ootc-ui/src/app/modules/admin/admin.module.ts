@@ -14,6 +14,7 @@ import { TimeSlotDetailsComponent } from './components/time-slot-details/time-sl
 import { ReservationFullDetailsComponent } from './components/reservation-full-details/reservation-full-details.component';
 import { UserUpdateDialogComponent } from './components/user-update-dialog/user-update-dialog.component';
 import { AssignReservationDialogComponent } from './components/assign-reservation-dialog/assign-reservation-dialog.component';
+import { CreateUserDialogComponent } from './components/create-user-dialog/create-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AssignReservationDialogComponent } from './components/assign-reservatio
     ReservationFullDetailsComponent,
     UserUpdateDialogComponent,
     AssignReservationDialogComponent,
+    CreateUserDialogComponent,
   ],
   imports: [
     SharedModule,
@@ -36,6 +38,7 @@ import { AssignReservationDialogComponent } from './components/assign-reservatio
   entryComponents: [
     UserUpdateDialogComponent,
     AssignReservationDialogComponent,
+    CreateUserDialogComponent,
   ]
 })
 export class AdminModule { }
