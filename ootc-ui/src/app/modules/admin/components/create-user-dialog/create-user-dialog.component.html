@@ -1,6 +1,6 @@
-<h3 class="registration-form-title">Registration</h3>
-<div>
-    <form [formGroup]="createUserForm" (ngSubmit)="onCreateUser()">
+<h1 mat-dialog-title>Create User</h1>
+<form [formGroup]="createUserForm" (ngSubmit)="onCreateUser()">
+    <div>
         <mat-form-field>
             <input matInput type="text" placeholder="First Name" formControlName="firstName" required>
             <mat-hint>{{ formErrors.required }}</mat-hint>
@@ -30,6 +30,9 @@
             <input matInput type="number" placeholder="Volunteer Experience (years)" formControlName="experience" required>
             <mat-error>{{ formErrors.experience }}</mat-error>
         </mat-form-field>
+    </div>
+    <mat-dialog-actions align="center">
+        <button mat-raised-button color="warn" type="button" [mat-dialog-close]="false">Cancel</button>
         <button mat-raised-button color="primary" type="submit" [disabled]="!createUserForm.valid">Create User</button>
-    </form>
-</div>
+    </mat-dialog-actions>
+</form>

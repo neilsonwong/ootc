@@ -75,7 +75,7 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
-  openDialog(user: User) {
+  onUpdateUser(user: User) {
     const dialogRef = this.dialog.open(UserUpdateDialogComponent, {
       data: {
         user: user
@@ -94,14 +94,14 @@ export class UserManagementComponent implements OnInit {
     const dialogRef = this.dialog.open(CreateUserDialogComponent, {
       data: {
         user: user
-      }
+      },
+      width: DIALOG_WIDTHS.CREATE_USER
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result){
-        this.onCreateUser(result);
+      if (result) {
+        this.getAllUsers();
       }
     });
   }
-
 }

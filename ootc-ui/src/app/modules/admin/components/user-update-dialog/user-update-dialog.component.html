@@ -1,7 +1,6 @@
 <h1 mat-dialog-title>Update User</h1>
-<div mat-dialog-content>Please manually change the following text fields</div>
 <!--THIS SHOULD BE THE MAT FORM FIELD FOR THE USER: NAME, AGE, ... -->
-<form [formGroup] = "editUser" (ngSubmit)="onUpdate()">
+<form [formGroup]="editUser" (ngSubmit)="onUpdate()">
   <div>
       <mat-form-field>
           <input matInput type="email" placeholder="Email" formControlName="email"> 
