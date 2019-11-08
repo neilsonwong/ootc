@@ -68,6 +68,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     EmojiTextComponent,
     ConfirmationDialogComponent,
     LoadingDialogComponent,
+    EmojiComponent,
 
     // re-export ng stuff that we don't wanna import everywhere
     ReactiveFormsModule,
