@@ -49,6 +49,8 @@ $wrapper-padding: 1rem;
 
 .hidden {
     display: none;
+    /* hack to remove it from the flex flow */
+    position: absolute;
 }
 
 .no-reservations-desc {
