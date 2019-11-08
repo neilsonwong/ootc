@@ -110,8 +110,7 @@ $mobileBannerHeight: calc(100vh - 4rem);
 @media only screen and (max-width: $max-mobile-width) {
     .landing-banner {
         height: $mobileBannerHeight;
-        // clever cheat here, because we are positioned absolutely, we simply cover up the header bar instead of hiding it
-        // top: 0;
+        max-height: -webkit-fill-available;;
 
         background: linear-gradient(to bottom, 
             rgba(0, 0, 0, 1) 0%,
