@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.errorSub = this.errorService.get().subscribe((error: HttpErrorResponse) => {
+    this.errorSub = this.errorService.get().subscribe((error: string) => {
       this.popError(error);
     });
   }
@@ -29,13 +29,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.errorSub.unsubscribe();
   }
 
-  popError(error: HttpErrorResponse) {
-    const errorMsg = (error.error && error.error.error) ?
-      error.error.error : error.message;
-     
+  popError(error: string) {
     if (this.dialog.openDialogs.length === 0) {
       this.dialog.open(ErrorDialogComponent, {
-        data: errorMsg,
+        data: error,
         width: DIALOG_WIDTHS.ERROR
       });
     }

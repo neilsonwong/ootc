@@ -1,6 +1,8 @@
 <h1 mat-dialog-title>Error</h1>
 <div mat-dialog-content>
-  <p>{{ text }}</p>
+  <app-emoji-text [thin]="true" [emoji]="sadFace" [faceFirst]="true">
+    {{ text }}
+  </app-emoji-text>
 </div>
 <mat-dialog-actions align="center">
     <button mat-raised-button color="primary"

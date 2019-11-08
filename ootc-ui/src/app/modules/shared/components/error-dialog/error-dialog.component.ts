@@ -8,8 +8,9 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 })
 export class ErrorDialogComponent implements OnInit {
   private text: string;
+  public readonly sadFace: string = `(๑◕︵◕๑)`;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: string) { }
 
   ngOnInit() {
     this.text = this.data;

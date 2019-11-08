@@ -29,11 +29,14 @@
     }
 
     .emoji {
-        text-align: right;
         margin-top: 2rem;
-    }
-
-    .emoji {
         text-align: center;
+    }
+}
+
+.face-first {
+    .emoji {
+        margin-top: 0;
+        margin-bottom: 2rem;
     }
 }

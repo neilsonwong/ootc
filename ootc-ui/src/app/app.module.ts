@@ -12,7 +12,6 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { AuthenticationModule } from 'src/app/modules/authentication/authentication.module';
 
 import { BasicAuthInterceptor } from 'src/app/interceptors/basic-auth.interceptor';
-import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,7 +31,6 @@ import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

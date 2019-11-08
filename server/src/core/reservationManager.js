@@ -46,14 +46,12 @@ async function updateAttendance(userId, overrideDate) {
     // check whether there is a sign in for the time
     const now = overrideDate || moment().format("YYYY-MM-DD");
     const reservations = await db.reservations.getReservationsForUserOnDate(userId, now);
-    console.log(reservations)
     if (reservations && reservations.length > 0) {
         return Promise.all(reservations.map(async (reservation) => {
             await db.reservations.updateReservationAttendance(reservation.id, true);
             return reservation;
         }));
     }
-    console.log('we done?')
     return null;
 }
 

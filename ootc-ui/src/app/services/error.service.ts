@@ -6,14 +6,14 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ErrorService {
-  public errors = new Subject<HttpErrorResponse>();
+  public errors = new Subject<string>();
   constructor() { }
 
-  public add(error: HttpErrorResponse): void {
+  public add(error: string): void {
     this.errors.next(error);
   }
 
-  public get(): Subject<HttpErrorResponse> {
+  public get(): Subject<string> {
     return this.errors;
   }
 }
