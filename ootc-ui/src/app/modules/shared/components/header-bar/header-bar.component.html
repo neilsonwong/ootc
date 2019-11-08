@@ -23,4 +23,21 @@
             </div>
         </ng-container>
     </div>
+    <div class="mobile-nav">
+        <button mat-icon-button class="mobile-nav-hamburger" [matMenuTriggerFor]="menu">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <ng-container *ngFor="let securityLevel of securityLevels">
+                <ng-container *ngIf="securityClearance >= securityLevel">
+                    <div *ngFor="let link of navLinks[securityLevel]"
+                        class="nav-item {{ link.text }}">
+                        <button mat-menu-item [routerLink]="[link.url]">{{ link.text | uppercase }}</button>
+                    </div>
+                </ng-container>
+            </ng-container>
+            <button *ngIf="securityClearance > 0" 
+                mat-menu-item color="accent" (click)="logout()">LOG OUT</button>
+        </mat-menu>
+    </div>
 </div>

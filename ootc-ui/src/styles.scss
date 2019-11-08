@@ -26,7 +26,7 @@ body {
   background-attachment: fixed;
   background-size: 2160px auto;
 
-  min-width: 100vw;
+  // min-width: 100vw;
 
   /* stick the footer at the bottom */
   min-height: 100vh;
@@ -108,11 +108,15 @@ h3 {
 
   h2 {
     margin: 1rem 0;
-    font-size: 2.5rem;
+    font-size: 2.25rem;
   }
 
   h3 {
     margin: 0.8rem 0;
     font-size: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1rem;
   }
 }

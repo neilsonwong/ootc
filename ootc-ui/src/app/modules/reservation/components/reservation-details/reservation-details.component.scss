@@ -1,4 +1,5 @@
 @import "~src/colours";
+@import "~src/screens";
 
 .reservation-details {
     padding: 0.5rem;
@@ -63,6 +64,18 @@
         .duration,
         .end-time {
             display: none;
+        }
+    }
+}
+
+@media only screen and (max-width: $max-mobile-width) {
+    .reservation-details {
+        .line {
+            font-size: 0.8em;
+        }
+
+        .role-line {
+            font-size: 1em;
         }
     }
 }

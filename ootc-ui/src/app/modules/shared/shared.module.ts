@@ -18,6 +18,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
@@ -61,6 +62,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     MatIconModule,
     MatDatepickerModule,
     MatAutocompleteModule,
+    MatMenuModule,
     MatMomentDateModule,
   ],
   exports: [
@@ -87,6 +89,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     MatIconModule,
     MatDatepickerModule,
     MatAutocompleteModule,
+    MatMenuModule,
     MatMomentDateModule,
     RouterModule,
   ],

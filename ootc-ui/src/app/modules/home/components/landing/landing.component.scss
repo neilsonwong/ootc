@@ -2,7 +2,7 @@
 @import "~src/screens";
 
 $bannerHeight: 425px;
-$mobileBannerHeight: 100vh;
+$mobileBannerHeight: calc(100vh - 4rem);
 
 :host {
     width: 100%;
@@ -110,7 +110,8 @@ $mobileBannerHeight: 100vh;
 @media only screen and (max-width: $max-mobile-width) {
     .landing-banner {
         height: $mobileBannerHeight;
-        top: 0;
+        // clever cheat here, because we are positioned absolutely, we simply cover up the header bar instead of hiding it
+        // top: 0;
 
         background: linear-gradient(to bottom, 
             rgba(0, 0, 0, 1) 0%,
@@ -131,12 +132,12 @@ $mobileBannerHeight: 100vh;
                 .banner-title {
                     margin: 0;
                     font-size: 10vw;
-                    margin-bottom: 2rem;
+                    margin-bottom: 1rem;
                     line-height: 15vw;
                 }
 
                 .sub-text {
-                    font-size: 4.5vw;
+                    font-size: 4vw;
                     line-height: 8vw; 
                 }
             }

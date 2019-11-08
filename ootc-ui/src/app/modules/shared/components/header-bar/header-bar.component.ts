@@ -52,6 +52,7 @@ export class HeaderBarComponent implements OnInit {
   setupLinks() {
     this.navLinks = [[
       new LinkItem('Home', '/'),
+      new LinkItem('Login', '/login'),
       new LinkItem('Register', '/register'),
     ],
     [
