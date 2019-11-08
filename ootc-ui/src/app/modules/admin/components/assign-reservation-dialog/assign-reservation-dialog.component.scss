@@ -1,0 +1,21 @@
+@import "~src/colours";
+@import "~src/dialogs";
+
+.option-email {
+    font-weight: 700;
+}
+
+.option-name {
+    font-style: italic;
+    padding-left: 1rem;
+}
+
+.time-slot-details {
+    line-height: 1.5em;
+}
+
+.cheeky-quote {
+    color: $semi-light-text-colour;
+    text-align: right;
+    padding-right: 1rem;
+}

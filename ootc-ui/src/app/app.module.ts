@@ -30,7 +30,7 @@ import { BasicAuthInterceptor } from 'src/app/interceptors/basic-auth.intercepto
     AppRoutingModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

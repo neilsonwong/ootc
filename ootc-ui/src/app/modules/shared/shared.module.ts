@@ -16,6 +16,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
 import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
@@ -25,6 +28,7 @@ import { EmojiComponent } from './components/emoji/emoji.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { MatTableModule, MatSortModule } from '@angular/material';
 import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component';
+import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +39,7 @@ import { LoadingDialogComponent } from './components/loading-dialog/loading-dial
     EmojiComponent,
     ConfirmationDialogComponent,
     LoadingDialogComponent,
+    ErrorDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -54,6 +59,9 @@ import { LoadingDialogComponent } from './components/loading-dialog/loading-dial
     MatExpansionModule,
     MatChipsModule,
     MatIconModule,
+    MatDatepickerModule,
+    MatAutocompleteModule,
+    MatMomentDateModule,
   ],
   exports: [
     AppContainerComponent,
@@ -77,11 +85,15 @@ import { LoadingDialogComponent } from './components/loading-dialog/loading-dial
     MatExpansionModule,
     MatChipsModule,
     MatIconModule,
+    MatDatepickerModule,
+    MatAutocompleteModule,
+    MatMomentDateModule,
     RouterModule,
   ],
   entryComponents: [
     ConfirmationDialogComponent,
     LoadingDialogComponent,
+    ErrorDialogComponent,
   ]
 })
 export class SharedModule { }

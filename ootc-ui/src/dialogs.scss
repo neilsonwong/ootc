@@ -1,0 +1,16 @@
+// general dialog styles
+
+mat-form-field {
+    display: block;
+    width: 100%;
+}
+
+mat-dialog-actions {
+    margin-bottom: 0;
+    margin-top: 1rem;
+
+    button {
+        margin: 0 1rem;
+        min-width: 10rem;
+    }
+}

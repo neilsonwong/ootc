@@ -34,7 +34,9 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/colours.scss"
+              "src/colours.scss",
+              "src/dialogs.scss",
+              "src/screens.scss"
             ],
             "scripts": []
           },

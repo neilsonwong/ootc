@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { ScheduleService } from 'src/app/services/schedule.service';
-import { TimeSlotView } from 'src/app/models/TimeSlotView';
-
-import { IGroupedTimeSlotViews } from 'src/app/interfaces/IGroupedTimeSlotViews';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDatepicker } from '@angular/material';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import * as moment from 'moment';
+import { IGroupedTimeSlotViews } from 'src/app/interfaces/IGroupedTimeSlotViews';
+import { TimeSlotView } from 'src/app/models/TimeSlotView';
+import { ScheduleService } from 'src/app/services/schedule.service';
+import { GroupedEventList } from 'src/app/helpers/grouped-event-list';
+
 
 @Component({
   selector: 'app-schedule-management',
   templateUrl: './schedule-management.component.html',
   styleUrls: ['./schedule-management.component.scss']
 })
-export class ScheduleManagementComponent implements OnInit {
-  public schedule: TimeSlotView[];
-  public days: string[];
-  public groupedTimeSlots: IGroupedTimeSlotViews = {};
+export class ScheduleManagementComponent extends GroupedEventList implements OnInit {
+  @ViewChild('picker', {static: true}) datePicker: MatDatepicker<Date>;
 
   public startDate: string;
   public endDate: string;
@@ -22,13 +22,20 @@ export class ScheduleManagementComponent implements OnInit {
   public lastWeek: string;
   public nextWeek: string;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
-    private scheduleService: ScheduleService) { }
+    private scheduleService: ScheduleService) {
+    super();
+  }
 
   ngOnInit() {
     this.activatedRoute.queryParamMap.subscribe((params: ParamMap) => {
       this.setupPage(params.get('start'));
+    });
+    this.datePicker._selectedChanged.subscribe((date: Date) => {
+      const datePickerDate = moment(date).format('YYYY-MM-DD');
+      this.router.navigate(['/', 'admin', 'schedule'], { queryParams: {start: datePickerDate}});
     });
   }
 
@@ -54,24 +61,9 @@ export class ScheduleManagementComponent implements OnInit {
   getSchedule() {
     this.scheduleService.getAllTimeSlotsBetween(this.startDate, this.endDate)
       .subscribe((res: TimeSlotView[]) => {
-        this.schedule = res;
+        this.allTimeSlots = res;
         this.processSchedule();
       });
-  }
-
-  processSchedule() {
-    // clear out old ones
-    const temp: IGroupedTimeSlotViews = {};
-
-    for (const timeSlot of this.schedule) {
-      if (temp[timeSlot.startDate] === undefined) {
-        temp[timeSlot.startDate] = [];
-      }
-      temp[timeSlot.startDate].push(timeSlot);
-    }
-
-    this.groupedTimeSlots = temp;
-    this.days = Object.keys(this.groupedTimeSlots);
   }
 
   goPreviousWeek() {

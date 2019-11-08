@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { TimeSlot } from '../models/TimeSlot';
 import { TimeSlotDefinition } from '../models/TimeSlotDefinition';
 import { TimeSlotView } from '../models/TimeSlotView';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
 import { Reservation } from '../models/Reservation';
+import { ErrorService } from './error.service';
+import { map200toTrue, errorsAreFalse } from '../utils/httpUtil';
 
 const API_URL = environment.API_URL;
 
@@ -15,39 +17,50 @@ const API_URL = environment.API_URL;
 })
 export class ScheduleService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private errorService: ErrorService) { }
 
   getSchedule(): Observable<TimeSlotDefinition[]> {
     const url = `${API_URL}/admin/schedule`;
-    return this.http.get<TimeSlotDefinition[]>(url);
+    return this.http.get<TimeSlotDefinition[]>(url)
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.errorService.add(`We couldn't retrieve the schedule at this time! Please try again later.`);
+        return throwError(error);
+      }));
   }
 
   addScheduleItem(timeSlotDef: TimeSlotDefinition): Observable<TimeSlotDefinition> {
     const url = `${API_URL}/admin/schedule/add`;
-    return this.http.post<TimeSlotDefinition>(url, { timeSlotDef: timeSlotDef });
+    return this.http.post<TimeSlotDefinition>(url, { timeSlotDef: timeSlotDef })
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.errorService.add(`We couldn't create the schedule template at this time! Please try again later.`);
+        return throwError(error);
+      }));
   }
 
   removeScheduleItem(timeSlotDefId: number): Observable<boolean> {
     const url = `${API_URL}/admin/schedule/remove`;
     return this.http.post(url, { timeSlotDefId: timeSlotDefId })
-      .pipe(
-        map((response: any) => {
-          if (response.status === 200) {
-            return true;
-          }
-          return false;
-        })
-      );
+      .pipe(map200toTrue(), errorsAreFalse());
   }
 
   updateScheduleItem(timeSlotDef: TimeSlotDefinition): Observable<TimeSlotDefinition> {
     const url = `${API_URL}/admin/schedule/update`;
-    return this.http.post<TimeSlotDefinition>(url, { timeSlotDef: timeSlotDef });
+    return this.http.post<TimeSlotDefinition>(url, { timeSlotDef: timeSlotDef })
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.errorService.add(`We couldn't update the schedule template at this time! Please try again later.`);
+        return throwError(error);
+      }));
   }
 
   generateSchedule(timeSlotDef: TimeSlotDefinition): Observable<TimeSlot[]> {
     const url = `${API_URL}/admin/schedule/generate`;
-    return this.http.post<TimeSlot[]>(url, { timeSlotDef: timeSlotDef });
+    return this.http.post<TimeSlot[]>(url, { timeSlotDef: timeSlotDef })
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.errorService.add(`We couldn't generate the schedule based on the template at this time! Please try again later.`);
+        return throwError(error);
+      }));
   }
 
   getTimeSlots(departmentId: number, startDate: string, endDate: string): Observable<TimeSlotView[]> {
@@ -60,15 +73,10 @@ export class ScheduleService {
     };
     return this.http.get<TimeSlotView[]>(url, options)
       .pipe(
-        map((timeSlots: TimeSlotView[]) => {
-          return timeSlots.sort((a,b) => {
-            if (a.startDate < b.startDate) {
-              return -1;
-            } else if (a.startDate === b.startDate) {
-              return a.startTime.localeCompare(b.startTime);
-            }
-            return 1;
-          })
+        map(mapAndSortTimeSlotViews),
+        catchError((error: HttpErrorResponse) => {
+          this.errorService.add(`We couldn't retrieve the schedule at this time! Please try again later.`);
+          return throwError(error);
         })
       );
   }
@@ -82,15 +90,10 @@ export class ScheduleService {
     };
     return this.http.get<TimeSlotView[]>(url, options)
       .pipe(
-        map((timeSlots: TimeSlotView[]) => {
-          return timeSlots.sort((a,b) => {
-            if (a.startDate < b.startDate) {
-              return -1;
-            } else if (a.startDate === b.startDate) {
-              return a.startTime.localeCompare(b.startTime);
-            }
-            return 1;
-          })
+        map(mapAndSortTimeSlotViews),
+        catchError((error: HttpErrorResponse) => {
+          this.errorService.add(`We couldn't retrieve the schedule at this time! Please try again later.`);
+          return throwError(error);
         })
       );
   }
@@ -101,7 +104,11 @@ export class ScheduleService {
       params: new HttpParams()
         .set('timeSlotId', timeSlotId.toString())
     };
-    return this.http.get<Reservation[]>(url, options);
+    return this.http.get<Reservation[]>(url, options)
+      .pipe(catchError((error: HttpErrorResponse) => {
+          this.errorService.add(`We couldn't retrieve the volunteers the time slot at this time! Please try again later.`);
+        return throwError(error);
+      }));
   }
 
   getTimeSlot(timeSlotId: number): Observable<TimeSlotView> {
@@ -112,4 +119,15 @@ export class ScheduleService {
     };
     return this.http.get<TimeSlotView>(url, options);
   }
+}
+
+function mapAndSortTimeSlotViews(timeSlots: TimeSlotView[]) {
+  return timeSlots.sort((a,b) => {
+    if (a.startDate < b.startDate) {
+      return -1;
+    } else if (a.startDate === b.startDate) {
+      return a.startTime.localeCompare(b.startTime);
+    }
+    return 1;
+  })
 }

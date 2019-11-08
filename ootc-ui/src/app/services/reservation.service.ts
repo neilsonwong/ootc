@@ -1,10 +1,12 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of, Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Reservation } from '../models/Reservation';
 import { ReservationView } from '../models/ReservationView';
-import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { errorsAreFalse, map200toTrue } from '../utils/httpUtil';
+import { catchError } from 'rxjs/operators';
+import { ErrorService } from './error.service';
 
 const API_URL = environment.API_URL;
 
@@ -13,38 +15,38 @@ const API_URL = environment.API_URL;
 })
 export class ReservationService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private errorService: ErrorService) { }
 
-  getTimeSlots(): Observable<ReservationView[]> {
+  getReservations(): Observable<ReservationView[]> {
     const url = `${API_URL}/admin/reservations/all`;
-    return this.http.get<ReservationView[]>(url);
+    return this.http.get<ReservationView[]>(url)
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.errorService.add(`We couldn't get the list of all reservations at this time!`);
+        return throwError(error);
+      }));
   }
 
   addReservation(reservation: Reservation): Observable<Reservation> {
     const url = `${API_URL}/user/reservations/add`;
-    return this.http.post<Reservation>(url, {reservation: reservation});
+    return this.http.post<Reservation>(url, {reservation: reservation})
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.errorService.add(`We couldn't sign you up at this time! Please try again later.`);
+        return throwError(error);
+      }));
   }
 
   cancelReservation(reservationId: number): Observable<boolean> {
     const url = `${API_URL}/user/reservations/cancel`;
     return this.http.post(url, {reservationId: reservationId}, { observe: 'response' })
-      .pipe(map((response: any) => {
-        if (response.status === 200) {
-          return true;
-        }
-        return false;
-      }));
+      .pipe(map200toTrue(), errorsAreFalse());
   }
 
   deleteReservation(reservationId: number): Observable<boolean> {
     const url = `${API_URL}/admin/reservations/delete`;
     return this.http.post<Reservation>(url, {reservationId: reservationId})
-      .pipe(map((response: any) => {
-        if (response.status === 200) {
-          return true;
-        }
-        return false;
-      }));
+      .pipe(map200toTrue(), errorsAreFalse());
   }
 
   getReservationsForUser(): Observable<ReservationView[]> {
@@ -54,7 +56,11 @@ export class ReservationService {
 
   addReservationForUser(reservation: Reservation): Observable<Reservation> {
     const url = `${API_URL}/admin/reserve`;
-    return this.http.post<Reservation>(url, reservation);
+    return this.http.post<Reservation>(url, reservation)
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.errorService.add(`We couldn't sign this person up! Please try again later.`);
+        return throwError(error);
+      }));
   }
 
   reservationSignin(userId: string, date?: string): Observable<boolean> {
@@ -64,11 +70,6 @@ export class ReservationService {
       reqBody.date = date;
     }
     return this.http.post<boolean>(url, reqBody)
-      .pipe(map((response: any) => {
-        if (response.status === 200) {
-          return true;
-        }
-        return false;
-      }));
+      .pipe(map200toTrue(), errorsAreFalse());
   }
 }
