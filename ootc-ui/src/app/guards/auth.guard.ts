@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const authContext = this.authService.getAuthContext();
-        if (authContext.securityClearance) {
+        if (authContext && authContext.securityClearance) {
             return true;
         }
 
