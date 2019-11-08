@@ -57,6 +57,10 @@ $mobileBannerHeight: 100vh;
             margin: 3rem 0;
         }
     }
+
+    .mobile-menu {
+        display: none;
+    }
 }
 
 .landing-banner::after {
@@ -108,16 +112,21 @@ $mobileBannerHeight: 100vh;
         height: $mobileBannerHeight;
         top: 0;
 
-        background: rgba(0,0,0,0.9);
+        background: linear-gradient(to bottom, 
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.9) 66%,
+            rgba(0, 0, 0, 0) 100%);
 
         .landing-inner {
             min-width: 0px;
             max-width: 100vw;
             flex-direction: column;
+            position: relative;
 
             .landing-text {
                 padding-right: 0;
-                position: relative;
+                margin-bottom: 2rem;
+                flex-grow: 0;
 
                 .banner-title {
                     margin: 0;
@@ -130,22 +139,31 @@ $mobileBannerHeight: 100vh;
                     font-size: 4.5vw;
                     line-height: 8vw; 
                 }
-
-                .sub-text::after {
-                    content: "";
-                    width: 0px;
-                    height: 0px;
-                    border-left: 8vw solid transparent;
-                    border-right: 8vw solid transparent;
-                    border-top: 8vw solid $very-light-text-colour;
-                    position: absolute;
-                    bottom: 0;
-                    left: calc(42vw - 2rem);
-                }
             }
 
             .login-form-wrapper {
                 display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+                justify-content: space-between;
+
+                button {
+                    width: 35vw;
+                }
+            }
+
+            .mobile-menu::after {
+                content: "";
+                width: 0px;
+                height: 0px;
+                border-left: 6vw solid transparent;
+                border-right: 6vw solid transparent;
+                border-top: 6vw solid $very-light-text-colour;
+                position: absolute;
+                bottom: 0;
+                left: calc(44vw - 2rem);
             }
         }
     }
@@ -165,6 +183,10 @@ $mobileBannerHeight: 100vh;
             list-style: none;
             margin-bottom: 0.5rem;
         }
+
+        li:last-child {
+            margin-bottom: 0;
+        }
     }
 
     .label-value {
@@ -176,8 +198,11 @@ $mobileBannerHeight: 100vh;
         margin-bottom: 2rem;
     }
 
-    .map-border iframe {
-        height: 70vh;
+    .map-border {
+        margin-top: 1rem;
+        iframe {
+            height: 70vh;
+        }
     }
 }
 
