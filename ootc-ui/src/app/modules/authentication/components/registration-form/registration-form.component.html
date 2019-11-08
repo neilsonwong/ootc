@@ -7,7 +7,7 @@
             </app-emoji-text>
     </ng-container>
     <ng-template #notconfirmed>
-        <h3 class="registration-form-title">Registration</h3>
+        <h3 class="registration-form-title">Volunteer Registration</h3>
         <div>
             <form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
                 <mat-form-field>
@@ -30,8 +30,8 @@
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="password" placeholder="Password" formControlName="password" required>
-                        <mat-hint>{{ formErrors.minLength }}</mat-hint>
-                        <mat-error>{{ formErrors.minLength }}</mat-error>  
+                    <mat-hint>{{ formErrors.minLength }}</mat-hint>
+                    <mat-error>{{ formErrors.minLength }}</mat-error>  
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="password" placeholder="Verify Password" formControlName="verifypassword" required>

@@ -61,12 +61,8 @@
     }
 }
 
-/* hide register button when logged in */
-.loggedIn {
-    .Login,
-    .Register {
-        display: none;
-    }
+.hidden {
+    display: none;
 }
 
 @media only screen and (max-width: $max-mobile-width) {

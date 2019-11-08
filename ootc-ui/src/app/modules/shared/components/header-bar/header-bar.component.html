@@ -8,7 +8,8 @@
         <ng-container *ngFor="let securityLevel of securityLevels">
             <ng-container *ngIf="securityClearance >= securityLevel">
                 <div *ngFor="let link of navLinks[securityLevel]"
-                    class="nav-item {{ link.text }}"
+                    class="nav-item"
+                    [class.hidden]="link.class.hidden"
                     [class.highlight]="link.text === highlight">
                     <a [routerLink]="[link.url]">
                         {{ link.text | uppercase }}
@@ -30,14 +31,19 @@
         <mat-menu #menu="matMenu">
             <ng-container *ngFor="let securityLevel of securityLevels">
                 <ng-container *ngIf="securityClearance >= securityLevel">
-                    <div *ngFor="let link of navLinks[securityLevel]"
-                        class="nav-item {{ link.text }}">
-                        <button mat-menu-item [routerLink]="[link.url]">{{ link.text | uppercase }}</button>
-                    </div>
+                    <button *ngFor="let link of navLinks[securityLevel]"
+                        mat-menu-item
+                        [routerLink]="[link.url]"
+                        [class.hidden]="link.class.hidden">
+                        <mat-icon>{{ link.icon }}</mat-icon>
+                        <span>{{ link.text | uppercase }}</span>
+                    </button>
                 </ng-container>
             </ng-container>
-            <button *ngIf="securityClearance > 0" 
-                mat-menu-item color="accent" (click)="logout()">LOG OUT</button>
+            <button *ngIf="securityClearance > 0" mat-menu-item (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>LOG OUT</span>
+            </button>
         </mat-menu>
     </div>
 </div>
