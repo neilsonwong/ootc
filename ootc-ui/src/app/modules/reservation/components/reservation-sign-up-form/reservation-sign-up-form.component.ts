@@ -1,24 +1,21 @@
-import { Component, OnInit, Input, OnChanges, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { MatDialog, MatOption, MatSelect, MatSelectChange } from '@angular/material';
 import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
-import { MatSelectChange, MatDialog, MatSelect, MatOption } from '@angular/material';
 import { forkJoin } from 'rxjs';
-
-import { TimeSlotView } from 'src/app/models/TimeSlotView';
+import { map } from 'rxjs/operators';
+import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
+import { GroupedEventList } from 'src/app/helpers/grouped-event-list';
+import { IBlockedTime } from 'src/app/interfaces/IBlockedTime';
+import { IGroupedBlockedTimes } from 'src/app/interfaces/IGroupedBlockedTimes';
 import { Department } from 'src/app/models/Department';
 import { Reservation } from 'src/app/models/Reservation';
 import { ReservationView } from 'src/app/models/ReservationView';
-
-import { IGroupedBlockedTimes } from 'src/app/interfaces/IGroupedBlockedTimes';
-import { IBlockedTime } from 'src/app/interfaces/IBlockedTime';
-
-import { ScheduleService } from 'src/app/services/schedule.service';
-import { ReservationService } from 'src/app/services/reservation.service';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-
-import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
+import { TimeSlotView } from 'src/app/models/TimeSlotView';
 import { LoadingDialogComponent } from 'src/app/modules/shared/components/loading-dialog/loading-dialog.component';
-import { map } from 'rxjs/operators';
-import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ReservationService } from 'src/app/services/reservation.service';
+import { ScheduleService } from 'src/app/services/schedule.service';
+import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
 
 const twoMonthsInMillis = 60*60*24*60*1000;
 
@@ -27,7 +24,7 @@ const twoMonthsInMillis = 60*60*24*60*1000;
   templateUrl: './reservation-sign-up-form.component.html',
   styleUrls: ['./reservation-sign-up-form.component.scss']
 })
-export class ReservationSignUpFormComponent implements OnInit, OnChanges {
+export class ReservationSignUpFormComponent extends GroupedEventList implements OnInit, OnChanges {
   @Input() department: Department;
   @Input() reservations: ReservationView[];
   @Output() reservationsChanged = new EventEmitter<boolean>();
@@ -40,7 +37,6 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   private endDate: string;
   private userId: string;
 
-  public originalAvailable: TimeSlotView[];
   public available: TimeSlotView[];
   public blocked: IGroupedBlockedTimes = {};
   public reservedTimeSlotIds: number[];
@@ -50,7 +46,9 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
     public dialog: MatDialog,
     private reservationService: ReservationService,
     private scheduleService: ScheduleService,
-    private authService: AuthenticationService) { }
+    private authService: AuthenticationService) {
+    super();
+  }
 
   ngOnInit(): void {
     // TODO: fix the dates later when we're not testing
@@ -141,10 +139,11 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
         });
       }))
       .subscribe((timeSlots: TimeSlotView[]) => {
-        this.originalAvailable = timeSlots;
+        this.allTimeSlots = timeSlots;
         if (!this.available) {
-          this.available = [].concat(this.originalAvailable);
+          this.available = [].concat(this.allTimeSlots);
         }
+        this.processSchedule();
         postRun();
       });
   }
@@ -171,8 +170,8 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
   }
 
   private initRoles() {
-    if (this.originalAvailable) {
-      this.roles = this.originalAvailable
+    if (this.allTimeSlots) {
+      this.roles = this.allTimeSlots
         .map((e: TimeSlotView) => (e.desc))
         .filter((v, i, a) => a.indexOf(v) === i); 
     }
@@ -215,10 +214,10 @@ export class ReservationSignUpFormComponent implements OnInit, OnChanges {
     // run the filter
     const filterRole: string = typeof event === 'string' ? event : event.value;
     if (filterRole === 'All') {
-      this.available = [].concat(this.originalAvailable);
+      this.available = [].concat(this.allTimeSlots);
     }
     else {
-      this.available = this.originalAvailable.filter((t: TimeSlotView) => {
+      this.available = this.allTimeSlots.filter((t: TimeSlotView) => {
         return t.desc === filterRole;
       });
     }

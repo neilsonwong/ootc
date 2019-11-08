@@ -13,25 +13,23 @@
 }
 
 .reservation-sign-up-selection-item-wrapper {
-    position: relative;
-
-    display: inline-block !important;
-    width: calc(50% - 1rem) !important;
     border-radius: 4px;
-    margin: 0.5rem;
 }
 
 .reservation-sign-up-selection-item {
-    background-color: $light-background;
-    height: auto !important;
+    background-color: $lightest-background;
 
-    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
 }
 
 .disabled {
-    opacity: 0.25;
-    // display: none !important;
+    background-color: $light-background;
 }
+
+// fight angular T_T
+ ::ng-deep .disabled.mat-list-option:first-child .mat-pseudo-checkbox {
+    opacity: 0;
+ }
 
 .role-filter {
     width: 100%;
@@ -39,28 +37,4 @@
 
 .role-filter-container {
     text-align: right;
-}
-
-.reserved-item {
-    box-shadow: 1px 1px 6px $primary;
-}
-
-.reserved {
-    position: absolute;
-    opacity: 0.75;
-
-    top: 0;
-    right: 0;
-
-
-    font-weight: 700;
-
-    // padding: 0.5rem;
-    // color: $primary;
-
-    padding: 0.5rem 1rem;
-    color: $light-text-colour;
-    background-color: $primary;
-    border-radius: 0 4px 0 4px;
-    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
 }
