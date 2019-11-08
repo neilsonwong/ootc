@@ -134,6 +134,10 @@ $mobileBannerHeight: calc(100vh - 4rem);
                     font-size: 10vw;
                     margin-bottom: 1rem;
                     line-height: 15vw;
+                    
+                    .do-not-break {
+                        display: inline-block;
+                    }
                 }
 
                 .sub-text {
@@ -222,8 +226,21 @@ $mobileBannerHeight: calc(100vh - 4rem);
     }
 }
 
-@media (min-width: $min-wide-screen-width) {
+@media only screen and (min-width: $min-wide-screen-width) {
     .landing-banner::after {
         background-size: 1230px;
+    }
+}
+
+@media only screen and (max-width: $iphone5-is-too-small-width) {
+    .landing-banner {
+        .landing-inner {
+            .landing-text {
+                .banner-title {
+                    font-size: 9vw;
+                    line-height: 12vw;
+                }
+            }
+        }
     }
 }

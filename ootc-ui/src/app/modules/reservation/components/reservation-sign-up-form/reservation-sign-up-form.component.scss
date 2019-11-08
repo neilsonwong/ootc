@@ -65,3 +65,11 @@
         }
     }
 }
+
+@media only screen and (max-width: $iphone5-is-too-small-width) {
+    .button-bar {
+        button {
+            min-width: 30vw;
+        }
+    }
+}
