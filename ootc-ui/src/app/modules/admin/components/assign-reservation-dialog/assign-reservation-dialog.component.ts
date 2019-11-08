@@ -15,6 +15,8 @@ import { EventDetails } from 'src/app/helpers/event-details';
 })
 export class AssignReservationDialogComponent extends EventDetails implements OnInit {
   public assignReservationForm: FormGroup;
+  public department: string;
+
   private timeSlot: TimeSlotView;
   private userList: User[];
 
@@ -32,6 +34,7 @@ export class AssignReservationDialogComponent extends EventDetails implements On
 
     this.userList = this.data.userList;
     this.timeSlot = this.event as TimeSlotView;
+    this.department = this.timeSlot.department;
 
     this.assignReservationForm = this.fb.group({
       user: ['', [Validators.required, this.isInUserList.bind(this)]]

@@ -120,7 +120,7 @@ export class TimeSlotDetailsComponent extends EventDetails implements OnInit {
     });
   }
 
-  private loadReservations() {
+  public loadReservations() {
     this.scheduleService.getReservationsForTimeslot(this.timeSlot.id)
       .subscribe((reservations: Reservation[]) => {
         this.reservations = reservations;
