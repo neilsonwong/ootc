@@ -1,13 +1,12 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatSort } from '@angular/material';
 import { MatTableDataSource } from '@angular/material/table';
-import { Users } from '../user-list/user-list.component';
-import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/models/User';
-import { MatSort, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
-import { UserUpdateDialogComponent } from '../user-update-dialog/user-update-dialog.component';
-import { CreateUserFormComponent } from 'src/app/modules/authentication/components/create-user-form/create-user-form.component'
-import { LoadingDialogComponent } from 'src/app/modules/shared/components/loading-dialog/loading-dialog.component';
 import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
+import { User } from 'src/app/models/User';
+import { CreateUserFormComponent } from 'src/app/modules/authentication/components/create-user-form/create-user-form.component';
+import { LoadingDialogComponent } from 'src/app/modules/shared/components/loading-dialog/loading-dialog.component';
+import { UserService } from 'src/app/services/user.service';
+import { UserUpdateDialogComponent } from '../user-update-dialog/user-update-dialog.component';
 
 @Component({
   selector: 'app-user-management',
@@ -88,11 +87,21 @@ export class UserManagementComponent implements OnInit {
         if (result){
           this.updateUser(result);
         }
-      })
+      });
   }
 
-  onCreateUser() {
-    console.log('make a user here');
+  onCreateUser(user: User) {
+    const dialogRef = this.dialog.open(CreateUserFormComponent, {
+      data: {
+        user: user
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result){
+        this.onCreateUser(result);
+      }
+    });
   }
 
 }

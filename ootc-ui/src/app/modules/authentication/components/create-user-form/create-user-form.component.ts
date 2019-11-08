@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/User';
@@ -6,6 +6,7 @@ import { take } from 'rxjs/operators';
 
 // TODO: this is really bad, fix later
 import { formErrorMessages } from '../registration-form/registration-form.validators';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-create-user-form',
@@ -19,7 +20,8 @@ export class CreateUserFormComponent implements OnInit {
   public formErrors = formErrorMessages;
 
   constructor(private fb: FormBuilder,
-    private userService: UserService) { }
+    private userService: UserService,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.createUserForm = this.fb.group({

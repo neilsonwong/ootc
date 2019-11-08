@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDatepicker } from '@angular/material';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import * as moment from 'moment';
-import { IGroupedTimeSlotViews } from 'src/app/interfaces/IGroupedTimeSlotViews';
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
 import { ScheduleService } from 'src/app/services/schedule.service';
 import { GroupedEventList } from 'src/app/helpers/grouped-event-list';

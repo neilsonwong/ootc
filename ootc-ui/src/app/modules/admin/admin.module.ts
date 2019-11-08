@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -32,10 +30,8 @@ import { AssignReservationDialogComponent } from './components/assign-reservatio
     AssignReservationDialogComponent,
   ],
   imports: [
-    CommonModule,
     SharedModule,
     AdminRoutingModule,
-    FormsModule,
   ],
   entryComponents: [
     UserUpdateDialogComponent,

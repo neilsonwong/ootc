@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -72,6 +71,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     LoadingDialogComponent,
 
     // re-export ng stuff that we don't wanna import everywhere
+    CommonModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
