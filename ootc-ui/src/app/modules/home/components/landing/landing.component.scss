@@ -18,8 +18,10 @@ $mobileBannerHeight: calc(100vh - 4rem);
     // linear gradient background
     background: linear-gradient(to right, 
         rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 0.5) 33%,
-        rgba(0, 0, 0, 0.5) 66%,
+        rgba(0, 0, 0, 0.4) 33%,
+        rgba(0, 0, 0, 0.8) 45%,
+        rgba(0, 0, 0, 0.8) 55%,
+        rgba(0, 0, 0, 0.4) 66%,
         rgba(0, 0, 0, 0) 100%);
     padding: 2rem;
 

@@ -32,17 +32,18 @@ export class HeaderBarComponent implements OnInit {
         this.securityClearance = authContext.securityClearance;
         this.name = authContext.fname || '';
       }
-      this.updateHighlight(this.location.path(false));
+      // this.updateHighlight(this.location.path(false));
       this.updateLinkClassBasedOnSecurityClearance();
     });
 
     this.location.onUrlChange((url: string, state: unknown) => {
-      this.updateHighlight(url);
+      // this.updateHighlight(url);
     });
   }
 
   setupLinks() {
     this.navLinks = [[
+      { text:'Home', url: '', icon: 'home', class: {} },
       { text:'Login', url: '/login', icon: 'account_circle', class: {} },
       { text:'Register', url: '/register', icon: 'face', class: {} },
     ],
@@ -58,16 +59,16 @@ export class HeaderBarComponent implements OnInit {
     ]];
   }
 
-  updateHighlight(newUrl: string) {
-    for (const links of this.navLinks) {
-      for (const navItem of links) {
-        if (navItem.url === newUrl) {
-          this.highlight = navItem.text;
-          return;
-        }
-      }
-    }
-  }
+  // updateHighlight(newUrl: string) {
+  //   for (const links of this.navLinks) {
+  //     for (const navItem of links) {
+  //       if (navItem.url === newUrl) {
+  //         this.highlight = navItem.text;
+  //         return;
+  //       }
+  //     }
+  //   }
+  // }
 
   updateLinkClassBasedOnSecurityClearance() {
     for (const navItem of this.navLinks[0]) {
