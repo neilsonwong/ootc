@@ -1,14 +1,17 @@
 'use strict';
 
-const moment = require('moment');
 const logger = require('../logger');
 const db = require('../db/db');
-const { strToDate } = require('../util/dateUtil');
+const apiReqValidator = require('../util/apiRequestValidator');
 const REPEAT_INTERVAL = require('../classes/RepeatIntervalEnum');
 const TimeSlot = require('../models/TimeSlot');
 
 async function getSchedule(year) {
     try {
+        const err = apiReqValidator.isValidYear(year);
+        if (err) {
+            throw err;
+        }
         return await db.timeSlotDefs.listTimeSlotDefsForYear(year);
     }
     catch(e) {
@@ -20,6 +23,10 @@ async function getSchedule(year) {
 
 async function addTimeSlotDef(timeSlotDef) {
     try {
+        const err = apiReqValidator.validateTimeSlotDefCreation(timeSlotDef);
+        if (err) {
+            throw err;
+        }
         return await db.timeSlotDefs.insertTimeSlotDef(timeSlotDef);
     }
     catch(e) {
@@ -32,11 +39,14 @@ async function addTimeSlotDef(timeSlotDef) {
 
 async function deleteTimeSlotDef(timeSlotDefId) {
     try {
+        const err = apiReqValidator.validateTimeSlotDefId(timeSlotDefId);
+        if (err) {
+            throw err;
+        }
         return await db.timeSlotDefs.deleteTimeSlotDef(timeSlotDefId);
     }
     catch(e) {
         logger.error(`there was an error deleting timeSlotDef with id ${timeSlotDefId}`);
-        logger.error(timeSlotDefId);
         logger.error(e);
         return null;
     }
@@ -44,6 +54,10 @@ async function deleteTimeSlotDef(timeSlotDefId) {
 
 async function updateTimeSlotDef(timeSlotDef) {
     try {
+        const err = apiReqValidator.validateTimeSlotDef(timeSlotDef);
+        if (err) {
+            throw err;
+        }
         return await db.timeSlotDefs.updateTimeSlotDef(timeSlotDef);
     }
     catch(e) {
@@ -56,15 +70,14 @@ async function updateTimeSlotDef(timeSlotDef) {
 
 async function generateTimeSlots(timeSlotDef) {
     try {
-        // try to parse our start date
-        const startDate = strToDate(timeSlotDef.repeatStartDate);
-        if (startDate === null) {
-            throw 'Invalid date contained in time slot def';
+        const err = apiReqValidator.validateTimeSlotDef(timeSlotDef);
+        if (err) {
+            throw err;
         }
 
         const timeSlotsToInsert = [];
         // now that we have our start date, we can operate on the date object!
-        let curDate = startDate;
+        let curDate = moment(timeSlotDef.startDate);
         let daysGenerated = 0;
         const fnAdvanceDate = getAdvanceDateFunction(timeSlotDef.repeatInterval, timeSlotDef.repeatSkipEvery);
 
@@ -140,6 +153,10 @@ function getAdvanceDateFunction(interval, skipOption) {
 
 async function getTimeSlotsForDept(dept, start, end) {
     try {
+        const err = (apiReqValidator.validateDepartmentId(dept) || apiReqValidator.isValidYYYYMMDD(start) || apiReqValidator.isValidYYYYMMDD(end));
+        if (err) {
+            throw err;
+        }
         return await db.timeSlots.listTimeSlotsForDept(dept, start, end);
     }
     catch(e) {
@@ -151,6 +168,10 @@ async function getTimeSlotsForDept(dept, start, end) {
 
 async function getTimeSlotsByTimeRange(start, end) {
     try {
+        const err = (apiReqValidator.isValidYYYYMMDD(start) || apiReqValidator.isValidYYYYMMDD(end));
+        if (err) {
+            throw err;
+        }
         return await db.timeSlots.listTimeSlotsByRange(start, end);
     }
     catch(e) {
@@ -162,7 +183,10 @@ async function getTimeSlotsByTimeRange(start, end) {
 
 async function getReservationsForTimeSlot(timeSlotId) {
     try {
-        const id = parseInt(timeSlotId);
+        const err = apiReqValidator.validateTimeSlotId(timeSlotId);
+        if (err) {
+            throw err;
+        }
         return await db.reservations.getReservationsByTimeSlot(id);
     }
     catch(e) {
@@ -174,7 +198,10 @@ async function getReservationsForTimeSlot(timeSlotId) {
 
 async function getTimeSlot(timeSlotId) {
     try {
-        const id = parseInt(timeSlotId);
+        const err = apiReqValidator.validateTimeSlotId(timeSlotId);
+        if (err) {
+            throw err;
+        }
         return await db.timeSlots.getTimeSlot(id);
     }
     catch(e) {

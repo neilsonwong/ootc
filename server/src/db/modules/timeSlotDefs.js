@@ -50,8 +50,6 @@ class TimeSlotDefDbModule extends DbModule {
     async listTimeSlotDefsForYear(year) {
         const yearStart = `${year}-01-01`;
         const yearEnd = `${year}-12-31`;
-        console.log(yearStart)
-        console.log(yearEnd);
         const rows = await db.all(sql.listTimeSlotDefsForYear, [yearStart, yearEnd]);
         return rows.map(e => this.fixType(e));
     }

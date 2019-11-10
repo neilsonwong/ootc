@@ -4,10 +4,17 @@ const moment = require('moment');
 
 const db = require('../db/db');
 const logger = require('../logger');
+const apiReqValidator = require('../util/apiRequestValidator');
 
 // create
 async function createReservation(reservation) {
     try {
+        const err = apiReqValidator.validateReservationCreation(reservation);
+        if (err) {
+            console.log(reservation);
+            throw err;
+        }
+
         reservation.attended = false;
         return await db.reservations.insertReservation(reservation);
     }
@@ -21,6 +28,10 @@ async function createReservation(reservation) {
 // delete
 async function cancelReservation(reservationId, userId) {
     try {
+        const err = (apiReqValidator.validateReservationId(reservationId) || apiReqValidator.validateUserId(userId));
+        if (err) {
+            throw err;
+        }
         return await db.reservations.cancelReservation(reservationId, userId);
     }
     catch(e) {
@@ -32,6 +43,10 @@ async function cancelReservation(reservationId, userId) {
 
 async function getReservationsForUser(userId) {
     try {
+        const err = apiReqValidator.validateUserId(userId);
+        if (err) {
+            throw err;
+        }
         return await db.reservations.getReservationsByUserId(userId);
     }
     catch(e) {
@@ -43,20 +58,44 @@ async function getReservationsForUser(userId) {
 
 // sign in
 async function updateAttendance(userId, overrideDate) {
-    // check whether there is a sign in for the time
-    const now = overrideDate || moment().format("YYYY-MM-DD");
-    const reservations = await db.reservations.getReservationsForUserOnDate(userId, now);
-    if (reservations && reservations.length > 0) {
-        return Promise.all(reservations.map(async (reservation) => {
-            await db.reservations.updateReservationAttendance(reservation.id, true);
-            return reservation;
-        }));
+    try {
+        let updateDate;
+        let err = apiReqValidator.validateUserId(userId);
+        if (err) {
+            throw err;
+        }
+        if (overrideDate) {
+            err = apiReqValidator.isValidYYYYMMDD(overrideDate);
+            if (err) {
+                throw err;
+            }
+            updateDate = moment(overrideDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
+        }
+        else {
+            updateDate = moment().format('YYYY-MM-DD');
+        }
+
+        const reservations = await db.reservations.getReservationsForUserOnDate(userId, updateDate);
+        if (reservations && reservations.length > 0) {
+            return await Promise.all(reservations.map((reservation) => {
+                db.reservations.updateReservationAttendance(reservation.id, true);
+                return reservation;
+            }));
+        }
+    }
+    catch(e) {
+        logger.error(`there was an error updating the attendance for ${userId}`);
+        logger.error(e);
     }
     return null;
 }
 
 async function deleteReservation(reservationId) {
     try {
+        const err = apiReqValidator.validateReservationId(reservationId);
+        if (err) {
+            throw err;
+        }
         return await db.reservations.deleteReservation(reservationId);
     }
     catch(e) {
