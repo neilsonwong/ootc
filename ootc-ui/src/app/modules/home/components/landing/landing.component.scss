@@ -30,7 +30,6 @@ $mobileBannerHeight: calc(100vh - 4rem);
 
     .landing-inner {
         display: flex;
-        min-width: $app-container-min-width;
         max-width: $app-container-max-width;
     }
 
@@ -57,6 +56,10 @@ $mobileBannerHeight: calc(100vh - 4rem);
             font-weight: 600;
             font-size: 3em;
             margin: 3rem 0;
+
+            .do-not-break {
+                display: inline-block;
+            }
         }
     }
 
@@ -108,22 +111,41 @@ $mobileBannerHeight: calc(100vh - 4rem);
     box-shadow: 0 3px 2px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
 }
 
+@media only screen and (min-width: $min-wide-screen-width) {
+    .landing-banner::after {
+        background-size: 1230px;
+    }
+}
+
 /* for mobile */
 @media only screen and (max-width: $max-mobile-width) {
-    .landing-banner {
-        height: $mobileBannerHeight;
-        max-height: -webkit-fill-available;;
+    .landing-banner::after {
+        display: none;
+    }
 
-        background: linear-gradient(to bottom, 
-            rgba(0, 0, 0, 1) 0%,
-            rgba(0, 0, 0, 0.9) 66%,
-            rgba(0, 0, 0, 0) 100%);
+    .landing-page-intro {
+        margin-top: 3.5rem;
+    }
+
+    .landing-banner {
+        position: static;
+        margin: -1.5rem;
+        padding: 0;
+        height: auto;
+        max-height: none;
+
+        background-color: $darkest-background;
+        background-image: url('/assets/blackground.jpg');
+        background-position: center;
+        background-size: cover;
 
         .landing-inner {
             min-width: 0px;
-            max-width: 100vw;
             flex-direction: column;
             position: relative;
+
+            padding: 2rem;
+            background-color: $dark-semi-transparent-background;
 
             .landing-text {
                 padding-right: 0;
@@ -135,10 +157,6 @@ $mobileBannerHeight: calc(100vh - 4rem);
                     font-size: 10vw;
                     margin-bottom: 1rem;
                     line-height: 15vw;
-                    
-                    .do-not-break {
-                        display: inline-block;
-                    }
                 }
 
                 .sub-text {
@@ -160,26 +178,19 @@ $mobileBannerHeight: calc(100vh - 4rem);
                 }
             }
 
-            .mobile-menu::after {
+            &::after {
                 content: "";
                 width: 0px;
                 height: 0px;
                 border-left: 6vw solid transparent;
                 border-right: 6vw solid transparent;
                 border-top: 6vw solid $very-light-text-colour;
-                position: absolute;
-                bottom: 0;
-                left: calc(44vw - 2rem);
+
+                position: static;
+                margin-top: 2rem;
+                margin-left: calc(44vw - 2rem);
             }
         }
-    }
-
-    .landing-banner::after {
-        height: $mobileBannerHeight;
-    }
-
-    .landing-page-intro {
-        margin-top: $mobileBannerHeight;
     }
 
     ul {
@@ -212,7 +223,28 @@ $mobileBannerHeight: calc(100vh - 4rem);
     }
 }
 
-@media only screen and (min-width: $max-mobile-width) and (max-width: $min-wide-screen-width) {
+@media only screen and (min-width: $max-mobile-width) and (max-width: $max-half-screen-width) {
+    .landing-banner {
+        .landing-inner {
+            .landing-text {
+                padding-right: 2rem;
+
+                .banner-title {
+                    font-size: 3.5vw;
+                    margin: 4vw 0;
+                    margin-top: 0;
+                }
+
+                .sub-text {
+                    font-size: 0.8em;
+                    line-height: 1.75em;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: $max-half-screen-width) and (max-width: $min-wide-screen-width) {
     .landing-banner {
         .landing-inner {
             .landing-text {
@@ -224,12 +256,6 @@ $mobileBannerHeight: calc(100vh - 4rem);
                 }
             }
         }
-    }
-}
-
-@media only screen and (min-width: $min-wide-screen-width) {
-    .landing-banner::after {
-        background-size: 1230px;
     }
 }
 
