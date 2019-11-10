@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -43,6 +44,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
   ],
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
     RouterModule,
     ReactiveFormsModule,
     MatButtonModule,
@@ -72,6 +74,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
 
     // re-export ng stuff that we don't wanna import everywhere
     CommonModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,

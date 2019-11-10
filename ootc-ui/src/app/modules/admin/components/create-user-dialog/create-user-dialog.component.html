@@ -13,9 +13,8 @@
             <mat-hint>{{ formErrors.required }}</mat-hint>
         </mat-form-field>
         <mat-form-field>
-            <input matInput type="email" placeholder="Email" formControlName="email" required> 
-            <mat-hint>{{ formErrors.pattern }}</mat-hint>
-            <mat-error>{{ formErrors.pattern }}</mat-error>
+            <input matInput type="email" placeholder="Email" formControlName="email"> 
+            <mat-hint>Leave this blank if phone number is the id</mat-hint>
         </mat-form-field>
         <mat-form-field>
             <input matInput type="tel" placeholder="Phone Number" formControlName="phoneNumber" maxlength=10 required>

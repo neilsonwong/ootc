@@ -3,7 +3,7 @@ import { User } from 'src/app/models/User';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { formErrorMessages } from 'src/app/modules/authentication/components/registration-form/registration-form.validators';
 import { UserService } from 'src/app/services/user.service';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -12,12 +12,11 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./create-user-dialog.component.scss']
 })
 export class CreateUserDialogComponent implements OnInit {
-  @Output() userCreated = new EventEmitter<User>();
-
   public createUserForm: FormGroup;
   public formErrors = formErrorMessages;
 
   constructor(private fb: FormBuilder,
+    private dialogRef: MatDialogRef<CreateUserDialogComponent>,
     private userService: UserService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -39,7 +38,7 @@ export class CreateUserDialogComponent implements OnInit {
 
   onCreateUser() {
     const emailVal = this.createUserForm.get('email').value;
-    const userId = (emailVal && emailVal.length > 0) ? emailVal : this.createUserForm.get('phoneNumber').value;
+    const userId = (emailVal && emailVal.length > 0) ? emailVal : this.createUserForm.get('phoneNumber').value.toString();
 
     const userToBeCreated = new User(
       undefined,
@@ -54,9 +53,8 @@ export class CreateUserDialogComponent implements OnInit {
     
     const randomPw = Date.now().toString();
     this.userService.registerUser(userToBeCreated, randomPw)
-      .pipe(take(1))
       .subscribe((user: User) => {
-        this.userCreated.emit(user);
+        this.dialogRef.close(user);
       });
   }
 }
