@@ -187,7 +187,7 @@ async function getReservationsForTimeSlot(timeSlotId) {
         if (err) {
             throw err;
         }
-        return await db.reservations.getReservationsByTimeSlot(id);
+        return await db.reservations.getReservationsByTimeSlot(timeSlotId);
     }
     catch(e) {
         logger.error(`there was an error getting all time slots`);
@@ -202,7 +202,7 @@ async function getTimeSlot(timeSlotId) {
         if (err) {
             throw err;
         }
-        return await db.timeSlots.getTimeSlot(id);
+        return await db.timeSlots.getTimeSlot(timeSlotId);
     }
     catch(e) {
         logger.error(`there was an retrieving the time slot`);

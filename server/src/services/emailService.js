@@ -8,6 +8,8 @@ const Email = require('../classes/Email');
 const emailTemplates = require('../util/emailTemplates');
 
 const awsCred = './aws.json';
+
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 let transporter;
 
 function init() {
@@ -36,20 +38,25 @@ function init() {
 
 function sendMail(email) {
     if (transporter) {
-        return new Promise((res, rej) => {
-            transporter.sendMail(email, (err, info) => {
-                if (err) {
-                    return rej(err);
-                }
-                else {
-                    logger.info(info);
-                    return res();
-                }
+        if (!email || !emailRegex.test(email.to)) {
+            logger.info(`attempt to send to invalid email: ${email ? email.to : ''}`);
+        }
+        else {
+            return new Promise((res, rej) => {
+                transporter.sendMail(email, (err, info) => {
+                    if (err) {
+                        return rej(err);
+                    }
+                    else {
+                        logger.info(info);
+                        return res();
+                    }
+                });
             });
-        });
+        }
     }
     else {
-        logger.debug('no email transporter available');
+        logger.info('no email transporter available');
     }
 }
 

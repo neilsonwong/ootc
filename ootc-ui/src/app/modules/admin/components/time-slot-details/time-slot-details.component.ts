@@ -103,11 +103,9 @@ export class TimeSlotDetailsComponent extends EventDetails implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('making the reservation');
         this.reservationService.addReservationForUser(result)
           .pipe(tap(() => this.refreshState()))
           .subscribe(res => {
-            console.log('reservation made');
           });
       }
     });

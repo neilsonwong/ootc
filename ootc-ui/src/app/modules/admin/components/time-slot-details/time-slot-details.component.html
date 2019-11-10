@@ -25,6 +25,7 @@
             <div class="nobody">Nobody signed up yet!!</div>
         </ng-template>
         <mat-chip
+            *ngIf="reserved < totalSpots"
             color="primary"
             (click)="makeReservationForUser()"
             selected>

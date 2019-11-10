@@ -14,7 +14,7 @@ function validateUserCreation(user) {
       _isNonEmptyString(user.fname) &&
       typeof user.mname === 'string' &&
       _isNonEmptyString(user.lname) &&
-      typeof user.phone === 'number' &&
+      _isGreaterThanZero(user.phone) &&
       typeof user.age === 'number' &&
       _isZeroOrGreater(user.experience) &&
       typeof user.comments === 'string' &&
@@ -31,7 +31,7 @@ function validateUser(user) {
       _isNonEmptyString(user.fname) &&
       typeof user.mname === 'string' &&
       _isNonEmptyString(user.lname) &&
-      typeof user.phone === 'number' &&
+      _isGreaterThanZero(user.phone) &&
       typeof user.age === 'number' &&
       _isZeroOrGreater(user.experience) &&
       typeof user.comments === 'string' &&

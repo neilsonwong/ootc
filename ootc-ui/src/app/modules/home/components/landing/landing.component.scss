@@ -185,6 +185,7 @@ $mobileBannerHeight: calc(100vh - 4rem);
                 border-left: 6vw solid transparent;
                 border-right: 6vw solid transparent;
                 border-top: 6vw solid $very-light-text-colour;
+                opacity: 0.25;
 
                 position: static;
                 margin-top: 2rem;

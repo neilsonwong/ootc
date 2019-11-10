@@ -61,7 +61,7 @@ export class RegistrationFormComponent implements OnInit {
       this.registrationForm.get('firstName').value,
       this.registrationForm.get('middleName').value,
       this.registrationForm.get('lastName').value,
-      this.registrationForm.get('phoneNumber').value,
+      parseInt(this.registrationForm.get('phoneNumber').value),
       this.registrationForm.get('age').value,
       this.registrationForm.get('experience').value,
       this.registrationForm.get('comments').value);
