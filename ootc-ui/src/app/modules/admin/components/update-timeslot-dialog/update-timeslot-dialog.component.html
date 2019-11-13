@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>Update Time Slot</h1>
+<form [formGroup]="editTimeSlotForm" (ngSubmit)="onUpdate()">
+    <div>
+        <mat-form-field>
+            <mat-label>Departments</mat-label>
+            <mat-select formControlName="department" required>
+                <mat-option *ngFor="let dept of departments" [value]="dept.id">
+                    {{ dept.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="text" placeholder="Role" formControlName="desc" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Date" formControlName="date" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="text" placeholder="Time" formControlName="time" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="number" placeholder="Duration" formControlName="duration" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="number" placeholder="Sign Up Cap" formControlName="signUpCap" required>
+        </mat-form-field>
+    </div>
+    <mat-dialog-actions align="center">
+        <button mat-raised-button color="warn" type="button" [mat-dialog-close]="false">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" cdkFocusInitial>Update</button>
+    </mat-dialog-actions>
+</form>

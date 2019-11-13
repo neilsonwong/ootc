@@ -11,6 +11,9 @@ import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user.service';
 import { tap } from 'rxjs/operators';
 import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
+import { UpdateTimeslotDialogComponent } from '../update-timeslot-dialog/update-timeslot-dialog.component';
+import { DepartmentService } from 'src/app/services/department.service';
+import { Department } from 'src/app/models/Department';
 
 @Component({
   selector: 'app-time-slot-details',
@@ -21,6 +24,7 @@ export class TimeSlotDetailsComponent extends EventDetails implements OnInit {
 
   private timeSlot: TimeSlotView;
   private userList: User[];
+  private departments: Department[];
   public reservations: Reservation[];
 
   public department: string;
@@ -40,6 +44,7 @@ export class TimeSlotDetailsComponent extends EventDetails implements OnInit {
     private userService: UserService,
     private scheduleService: ScheduleService,
     private reservationService: ReservationService,
+    private departmentService: DepartmentService,
     public dialog: MatDialog) {
     super();
   }
@@ -48,6 +53,7 @@ export class TimeSlotDetailsComponent extends EventDetails implements OnInit {
     this.setupFields();
     // run in parallel
     this.getAllUsers();
+    this.getAllDepartments();
   }
 
   setupFields() {
@@ -105,8 +111,7 @@ export class TimeSlotDetailsComponent extends EventDetails implements OnInit {
       if (result) {
         this.reservationService.addReservationForUser(result)
           .pipe(tap(() => this.refreshState()))
-          .subscribe(res => {
-          });
+          .subscribe();
       }
     });
   }
@@ -115,6 +120,12 @@ export class TimeSlotDetailsComponent extends EventDetails implements OnInit {
     // TODO: optimize this later, should not be in this level, makes it slow
     this.userService.getAllUsers().subscribe((users: any[]) => {
       this.userList = users;
+    });
+  }
+
+  private getAllDepartments() {
+    this.departmentService.getDepartments().subscribe((depts: Department[]) => {
+      this.departments = depts;
     });
   }
 
@@ -133,5 +144,24 @@ export class TimeSlotDetailsComponent extends EventDetails implements OnInit {
         this.event = timeSlot;
         this.setupFields();
       });
+  }
+
+  public openUpdateDialog() {
+    const dialogRef = this.dialog.open(UpdateTimeslotDialogComponent, {
+      data: {
+        timeSlot: this.timeSlot,
+        userList: this.userList,
+        departments: this.departments,
+      },
+      width: DIALOG_WIDTHS.ASSIGN_RESERVATION
+    });
+
+    // dialogRef.componentInstance.event = this.timeSlot;
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('dialog closed');
+      }
+    });
   }
 }

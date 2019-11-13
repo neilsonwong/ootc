@@ -9,6 +9,11 @@
                     [class.attention]="warn">
                     {{ reserved }}/{{ totalSpots }}
                 </div>
+                <div class="panel-edit">
+                    <button mat-icon-button (click)="openUpdateDialog()">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
             </div>
         </mat-panel-description>
     </mat-expansion-panel-header>
