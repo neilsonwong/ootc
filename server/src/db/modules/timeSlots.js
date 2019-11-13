@@ -41,6 +41,16 @@ const sql = {
         WHERE departments.id = ? AND startDate >= ? AND startDate <= ?
         GROUP BY timeSlots.id`,
 
+    updateTimeSlot:
+        `UPDATE timeSlots SET
+            startDate = $startDate,
+            startTime = $startTime,
+            duration = $duration,
+            department = $department,
+            signUpCap = $signUpCap,
+            desc = $desc
+        WHERE id = $id`,
+
     insertTimeSlot:
         `INSERT INTO timeSlots (startDate, startTime, duration, department, signUpCap, desc)
         VALUES($startDate, $startTime, $duration, $department, $signUpCap, $desc)`,
@@ -81,6 +91,11 @@ class TimeSlotDbModule extends DbModule {
             timeSlot.id = lastID;
             return timeSlot;
         }
+    }
+
+    async updateTimeSlot(timeSlot) {
+        timeSlot = this.fixType(timeSlot);
+        return await db.run(sql.updateTimeSlot, timeSlot.prepare(sql.updateTimeSlot));
     }
 
     async deleteTimeSlot(timeSlotId) {

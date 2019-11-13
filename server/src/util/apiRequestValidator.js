@@ -157,6 +157,19 @@ function validateTimeSlotId(timeSlotId) {
         'timeSlotId is not a number or less than 0';
 }
 
+function validateTimeSlot(timeSlot) {
+    return (timeSlot &&
+        _isZeroOrGreater(timeSlot.id) &&
+        _isValidYYYYMMDD(timeSlot.startDate) &&
+        _isValidHHMM(timeSlot.startTime) &&
+        _isZeroOrGreater(timeSlot.duration) &&
+        _isZeroOrGreater(timeSlot.department) &&
+        _isGreaterThanZero(timeSlot.signUpCap) &&
+        _isNonEmptyString(timeSlot.desc)) ?
+        null :
+        'timeSlot is empty or invalid timeSlot object';
+}
+
 function _isZeroOrGreater(obj) {
 
     return ((obj && typeof obj === 'number' && obj >= 0) ||
@@ -219,6 +232,7 @@ module.exports = {
     validateTimeSlotDefCreation: validateTimeSlotDefCreation,
     validateTimeSlotDefId: validateTimeSlotDefId,
     validateTimeSlotId: validateTimeSlotId,
+    validateTimeSlot: validateTimeSlot,
 
     isValidHHMM: isValidHHMM,
     isValidYYYYMMDD: isValidYYYYMMDD,

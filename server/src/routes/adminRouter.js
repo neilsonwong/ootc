@@ -422,6 +422,39 @@ router.get('/timeslots', async (req, res) => {
 /**
  * @swagger
  *
+ * /admin/timeslot/update:
+ *   post:
+ *     summary: Update information for a particular timeslot.
+ *     tags:
+ *       - admin
+ *     consumes: application/json
+ *     produces: application/json
+ *     requestBody:
+ *       description: An Object containing the updated timeslot.
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TimeSlot'
+ *     responses:
+ *       200:
+ *         description: Updated TimeSlot Object
+ *       400:
+ *         description: Error updating db with provided timeslot object
+ *       401:
+ *         description: Unauthorized
+ */
+router.post('/timeslot/update', async (req, res) => {
+	const timeSlot = req.body;
+	const result = await scheduleManager.updateTimeSlot(timeSlot);
+	return result ?
+		res.status(200).json(timeSlot) :
+		res.status(400).json({ error: `could not update timeSlot with id ${timeSlot ? timeSlot.id : ''}` });
+});
+
+/**
+ * @swagger
+ *
  * /admin/timeslot/reservations:
  *   get:
  *     summary: Get reservations for a particular time slot

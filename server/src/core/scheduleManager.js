@@ -211,6 +211,21 @@ async function getTimeSlot(timeSlotId) {
     }
 }
 
+async function updateTimeSlot(timeSlot) {
+    try {
+        const err = apiReqValidator.validateTimeSlot(timeSlot);
+        if (err) {
+            throw err;
+        }
+        return await db.timeSlots.updateTimeSlot(timeSlot);
+    }
+    catch(e) {
+        logger.error(`there was an updating error the time slot`);
+        logger.error(e);
+        return null;
+    }
+}
+
 
 module.exports = {
     getSchedule: getSchedule,
@@ -221,5 +236,6 @@ module.exports = {
     getTimeSlotsForDept: getTimeSlotsForDept,
     getTimeSlotsByTimeRange: getTimeSlotsByTimeRange,
     getReservationsForTimeSlot: getReservationsForTimeSlot,
-    getTimeSlot: getTimeSlot
+    getTimeSlot: getTimeSlot,
+    updateTimeSlot: updateTimeSlot
 };
