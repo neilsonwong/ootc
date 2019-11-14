@@ -5,6 +5,7 @@ const db = require('../db/db');
 const apiReqValidator = require('../util/apiRequestValidator');
 const REPEAT_INTERVAL = require('../classes/RepeatIntervalEnum');
 const TimeSlot = require('../models/TimeSlot');
+const moment = require('moment');
 
 async function getSchedule(year) {
     try {
@@ -30,8 +31,7 @@ async function addTimeSlotDef(timeSlotDef) {
         return await db.timeSlotDefs.insertTimeSlotDef(timeSlotDef);
     }
     catch(e) {
-        logger.error(`there was an error inserting a timeSlotDef with id ${timeSlotDef.id}`);
-        logger.error(timeSlotDef);
+        logger.error(`there was an error inserting a timeSlotDef with id ${timeSlotDef}`);
         logger.error(e);
         return null;
     }
@@ -70,7 +70,7 @@ async function updateTimeSlotDef(timeSlotDef) {
 
 async function generateTimeSlots(timeSlotDef) {
     try {
-        const err = apiReqValidator.validateTimeSlotDef(timeSlotDef);
+        const err = apiReqValidator.validateTimeSlotDefCreation(timeSlotDef);
         if (err) {
             throw err;
         }

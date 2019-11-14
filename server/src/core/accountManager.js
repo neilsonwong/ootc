@@ -16,7 +16,6 @@ async function register(user, password) {
     try {
         const err = (apiReqValidator.validateUserCreation(user) || apiReqValidator.validatePassword(password));
         if (err) {
-            console.log(user)
             throw err;
         }
 

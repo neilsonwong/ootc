@@ -14,7 +14,8 @@ const sql = {
             duration INTEGER NOT NULL,
             department INTEGER NOT NULL,
             signUpCap INTEGER NOT NULL,
-            desc TEXT NOT NULL
+            desc TEXT NOT NULL,
+            FOREIGN KEY(department) REFERENCES departments(id)
         )`,
 
     getTimeSlot:

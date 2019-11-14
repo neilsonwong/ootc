@@ -6,7 +6,8 @@ const apiReqValidator = require('../util/apiRequestValidator');
 
 async function addDepartment(departmentName, description) {
     try {
-        const err = (apiReqValidator.validateDepartmentName(departmentName) || apiReqValidator.validateDepartmentDescription());
+        const err = (apiReqValidator.validateDepartmentName(departmentName) ||
+            apiReqValidator.validateDepartmentDescription(description));
         if (err) {
             throw err;
         }

@@ -1,97 +1,134 @@
 'use strict';
 
+const logger = require('../logger');
+
 const moment = require('moment');
 
 function validatePassword(password) {
-    return (_isNonEmptyString(password)) ?
-        null :
+    const valid = _isNonEmptyString(password);
+    if (!valid) {
+        logger.debug(password);
+    }
+    return valid ? null :
         'password is empty or not a string';
 }
 
 function validateUserCreation(user) {
-    return (user &&
-      _isNonEmptyString(user.email) &&
-      _isNonEmptyString(user.fname) &&
-      typeof user.mname === 'string' &&
-      _isNonEmptyString(user.lname) &&
-      _isGreaterThanZero(user.phone) &&
-      typeof user.age === 'number' &&
-      _isZeroOrGreater(user.experience) &&
-      typeof user.comments === 'string' &&
-      user.phone.toString().length === 10 &&
-      user.age >= 18) ?
-      null :
+    const valid = (user &&
+        _isNonEmptyString(user.email) &&
+        _isNonEmptyString(user.fname) &&
+        _isString(user.mname) &&
+        _isNonEmptyString(user.lname) &&
+        _isGreaterThanZero(user.phone) &&
+        typeof user.age === 'number' &&
+        _isZeroOrGreater(user.experience) &&
+        _isString(user.comments) &&
+        user.phone.toString().length === 10 &&
+        user.age >= 18);
+
+    if (!valid) {
+        logger.debug(user);
+    }
+    return valid ? null :
       'user is empty or not a valid user object for creation';
 }
 
 function validateUser(user) {
-    return (user &&
-      _isZeroOrGreater(user.id) &&
-      _isNonEmptyString(user.email) &&
-      _isNonEmptyString(user.fname) &&
-      typeof user.mname === 'string' &&
-      _isNonEmptyString(user.lname) &&
-      _isGreaterThanZero(user.phone) &&
-      typeof user.age === 'number' &&
-      _isZeroOrGreater(user.experience) &&
-      typeof user.comments === 'string' &&
-      user.phone.toString().length === 10 &&
-      user.age >= 18) ?
-      null :
-      'user is empty or not a valid user object';
+    const valid = (user &&
+        _isZeroOrGreater(user.id) &&
+        _isNonEmptyString(user.email) &&
+        _isNonEmptyString(user.fname) &&
+        _isString(user.mname) &&
+        _isNonEmptyString(user.lname) &&
+        _isGreaterThanZero(user.phone) &&
+        typeof user.age === 'number' &&
+        _isZeroOrGreater(user.experience) &&
+        _isString(user.comments) &&
+        user.phone.toString().length === 10 &&
+        user.age >= 18);
+
+    if (!valid) {
+        logger.debug(user);
+    }
+    return valid ? null :
+    'user is empty or not a valid user object';
 }
 
 
 function validateUserId(userId) {
-    return (_isNonEmptyString(userId)) ?
-        null :
-        'userId is empty or not a string';
+    const valid = (_isNonEmptyString(userId));
+    if (!valid) {
+        logger.debug(userId);
+    }
+    return valid ? null : 'userId is empty or not a string';
 }
 
 function validateResetCode(resetCode) {
-    return (_isNonEmptyString(resetCode)) ?
-        null :
+    const valid = (_isNonEmptyString(resetCode));
+    if (!valid) {
+        logger.debug(resetCode);
+    }
+    return valid ? null :
         'resetCode is empty or not a string';
 }
 
 function validateValidationCode(validationCode) {
-    return (_isNonEmptyString(validationCode)) ?
-        null :
+    const valid = (_isNonEmptyString(validationCode));
+    if (!valid) {
+        logger.debug(validationCode);
+    }
+    return valid ? null :
         'validationCode is empty or not a string';
 }
 
 function validateDepartmentId(dept) {
-    return (_isZeroOrGreater(dept)) ?
-        null :
+    const valid = (_isZeroOrGreater(dept));
+    if (!valid) {
+        logger.debug(dept);
+    }
+    return valid ? null :
         'deparmentId is not a number or less than 0';
 }
 
 function validateDepartmentName(name) {
-    return (_isNonEmptyString(name)) ?
-        null :
+    const valid = (_isNonEmptyString(name));
+    if (!valid) {
+        logger.debug(name);
+    }
+    return valid ? null :
         'department name is empty or not a string';
 }
 
 function validateDepartmentDescription(desc) {
-    return (_isString(desc)) ?
-        null :
+    const valid = (_isString(desc));
+    if (!valid) {
+        logger.debug(desc);
+        console.log(typeof desc)
+    }
+    return valid ? null :
         'description is not a string';
 }
 
 function validateDepartment(dept) {
-    return (dept &&
+    const valid = (dept &&
       _isZeroOrGreater(dept.id) &&
       _isNonEmptyString(dept.name) &&
-      typeof dept.description === 'string') ?
-      null :
+      typeof dept.description === 'string');
+    if (!valid) {
+        logger.debug(dept);
+    }
+    return valid ? null :
       'department is empty or not a valid department object';
 }
 
 function validateReservationCreation(reservation) {
-    return (reservation &&
+    const valid = (reservation &&
         _isNonEmptyString(reservation.user) &&
-        _isZeroOrGreater(reservation.timeSlot)) ?
-        null :
+        _isZeroOrGreater(reservation.timeSlot));
+    if (!valid) {
+        logger.debug(reservation);
+    }
+    return valid ? null :
         'reservation is empty or not a valid reservation object';
 }
 
@@ -109,13 +146,16 @@ function validateReservationCreation(reservation) {
 // }
 
 function validateReservationId(reservationId) {
-    return (_isZeroOrGreater(reservationId)) ?
-        null :
+    const valid = (_isZeroOrGreater(reservationId));
+    if (!valid) {
+        logger.debug(reservationId);
+    }
+    return valid ? null :
         'reservationId is not a number or less than 0';
 }
 
 function validateTimeSlotDefCreation(timeSlotDef) {
-    return (timeSlotDef &&
+    const valid = (timeSlotDef &&
         _isValidHHMM(timeSlotDef.startTime) &&
         _isZeroOrGreater(timeSlotDef.duration) &&
         _isZeroOrGreater(timeSlotDef.department) &&
@@ -124,13 +164,16 @@ function validateTimeSlotDefCreation(timeSlotDef) {
         _isValidYYYYMMDD(timeSlotDef.repeatStartDate) &&
         _isZeroOrGreater(timeSlotDef.repeatCount) &&
         _isZeroOrGreater(timeSlotDef.repeatInterval) &&
-        _isZeroOrGreater(timeSlotDef.repeatSkipEvery)) ?
-        null :
+        _isZeroOrGreater(timeSlotDef.repeatSkipEvery));
+    if (!valid) {
+        logger.debug(timeSlotDef);
+    }
+    return valid ? null :
         'timeSlotDef is empty or invalid timeSlotDef object';
 }
 
 function validateTimeSlotDef(timeSlotDef) {
-    return (timeSlotDef &&
+    const valid = (timeSlotDef &&
         _isZeroOrGreater(timeSlotDef.id) &&
         _isValidHHMM(timeSlotDef.startTime) &&
         _isZeroOrGreater(timeSlotDef.duration) &&
@@ -140,65 +183,90 @@ function validateTimeSlotDef(timeSlotDef) {
         _isValidYYYYMMDD(timeSlotDef.repeatStartDate) &&
         _isZeroOrGreater(timeSlotDef.repeatCount) &&
         _isZeroOrGreater(timeSlotDef.repeatInterval) &&
-        _isZeroOrGreater(timeSlotDef.repeatSkipEvery)) ?
-        null :
+        _isZeroOrGreater(timeSlotDef.repeatSkipEvery));
+    if (!valid) {
+        logger.debug(timeSlotDef);
+    }
+    return valid ? null :
         'timeSlotDef is empty or invalid timeSlotDef object';
 }
 
 function validateTimeSlotDefId(timeSlotDefId) {
-    return (_isZeroOrGreater(timeSlotDefId)) ?
-        null :
+    const valid = (_isZeroOrGreater(timeSlotDefId));
+    if (!valid) {
+        logger.debug(timeSlotDefId);
+    }
+    return valid ? null :
         'timeSlotDefId is not a number or less than 0';
 }
 
 function validateTimeSlotId(timeSlotId) {
-    return (_isZeroOrGreater(timeSlotId)) ?
-        null :
+    const valid = (_isZeroOrGreater(timeSlotId));
+    if (!valid) {
+        logger.debug(timeSlotId);
+    }
+    return valid ? null :
         'timeSlotId is not a number or less than 0';
 }
 
 function validateTimeSlot(timeSlot) {
-    return (timeSlot &&
+    const valid = (timeSlot &&
         _isZeroOrGreater(timeSlot.id) &&
         _isValidYYYYMMDD(timeSlot.startDate) &&
         _isValidHHMM(timeSlot.startTime) &&
         _isZeroOrGreater(timeSlot.duration) &&
         _isZeroOrGreater(timeSlot.department) &&
         _isGreaterThanZero(timeSlot.signUpCap) &&
-        _isNonEmptyString(timeSlot.desc)) ?
-        null :
+        _isNonEmptyString(timeSlot.desc));
+    if (!valid) {
+        logger.debug(timeSlot);
+    }
+    return valid ? null :
         'timeSlot is empty or invalid timeSlot object';
 }
 
 function _isZeroOrGreater(obj) {
-
-    return ((obj && typeof obj === 'number' && obj >= 0) ||
-        (obj && typeof obj === 'string' && /^\d+$/.test(obj)));
+    switch(typeof obj) {
+        case 'string':
+            return (/^\d+$/.test(obj));
+        case 'number':
+            return (obj >= 0);
+        default:
+            return false;
+    }
 }
 
 function _isGreaterThanZero(obj) {
-    return ((obj && typeof obj === 'number' && obj > 0) ||
-        (obj && typeof obj === 'string' && /^[1-9]\d*$/.test(obj)));
+    switch(typeof obj) {
+        case 'string':
+            return (/^[1-9]\d*$/.test(obj));
+        case 'number':
+            return (obj > 0);
+        default:
+            return false;
+    }
 }
 
 function _isString(obj) {
-    return (obj && typeof obj === 'string');
+    return (typeof obj === 'string');
 }
 
 function _isNonEmptyString(obj) {
-    return (obj && typeof obj === 'string' && obj.length > 0);
+    return (typeof obj === 'string' && obj.length > 0);
 }
 
 function _isValidYear(obj) {
-    return (obj && typeof obj === 'string' && obj.length === 4 && /^\d{4}$/.test(obj));
+    return (typeof obj === 'string' && obj.length === 4 && /^\d{4}$/.test(obj));
 }
 
 function _isValidHHMM(obj) {
-    return (obj && typeof obj === 'string' && obj.length === 5 && /^\d{1,2}:\d{2}$/.test(obj));
+    return (typeof obj === 'string' &&
+        (obj.length === 5 || obj.length === 4)
+        && /^\d{1,2}:\d{2}$/.test(obj));
 }
 
 function _isValidYYYYMMDD(obj) {
-    return (obj && moment(obj, 'YYYY-MM-DD').isValid());
+    return (typeof obj === 'string' && moment(obj, 'YYYY-MM-DD').isValid());
 }
 
 function isValidYear(obj) {

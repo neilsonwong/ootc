@@ -11,7 +11,10 @@ const sql = {
             id INTEGER PRIMARY KEY,
             user INTEGER NOT NULL,
             timeSlot INTEGER NOT NULL,
-            attended BOOLEAN NOT NULL
+            attended BOOLEAN NOT NULL,
+            UNIQUE(user, timeSlot),
+            FOREIGN KEY(user) REFERENCES users(id),
+            FOREIGN KEY(timeSlot) REFERENCES timeSlots(id)
         )`,
 
     getReservationsByUserId:
@@ -37,8 +40,17 @@ const sql = {
         ORDER BY timeSlots.startTime`,
 
     insertReservation: 
+        // `INSERT INTO reservations (user, timeSlot, attended)
+        // VALUES($user, $timeSlot, $attended)`,
         `INSERT INTO reservations (user, timeSlot, attended)
-        VALUES($user, $timeSlot, $attended)`,
+        VALUES(
+        $user, 
+        (select id from (
+            select timeSlots.id, timeSlots.signUpCap, count(reservations.id) 
+            AS reserved FROM timeSlots LEFT JOIN reservations on timeSlots.id = reservations.timeSlot
+            WHERE timeSlots.id = $timeSlot
+        ) WHERE reserved < signUpCap),
+        $attended)`,
     
     updateReservationAttendance:
         `UPDATE reservations 
