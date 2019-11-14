@@ -93,7 +93,19 @@ const swaggerDefinition = {
                 properties: {
                     id: { type: 'integer' }
                 }
-            }
+            },
+            TimeSlot: {
+                type: 'object',
+                properties: {
+                    id: { type: 'integer' },
+                    startDate: { type: 'string' },
+                    startTime: { type: 'string' },
+                    duration: { type: 'integer' },
+                    department: { type: 'integer' },
+                    signUpCap: { type: 'integer' },
+                    desc: { type: 'string' }
+                }
+            },
         }
     },
     security: [
