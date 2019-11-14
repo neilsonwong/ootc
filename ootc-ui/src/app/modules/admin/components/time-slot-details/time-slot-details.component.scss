@@ -29,6 +29,8 @@
 
 .nobody {
     padding-right: 1rem;
+    font-size: 1.2em;
+    font-weight: 700;
 }
 
 mat-panel-title {
@@ -40,15 +42,19 @@ mat-panel-description {
     flex-grow: 2;
 }
 
-::ng-deep .mat-icon {
-    height: 20px !important;
-    width: 20px !important;
-    font-size: 20px !important;
-    line-height: 20px !important;
+.button-text {
+    padding-left: 0.5rem;
 }
 
-.mat-icon-button {
-    width: 20px;
-    height: 20px;
-    line-height: 20px !important;
-}
+// ::ng-deep .mat-icon {
+//     height: 20px !important;
+//     width: 20px !important;
+//     font-size: 20px !important;
+//     line-height: 20px !important;
+// }
+
+// .mat-icon-button {
+//     width: 20px;
+//     height: 20px;
+//     line-height: 20px !important;
+// }

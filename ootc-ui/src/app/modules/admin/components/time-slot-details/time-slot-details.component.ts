@@ -160,7 +160,7 @@ export class TimeSlotDetailsComponent extends EventDetails implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('dialog closed');
+        this.refreshState();
       }
     });
   }

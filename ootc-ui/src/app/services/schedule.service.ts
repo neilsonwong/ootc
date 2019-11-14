@@ -119,6 +119,15 @@ export class ScheduleService {
     };
     return this.http.get<TimeSlotView>(url, options);
   }
+
+  updateTimeSlot(timeSlot: TimeSlot): Observable<TimeSlot> {
+    const url = `${API_URL}/admin/timeSlot/update`;
+    return this.http.post<TimeSlot>(url, timeSlot)
+      .pipe(catchError((error: HttpErrorResponse) => {
+        this.errorService.add(`We couldn't update the time slot at this time! Please try again later.`);
+        return throwError(error);
+      }));
+  }
 }
 
 function mapAndSortTimeSlotViews(timeSlots: TimeSlotView[]) {

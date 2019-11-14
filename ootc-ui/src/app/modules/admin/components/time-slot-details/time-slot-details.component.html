@@ -10,9 +10,6 @@
                     {{ reserved }}/{{ totalSpots }}
                 </div>
                 <div class="panel-edit">
-                    <button mat-icon-button (click)="openUpdateDialog()">
-                        <mat-icon>edit</mat-icon>
-                    </button>
                 </div>
             </div>
         </mat-panel-description>
@@ -29,13 +26,15 @@
         <ng-template #nobodySignedUp>
             <div class="nobody">Nobody signed up yet!!</div>
         </ng-template>
-        <mat-chip
-            *ngIf="reserved < totalSpots"
-            color="primary"
-            (click)="makeReservationForUser()"
-            selected>
-            Sign Up a Volunteer
-            <mat-icon matChipTrailingIcon>add_circle</mat-icon>
-        </mat-chip>
     </mat-chip-list>
+    <mat-action-row>
+        <button mat-button color="accent" (click)="openUpdateDialog()">
+            <mat-icon>person_add</mat-icon>
+            <span class="button-text">Edit</span>
+        </button>
+        <button *ngIf="reserved < totalSpots" mat-button color="primary" (click)="makeReservationForUser()">
+            <mat-icon>person_add</mat-icon>
+            <span class="button-text">Add Volunteer</span>
+        </button>
+    </mat-action-row>
 </mat-expansion-panel>

@@ -6,6 +6,7 @@ import { Department } from 'src/app/models/Department';
 import { TimeSlot } from 'src/app/models/TimeSlot';
 
 import * as moment from 'moment';
+import { ScheduleService } from 'src/app/services/schedule.service';
 
 @Component({
   selector: 'app-update-timeslot-dialog',
@@ -17,7 +18,8 @@ export class UpdateTimeslotDialogComponent implements OnInit {
   private originalTimeSlot: TimeSlotView;
   private departments: Department[];
 
-  constructor(private dialogRef: MatDialogRef<UpdateTimeslotDialogComponent>,
+  constructor(private scheduleService: ScheduleService,
+    private dialogRef: MatDialogRef<UpdateTimeslotDialogComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -45,7 +47,9 @@ export class UpdateTimeslotDialogComponent implements OnInit {
       this.editTimeSlotForm.get('department').value,
       this.editTimeSlotForm.get('signUpCap').value,
       this.editTimeSlotForm.get('desc').value);
-    // TODO: Add in actual call
-    console.log(timeSlotWithUpdates);
+
+    this.scheduleService.updateTimeSlot(timeSlotWithUpdates).subscribe((res: TimeSlot) => {
+      this.dialogRef.close(res);
+    });
   }
 }
