@@ -16,6 +16,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { ScheduleService } from 'src/app/services/schedule.service';
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
+import { IGroupedTimeSlotViews } from 'src/app/interfaces/IGroupedTimeSlotViews';
 
 const twoMonthsInMillis = 60*60*24*60*1000;
 
@@ -41,6 +42,8 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
   public blocked: IGroupedBlockedTimes = {};
   public reservedTimeSlotIds: number[];
   public roles: string[];
+  public filterRole: string;
+  public groupedDisplayTimeSlots: IGroupedTimeSlotViews = {};
 
   constructor(
     public dialog: MatDialog,
@@ -210,16 +213,20 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
   onFilterChanged(event: MatSelectChange | string) {
     // clear our check boxes and remove from blocked
     this.clearSelected();
+    const roleString = typeof event === 'string' ? event : event.value;
 
     // run the filter
-    const filterRole: string = typeof event === 'string' ? event : event.value;
-    if (filterRole === 'All') {
-      this.available = [].concat(this.allTimeSlots);
+    this.filterRole = (roleString) === 'All' ? undefined : roleString;
+
+    if (roleString === 'All') {
+      this.groupedDisplayTimeSlots = this.groupedTimeSlots;
     }
     else {
-      this.available = this.allTimeSlots.filter((t: TimeSlotView) => {
-        return t.desc === filterRole;
-      });
+      const temp = {};
+      for (const day in this.groupedTimeSlots) {
+        temp[day] = this.groupedTimeSlots[day].filter((t: TimeSlotView) => (t.desc === roleString));
+      }
+      this.groupedDisplayTimeSlots = temp;
     }
   }
 }

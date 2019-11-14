@@ -16,24 +16,26 @@
         (selectionChange)="onSelectionChange($event)">
         <div class="day-box"
             *ngFor="let day of days">
-            <h4>{{ day | date:'fullDate' }}</h4>
-            <ng-container *ngFor="let timeSlot of groupedTimeSlots[day]">
-                <div class="reservation-sign-up-selection-item-wrapper">
-                    <mat-list-option
-                        appAvailabilityCheck
-                        class="reservation-sign-up-selection-item"
-                        color="primary"
-                        [value]="timeSlot"
-                        [blocked]="blocked[timeSlot.startDate]">
-                        <app-reservation-sign-up-line 
-                            [simple]="false"
-                            [clear]="true"
-                            [embedded]="true"
-                            [event]="timeSlot"
-                            [reserved]="reservedTimeSlotIds.indexOf(timeSlot.id) !== -1">
-                        </app-reservation-sign-up-line>
-                    </mat-list-option>
-                </div>
+            <ng-container *ngIf="groupedDisplayTimeSlots[day].length > 0">
+                <h4>{{ day | date:'fullDate' }}</h4>
+                <ng-container *ngFor="let timeSlot of groupedDisplayTimeSlots[day]">
+                    <div class="reservation-sign-up-selection-item-wrapper">
+                        <mat-list-option
+                            appAvailabilityCheck
+                            class="reservation-sign-up-selection-item"
+                            color="primary"
+                            [value]="timeSlot"
+                            [blocked]="blocked[timeSlot.startDate]">
+                            <app-reservation-sign-up-line 
+                                [simple]="false"
+                                [clear]="true"
+                                [embedded]="true"
+                                [event]="timeSlot"
+                                [reserved]="reservedTimeSlotIds.indexOf(timeSlot.id) !== -1">
+                            </app-reservation-sign-up-line>
+                        </mat-list-option>
+                    </div>
+                </ng-container>
             </ng-container>
         </div>
     </mat-selection-list>
