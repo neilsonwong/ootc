@@ -100,30 +100,55 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
   }
 
   reserveSelected() {
-    const newReservationsReqs = this.timeSlots.selectedOptions.selected.map(o => {
-      const timeSlot: TimeSlotView = <TimeSlotView>o.value;
-      const reservation = new Reservation(undefined, this.userId, timeSlot.id, false);
-      return this.reservationService.addReservation(reservation)
-        .pipe(
-          map((val) => (`- SUCCESS: **${timeSlot.desc}** on **${timeSlot.startDate}** **${timeSlot.startTime}**`)),
-          catchError((err) => of(`- FAILED: **${timeSlot.desc}** on **${timeSlot.startDate}** **${timeSlot.startTime}**`))
-        );
-    });
+    // make sure our reservations haven't changed
+    // if so tell the user to reserve again
 
-    const batchSignUpObs = forkJoin(newReservationsReqs)
-      .pipe(
-        map((val: string[]) => (`#### Sign up results!\n` + val.join('\n'))),
-        tap(() => {
+    this.reservationService.getReservationsForUser()
+      .pipe(map((newestReservations: ReservationView[]) => {
+        if (newestReservations.length === this.reservations.length) {
+          // check if each reservation is the same
+          const a = newestReservations.map(r => r.id).sort();
+          const b = this.reservations.map(r => r.id).sort();
+          for (let i = 0; i < a.length; ++i) {
+            if (a[i] !== b[i]) {
+              return true;
+            }
+          }
+          return false;
+        }
+        return true;
+      })).subscribe((reservationsChanged: boolean) => {
+        if (reservationsChanged === false) {
+          const newReservationsReqs = this.timeSlots.selectedOptions.selected.map(o => {
+            const timeSlot: TimeSlotView = <TimeSlotView>o.value;
+            const reservation = new Reservation(undefined, this.userId, timeSlot.id, false);
+            return this.reservationService.addReservation(reservation)
+              .pipe(
+                map((val) => (`- SUCCESS: **${timeSlot.desc}** on **${timeSlot.startDate}** **${timeSlot.startTime}**`)),
+                catchError((err) => of(`- FAILED: **${timeSlot.desc}** on **${timeSlot.startDate}** **${timeSlot.startTime}**`))
+              );
+          });
+
+          const batchSignUpObs = forkJoin(newReservationsReqs)
+            .pipe(
+              map((val: string[]) => (`#### Sign up results!\n` + val.join('\n'))),
+              tap(() => {
+                this.reservationsChanged.emit(true);
+                this.setupForm();
+              })
+            );
+
+          this.loadingService.callWithLoader(batchSignUpObs, [
+            { state: LoadState.Loading, title: 'Signing you up!', text: 'Sign ups are processing ...' },
+            { state: LoadState.Complete, title: 'Sign ups complete' },
+            { state: LoadState.Error, title: 'Unable to sign up' }
+          ]);
+        }
+        else {
           this.reservationsChanged.emit(true);
-          this.setupForm();
-        })
-      );
-
-    this.loadingService.callWithLoader(batchSignUpObs, [
-      { state: LoadState.Loading, title: 'Signing you up!', text: 'Sign ups are processing ...' },
-      { state: LoadState.Complete, title: 'Sign ups complete' },
-      { state: LoadState.Error, title: 'Unable to sign up' }
-    ]);
+          // TODO: add a dialog here later
+        }
+      });
   }
 
   private getAvailableTimeSlots(postRun: () => void): void {
