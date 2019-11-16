@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDatepicker } from '@angular/material';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import * as moment from 'moment';
+import { GroupedEventList } from 'src/app/helpers/grouped-event-list';
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
 import { ScheduleService } from 'src/app/services/schedule.service';
-import { GroupedEventList } from 'src/app/helpers/grouped-event-list';
-
+import * as dateUtils from 'src/app/utils/dateUtils';
 
 @Component({
   selector: 'app-schedule-management',
@@ -41,7 +41,7 @@ export class ScheduleManagementComponent extends GroupedEventList implements OnI
   setupPage(start: string) {
     const candiDate = (start !== null && moment(start, 'YYYY-MM-DD').isValid()) ?
       moment.utc(start, 'YYYY-MM-DD') :
-      moment.utc();
+      dateUtils.nowOrStartOfSeason();
 
     // if it is a sunday/monday we want the prev week
     // else current week

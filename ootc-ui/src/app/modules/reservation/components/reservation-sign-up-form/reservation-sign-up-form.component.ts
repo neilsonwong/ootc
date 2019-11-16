@@ -17,8 +17,8 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { ScheduleService } from 'src/app/services/schedule.service';
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
-
-const twoMonthsInMillis = 60 * 60 * 24 * 60 * 1000;
+import * as dateUtils from 'src/app/utils/dateUtils';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-reservation-sign-up-form',
@@ -55,13 +55,11 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
   }
 
   ngOnInit(): void {
-    // TODO: fix the dates later when we're not testing
-    const today = new Date();
-    const twoMonthsLater = new Date(Date.now() + twoMonthsInMillis);
-    const fourMonthsLater = new Date(Date.now() + 2 * twoMonthsInMillis);
+    const rootDate = dateUtils.nowOrStartOfSeason();
+    const twoMonthsLater = moment(rootDate).add(2, 'months')
 
-    this.startDate = reservationDisplayUtils.dateToYYYYMMDD(twoMonthsLater);
-    this.endDate = reservationDisplayUtils.dateToYYYYMMDD(fourMonthsLater);
+    this.startDate = rootDate.format('YYYY-MM-DD');
+    this.endDate = twoMonthsLater.format('YYYY-MM-DD');
 
     this.userId = this.authService.getAuthContext().username;
   }
