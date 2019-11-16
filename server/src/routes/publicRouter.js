@@ -31,6 +31,8 @@ const router = express.Router();
  *     responses:
  *       201:
  *         description: User has successfully registered
+ *       409:
+ *         description: User already exists
  *       400:
  *         description: User could not register wtih data provided
  */
@@ -39,13 +41,18 @@ router.post('/register', async (req, res) => {
     const password = req.body.password;
 
     if (user && password) {
+        // check if user exists
+        if (await accountManager.userExists(user.email)) {
+            return res.status(409).json({error: 'A User has already been registered with this email'});
+        }
+
         const registeredUser = await accountManager.register(user, password);
 
         if (registeredUser !== null) {
             return res.status(201).json(registeredUser);
         }
     }
-    return res.status(400).json({error: 'unable to register user with data provided'});
+    return res.status(400).json({error: 'Unable to register user with data provided'});
 });
 
 /**
@@ -91,7 +98,7 @@ router.post('/login', async (req, res) => {
                 securityClearance: (user.admin) ? 2 : 1
             });
         }
-        return res.status(401).json({ error: 'invalid login credentials'});
+        return res.status(401).json({ error: 'Invalid login credentials'});
     }
 	return res.status(400).json({ error: 'user has not validated their email'});
 });

@@ -1,6 +1,6 @@
 <div class="registration-form  stand-alone-box">
-    <ng-container *ngIf="confirmed; else notconfirmed">
-        <h3 class="registration-form-title">Registration Confirmed!</h3>
+    <ng-container *ngIf="registrationSuccessful; else notconfirmed">
+        <h3 class="registration-form-title">Registration Successful!</h3>
 			<app-emoji-text [thin]="true">
                 Thank you for registering!<br />
                 Check your email to validate your email!

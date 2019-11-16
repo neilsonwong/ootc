@@ -362,5 +362,6 @@ module.exports = {
     setupEmailValidation: setupEmailValidation,
     isAdmin: isAdmin,
     setupDefaultUsers: setupDefaultUsers,
-    getUser: getUser
+    getUser: getUser,
+    userExists: userExists,
 };
