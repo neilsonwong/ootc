@@ -25,7 +25,10 @@ export class LoadingService {
 
     this.updates.next(loadingMessage);
     obs.pipe(
-      tap(() => {
+      tap((res: any) => {
+        if (!completedMessage.text && typeof res === 'string') {
+          completedMessage.text = res;
+        }
         this.updates.next(completedMessage);
       }),
       catchError((err: HttpErrorResponse) => {

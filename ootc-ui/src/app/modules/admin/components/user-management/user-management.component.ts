@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatSort } from '@angular/material';
 import { MatTableDataSource } from '@angular/material/table';
+import { tap } from 'rxjs/operators';
 import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
+import { LoadState } from 'src/app/constants/load-state.enum';
 import { User } from 'src/app/models/User';
-import { LoadingDialogComponent } from 'src/app/modules/shared/components/loading-dialog/loading-dialog.component';
+import { LoadingService } from 'src/app/services/loading.service';
 import { UserService } from 'src/app/services/user.service';
 import { CreateUserDialogComponent } from '../create-user-dialog/create-user-dialog.component';
 import { UserUpdateDialogComponent } from '../user-update-dialog/user-update-dialog.component';
@@ -16,14 +18,15 @@ import { UserUpdateDialogComponent } from '../user-update-dialog/user-update-dia
 export class UserManagementComponent implements OnInit {
 
   private users: User[];
-  private userdata : User;
+  private userdata: User;
   public displayedColumns: string[];
   public dataSource: MatTableDataSource<User>;
-  
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private userService: UserService,
-    public dialog : MatDialog) { }
+    private loadingService: LoadingService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.displayedColumns = ['email', 'fname', 'lname', 'phone', 'age', 'experience', 'isAdmin', 'updateUser'];
@@ -45,57 +48,36 @@ export class UserManagementComponent implements OnInit {
 
   /* This is for updateUser modal */
   private updateUser(userdata: User) {
-    let dialogRef;
-    let done = false;
-
     // set the admin value, this is a work around for now
     userdata.admin = userdata.isAdmin;
 
-    setTimeout(() => {
-      if (!done) {
-        dialogRef = this.dialog.open(LoadingDialogComponent, {
-          data: {
-            title: 'Updating',
-            text: 'Updating the user...'
-          },
-          width: DIALOG_WIDTHS.LOADING
-        });
-      }
-    }, 300);
+    const updateObs = this.userService.updateUser(userdata)
+      .pipe(tap(() => { this.getAllUsers(); }));
 
-    this.userService.updateUser(userdata).subscribe(res => {
-      done = true;
-
-      // close the loading modal
-      if (dialogRef) {
-        dialogRef.close();
-      }
-
-      this.getAllUsers();
-    });
+    this.loadingService.callWithLoader(updateObs, [
+      { state: LoadState.Loading, title: 'Updating User', text: 'Updating user info ...' },
+      { state: LoadState.Complete, title: 'Updated User', text: 'User was updated with the provided info.' },
+      { state: LoadState.Error, title: 'Update User Error' }
+    ]);
   }
 
   onUpdateUser(user: User) {
-    const dialogRef = this.dialog.open(UserUpdateDialogComponent, {
+    this.dialog.open(UserUpdateDialogComponent, {
       data: {
         user: user
       },
       width: DIALOG_WIDTHS.UPDATE_USER
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        if (result){
-          this.updateUser(result);
-        }
-      });
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.updateUser(result);
+      }
+    });
   }
 
   onCreateUser() {
-    const dialogRef = this.dialog.open(CreateUserDialogComponent, {
+    this.dialog.open(CreateUserDialogComponent, {
       width: DIALOG_WIDTHS.CREATE_USER
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
+    }).afterClosed().subscribe(result => {
       if (result) {
         this.getAllUsers();
       }

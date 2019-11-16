@@ -1,24 +1,24 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog, MatOption, MatSelect, MatSelectChange } from '@angular/material';
 import { MatSelectionList, MatSelectionListChange } from '@angular/material/list';
-import { forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
+import { forkJoin, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { LoadState } from 'src/app/constants/load-state.enum';
 import { GroupedEventList } from 'src/app/helpers/grouped-event-list';
 import { IBlockedTime } from 'src/app/interfaces/IBlockedTime';
 import { IGroupedBlockedTimes } from 'src/app/interfaces/IGroupedBlockedTimes';
+import { IGroupedTimeSlotViews } from 'src/app/interfaces/IGroupedTimeSlotViews';
 import { Department } from 'src/app/models/Department';
 import { Reservation } from 'src/app/models/Reservation';
 import { ReservationView } from 'src/app/models/ReservationView';
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
-import { LoadingDialogComponent } from 'src/app/modules/shared/components/loading-dialog/loading-dialog.component';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { ScheduleService } from 'src/app/services/schedule.service';
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
-import { IGroupedTimeSlotViews } from 'src/app/interfaces/IGroupedTimeSlotViews';
 
-const twoMonthsInMillis = 60*60*24*60*1000;
+const twoMonthsInMillis = 60 * 60 * 24 * 60 * 1000;
 
 @Component({
   selector: 'app-reservation-sign-up-form',
@@ -30,9 +30,9 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
   @Input() reservations: ReservationView[];
   @Output() reservationsChanged = new EventEmitter<boolean>();
 
-  @ViewChild('timeSlots', {static: false}) timeSlots: MatSelectionList;
-  @ViewChild('roleSelect', {static: false}) roleFilter: MatSelect;
-  @ViewChild('allRolesOption', {static: false}) allRolesOption: MatOption;
+  @ViewChild('timeSlots', { static: false }) timeSlots: MatSelectionList;
+  @ViewChild('roleSelect', { static: false }) roleFilter: MatSelect;
+  @ViewChild('allRolesOption', { static: false }) allRolesOption: MatOption;
 
   private startDate: string;
   private endDate: string;
@@ -49,6 +49,7 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
     public dialog: MatDialog,
     private reservationService: ReservationService,
     private scheduleService: ScheduleService,
+    private loadingService: LoadingService,
     private authService: AuthenticationService) {
     super();
   }
@@ -57,7 +58,7 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
     // TODO: fix the dates later when we're not testing
     const today = new Date();
     const twoMonthsLater = new Date(Date.now() + twoMonthsInMillis);
-    const fourMonthsLater = new Date(Date.now() + 2*twoMonthsInMillis);
+    const fourMonthsLater = new Date(Date.now() + 2 * twoMonthsInMillis);
 
     this.startDate = reservationDisplayUtils.dateToYYYYMMDD(twoMonthsLater);
     this.endDate = reservationDisplayUtils.dateToYYYYMMDD(fourMonthsLater);
@@ -91,7 +92,7 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
   clearSelected(): void {
     if (this.timeSlots) {
       this.timeSlots.selectedOptions.selected.forEach(o => {
-        const timeSlot: TimeSlotView = <TimeSlotView> o.value;
+        const timeSlot: TimeSlotView = <TimeSlotView>o.value;
         this.removeBlocked(timeSlot);
       });
       this.timeSlots.deselectAll();
@@ -99,38 +100,30 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
   }
 
   reserveSelected() {
-    let dialogRef;
-    let done = false;
-
-    setTimeout(() => {
-      if (!done) {
-        dialogRef = this.dialog.open(LoadingDialogComponent, {
-          data: {
-            title: 'Reserving',
-            text: 'Booking your reservation'
-          },
-          width: DIALOG_WIDTHS.LOADING
-        });
-      }
-    }, 300);
-
     const newReservationsReqs = this.timeSlots.selectedOptions.selected.map(o => {
-      const timeSlot: TimeSlotView = <TimeSlotView> o.value;
+      const timeSlot: TimeSlotView = <TimeSlotView>o.value;
       const reservation = new Reservation(undefined, this.userId, timeSlot.id, false);
-      return this.reservationService.addReservation(reservation);
+      return this.reservationService.addReservation(reservation)
+        .pipe(
+          map((val) => (`Signed up for ${timeSlot.desc} on ${timeSlot.startDate} ${timeSlot.startTime}`)),
+          catchError((err) => of(`Unable to sign up for ${timeSlot.desc} on ${timeSlot.startDate} ${timeSlot.startTime}`))
+        );
     });
 
-    forkJoin(newReservationsReqs).subscribe(results => {
-      done = true;
-      // close the modal
-      if (dialogRef) {
-        dialogRef.close();
-      }
+    const batchSignUpObs = forkJoin(newReservationsReqs)
+      .pipe(
+        map((val: string[]) => (val.join('\n'))),
+        tap(() => {
+          this.reservationsChanged.emit(true);
+          this.setupForm();
+        })
+      );
 
-      // check refresh the reservation list
-      this.reservationsChanged.emit(true);
-      this.setupForm();
-    });
+    this.loadingService.callWithLoader(batchSignUpObs, [
+      { state: LoadState.Loading, title: 'Signing you up!', text: 'Sign ups are processing ...' },
+      { state: LoadState.Complete, title: 'Sign ups complete' },
+      { state: LoadState.Error, title: 'Unable to sign up' }
+    ]);
   }
 
   private getAvailableTimeSlots(postRun: () => void): void {
@@ -155,7 +148,7 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
     this.reservedTimeSlotIds = [];
 
     if (this.reservations) {
-      for(const reservation of this.reservations) {
+      for (const reservation of this.reservations) {
         // init reserved quick access
         this.reservedTimeSlotIds.push(reservation.timeSlotId);
 
@@ -163,7 +156,7 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
         if (this.blocked[reservation.startDate] === undefined) {
           this.blocked[reservation.startDate] = [];
         }
-  
+
         this.blocked[reservation.startDate].push({
           startTime: reservationDisplayUtils.getDateTime(reservation.startDate, reservation.startTime),
           endTime: reservationDisplayUtils.getDateTime(reservation.startDate, reservation.startTime, reservation.duration)
@@ -176,7 +169,7 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
     if (this.allTimeSlots) {
       this.roles = this.allTimeSlots
         .map((e: TimeSlotView) => (e.desc))
-        .filter((v, i, a) => a.indexOf(v) === i); 
+        .filter((v, i, a) => a.indexOf(v) === i);
     }
   }
 

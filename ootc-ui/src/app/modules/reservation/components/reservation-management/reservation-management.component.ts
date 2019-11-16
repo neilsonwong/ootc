@@ -1,10 +1,14 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { tap } from 'rxjs/operators';
+import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
+import { LoadState } from 'src/app/constants/load-state.enum';
 import { ReservationView } from 'src/app/models/ReservationView';
 import { ConfirmationDialogComponent } from 'src/app/modules/shared/components/confirmation-dialog/confirmation-dialog.component';
+import { LoadingService } from 'src/app/services/loading.service';
 import { ReservationService } from 'src/app/services/reservation.service';
-import { LoadingDialogComponent } from 'src/app/modules/shared/components/loading-dialog/loading-dialog.component';
-import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
+import { to12HourClock } from 'src/app/utils/reservationDisplay';
 
 @Component({
   selector: 'app-reservation-management',
@@ -15,6 +19,7 @@ export class ReservationManagementComponent implements OnInit {
   reservations: ReservationView[];
 
   constructor(private reservationService: ReservationService,
+    private loadingService: LoadingService,
     public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -28,7 +33,7 @@ export class ReservationManagementComponent implements OnInit {
       });
   }
 
-  onCancel(reservationId: number) {
+  onCancel(reservation: ReservationView) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: {
         title: 'Cancel Reservation',
@@ -40,37 +45,21 @@ export class ReservationManagementComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.cancelReservation(reservationId);
+        this.cancelReservation(reservation);
       }
     });
   }
   
-  private cancelReservation(reservationId: number) {
-    let dialogRef;
-    let done = false;
+  private cancelReservation(reservation: ReservationView) {
+    const cancelObs = this.reservationService.cancelReservation(reservation.id)
+      .pipe(tap(() => { this.getReservations(); }));
 
-    setTimeout(() => {
-      if (!done) {
-        dialogRef = this.dialog.open(LoadingDialogComponent, {
-          data: {
-            title: 'Deleting',
-            text: 'Deleting your reservation'
-          },
-          width: DIALOG_WIDTHS.LOADING
-        });
-      }
-    }, 300);
-
-    this.reservationService.cancelReservation(reservationId).subscribe(() => {
-      done = true;
-
-      // close the modal
-      if (dialogRef) {
-        dialogRef.close();
-      }
-
-      // refresh the reservations list
-      this.getReservations();
-    });
+    this.loadingService.callWithLoader(cancelObs, [
+      { state: LoadState.Loading, title: 'Cancelling', text: 'Sending Cancellation ...' },
+      { state: LoadState.Complete, title: 'Cancelled', text: `We have cancelled your session on 
+        ${formatDate(reservation.startDate, 'fullDate', 'en-US')} at ${to12HourClock(reservation.startTime)} for 
+        ${reservation.desc}.` },
+      { state: LoadState.Error, title: 'Cancellation Error' }
+    ]);
   }
 }

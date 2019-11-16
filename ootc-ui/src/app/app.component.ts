@@ -50,7 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.loaderRef) {
       this.loaderRef.componentInstance.show(info);
     }
-    else if (this.dialog.openDialogs.length === 0) {
+    else {
       this.loaderRef = this.dialog.open(LoadingDialogComponent, {
         data: info,
         width: DIALOG_WIDTHS.LOADING

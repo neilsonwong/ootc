@@ -77,7 +77,7 @@ export class RegistrationFormComponent implements OnInit {
       .pipe(tap(() => { this.registrationSuccessful = true; }));
 
     this.loadingService.callWithLoader(registerObs, [
-      { state: LoadState.Loading, title: 'Registering Volunteer', text: 'Registering our new volunteer! ...' },
+      { state: LoadState.Loading, title: 'Registering Volunteer', text: 'Registering our new volunteer ...' },
       { state: LoadState.Error, title: 'Registration Error' }
     ]);
   }
