@@ -31,6 +31,7 @@ export class LoadingDialogComponent implements OnInit {
     else {
       this.title = info.title;
       this.text = info.text;
+      console.log(info.text);
       this.state = info.state;
     }
   }

@@ -31,6 +31,8 @@ import { MatTableModule, MatSortModule } from '@angular/material';
 import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 
+import { MarkdownPipe } from './pipes/markdown.pipe';
+
 @NgModule({
   declarations: [
     HeaderBarComponent,
@@ -41,6 +43,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     ConfirmationDialogComponent,
     LoadingDialogComponent,
     ErrorDialogComponent,
+    MarkdownPipe,
   ],
   imports: [
     CommonModule,
@@ -71,6 +74,8 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     EmojiTextComponent,
     ConfirmationDialogComponent,
     LoadingDialogComponent,
+
+    MarkdownPipe,
 
     // re-export ng stuff that we don't wanna import everywhere
     CommonModule,

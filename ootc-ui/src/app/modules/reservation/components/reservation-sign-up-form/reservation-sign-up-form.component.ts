@@ -105,14 +105,14 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
       const reservation = new Reservation(undefined, this.userId, timeSlot.id, false);
       return this.reservationService.addReservation(reservation)
         .pipe(
-          map((val) => (`Signed up for ${timeSlot.desc} on ${timeSlot.startDate} ${timeSlot.startTime}`)),
-          catchError((err) => of(`Unable to sign up for ${timeSlot.desc} on ${timeSlot.startDate} ${timeSlot.startTime}`))
+          map((val) => (`- SUCCESS: **${timeSlot.desc}** on **${timeSlot.startDate}** **${timeSlot.startTime}**`)),
+          catchError((err) => of(`- FAILED: **${timeSlot.desc}** on **${timeSlot.startDate}** **${timeSlot.startTime}**`))
         );
     });
 
     const batchSignUpObs = forkJoin(newReservationsReqs)
       .pipe(
-        map((val: string[]) => (val.join('\n'))),
+        map((val: string[]) => (`#### Sign up results!\n` + val.join('\n'))),
         tap(() => {
           this.reservationsChanged.emit(true);
           this.setupForm();

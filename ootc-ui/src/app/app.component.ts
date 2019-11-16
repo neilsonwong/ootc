@@ -41,7 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.dialog.openDialogs.length === 0) {
       this.dialog.open(ErrorDialogComponent, {
         data: error,
-        width: DIALOG_WIDTHS.ERROR
+        maxWidth: DIALOG_WIDTHS.ERROR
       });
     }
   }
@@ -53,7 +53,7 @@ export class AppComponent implements OnInit, OnDestroy {
     else {
       this.loaderRef = this.dialog.open(LoadingDialogComponent, {
         data: info,
-        width: DIALOG_WIDTHS.LOADING
+        maxWidth: DIALOG_WIDTHS.LOADING
       });
       this.loaderRef.afterClosed().subscribe(() => {
         this.loaderRef = undefined;

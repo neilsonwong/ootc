@@ -2,7 +2,7 @@
     <h1 mat-dialog-title *ngIf="title">{{ title }}</h1>
     <div mat-dialog-content>
         <app-emoji-text [thin]="true" [faceFirst]="true">
-            {{ text }}
+            <div [innerHTML]="text | markdown"></div>
         </app-emoji-text>
     </div>
     <mat-dialog-actions align="center">
@@ -22,7 +22,7 @@
     <h1 mat-dialog-title *ngIf="title">{{ title }}</h1>
     <div mat-dialog-content>
         <app-emoji-text [thin]="true" [emoji]="sadFace" [faceFirst]="true">
-            {{ text }}
+            <div [innerHTML]="text | markdown"></div>
         </app-emoji-text>
     </div>
     <mat-dialog-actions align="center">

@@ -56,9 +56,11 @@ export class ReservationManagementComponent implements OnInit {
 
     this.loadingService.callWithLoader(cancelObs, [
       { state: LoadState.Loading, title: 'Cancelling', text: 'Sending Cancellation ...' },
-      { state: LoadState.Complete, title: 'Cancelled', text: `We have cancelled your session on 
-        ${formatDate(reservation.startDate, 'fullDate', 'en-US')} at ${to12HourClock(reservation.startTime)} for 
-        ${reservation.desc}.` },
+      { state: LoadState.Complete, title: 'Cancelled', text: [
+        `We have cancelled your session for  `,
+        `**${reservation.desc}** on  `,
+        `**${formatDate(reservation.startDate, 'fullDate', 'en-US')}** at **${to12HourClock(reservation.startTime)}**.`
+      ].join('\n') },
       { state: LoadState.Error, title: 'Cancellation Error' }
     ]);
   }
