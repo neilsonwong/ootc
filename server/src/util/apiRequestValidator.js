@@ -101,10 +101,6 @@ function validateDepartmentName(name) {
 
 function validateDepartmentDescription(desc) {
     const valid = (_isString(desc));
-    if (!valid) {
-        logger.debug(desc);
-        console.log(typeof desc)
-    }
     return valid ? null :
         'description is not a string';
 }

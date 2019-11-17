@@ -11,7 +11,6 @@ async function createReservation(reservation) {
     try {
         const err = apiReqValidator.validateReservationCreation(reservation);
         if (err) {
-            console.log(reservation);
             throw err;
         }
 
