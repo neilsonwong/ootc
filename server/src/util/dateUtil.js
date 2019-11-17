@@ -33,6 +33,29 @@ function monthMaxDays(month, year) {
     return monthMaxDaysBase[month - 1];
 }
 
+function getEndTimeString(startDate, startTime, duration) {
+    const endDateTime = getDateTime(startDate, startTime).add(duration, 'minutes');
+    return endDateTime.format('h:mm A');
+}
+
+function getStartTimeString(startDate, startTime) {
+    const startDateTime = getDateTime(startDate, startTime);
+    return startDateTime.format('h:mm A');
+}
+
+function getDateTime(startDate, startTime, offset) {
+    const paddedStartTime = ('0' + startTime).slice(-5);
+    const base = moment(`${startDate} ${paddedStartTime}`);
+    if (offset) {
+        const basePlus = base.add(offset, 'minutes');
+        return basePlus;
+    }
+    return base;
+}
+
 module.exports = {
-    strToDate: strToDate
+    strToDate: strToDate,
+    getStartTimeString: getStartTimeString,
+    getEndTimeString: getEndTimeString,
+    getDateTime: getDateTime
 };

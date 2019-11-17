@@ -57,6 +57,8 @@ function sendMail(email) {
     }
     else {
         logger.info('no email transporter available');
+        logger.info(email.subject);
+        logger.info(email.text);
     }
 }
 
@@ -96,8 +98,26 @@ async function sendResetPasswordEmail(userEmail, name, resetLink) {
     }
 }
 
+async function sendReminderEmail(userEmail, name, startDate, endDate, reservations) {
+    logger.info(`sending weekly reminder email to ${userEmail}`);
+
+    const email = new Email(config.EMAIL.MASTER, userEmail,
+        emailTemplates.REMINDER.subject(startDate, endDate), '', {
+            text: emailTemplates.REMINDER.text(name, reservations)
+        });
+    
+    try {
+        return await sendMail(email);
+    }
+    catch(err) {
+        logger.error('There was an error when sending the email');
+        logger.error(err);
+    }
+}
+
 module.exports = {
     init: init,
     sendValidationEmail: sendValidationEmail,
     sendResetPasswordEmail: sendResetPasswordEmail,
+    sendReminderEmail: sendReminderEmail,
 };
