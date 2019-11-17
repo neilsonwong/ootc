@@ -9,7 +9,7 @@ const sql = {
     createTable: 
         `CREATE TABLE IF NOT EXISTS departments (
             id INTEGER PRIMARY KEY,
-            name TEXT NOT NULL,
+            name TEXT UNIQUE NOT NULL,
             description TEXT
         )`,
 
