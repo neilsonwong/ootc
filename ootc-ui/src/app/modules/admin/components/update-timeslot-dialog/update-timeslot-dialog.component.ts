@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
 import { Department } from 'src/app/models/Department';
@@ -29,11 +29,18 @@ export class UpdateTimeslotDialogComponent implements OnInit {
 
     this.editTimeSlotForm = this.fb.group({
       date: [moment(this.originalTimeSlot.startDate, 'YYYY-MM-DD')],
-      time: [this.originalTimeSlot.startTime],
-      duration: [this.originalTimeSlot.duration],
+      time: [this.originalTimeSlot.startTime, [
+        Validators.pattern(/^\d{1,2}:\d{2}$/)
+      ]],
+      duration: [this.originalTimeSlot.duration,[
+        shared,
+        Validators.minLength(1)]],
       department: [this.originalTimeSlot.departmentId],
-      signUpCap: [this.originalTimeSlot.signUpCap],
-      desc: [this.originalTimeSlot.desc]
+      signUpCap: [this.originalTimeSlot.signUpCap,[
+        shared,
+        Validators.minLength(1)]],
+      desc: [this.originalTimeSlot.desc,
+        Validators.minLength(1)]
     });
 
     // add validators
@@ -52,4 +59,22 @@ export class UpdateTimeslotDialogComponent implements OnInit {
       this.dialogRef.close(res);
     });
   }
+
+  ErrorMessages: { [key: string]: string } = {
+    pattern: 'Email must be a valid email address (abc@tccc.ca).',
+    role: 'Must be a valid role',
+    date: 'Must be between Jan 26 - March 29',
+    time: 'Must be a valid time (Ex. 12:00)',
+    duration: 'Must be greater than 1',
+    signupcap: 'Must be greater or equal to the original cap'
+    //unique: 'Passwords must contain at least 1 uppercase character'
+  };
+
+}
+
+function shared(control: AbstractControl): { [key: string]: boolean } | null {
+  if (control.value !== undefined && (isNaN(control.value) || control.value < 0 || control.value > 1000)) {
+      return { 'value': true };
+  }
+  return null;
 }

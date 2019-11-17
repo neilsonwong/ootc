@@ -15,9 +15,7 @@
         </mat-select>
     </mat-form-field>
     <ng-container *ngIf="selectedIndex !== -1; else pickSomething">
-        <p *ngFor="let descFragment of blurbs[selectedIndex]">
-            {{ descFragment }}
-        </p>
+        <div [innerHTML]="departments[selectedIndex].description | markdown"></div>
     </ng-container>
     <ng-template #pickSomething>
         <div class="no-selection-desc">
