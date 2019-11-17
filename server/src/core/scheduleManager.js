@@ -77,7 +77,7 @@ async function generateTimeSlots(timeSlotDef) {
 
         const timeSlotsToInsert = [];
         // now that we have our start date, we can operate on the date object!
-        let curDate = moment(timeSlotDef.startDate);
+        let curDate = moment(timeSlotDef.repeatStartDate, 'YYYY-MM-DD');
         let daysGenerated = 0;
         const fnAdvanceDate = getAdvanceDateFunction(timeSlotDef.repeatInterval, timeSlotDef.repeatSkipEvery);
 
