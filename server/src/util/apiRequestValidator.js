@@ -73,12 +73,12 @@ function validateResetCode(resetCode) {
 }
 
 function validateValidationCode(validationCode) {
-    const valid = (_isNonEmptyString(validationCode));
+    const valid = (_isZeroOrGreater(validationCode));
     if (!valid) {
         logger.debug(validationCode);
     }
     return valid ? null :
-        'validationCode is empty or not a string';
+        'validationCode is empty or not a number';
 }
 
 function validateDepartmentId(dept) {
