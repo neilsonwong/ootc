@@ -27,21 +27,10 @@ export class AttendanceComponent implements OnInit {
     });
   }
 
-<<<<<<< HEAD
-  onSignIn() {
-    this.id = this.userIdentifyForm.get('email').value;
-    this.reservationService.reservationSignin(this.id).subscribe(
-      // This db.reservations.findReservationByUserAndTime is missing
-      //{next(thing) { console.log('hello' + thing);}}
-     );
-    this.confirmed = true;
-    console.log("it works");
-=======
   userCheckIn() {
     this.reservationService.reservationSignin(this.userIdentifyForm.get('email').value).subscribe((res: boolean) => {
       this.confirmed = true;
       console.log("it works");
     });
->>>>>>> d31b14a75a197dfbf9cfd3efe6bd9c3e1dca7241
   }  
 }
