@@ -28,9 +28,10 @@ export class AttendanceComponent implements OnInit {
   }
 
   userCheckIn() {
-    this.reservationService.reservationSignin(this.userIdentifyForm.get('email').value).subscribe((res: boolean) => {
-      this.confirmed = true;
-      console.log("it works");
+    // date formatting: yyyy-mm-dd
+    this.reservationService.reservationSignin(this.userIdentifyForm.get('email').value, this.date.toString()).subscribe((res: boolean) => {
+        this.confirmed = true;
+        console.log("it works");
     });
   }  
 }

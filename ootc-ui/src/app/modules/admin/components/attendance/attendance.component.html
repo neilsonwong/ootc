@@ -4,7 +4,7 @@
         <h3 class="attendance-table-title">{{ date | date:'fullDate' }}</h3>
         <p>Enter the email of the user</p>
 
-        <form class="attendance-form" [formGroup]="userIdentifyForm" (ngSubmit)="onSignIn()">
+        <form class="attendance-form" [formGroup]="userIdentifyForm" (ngSubmit)="userCheckIn()">
 
             <mat-form-field>
                 <input matInput type="email" placeholder="Email" formControlName="email">
@@ -13,4 +13,5 @@
 
         </form>
     </div>
+     
 </app-container>
