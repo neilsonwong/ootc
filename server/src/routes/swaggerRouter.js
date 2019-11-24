@@ -165,7 +165,8 @@ const swaggerUiExpressOptions = {
         },
         creds: {
             admin: defaultUsers.admins[0],
-            user: defaultUsers.users[0]
+            user: defaultUsers.users[0],
+            superadmin: defaultUsers.superadmin[0]
         }
     },
     // explorer: true,
