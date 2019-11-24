@@ -1,6 +1,6 @@
 {
     "admins": [
-        { "id": "admin", "password": "admin" }
+        { "id": "admin", "password": "admin"}
     ],
     "users": [
         {
@@ -16,6 +16,6 @@
         }
     ],
     "superadmin":[
-        {"id": "OutOfTheCold", "password": "OutOfTheCold"}
+        {"id": "tccc.ootc@gmail.com", "password": "OutOfTheCold"}
     ]
 }
