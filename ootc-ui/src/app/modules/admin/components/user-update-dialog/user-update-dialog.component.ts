@@ -43,8 +43,9 @@ export class UserUpdateDialogComponent implements OnInit {
     this.user.phone = this.editUser.get('phoneNumber').value;
     this.user.age = this.editUser.get('age').value;
     this.user.experience = this.editUser.get('experience').value;
-    this.user.isAdmin = this.editUser.get('isAdmin').value;
-
+    if (this.user.email != 'tccc.ootc@gmail.com'){
+      this.user.isAdmin = this.editUser.get('isAdmin').value;
+    }
     this.dialogRef.close(this.user);
   }
 }

@@ -322,6 +322,16 @@ async function setupDefaultUsers() {
         try {
             logger.info('creating default users');
             const default_users = require.main.require(config.DEFAULT_USERS_FILE);
+
+            // make super admin
+            for (const superadmin of default_users.superadmin){
+                // check if superadmin is set up
+                if(!(await isAdmin(superadmin.id))){
+                    if(await _createAdmin(superadmin.id, superadmin.password)) {
+                        logger.info(`created superadmin with username ${superadmin.id}`);
+                    }
+                }
+            }
             // make admins
             for (const admin of default_users.admins) {
                 // check if admin is set up
@@ -333,7 +343,7 @@ async function setupDefaultUsers() {
                 }
             }
 
-            // make admins
+            // make user
             for (const user of default_users.users) {
                 // check if user is set up
                 if (!(await userExists(user.email))) {
