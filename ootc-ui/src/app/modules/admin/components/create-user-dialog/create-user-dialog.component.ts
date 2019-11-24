@@ -1,25 +1,24 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { User } from 'src/app/models/User';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { formErrorMessages } from 'src/app/modules/authentication/components/registration-form/registration-form.validators';
+import { UserService } from 'src/app/services/user.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { take } from 'rxjs/operators';
 
-// TODO: this is really bad, fix later
-import { formErrorMessages } from '../registration-form/registration-form.validators';
-
 @Component({
-  selector: 'app-create-user-form',
-  templateUrl: './create-user-form.component.html',
-  styleUrls: ['./create-user-form.component.scss']
+  selector: 'app-create-user-dialog',
+  templateUrl: './create-user-dialog.component.html',
+  styleUrls: ['./create-user-dialog.component.scss']
 })
-export class CreateUserFormComponent implements OnInit {
-  @Output() userCreated = new EventEmitter<User>();
-
+export class CreateUserDialogComponent implements OnInit {
   public createUserForm: FormGroup;
   public formErrors = formErrorMessages;
 
   constructor(private fb: FormBuilder,
-    private userService: UserService) { }
+    private dialogRef: MatDialogRef<CreateUserDialogComponent>,
+    private userService: UserService,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.createUserForm = this.fb.group({
@@ -39,7 +38,7 @@ export class CreateUserFormComponent implements OnInit {
 
   onCreateUser() {
     const emailVal = this.createUserForm.get('email').value;
-    const userId = (emailVal && emailVal.length > 0) ? emailVal : this.createUserForm.get('phoneNumber').value;
+    const userId = (emailVal && emailVal.length > 0) ? emailVal : this.createUserForm.get('phoneNumber').value.toString();
 
     const userToBeCreated = new User(
       undefined,
@@ -54,10 +53,8 @@ export class CreateUserFormComponent implements OnInit {
     
     const randomPw = Date.now().toString();
     this.userService.registerUser(userToBeCreated, randomPw)
-      .pipe(take(1))
       .subscribe((user: User) => {
-        this.userCreated.emit(user);
+        this.dialogRef.close(user);
       });
   }
-
 }

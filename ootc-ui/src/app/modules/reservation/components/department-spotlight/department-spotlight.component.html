@@ -2,16 +2,24 @@
     <mat-button-toggle-group class="toggle-menu" (change)="selectDept($event)">
         <mat-button-toggle *ngFor="let dept of departments"
             class="toggle-button"
-            [value]="dept.id">{{ dept.name }}</mat-button-toggle>
+            [value]="dept.id">
+            {{ dept.name }}
+        </mat-button-toggle>
     </mat-button-toggle-group>
+    <mat-form-field class="dropdown-menu">
+        <mat-label>Departments</mat-label>
+        <mat-select (selectionChange)="selectDept($event)">
+            <mat-option *ngFor="let dept of departments" [value]="dept.id">
+                {{ dept.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
     <ng-container *ngIf="selectedIndex !== -1; else pickSomething">
-        <p *ngFor="let descFragment of blurbs[selectedIndex]">
-            {{ descFragment }}
-        </p>
+        <div [innerHTML]="departments[selectedIndex].description | markdown"></div>
     </ng-container>
     <ng-template #pickSomething>
         <div class="no-selection-desc">
-            <app-emoji-text text="What would you like to help with?"></app-emoji-text>
+            <app-emoji-text>What would you like to help with?</app-emoji-text>
         </div>
     </ng-template>
 </div>

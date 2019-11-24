@@ -33,8 +33,15 @@ export function MustMatch(controlName: string, matchingControlName: string) {
 
 // https://dzone.com/articles/how-to-create-custom-validators-in-angular
 export function ageRangeValidator(control: AbstractControl): { [key: string]: boolean } | null {
-  if (control.value !== undefined && (isNaN(control.value) || control.value < 18 )) {
+  if (control.value !== undefined && (isNaN(control.value) || control.value < 18 || control.value > 100)) {
       return { 'ageRange': true };
+  }
+  return null;
+}
+
+export function expRangeValidator(control: AbstractControl): { [key: string]: boolean } | null {
+  if (control.value !== undefined && (isNaN(control.value) || control.value < 0 || control.value > 10 )) {
+      return { 'expRange': true };
   }
   return null;
 }
@@ -47,6 +54,8 @@ export const formErrorMessages: { [key: string]: string } = {
   number: 'Phone number must be a valid phone number (1234567890)',
   mismatch: 'Passwords don\'t match.',
   age: 'User must be 18 years or older',
-  experience: 'Experience cannot be negative'
+  experience: 'Experience cannot be negative',
+  fsymbol: 'First name must only contain letters',
+  lsymbol: 'Last name must only contain letters'
   //unique: 'Passwords must contain at least 1 uppercase character'
 };

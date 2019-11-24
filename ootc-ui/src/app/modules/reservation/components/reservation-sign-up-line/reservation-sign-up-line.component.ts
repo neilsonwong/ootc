@@ -1,25 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { EventDetails } from 'src/app/helpers/event-details';
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
-import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
-import { EventDetailsComponent } from '../event-details.component';
-import { I18nPluralPipe } from '@angular/common';
 
 @Component({
   selector: 'app-reservation-sign-up-line',
   templateUrl: './reservation-sign-up-line.component.html',
   styleUrls: ['./reservation-sign-up-line.component.scss']
 })
-
-export class ReservationSignUpLineComponent extends EventDetailsComponent implements OnInit{
+export class ReservationSignUpLineComponent extends EventDetails implements OnInit {
+  @Input() reserved: boolean;
+  
   private timeSlot: TimeSlotView;
 
   public endTime: string;
   public spotsLeft: number;
   public totalSpots: number;
-  public spotsPluralMapping = {
-    '=1': 'spot left',
-    'other': 'spots left',
-  };
+  public spotsPluralMapping = {};
 
   constructor() {
     super();
@@ -30,6 +26,11 @@ export class ReservationSignUpLineComponent extends EventDetailsComponent implem
     this.timeSlot = this.event as TimeSlotView;
     this.totalSpots = this.timeSlot.signUpCap;
     this.spotsLeft = this.timeSlot.signUpCap - this.timeSlot.reserved;
-    this.endTime = reservationDisplayUtils.getEndTimeString(this.timeSlot.startDate, this.timeSlot.startTime, this.timeSlot.duration);
+
+    this.spotsPluralMapping = {
+      '=0': 'Full',
+      '=1': `1 / ${this.totalSpots} spot left`,
+      'other': `# / ${this.totalSpots} spots left`,
+    };
   }
 }

@@ -1,5 +1,11 @@
 <div class="emoji-text-container"
-    [class.thin]="thin">
-    <div class="message">{{ text }}</div>
-    <app-emoji class="emoji"></app-emoji>
+    [class.thin]="thin"
+    [class.face-first]="faceFirst">
+    <app-emoji *ngIf="faceFirst"
+        class="emoji" [emoji]="emoji"></app-emoji>
+    <div class="message">
+        <ng-content></ng-content>
+    </div>
+    <app-emoji *ngIf="!faceFirst"
+        class="emoji" [emoji]="emoji"></app-emoji>
 </div>

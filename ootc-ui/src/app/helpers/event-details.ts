@@ -2,7 +2,7 @@ import { OnInit, Input } from '@angular/core';
 import { IEvent } from 'src/app/interfaces/IEvent';
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
 
-export class EventDetailsComponent implements OnInit {
+export class EventDetails implements OnInit {
   @Input() event: IEvent;
   @Input() simple?: boolean;
   @Input() clear?: boolean;

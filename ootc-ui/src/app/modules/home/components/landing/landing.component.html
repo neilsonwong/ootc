@@ -2,7 +2,10 @@
 	<div class="landing-banner">
 		<div class="landing-inner">
 			<div class="landing-text">
-				<h2 class="banner-title">Out of the Cold @ TCCC</h2>
+				<h2 class="banner-title">
+					<span class="do-not-break">Out of the Cold&nbsp;</span>
+					<span class="do-not-break">@ TCCC</span>
+				</h2>
 				<div class="sub-text">
 					<em>Toronto Christian Community Church</em> and <em>105 Gibson Centre</em> have 
 					partnered with Mosaic Interfaith Out of the Cold to bring safety, refuge, warm hospitality 
@@ -10,6 +13,10 @@
 					the coldest weeks of the winter season. We provide services ranging from warm meals 
 					to overnight shelter to various social services.
 				</div>
+			</div>
+			<div class="mobile-menu">
+				<button mat-raised-button color="primary" type="button" routerLink="/login">Login</button>
+				<button mat-raised-button color="accent" type="button" routerLink="/register">Register</button>
 			</div>
 			<div *ngIf="!loggedInAs" class="login-form-wrapper">
 				<app-login-form id="login"></app-login-form>
@@ -19,13 +26,13 @@
 	<div class="landing-page-intro">
 		<h2> {{ title }} </h2>
 		<div class="description">
-			<p>
-				For more information on <b>Toronto Christian Community Church</b>, visit our website <a href="http://www.tccc.ca" target="_blank">here</a> <br />
-				For more information on <b>105 Gibson Centre</b>, visit our website <a href="https://105gibson.com" target="_blank">here</a> <br />
-				For more information on <b>Mosaic Interfaith Out of the Cold</b> and it's 12 host communities, visit their website <a href="http://miotc.ca" target="_blank">here</a> <br />
-			</p>
+			<ul>
+				<li>For more information on <b>Toronto Christian Community Church</b>, visit our website <a href="http://www.tccc.ca" target="_blank">here</a></li>
+				<li>For more information on <b>105 Gibson Centre</b>, visit our website <a href="https://105gibson.com" target="_blank">here</a></li>
+				<li>For more information on <b>Mosaic Interfaith Out of the Cold</b> and it's 12 host communities, visit their website <a href="http://miotc.ca" target="_blank">here</a></li>
+			</ul>
 		</div>
-		<div>
+		<div class="year-overview">
 			<h3>The 2020 OOTC Year</h3>
 			<ul>
 				<li>
@@ -38,8 +45,8 @@
 				</li>
 			</ul>
 		</div>
-		<div>
-			<h4>Volunteer Opportunities</h4>
+		<div class="opportunities">
+			<h3>Volunteer Opportunities</h3>
 			<ul>
 				<li>
 					<div class="pad-right"><b>Hospitality</b>:</div>
@@ -67,8 +74,6 @@
 				</li>
 			</ul>
 		</div>
-		
-		<br>
 		<h3>Directions</h3>
 		<div class="map-border">
 			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2690.4261372136316!2d-79.33064882431601!3d43.82280380958158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4d386efbcae8b%3A0xb98c79efa21da741!2s105%20Gibson%20Centre!5e0!3m2!1sen!2sca!4v1572819570345!5m2!1sen!2sca&zoom=15" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>

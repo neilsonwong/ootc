@@ -8,7 +8,8 @@ const sql = {
         `CREATE TABLE IF NOT EXISTS passwords (
             userId TEXT UNIQUE NOT NULL,
             password TEXT NOT NULL,
-            resetCode TEXT
+            resetCode TEXT,
+            FOREIGN KEY(userId) REFERENCES users(id)
         )`,
     
     getPassword:

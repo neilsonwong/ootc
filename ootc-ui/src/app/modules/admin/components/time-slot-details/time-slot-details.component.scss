@@ -1,0 +1,60 @@
+@import "~src/colours";
+
+.panel-desc {
+    display: flex;
+    width: 100%;
+    padding-right: 1rem;
+    justify-content: space-between;
+
+    .panel-department {
+        width: 30%;
+    }
+
+    .panel-role {
+        flex-grow: 1;
+    }
+
+    .panel-spots {
+        font-weight: 600;
+    }
+
+    .panel-edit {
+        padding-left: 2rem;
+    }
+
+    .attention {
+        color: $warn;
+    }
+}
+
+.nobody {
+    padding-right: 1rem;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+mat-panel-title {
+    padding-right: 2rem;
+    flex-grow:0 !important;
+}
+
+mat-panel-description {
+    flex-grow: 2;
+}
+
+.button-text {
+    padding-left: 0.5rem;
+}
+
+// ::ng-deep .mat-icon {
+//     height: 20px !important;
+//     width: 20px !important;
+//     font-size: 20px !important;
+//     line-height: 20px !important;
+// }
+
+// .mat-icon-button {
+//     width: 20px;
+//     height: 20px;
+//     line-height: 20px !important;
+// }

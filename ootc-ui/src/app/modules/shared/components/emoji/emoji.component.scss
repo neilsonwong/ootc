@@ -1,4 +1,5 @@
 @import "~src/colours";
+@import "~src/screens";
 
 .emoji {
     font-family: 'Roboto Mono', monospace;
@@ -7,5 +8,21 @@
 
     &.long {
         font-size: 4.5rem;
+    }
+}
+
+@media only screen and (max-width: $max-mobile-width) {
+    .emoji {
+        font-size: 4rem;
+
+        &.long {
+            font-size: 2.5rem;
+        }
+    }
+}
+
+@media only screen and (max-width: $iphone5-is-too-small-width) {
+    .emoji {
+        font-size: 3.5rem;
     }
 }

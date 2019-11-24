@@ -1,18 +1,19 @@
 <div class="registration-form  stand-alone-box">
-    <ng-container *ngIf="confirmed; else notconfirmed">
-        <h3 class="registration-form-title">Registration Confirmed!</h3>
-        <p>
-            Thank you for registering!<br />
-            Check your email to validate your email!
-        </p>
+    <ng-container *ngIf="registrationSuccessful; else notconfirmed">
+        <h3 class="registration-form-title">Registration Successful!</h3>
+			<app-emoji-text [thin]="true">
+                Thank you for registering!<br />
+                Check your email to validate your email!
+            </app-emoji-text>
     </ng-container>
     <ng-template #notconfirmed>
-        <h3 class="registration-form-title">Registration</h3>
+        <h3 class="registration-form-title">Volunteer Registration</h3>
         <div>
             <form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
                 <mat-form-field>
                     <input matInput type="text" placeholder="First Name" formControlName="firstName" required>
                     <mat-hint>{{ formErrors.required }}</mat-hint>
+                    <mat-error>{{ formErrors.fsymbol }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="text" placeholder="Middle Name" formControlName="middleName">
@@ -20,6 +21,7 @@
                 <mat-form-field>
                     <input matInput type="text" placeholder="Last Name" formControlName="lastName" required>
                     <mat-hint>{{ formErrors.required }}</mat-hint>
+                    <mat-error>{{ formErrors.lsymbol }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="email" placeholder="Email" formControlName="email" required> 
@@ -28,8 +30,8 @@
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="password" placeholder="Password" formControlName="password" required>
-                        <mat-hint>{{ formErrors.minLength }}</mat-hint>
-                        <mat-error>{{ formErrors.minLength }}</mat-error>  
+                    <mat-hint>{{ formErrors.minLength }}</mat-hint>
+                    <mat-error>{{ formErrors.minLength }}</mat-error>  
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="password" placeholder="Verify Password" formControlName="verifypassword" required>

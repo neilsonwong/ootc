@@ -1,1 +1,40 @@
-<p>time-slot-details works!</p>
+<mat-expansion-panel (opened)="loadReservations()">
+    <mat-expansion-panel-header>
+        <mat-panel-title>{{ startTime }} - {{ endTime }}</mat-panel-title>
+        <mat-panel-description>
+            <div class="panel-desc">
+                <div class="panel-department">{{ department }}</div>
+                <div class="panel-role">{{ desc }}</div>
+                <div class="panel-spots"
+                    [class.attention]="warn">
+                    {{ reserved }}/{{ totalSpots }}
+                </div>
+                <div class="panel-edit">
+                </div>
+            </div>
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-chip-list>
+        <ng-container *ngIf="reserved > 0; else nobodySignedUp">
+            <app-reservation-full-details 
+                *ngFor="let reservation of reservations"
+                [reservation]="reservation"
+                (reservationDeleteClicked)="onDeleteReservation($event)">
+            </app-reservation-full-details>
+        </ng-container>
+        <ng-template #nobodySignedUp>
+            <div class="nobody">Nobody signed up yet!!</div>
+        </ng-template>
+    </mat-chip-list>
+    <mat-action-row>
+        <button mat-button color="accent" (click)="openUpdateDialog()">
+            <mat-icon>person_add</mat-icon>
+            <span class="button-text">Edit</span>
+        </button>
+        <button *ngIf="reserved < totalSpots" mat-button color="primary" (click)="makeReservationForUser()">
+            <mat-icon>person_add</mat-icon>
+            <span class="button-text">Add Volunteer</span>
+        </button>
+    </mat-action-row>
+</mat-expansion-panel>

@@ -1,7 +1,31 @@
-<h1 mat-dialog-title *ngIf="title">{{ title }}</h1>
-<div mat-dialog-content>
-    <div class="loader-wrapper">
-        <div class="loader"></div>
+<ng-container *ngIf="state === states.Complete">
+    <h1 mat-dialog-title *ngIf="title">{{ title }}</h1>
+    <div mat-dialog-content>
+        <app-emoji-text [thin]="true" [faceFirst]="true">
+            <div [innerHTML]="text | markdown"></div>
+        </app-emoji-text>
     </div>
-    <p>{{ text }}</p>
-</div>
+    <mat-dialog-actions align="center">
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+    </mat-dialog-actions>
+</ng-container>
+<ng-container *ngIf="state === states.Loading">
+    <h1 mat-dialog-title *ngIf="title">{{ title }}</h1>
+    <div mat-dialog-content>
+        <div class="loader-wrapper">
+            <div class="loader"></div>
+        </div>
+        <p>{{ text }}</p>
+    </div>
+</ng-container>
+<ng-container *ngIf="state === states.Error">
+    <h1 mat-dialog-title *ngIf="title">{{ title }}</h1>
+    <div mat-dialog-content>
+        <app-emoji-text [thin]="true" [emoji]="sadFace" [faceFirst]="true">
+            <div [innerHTML]="text | markdown"></div>
+        </app-emoji-text>
+    </div>
+    <mat-dialog-actions align="center">
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+    </mat-dialog-actions>
+</ng-container>

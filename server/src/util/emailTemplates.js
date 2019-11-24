@@ -1,12 +1,14 @@
 'use strict';
 
+const dateUtil = require('./dateUtil');
+
 const TEMPLATES = {
     VERIFICATION: {
         subject: () => ('Out of the Cold - Email Verification'),
         text: generateVerificationEmail
     },
     REMINDER: {
-        subject: (dept, date, startTime, endTime) => (`OOTC - REMINDER: ${dept}: ${date} ${startTime} - ${endTime}`),
+        subject: (start, end) => (`OOTC - REMINDER: ${start} - ${end}`),
         text: generateReminderEmail
     },
     SCHEDULE: {
@@ -31,12 +33,15 @@ Thank you for serving!
 TCCC x Gibson - Out of the Cold`;
 }
 
-function generateReminderEmail(name, dept, date, startTime, endTime) {
+function generateReminderEmail(name, reservations) {
+    let reservationsString = reservations.map(r => (
+        `${r.department}: ${r.startDate} ${dateUtil.getStartTimeString(r.startDate, r.startTime)} - ${dateUtil.getEndTimeString(r.startDate, r.startTime, r.duration)}`
+    )).join('\n');
     return `Hello ${name},
 
 This is a reminder that you have signed up for:
 
-${dept}: ${date} ${startTime} - ${endTime}
+${reservationsString}
 
 If you are sick on the day of your scheduled time slot, please DO NOT show  
 up. We must make sure that other volunteers and guests do not get sick as  

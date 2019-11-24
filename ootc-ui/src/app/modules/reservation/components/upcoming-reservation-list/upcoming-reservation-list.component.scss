@@ -1,3 +1,5 @@
+@import "~src/screens";
+
 .coming-up {
     display: flex;
     flex-direction: row;
@@ -5,4 +7,20 @@
 
 .coming-up-card {
     flex-basis: 33%;
+}
+
+@media only screen and (max-width: $max-mobile-width) {
+    .coming-up {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (min-width: $max-mobile-width) and (max-width: $min-wide-screen-width) {
+    .coming-up {
+        flex-wrap: wrap;
+    }
+
+    .coming-up-card {
+        flex-basis: 50%;
+    }
 }

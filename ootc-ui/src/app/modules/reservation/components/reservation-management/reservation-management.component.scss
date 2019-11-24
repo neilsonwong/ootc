@@ -1,4 +1,5 @@
 @import "~src/colours";
+@import "~src/screens";
 
 $wrapper-padding: 1rem;
 
@@ -48,8 +49,17 @@ $wrapper-padding: 1rem;
 
 .hidden {
     display: none;
+    /* hack to remove it from the flex flow */
+    position: absolute;
 }
 
 .no-reservations-desc {
     width: 100%;
+}
+
+@media only screen and (max-width: $max-mobile-width) {
+    .reservation-list-item {
+        width: 100% !important;
+        margin: 0.5rem 0;
+    }
 }

@@ -11,7 +11,6 @@ export class DepartmentSpotlightComponent implements OnInit, OnChanges {
   @Output() deptSelected = new EventEmitter<Department>();
 
   public selectedIndex: number;
-  public blurbs: string[][];
   
   constructor( ) { }
 
@@ -20,13 +19,7 @@ export class DepartmentSpotlightComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.processDepartmentDescriptions();
-  }
 
-  processDepartmentDescriptions() {
-    this.blurbs = this.departments.map((dept: Department) => {
-      return dept.description.split('\n');
-    });
   }
 
   selectDept(event) {

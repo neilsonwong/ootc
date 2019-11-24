@@ -6,6 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./emoji.component.scss']
 })
 export class EmojiComponent implements OnInit {
+  @Input() emoji?: string;
+
   public face: string;
   private emojis = [
     `(* ^ ω ^)`, `(´ ∀ \` *)`, `(´｡•ω•｡\`)`, `(◕‿◕)`,
@@ -16,6 +18,6 @@ export class EmojiComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.face = this.emojis[Math.floor(Math.random() * this.emojis.length)];
+    this.face = this.emoji || this.emojis[Math.floor(Math.random() * this.emojis.length)];
   }
 }

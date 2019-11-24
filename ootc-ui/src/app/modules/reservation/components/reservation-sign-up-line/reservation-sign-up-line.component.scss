@@ -1,9 +1,10 @@
 @import "~src/colours";
+@import "~src/screens";
 
 .reservation-sign-up-line {
-    padding: 0.75rem;
+    display: flex;
+    justify-content: space-between;
     border-radius: 4px;
-    margin-bottom: 0.5rem;
 
     background-color: $primary;
     color: $light-text-colour;
@@ -17,30 +18,65 @@
         box-shadow: none;
     }
 
-    &.embedded {
-        padding: 1rem 0.5rem 1rem 0;
-    }
-
-    .line {
-        margin-bottom: 0.5rem;
-    }
-
-    .line:last-of-type {
-        margin-bottom: 0;
+    .time {
+        width: 10rem;
     }
 
     .role-line {
-        font-size: 1.2em;
-        font-weight: 700;
+        flex-grow: 1;
     }
 
-    .time-details-line,
-    .additional-details-line {
-        display: flex;
-        justify-content: space-between;
+    .duration {
+        width: 10rem;
+        text-align: right;
+    }
+
+    .spots {
+        width: 10rem;
+        text-align: right;
+        font-weight: 400;
     }
 
     .last-few {
         color: $warn;
+    }
+
+    .reserved {
+        color: $primary;
+        font-weight: 700;
+    }
+}
+
+@media only screen and (max-width: $max-mobile-width) {
+    .reservation-sign-up-line {
+        flex-direction: column;
+        padding: 1rem 0;
+
+        .spots,
+        .duration,
+        .role-line {
+            font-size: 0.8em;
+        }
+
+        .time,
+        .spots,
+        .duration,
+        .role-line {
+            width: auto;
+            text-align: left;
+            padding: 0.25rem 0;
+        }
+    }
+}
+
+@media only screen and (min-width: $max-mobile-width) and (max-width: $min-wide-screen-width) {
+    .reservation-sign-up-line {
+        .duration {
+            width: 5rem;
+        }
+
+        .spots {
+            width: 8rem;
+        }
     }
 }

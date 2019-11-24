@@ -4,12 +4,13 @@ import { AttendanceComponent } from './components/attendance/attendance.componen
 import { UserManagementComponent } from './components/user-management/user-management.component';
 import { ScheduleManagementComponent } from './components/schedule-management/schedule-management.component';
 import { ScheduleCreationComponent } from './components/schedule-creation/schedule-creation.component';
+import { AdminAuthGuard } from 'src/app/guards/admin-auth.guard';
 
 const routes: Routes = [
-  { path: 'admin/attendance', component: AttendanceComponent },
-  { path: 'admin/users', component: UserManagementComponent },
-  { path: 'admin/schedule', component: ScheduleManagementComponent },
-  { path: 'admin/setup', component: ScheduleCreationComponent }
+  { path: 'admin/attendance', component: AttendanceComponent, canActivate: [AdminAuthGuard] },
+  { path: 'admin/users', component: UserManagementComponent, canActivate: [AdminAuthGuard] },
+  { path: 'admin/schedule', component: ScheduleManagementComponent, canActivate: [AdminAuthGuard] },
+  { path: 'admin/setup', component: ScheduleCreationComponent, canActivate: [AdminAuthGuard] }
 ];
 
 @NgModule({

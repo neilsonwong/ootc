@@ -4,10 +4,9 @@
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 @import "~src/colours";
+@import "~src/screens";
 
 /* Global Styles */
-
-
 
 * {
   // font-family: 'Roboto', Arial, sans-serif;
@@ -27,23 +26,12 @@ body {
   background-attachment: fixed;
   background-size: 2160px auto;
 
+  // min-width: 100vw;
+  min-width: $app-min-screen-width;
+
   /* stick the footer at the bottom */
   min-height: 100vh;
   position: relative
-}
-
-// Google Maps Integration
-#map {
-  width: 100%;
-  height: 400px;
-  background-color: grey;
-}
-
-
-@media only screen and (min-width: 2160px) {
-  body {
-    background-size: 100% auto;
-  }
 }
 
 a {
@@ -94,4 +82,57 @@ h3 {
   font-weight: 400;
   letter-spacing: 0.5px;
   margin: 0.5em 0;
+}
+
+@media only screen and (min-width: $insanely-screen-width) {
+  body {
+    background-size: 100% auto;
+  }
+}
+
+@media only screen and (min-width: $max-mobile-width) and (max-width: $min-wide-screen-width) {
+  body {
+    background-position: right -500px bottom 0px;
+  }
+}
+
+@media only screen and (max-width: $max-mobile-width) {
+  body {
+    background-size: 1000px auto;
+    background-position: right -280px bottom 0px;
+    font-size: 0.8em;
+  }
+
+  h1 {
+
+  }
+
+  h2 {
+    margin: 1rem 0;
+    font-size: 2.25rem;
+  }
+
+  h3 {
+    margin: 0.8rem 0;
+    font-size: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+
+  .stand-alone-wide-box,
+  .stand-alone-box {
+    width: auto;
+  }
+}
+
+@media only screen and (max-width: $iphone5-is-too-small-width) {
+  h2 {
+    font-size: 2rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+  }
 }

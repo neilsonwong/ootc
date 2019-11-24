@@ -1,8 +1,20 @@
+@import "~src/screens";
+
 .app-container {
     margin: auto;
-    box-sizing: content-box;
+    box-sizing: border-box;
     padding: 2rem;
     padding-bottom: 4rem;
-    min-width: 768px;
-    max-width: 1080px;
+    min-width: calc($app-container-min-width + 4rem);
+    max-width: $app-container-max-width;
+}
+
+/* for mobile */
+@media only screen and (max-width: $max-mobile-width) {
+    .app-container {
+        min-width: $app-min-screen-width;
+        max-width: 100vw;
+        padding: 1.5rem;
+        padding-bottom: 4rem;
+    }
 }

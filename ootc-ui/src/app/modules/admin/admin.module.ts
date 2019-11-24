@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -14,7 +13,9 @@ import { TimeSlotDefDetailsComponent } from './components/time-slot-def-details/
 import { TimeSlotDetailsComponent } from './components/time-slot-details/time-slot-details.component';
 import { ReservationFullDetailsComponent } from './components/reservation-full-details/reservation-full-details.component';
 import { UserUpdateDialogComponent } from './components/user-update-dialog/user-update-dialog.component';
-import { FormsModule } from '@angular/forms';
+import { AssignReservationDialogComponent } from './components/assign-reservation-dialog/assign-reservation-dialog.component';
+import { CreateUserDialogComponent } from './components/create-user-dialog/create-user-dialog.component';
+import { UpdateTimeslotDialogComponent } from './components/update-timeslot-dialog/update-timeslot-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,16 +28,20 @@ import { FormsModule } from '@angular/forms';
     TimeSlotDefDetailsComponent,
     TimeSlotDetailsComponent,
     ReservationFullDetailsComponent,
-    UserUpdateDialogComponent
+    UserUpdateDialogComponent,
+    AssignReservationDialogComponent,
+    CreateUserDialogComponent,
+    UpdateTimeslotDialogComponent,
   ],
   imports: [
-    CommonModule,
     SharedModule,
     AdminRoutingModule,
-    FormsModule,
   ],
   entryComponents: [
-    UserUpdateDialogComponent
+    UserUpdateDialogComponent,
+    AssignReservationDialogComponent,
+    CreateUserDialogComponent,
+    UpdateTimeslotDialogComponent,
   ]
 })
 export class AdminModule { }

@@ -1,4 +1,5 @@
 @import "~src/colours";
+@import "~src/screens";
 
 .upcoming-reservation-card {
     margin: 0.5rem;
@@ -25,5 +26,16 @@
 
     .reservation-summary:last-of-type {
         margin-bottom: 0;
+    }
+}
+
+@media only screen and (max-width: $max-mobile-width) {
+    .mat-card-header .mat-card-title {
+        font-size: 1.5em;
+        font-weight: 400;
+    }
+
+    ::ng-deep .mat-card-header-text {
+        margin: 0 8px !important;
     }
 }

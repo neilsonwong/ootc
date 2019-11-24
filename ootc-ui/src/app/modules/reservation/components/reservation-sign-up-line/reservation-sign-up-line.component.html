@@ -2,14 +2,15 @@
     [class.clear]="clear"
     [class.embedded]="embedded">
 
-    <div class="role-line line">{{ desc }}</div>
-    <div class="time-details-line line">
-        <div class="date">{{ startDate | date:'EEE, MMMM d, y' }}</div>
-        <div class="time">{{ startTime }} - {{ endTime }}</div>
+    <div class="time">{{ startTime }} - {{ endTime }}</div>
+    <div class="role-line">{{ desc }}</div>
+    <div class="duration">{{ duration | i18nPlural: durationPluralMapping }}</div>
+    <div *ngIf="!reserved; else reservedMsg"
+        class="spots" 
+        [class.last-few]="spotsLeft < 4">
+        {{ spotsLeft | i18nPlural: spotsPluralMapping }}
     </div>
-    <div class="additional-details-line line">
-        <div class="duration">{{ duration | i18nPlural: durationPluralMapping }}</div>
-        <div class="spots"
-            [class.last-few]="spotsLeft < 4">{{ spotsLeft }}/{{ totalSpots }} {{ spotsLeft | i18nPlural: spotsPluralMapping }}</div>
-    </div>
+    <ng-template #reservedMsg>
+        <div class="reserved spots">Reserved</div>
+    </ng-template>
 </div>

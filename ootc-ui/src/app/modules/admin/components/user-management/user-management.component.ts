@@ -1,12 +1,14 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatSort } from '@angular/material';
 import { MatTableDataSource } from '@angular/material/table';
-import { Users } from '../user-list/user-list.component';
-import { UserService } from 'src/app/services/user.service';
+import { tap } from 'rxjs/operators';
+import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
+import { LoadState } from 'src/app/constants/load-state.enum';
 import { User } from 'src/app/models/User';
-import { MatSort, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { LoadingService } from 'src/app/services/loading.service';
+import { UserService } from 'src/app/services/user.service';
+import { CreateUserDialogComponent } from '../create-user-dialog/create-user-dialog.component';
 import { UserUpdateDialogComponent } from '../user-update-dialog/user-update-dialog.component';
-import { CreateUserFormComponent } from 'src/app/modules/authentication/components/create-user-form/create-user-form.component'
-import { LoadingDialogComponent } from 'src/app/modules/shared/components/loading-dialog/loading-dialog.component';
 
 @Component({
   selector: 'app-user-management',
@@ -16,14 +18,15 @@ import { LoadingDialogComponent } from 'src/app/modules/shared/components/loadin
 export class UserManagementComponent implements OnInit {
 
   private users: User[];
-  private userdata : User;
+  private userdata: User;
   public displayedColumns: string[];
   public dataSource: MatTableDataSource<User>;
-  
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private userService: UserService,
-    public dialog : MatDialog) { }
+    private loadingService: LoadingService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.displayedColumns = ['email', 'fname', 'lname', 'phone', 'age', 'experience', 'isAdmin', 'updateUser'];
@@ -45,51 +48,39 @@ export class UserManagementComponent implements OnInit {
 
   /* This is for updateUser modal */
   private updateUser(userdata: User) {
-    let dialogRef;
-    let done = false;
-
     // set the admin value, this is a work around for now
     userdata.admin = userdata.isAdmin;
 
-    setTimeout(() => {
-      if (!done) {
-        dialogRef = this.dialog.open(LoadingDialogComponent, {
-          data: {
-            title: 'Updating',
-            text: 'Updating the user...'
-          }
-        });
+    const updateObs = this.userService.updateUser(userdata)
+      .pipe(tap(() => { this.getAllUsers(); }));
+
+    this.loadingService.callWithLoader(updateObs, [
+      { state: LoadState.Loading, title: 'Updating User', text: 'Updating user info ...' },
+      { state: LoadState.Complete, title: 'Updated User', text: 'User was updated with the provided info.' },
+      { state: LoadState.Error, title: 'Update User Error' }
+    ]);
+  }
+
+  onUpdateUser(user: User) {
+    this.dialog.open(UserUpdateDialogComponent, {
+      data: {
+        user: user
+      },
+      width: DIALOG_WIDTHS.UPDATE_USER
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.updateUser(result);
       }
-    }, 300);
-
-    this.userService.updateUser(userdata).subscribe(res => {
-      done = true;
-
-      // close the loading modal
-      if (dialogRef) {
-        dialogRef.close();
-      }
-
-      this.getAllUsers();
     });
   }
 
-  openDialog(user: User) {
-    const dialogRef = this.dialog.open(UserUpdateDialogComponent, {
-      data: {
-        user: user
-        }
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        if (result){
-          this.updateUser(result);
-        }
-      })
-  }
-
   onCreateUser() {
-    console.log('make a user here');
+    this.dialog.open(CreateUserDialogComponent, {
+      width: DIALOG_WIDTHS.CREATE_USER
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.getAllUsers();
+      }
+    });
   }
-
 }

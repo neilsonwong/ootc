@@ -11,35 +11,46 @@ const sql = {
             id INTEGER PRIMARY KEY,
             user INTEGER NOT NULL,
             timeSlot INTEGER NOT NULL,
-            attended BOOLEAN NOT NULL
+            attended BOOLEAN NOT NULL,
+            UNIQUE(user, timeSlot),
+            FOREIGN KEY(user) REFERENCES users(id),
+            FOREIGN KEY(timeSlot) REFERENCES timeSlots(id)
         )`,
 
     getReservationsByUserId:
-        `SELECT reservations.id, reservations.user, timeSlots.id as timeSlotId, timeSlots.startDate, timeSlots.startTime, timeSlots.duration, departments.name, timeSlots.desc
+        `SELECT reservations.id, reservations.user, timeSlots.id as timeSlotId, timeSlots.startDate, timeSlots.startTime, timeSlots.duration, departments.name AS department, timeSlots.desc
         FROM reservations
         INNER JOIN timeSlots ON reservations.timeSlot = timeSlots.id
         INNER JOIN departments ON departments.id = timeSlots.department
-        WHERE user = ?`,
+        WHERE user = ?
+        ORDER BY timeSlots.startDate, timeSlots.startTime`,
 
     getReservationsByTimeSlot:
-        `SELECT reservations.id, reservations.user, timeSlots.id as timeSlotId, timeSlots.startDate, timeSlots.startTime, timeSlots.duration, departments.name, timeSlots.desc
-        FROM reservations
-        INNER JOIN timeSlots ON reservations.timeSlot = timeSlots.id
-        INNER JOIN departments ON departments.id = timeSlots.department
+        `SELECT * FROM reservations
         WHERE timeSlot = ?`,
     
     getReservationsForUserOnDate:
-        `SELECT reservations.id, reservations.user, timeSlots.id as timeSlotId, timeSlots.startDate, timeSlots.startTime, timeSlots.duration, departments.name, timeSlots.desc
+        `SELECT reservations.id, reservations.user, timeSlots.id as timeSlotId, timeSlots.startDate, timeSlots.startTime, timeSlots.duration, departments.name AS department, timeSlots.desc
         FROM reservations
         INNER JOIN timeSlots ON reservations.timeSlot = timeSlots.id
         INNER JOIN departments ON departments.id = timeSlots.department
         WHERE 
             reservations.user = ? AND
-            timeSlots.startDate = ?`,
+            timeSlots.startDate = ?
+        ORDER BY timeSlots.startTime`,
 
     insertReservation: 
+        // `INSERT INTO reservations (user, timeSlot, attended)
+        // VALUES($user, $timeSlot, $attended)`,
         `INSERT INTO reservations (user, timeSlot, attended)
-        VALUES($user, $timeSlot, $attended)`,
+        VALUES(
+        $user, 
+        (select id from (
+            select timeSlots.id, timeSlots.signUpCap, count(reservations.id) 
+            AS reserved FROM timeSlots LEFT JOIN reservations on timeSlots.id = reservations.timeSlot
+            WHERE timeSlots.id = $timeSlot
+        ) WHERE reserved < signUpCap),
+        $attended)`,
     
     updateReservationAttendance:
         `UPDATE reservations 
@@ -68,7 +79,8 @@ class ReservationDbModule extends DbModule {
 
     async getReservationsByTimeSlot(timeSlotId) {
         const rows = await db.all(sql.getReservationsByTimeSlot, [timeSlotId]);
-        return rows.map(e => this.fixType(e, ReservationView));
+        // don't fix to ReservationView as most of it is duplicate data
+        return rows.map(e => this.fixType(e));
     }
 
     async insertReservation(reservation) {

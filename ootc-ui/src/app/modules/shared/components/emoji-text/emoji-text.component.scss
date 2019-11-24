@@ -1,4 +1,5 @@
 @import "~src/colours";
+@import "~src/screens";
 
 :host {
     width: 100%;
@@ -29,11 +30,21 @@
     }
 
     .emoji {
-        text-align: right;
         margin-top: 2rem;
-    }
-
-    .emoji {
         text-align: center;
+    }
+}
+
+.face-first {
+    .emoji {
+        margin-top: 0;
+        margin-bottom: 2rem;
+    }
+}
+
+@media only screen and (max-width: $max-mobile-width) {
+    .message {
+        padding-left: 0;
+        font-size: 1.25rem;
     }
 }

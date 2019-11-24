@@ -8,12 +8,18 @@ const validationService = require('../services/validationService');
 const emailService = require('../services/emailService');
 const authService = require('../services/authService');
 const User = require('../models/User');
+const apiReqValidator = require('../util/apiRequestValidator');
 
 const saltRounds = 10;
 
 async function register(user, password) {
     try {
-        const createdUser = await createUser(user);
+        const err = (apiReqValidator.validateUserCreation(user) || apiReqValidator.validatePassword(password));
+        if (err) {
+            throw err;
+        }
+
+        const createdUser = await _createUser(user);
         if (createdUser) {
             if (await setPassword(createdUser.id, password)) {
                 setupEmailValidation(createdUser.id);
@@ -22,7 +28,7 @@ async function register(user, password) {
         }
     }
     catch(e) {
-        logger.error(`an error occured when inserting user, email: ${user.email}`);
+        logger.error(`an error occured when registering user, email: ${user ? user.email : 'falsy user'}`);
         logger.error(e);
     }
     return null;
@@ -30,9 +36,21 @@ async function register(user, password) {
 
 async function setPassword(userId, password) {
     try {
-        const pwHash = await bcrypt.hash(password, saltRounds);
-        await db.passwords.insertPassword(userId, pwHash);
-        return pwHash;
+        const err = (apiReqValidator.validatePassword(password) || apiReqValidator.validateUserId(userId));
+        if (err) {
+            throw err;
+        }
+        
+        // check if user exists
+        const user = await db.users.getUser(userId);
+        if (user) {
+            const pwHash = await bcrypt.hash(password, saltRounds);
+            await db.passwords.insertPassword(userId, pwHash);
+            return pwHash;
+        }
+        else {
+            throw `cannot set password for non-existent user: ${userId}`;
+        }
     }
     catch(e) {
        logger.error('an error occurred when setting the password');
@@ -42,21 +60,35 @@ async function setPassword(userId, password) {
 }
 
 async function changePassword(userId, resetCode, oldPassword, newPassword) {
-    if (resetCode) {
-        const curResetCode = await db.passwords.getResetCode(userId);
-        if (resetCode === curResetCode) {
-            if (await updatePassword(userId, newPassword)) {
-                await db.passwords.updateResetCode(userId, null);
-                return true;
+    try {
+        const err = (apiReqValidator.validateUserId(userId) || apiReqValidator.validatePassword(newPassword));
+        if (err) {
+            throw err;
+        }
+
+        if (apiReqValidator.validateResetCode(resetCode) === null) {
+            const curResetCode = await db.passwords.getResetCode(userId);
+            if (resetCode === curResetCode) {
+                if (await updatePassword(userId, newPassword)) {
+                    await db.passwords.updateResetCode(userId, null);
+                    return true;
+                }
             }
+        }
+        else if (apiReqValidator.validatePassword(oldPassword) === null) {
+            if (await authService.isValidUser(userId, oldPassword)) {
+                if (await updatePassword(userId, newPassword)) {
+                    return true;
+                }
+            }
+        }
+        else {
+            throw 'neither a valid resetCode or old password was provided';
         }
     }
-    else if (oldPassword) {
-        if (await authService.isValidUser(userId, oldPassword)) {
-            if (await updatePassword(userId, newPassword)) {
-                return true;
-            }
-        }
+    catch(e) {
+       logger.error('an error occurred when changing the password');
+       logger.error(e);
     }
 
     return false;
@@ -64,6 +96,10 @@ async function changePassword(userId, resetCode, oldPassword, newPassword) {
 
 async function updatePassword(userId, password) {
     try {
+        const err = (apiReqValidator.validatePassword(password) || apiReqValidator.validateUserId(userId));
+        if (err) {
+            throw err;
+        }
         const pwHash = await bcrypt.hash(password, saltRounds);
         await db.passwords.updatePassword(userId, pwHash);
         return pwHash;
@@ -76,22 +112,38 @@ async function updatePassword(userId, password) {
 }
 
 async function resetPassword(userId) {
-    // if user exists, update the reset code then send an email
-    const user = await db.users.getUser(userId);
-    if (user) {
-        const resetCode = Math.random().toString(36).substring(2, 15);
-        await db.passwords.updateResetCode(userId, resetCode);
-        // send the reset password email
-        const resetLink = await authService.makeResetPasswordLink(userId, resetCode);
-        return await emailService.sendResetPasswordEmail(userId, user.fname, resetLink);
+    try {
+        const err = apiReqValidator.validateUserId(userId);
+        if (err) {
+            throw err;
+        }
+
+        // if user exists, update the reset code then send an email
+        const user = await db.users.getUser(userId);
+        if (user) {
+            const resetCode = Math.random().toString(36).substring(2, 15);
+            await db.passwords.updateResetCode(userId, resetCode);
+
+            // send the reset password email
+            const resetLink = await authService.makeResetPasswordLink(userId, resetCode);
+            return await emailService.sendResetPasswordEmail(userId, user.fname, resetLink);
+        }
+        else {
+            throw `the user: ${userId} does not exist`;
+        }
     }
+    catch(e) {
+       logger.error('an error occurred when resetting the password');
+       logger.error(e);
+    }
+    return null;
 }
 
 async function ban(user) {
     logger.error('BAN USER IS NOT YET IMPLEMENTED');
 }
 
-async function createUser(user) {
+async function _createUser(user) {
     // strip args in case user submitted them
     // NO CREATING ADMINS!! MAKE USERS THEN CHANGE PERMISSIONS
     user.admin = false;
@@ -106,7 +158,6 @@ async function createUser(user) {
     const insertedUser = await db.users.insertUser(user);
     if (insertedUser) {
         logger.verbose(`inserted user with email ${insertedUser.email} into db as id ${insertedUser.lastId}`);
-        return insertedUser;
     }
     else {
         logger.error(`was not able to insert user into db ${user.email}`);
@@ -114,7 +165,7 @@ async function createUser(user) {
     return insertedUser;
 }
 
-async function createAdmin(username, password) {
+async function _createAdmin(username, password) {
     try {
         const admin = new User(username, username, username, '', username, 777777777, 1, 99, '', 1, 1);
         const insertedAdmin = await db.users.insertUser(admin);
@@ -124,29 +175,61 @@ async function createAdmin(username, password) {
             return insertedAdmin;
         }
         else {
-            logger.error(`was not able to insert admin into db ${username}`);
+            throw `was not able to insert admin into db ${username}`;
         }
     }
     catch(e) {
         logger.error(`was not able to insert admin into db ${username}`);
         logger.error(e);
+        throw(e);
     }
 }
 
 async function isUserValidated(userId) {
-    return await validationService.isUserValidated(userId);
+    try {
+        const err = apiReqValidator.validateUserId(userId);
+        if (err) {
+            throw err;
+        }
+        return await validationService.isUserValidated(userId);
+    }
+    catch(e) {
+        logger.error(`was not able to check if validation is complete for user: ${userId}`);
+        logger.error(e);
+    }
 }
 
 async function validateUser(userId, validationCode) {
-    return await validationService.validateUser(userId, validationCode);
+    try {
+        const err = (apiReqValidator.validateUserId(userId) || apiReqValidator.validateValidationCode(validationCode));
+        if (err) {
+            throw err;
+        }
+        return await validationService.validateUser(userId, validationCode);
+    }
+    catch(e) {
+        logger.error(`was not able to validate user: ${userId}`);
+        logger.error(e);
+    }
 }
 
 async function setupEmailValidation(userId) {
-    const validationLink = validationService.makeValidationLink(userId, 
-        validationService.generateValidationCode(userId));
-    const user = await db.users.getUser(userId);
+    try {
+        const err = apiReqValidator.validateUserId(userId);
+        if (err) {
+            throw err;
+        }
 
-    return await emailService.sendValidationEmail(userId, user.fname, validationLink);
+        const validationLink = validationService.makeValidationLink(userId, 
+            validationService.generateValidationCode(userId));
+        const user = await db.users.getUser(userId);
+        
+        return await emailService.sendValidationEmail(userId, user.fname, validationLink);
+    }
+    catch(e) {
+        logger.error(`was not able to setup email validation for user: ${userId}`);
+        logger.error(e);
+    }
 }
 
 async function listUsers() {
@@ -163,6 +246,12 @@ async function listUsers() {
 
 async function updateUser(user) {
     try {
+        const err = apiReqValidator.validateUser(user);
+        if (err) {
+            throw err;
+        }
+
+        // update user doesn't update the admin status, will need to do that manually
         const dbUser = await db.users.getUser(user.id);
         const updatedUser = await db.users.updateUser(user);
 
@@ -181,6 +270,10 @@ async function updateUser(user) {
 
 async function getUser(userId) {
     try {
+        const err = apiReqValidator.validateUserId(userId);
+        if (err) {
+            throw err;
+        }
         const user = await db.users.getUser(userId);
         return user;
     }
@@ -193,6 +286,10 @@ async function getUser(userId) {
 
 async function isAdmin(userId) {
     try {
+        const err = apiReqValidator.validateUserId(userId);
+        if (err) {
+            throw err;
+        }
         const user = await db.users.getUser(userId);
         return user.admin;
     }
@@ -205,6 +302,10 @@ async function isAdmin(userId) {
 
 async function userExists(userId) {
     try {
+        const err = apiReqValidator.validateUserId(userId);
+        if (err) {
+            throw err;
+        }
         const user = await db.users.getUser(userId);
         return user.id !== undefined;
     }
@@ -226,7 +327,7 @@ async function setupDefaultUsers() {
                 // check if admin is set up
                 if (!(await isAdmin(admin.id))) {
                     // not an admin yet, make account
-                    if (await createAdmin(admin.id, admin.password)) {
+                    if (await _createAdmin(admin.id, admin.password)) {
                         logger.info(`created admin with username ${admin.id}`);
                     }
                 }
@@ -261,5 +362,6 @@ module.exports = {
     setupEmailValidation: setupEmailValidation,
     isAdmin: isAdmin,
     setupDefaultUsers: setupDefaultUsers,
-    getUser: getUser
+    getUser: getUser,
+    userExists: userExists,
 };

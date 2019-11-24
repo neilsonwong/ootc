@@ -1,14 +1,18 @@
 'use strict';
 
-const moment = require('moment');
 const logger = require('../logger');
 const db = require('../db/db');
-const { strToDate } = require('../util/dateUtil');
+const apiReqValidator = require('../util/apiRequestValidator');
 const REPEAT_INTERVAL = require('../classes/RepeatIntervalEnum');
 const TimeSlot = require('../models/TimeSlot');
+const moment = require('moment');
 
 async function getSchedule(year) {
     try {
+        const err = apiReqValidator.isValidYear(year);
+        if (err) {
+            throw err;
+        }
         return await db.timeSlotDefs.listTimeSlotDefsForYear(year);
     }
     catch(e) {
@@ -20,11 +24,14 @@ async function getSchedule(year) {
 
 async function addTimeSlotDef(timeSlotDef) {
     try {
+        const err = apiReqValidator.validateTimeSlotDefCreation(timeSlotDef);
+        if (err) {
+            throw err;
+        }
         return await db.timeSlotDefs.insertTimeSlotDef(timeSlotDef);
     }
     catch(e) {
-        logger.error(`there was an error inserting a timeSlotDef with id ${timeSlotDef.id}`);
-        logger.error(timeSlotDef);
+        logger.error(`there was an error inserting a timeSlotDef with id ${timeSlotDef}`);
         logger.error(e);
         return null;
     }
@@ -32,11 +39,14 @@ async function addTimeSlotDef(timeSlotDef) {
 
 async function deleteTimeSlotDef(timeSlotDefId) {
     try {
+        const err = apiReqValidator.validateTimeSlotDefId(timeSlotDefId);
+        if (err) {
+            throw err;
+        }
         return await db.timeSlotDefs.deleteTimeSlotDef(timeSlotDefId);
     }
     catch(e) {
         logger.error(`there was an error deleting timeSlotDef with id ${timeSlotDefId}`);
-        logger.error(timeSlotDefId);
         logger.error(e);
         return null;
     }
@@ -44,6 +54,10 @@ async function deleteTimeSlotDef(timeSlotDefId) {
 
 async function updateTimeSlotDef(timeSlotDef) {
     try {
+        const err = apiReqValidator.validateTimeSlotDef(timeSlotDef);
+        if (err) {
+            throw err;
+        }
         return await db.timeSlotDefs.updateTimeSlotDef(timeSlotDef);
     }
     catch(e) {
@@ -56,15 +70,14 @@ async function updateTimeSlotDef(timeSlotDef) {
 
 async function generateTimeSlots(timeSlotDef) {
     try {
-        // try to parse our start date
-        const startDate = strToDate(timeSlotDef.repeatStartDate);
-        if (startDate === null) {
-            throw 'Invalid date contained in time slot def';
+        const err = apiReqValidator.validateTimeSlotDefCreation(timeSlotDef);
+        if (err) {
+            throw err;
         }
 
         const timeSlotsToInsert = [];
         // now that we have our start date, we can operate on the date object!
-        let curDate = startDate;
+        let curDate = moment(timeSlotDef.repeatStartDate, 'YYYY-MM-DD');
         let daysGenerated = 0;
         const fnAdvanceDate = getAdvanceDateFunction(timeSlotDef.repeatInterval, timeSlotDef.repeatSkipEvery);
 
@@ -140,6 +153,10 @@ function getAdvanceDateFunction(interval, skipOption) {
 
 async function getTimeSlotsForDept(dept, start, end) {
     try {
+        const err = (apiReqValidator.validateDepartmentId(dept) || apiReqValidator.isValidYYYYMMDD(start) || apiReqValidator.isValidYYYYMMDD(end));
+        if (err) {
+            throw err;
+        }
         return await db.timeSlots.listTimeSlotsForDept(dept, start, end);
     }
     catch(e) {
@@ -151,6 +168,10 @@ async function getTimeSlotsForDept(dept, start, end) {
 
 async function getTimeSlotsByTimeRange(start, end) {
     try {
+        const err = (apiReqValidator.isValidYYYYMMDD(start) || apiReqValidator.isValidYYYYMMDD(end));
+        if (err) {
+            throw err;
+        }
         return await db.timeSlots.listTimeSlotsByRange(start, end);
     }
     catch(e) {
@@ -160,6 +181,52 @@ async function getTimeSlotsByTimeRange(start, end) {
     }
 }
 
+async function getReservationsForTimeSlot(timeSlotId) {
+    try {
+        const err = apiReqValidator.validateTimeSlotId(timeSlotId);
+        if (err) {
+            throw err;
+        }
+        return await db.reservations.getReservationsByTimeSlot(timeSlotId);
+    }
+    catch(e) {
+        logger.error(`there was an error getting all time slots`);
+        logger.error(e);
+        return null;
+    }
+}
+
+async function getTimeSlot(timeSlotId) {
+    try {
+        const err = apiReqValidator.validateTimeSlotId(timeSlotId);
+        if (err) {
+            throw err;
+        }
+        return await db.timeSlots.getTimeSlot(timeSlotId);
+    }
+    catch(e) {
+        logger.error(`there was an retrieving the time slot`);
+        logger.error(e);
+        return null;
+    }
+}
+
+async function updateTimeSlot(timeSlot) {
+    try {
+        const err = apiReqValidator.validateTimeSlot(timeSlot);
+        if (err) {
+            throw err;
+        }
+        return await db.timeSlots.updateTimeSlot(timeSlot);
+    }
+    catch(e) {
+        logger.error(`there was an updating error the time slot`);
+        logger.error(e);
+        return null;
+    }
+}
+
+
 module.exports = {
     getSchedule: getSchedule,
     addTimeSlotDef: addTimeSlotDef,
@@ -168,4 +235,7 @@ module.exports = {
     generateTimeSlots: generateTimeSlots,
     getTimeSlotsForDept: getTimeSlotsForDept,
     getTimeSlotsByTimeRange: getTimeSlotsByTimeRange,
+    getReservationsForTimeSlot: getReservationsForTimeSlot,
+    getTimeSlot: getTimeSlot,
+    updateTimeSlot: updateTimeSlot
 };

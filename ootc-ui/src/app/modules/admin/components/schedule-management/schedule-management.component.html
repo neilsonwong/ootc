@@ -1,3 +1,35 @@
 <app-container>
-    <p>schedule-management works!</p>
+    <h2>Schedule Management</h2>
+    <div class="management-box stand-alone-wide-box">
+        <div class="management-box-header">
+            <button mat-icon-button color="primary" (click)="goPreviousWeek()">
+                <mat-icon>navigate_before</mat-icon>
+            </button>
+            <div class="date-display">
+                <h3>{{ startDate | date:'EEE, MMMM d, y' }} - {{ endDate | date:'EEE, MMMM d, y' }}</h3>
+                <div class="calendar-container">
+                    <mat-form-field class="hidden">
+                        <input matInput [matDatepicker]="picker">
+                    </mat-form-field>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+            </div>
+            <button mat-icon-button color="primary" (click)="goNextWeek()">
+                <mat-icon>navigate_next</mat-icon>
+            </button>
+        </div>
+        <div class="management-box-body">
+            <div class="day-box"
+                *ngFor="let day of days">
+                <h4>{{ day | date:'fullDate' }}</h4>
+                <mat-accordion>
+                    <app-time-slot-details
+                        *ngFor="let timeSlot of groupedTimeSlots[day]"
+                        [event]="timeSlot">
+                    </app-time-slot-details>
+                </mat-accordion>
+            </div>
+        </div>
+    </div>
 </app-container>

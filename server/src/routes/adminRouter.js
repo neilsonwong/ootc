@@ -36,8 +36,11 @@ router.use(basicAuth({
  *             type: object
  *             required:
  *               - departmentName
+ *               - description
  *             properties:
  *               departmentName:
+ *                 type: string
+ *               description:
  *                 type: string
  *     responses:
  *       201:
@@ -72,12 +75,7 @@ router.post('/departments/add', async (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             required:
- *               - department
- *             properties:
- *               department:
- *                 type: string
+ *             $ref: '#/components/schemas/Department'
  *     responses:
  *       200:
  *         description: Updated Department
@@ -87,10 +85,10 @@ router.post('/departments/add', async (req, res) => {
  *         description: Unauthorized
  */
 router.post('/departments/update', async (req, res) => {
-	const department = req.body.department;
+	const department = req.body;
 	const updated = await departmentManager.updateDepartment(department);
 	return updated ? 
-		res.status(200).json({res: `updated department ${department}`}) :
+		res.status(200).json({res: `updated department ${department.name}`}) :
 		res.status(400).json({error: 'error updating department'});
 });
 
@@ -116,7 +114,7 @@ router.post('/departments/update', async (req, res) => {
  *         description: Unauthorized
  */
 router.get('/schedule', async (req, res) => {
-	const year = req.params.year || (new Date()).getFullYear();
+	const year = req.query.year || (new Date()).getFullYear();
 	const schedule = await scheduleManager.getSchedule(year);
 	return schedule ?
 		res.status(200).json(schedule) :
@@ -149,7 +147,7 @@ router.get('/schedule', async (req, res) => {
  *         description: Unauthorized
  */
 router.post('/schedule/add', async (req, res) => {
-	const timeSlotDef = req.body.timeSlotDef;
+	const timeSlotDef = req.body;
 	const addedTimeSlotDef = await scheduleManager.addTimeSlotDef(timeSlotDef);
 	return addedTimeSlotDef ?
 		res.status(201).json(addedTimeSlotDef) :
@@ -161,7 +159,7 @@ router.post('/schedule/add', async (req, res) => {
  *
  * /admin/schedule/remove:
  *   post:
- *     summary: Add a time slot definition 
+ *     summary: Remove a time slot definition 
  *     tags: 
  *       - admin
  *     consumes: application/json
@@ -221,7 +219,7 @@ router.post('/schedule/remove', async (req, res) => {
  *         description: Unauthorized
  */
 router.post('/schedule/update', async (req, res) => {
-	const timeSlotDef = req.body.timeSlotDef;
+	const timeSlotDef = req.body;
 	const result = scheduleManager.updateTimeSlotDef(timeSlotDef);
 	return result ?
 		res.status(200).json(timeSlotDef) :
@@ -254,7 +252,7 @@ router.post('/schedule/update', async (req, res) => {
  *         description: Unauthorized
  */
 router.post('/schedule/generate', async(req, res) => {
-	const timeSlotDef = req.body.timeSlotDef;
+	const timeSlotDef = req.body;
 	const generatedTimeSlots = await scheduleManager.generateTimeSlots(timeSlotDef);
 	return generatedTimeSlots ? 
 		res.status(201).json(generatedTimeSlots) :
@@ -287,7 +285,7 @@ router.post('/schedule/generate', async(req, res) => {
  *         description: Unauthorized
  */
 router.post('/reserve', async (req, res) => {
-	const reservation = req.body.reservation;
+	const reservation = req.body;
 	const added = await reservationManager.createReservation(reservation);
 	return added ?
 		res.status(201).json(added) :
@@ -419,6 +417,95 @@ router.get('/timeslots', async (req, res) => {
 	return timeSlots ?
 		res.status(200).json(timeSlots) :
 		res.status(400).json({error: `there was an error retrieving time slots`});
+});
+
+/**
+ * @swagger
+ *
+ * /admin/timeslot/update:
+ *   post:
+ *     summary: Update information for a particular timeslot.
+ *     tags:
+ *       - admin
+ *     consumes: application/json
+ *     produces: application/json
+ *     requestBody:
+ *       description: An Object containing the updated timeslot.
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TimeSlot'
+ *     responses:
+ *       200:
+ *         description: Updated TimeSlot Object
+ *       400:
+ *         description: Error updating db with provided timeslot object
+ *       401:
+ *         description: Unauthorized
+ */
+router.post('/timeslot/update', async (req, res) => {
+	const timeSlot = req.body;
+	const result = await scheduleManager.updateTimeSlot(timeSlot);
+	return result ?
+		res.status(200).json(timeSlot) :
+		res.status(400).json({ error: `could not update timeSlot with id ${timeSlot ? timeSlot.id : ''}` });
+});
+
+/**
+ * @swagger
+ *
+ * /admin/timeslot/reservations:
+ *   get:
+ *     summary: Get reservations for a particular time slot
+ *     tags: 
+ *       - admin 
+ *     produces: application/json
+ *     parameters:
+ *       - in: query
+ *         name: timeSlotId
+ *         description: timeSlotId
+ * 
+ *     responses:
+ *       200:
+ *         description: Array of reservations for the queried time slot
+ *       400:
+ *         description: Error retrieving reservations for the time slot
+ */
+router.get('/timeslot/reservations', async (req, res) => {
+	const timeSlotId = req.query.timeSlotId;
+	const reservations = await scheduleManager.getReservationsForTimeSlot(timeSlotId);
+	return reservations ?
+		res.status(200).json(reservations) :
+		res.status(400).json({error: `there was an error retrieving reservations for the time slot`});
+});
+
+/**
+ * @swagger
+ *
+ * /admin/timeslot/refresh:
+ *   get:
+ *     summary: Get a particular time slot via id
+ *     tags: 
+ *       - admin 
+ *     produces: application/json
+ *     parameters:
+ *       - in: query
+ *         name: timeSlotId
+ *         description: timeSlotId
+ * 
+ *     responses:
+ *       200:
+ *         description: Time slot for requested id
+ *       400:
+ *         description: Error retrieving the time slot
+ */
+router.get('/timeslot/refresh', async (req, res) => {
+	const timeSlotId = req.query.timeSlotId;
+	const reservations = await scheduleManager.getTimeSlot(timeSlotId);
+	return reservations ?
+		res.status(200).json(reservations) :
+		res.status(400).json({error: `there was an error retrieving the time slot`});
 });
 
 module.exports = router;

@@ -11,7 +11,7 @@ import { AdminModule } from 'src/app/modules/admin/admin.module';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { AuthenticationModule } from 'src/app/modules/authentication/authentication.module';
 
-import { BasicAuthInterceptor } from 'src/app/helpers/basic-auth.interceptor';
+import { BasicAuthInterceptor } from 'src/app/interceptors/basic-auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -19,16 +19,18 @@ import { BasicAuthInterceptor } from 'src/app/helpers/basic-auth.interceptor';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     SharedModule,
     HomeModule,
     ReservationModule,
     AdminModule,
     AuthenticationModule,
     HttpClientModule,
+    
+    // make sure app routing is last so the catch-all is imported last!!!
+    AppRoutingModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

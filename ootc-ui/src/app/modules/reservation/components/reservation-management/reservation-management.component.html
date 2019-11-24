@@ -1,5 +1,5 @@
 <app-container>
-    <h2>My Reservations</h2>
+    <h2>My Schedule</h2>
     <div class="reservation-list stand-alone-wide-box">
         <mat-list #reservationList
             [class.hidden]="reservations && reservations.length === 0">
@@ -12,14 +12,14 @@
                         [clear]="true">
                     </app-reservation-details>
                     <div class="button-bar">
-                        <button mat-raised-button color="warn" type="button" (click)="onCancel(reservation.id)">Cancel</button>
+                        <button mat-raised-button color="warn" type="button" (click)="onCancel(reservation)">Cancel</button>
                     </div>
                 </div>
             </mat-list-item>
         </mat-list>
         <div *ngIf="reservations === undefined || reservations.length === 0"
             class="no-reservations-desc">
-            <app-emoji-text text="You haven't signed up for anything yet!"></app-emoji-text>
+            <app-emoji-text>You haven't signed up for anything yet!</app-emoji-text>
         </div>
     </div>
 </app-container>

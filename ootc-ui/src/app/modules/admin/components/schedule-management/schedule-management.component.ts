@@ -1,38 +1,75 @@
-import { Component, OnInit } from '@angular/core';
-import { ScheduleService } from 'src/app/services/schedule.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDatepicker } from '@angular/material';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import * as moment from 'moment';
+import { GroupedEventList } from 'src/app/helpers/grouped-event-list';
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
-
-import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
+import { ScheduleService } from 'src/app/services/schedule.service';
+import * as dateUtils from 'src/app/utils/dateUtils';
 
 @Component({
   selector: 'app-schedule-management',
   templateUrl: './schedule-management.component.html',
   styleUrls: ['./schedule-management.component.scss']
 })
-export class ScheduleManagementComponent implements OnInit {
-  public schedule: TimeSlotView[];
+export class ScheduleManagementComponent extends GroupedEventList implements OnInit {
+  @ViewChild('picker', {static: true}) datePicker: MatDatepicker<Date>;
+
   public startDate: string;
   public endDate: string;
 
-  constructor(private scheduleService: ScheduleService) { }
+  public lastWeek: string;
+  public nextWeek: string;
+
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private scheduleService: ScheduleService) {
+    super();
+  }
 
   ngOnInit() {
-    const monthStart = new Date();
-    const monthEnd = new Date();
-    monthStart.setDate(1);
+    this.activatedRoute.queryParamMap.subscribe((params: ParamMap) => {
+      this.setupPage(params.get('start'));
+    });
+    this.datePicker._selectedChanged.subscribe((date: Date) => {
+      const datePickerDate = moment(date).format('YYYY-MM-DD');
+      this.router.navigate(['/', 'admin', 'schedule'], { queryParams: {start: datePickerDate}});
+    });
+  }
 
-    monthEnd.setMonth(monthEnd.getMonth()+1);
-    monthEnd.setDate(1);
+  setupPage(start: string) {
+    const candiDate = (start !== null && moment(start, 'YYYY-MM-DD').isValid()) ?
+      moment.utc(start, 'YYYY-MM-DD') :
+      dateUtils.nowOrStartOfSeason();
 
-    this.startDate = reservationDisplayUtils.dateToYYYYMMDD(monthStart);
-    this.endDate = reservationDisplayUtils.dateToYYYYMMDD(monthEnd);
+    // if it is a sunday/monday we want the prev week
+    // else current week
+
+    this.startDate = (candiDate.day() < 2) ?
+      candiDate.day(-5).format('YYYY-MM-DD') :
+      candiDate.day(2).format('YYYY-MM-DD');
+    this.endDate = moment(this.startDate).add(6, 'd').format('YYYY-MM-DD');
+
+    this.lastWeek = moment(this.startDate).subtract(7, 'd').format('YYYY-MM-DD');
+    this.nextWeek = moment(this.startDate).add(7, 'd').format('YYYY-MM-DD');
+
+    this.getSchedule();
   }
 
   getSchedule() {
-    this.scheduleService.getAllTimeSlots(this.startDate, this.endDate)
+    this.scheduleService.getAllTimeSlotsBetween(this.startDate, this.endDate)
       .subscribe((res: TimeSlotView[]) => {
-        this.schedule = res;
-        console.log(res);
+        this.allTimeSlots = res;
+        this.processSchedule();
       });
+  }
+
+  goPreviousWeek() {
+    this.router.navigate(['/', 'admin', 'schedule'], { queryParams: {start: this.lastWeek}});
+  }
+
+  goNextWeek() {
+    this.router.navigate(['/', 'admin', 'schedule'], { queryParams: {start: this.nextWeek}});
   }
 }

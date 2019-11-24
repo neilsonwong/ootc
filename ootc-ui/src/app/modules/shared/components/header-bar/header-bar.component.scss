@@ -1,4 +1,5 @@
 @import "~src/colours";
+@import "~src/screens";
 
 .header {
     height: 4rem;
@@ -53,18 +54,35 @@
                 margin-left: 1rem;
             }
         }
+    }
 
-        /* hide register button when logged in */
-        &.loggedIn {
-            .Register {
-                display: none;
-            }
+    .logo {
+        display: flex;
+        align-items: baseline;
+
+        .sub-title {
+            color: $very-light-text-colour;
+            font-size: 1.25em;
         }
     }
 }
 
-.header.big {
-    height: 10rem;
-
-    /* style the rest of the big header */
+.hidden {
+    display: none;
 }
+
+// @media only screen and (max-width: $max-mobile-width) {
+    .header {
+        .mobile-nav {
+            display: block;
+        }
+
+        .mobile-nav-hamburger {
+            color: $light-text-colour;
+        }
+
+        .navigation {
+            display: none;
+        }
+    }
+// }

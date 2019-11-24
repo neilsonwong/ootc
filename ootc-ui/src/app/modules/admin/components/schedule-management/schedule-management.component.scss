@@ -1,0 +1,17 @@
+.management-box-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.hidden {
+    width: 0px;
+}
+
+.date-display {
+    display: flex;
+    align-items: center;
+}
+
+.calendar-container {
+    padding-left: 0.5rem;
+}
