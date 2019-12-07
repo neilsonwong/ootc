@@ -54,9 +54,10 @@ const sql = {
         `SELECT * FROM users`,
     
     getUser:
-        `SELECT * FROM users WHERE id = $id`
+        `SELECT * FROM users WHERE id = $id`,
 
-    // ban users? delete users?
+    deleteUser:
+        `DELETE FROM users WHERE id = ?`
 };
 
 class UserDbModule extends DbModule {
@@ -94,6 +95,10 @@ class UserDbModule extends DbModule {
 
     async getUser(userId) {
         return this.fixType(await db.get(sql.getUser, [userId]));
+    }
+
+    async deleteUser(userId) {
+        return await db.run(sql.deleteUser, [userId]);
     }
 }
 

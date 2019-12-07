@@ -104,10 +104,32 @@ async function deleteReservation(reservationId) {
     }
 }
 
+async function deleteReservationsForUser(userId) {
+    try {
+        const err = apiReqValidator.validateUserId(userId);
+        if (err) {
+            throw err;
+        }
+
+        const reservations = await getReservationsForUser(userId);
+        const results = await Promise.all(reservations.map((reservation) => {
+            return db.reservations.deleteReservation(reservation.id);
+        }));
+        const lesResults = results.reduce((acc, cur) => (acc && cur), true);
+        return lesResults;
+    }
+    catch(e) {
+        logger.error(`there was an error deleting all reservations for user with id: ${userId}`);
+        logger.error(e);
+        return null;
+    }
+}
+
 module.exports = {
     createReservation: createReservation,
     cancelReservation: cancelReservation,
     getReservationsForUser: getReservationsForUser,
     updateAttendance: updateAttendance,
     deleteReservation: deleteReservation,
+    deleteReservationsForUser: deleteReservationsForUser,
 };

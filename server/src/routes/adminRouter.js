@@ -360,7 +360,7 @@ router.get('/users', async (req, res) => {
  * /admin/user/update:
  *   post:
  *     summary: Update information for a particular user.
- *     tags: 
+ *     tags:
  *       - admin
  *     consumes: application/json
  *     produces: application/json
@@ -385,6 +385,45 @@ router.post('/user/update', async (req, res) => {
 	return result ?
 		res.status(200).json(user) :
 		res.status(400).json({ error: `could not update user with email ${user.email}` });
+});
+
+/**
+ * @swagger
+ *
+ * /admin/user/delete:
+ *   post:
+ *     summary: Delete a particular user.
+ *     tags: 
+ *       - admin
+ *     consumes: application/json
+ *     produces: application/json
+ *     requestBody:
+ *       description: An Object containing the updated user.
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - userId
+ *             properties:
+ *               userId:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Deleted User
+ *       400:
+ *         description: Error deleting the user
+ *       401:
+ *         description: Unauthorized
+ */
+router.post('/user/delete', async (req, res) => {
+	const userId = req.body.userId;
+	const result = await accountManager.deleteUser(userId);
+	const result2 = await reservationManager.deleteReservationsForUser(userId);
+	return (result && result2) ?
+		res.status(200).json({ res: `deleted user with id ${userId}`}) :
+		res.status(400).json({ error: `could not delete user with id ${userId}`});
 });
 
 /**

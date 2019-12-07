@@ -316,6 +316,24 @@ async function userExists(userId) {
     return false;
 }
 
+async function deleteUser(userId) {
+    try {
+        const err = apiReqValidator.validateUserId(userId);
+        if (err) {
+            throw err;
+        }
+
+        const result1 = await db.users.deleteUser(userId);
+        const result2 = await db.passwords.deletePassword(userId);
+        return result1 && result2;
+    }
+    catch(e) {
+       logger.error(`an error occurred when deleting ${userId} from the db`);
+       logger.error(e);
+        return null;
+    }
+}
+
 async function setupDefaultUsers() {
     // check if we have an admin file
     if (config.DEFAULT_USERS_FILE) {
@@ -374,4 +392,5 @@ module.exports = {
     setupDefaultUsers: setupDefaultUsers,
     getUser: getUser,
     userExists: userExists,
+    deleteUser: deleteUser,
 };

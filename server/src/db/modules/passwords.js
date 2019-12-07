@@ -25,7 +25,10 @@ const sql = {
         `UPDATE passwords SET password = ? WHERE userId = ?`,
 
     updateResetCode:
-        `UPDATE passwords SET resetCode = ? WHERE userId = ?`
+        `UPDATE passwords SET resetCode = ? WHERE userId = ?`,
+ 
+    deletePassword:
+        `DELETE FROM passwords WHERE userId = ?`
 };
 
 class PasswordDbModule extends DbModule {
@@ -54,6 +57,10 @@ class PasswordDbModule extends DbModule {
 
     async updateResetCode(userId, resetCode) {
         return await db.run(sql.updateResetCode, [resetCode, userId]);
+    }
+
+    async deletePassword(userId) {
+        return await db.run(sql.deletePassword, [userId]);
     }
 }
 
