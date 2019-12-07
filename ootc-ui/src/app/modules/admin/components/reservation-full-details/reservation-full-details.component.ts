@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Reservation } from 'src/app/models/Reservation';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-reservation-full-details',
@@ -8,14 +9,17 @@ import { Reservation } from 'src/app/models/Reservation';
 })
 export class ReservationFullDetailsComponent implements OnInit {
   @Input() reservation: Reservation;
+  @Input() users: User[];
   @Output() reservationDeleteClicked = new EventEmitter<Reservation>();
 
-  public user: string;
+  public user: User;
 
   constructor() { }
 
   ngOnInit() {
-    this.user = this.reservation.user;
+    this.user = this.users.find((user) => {
+      return this.reservation.user === user.id;
+    });
   }
 
   deleteReservation() {

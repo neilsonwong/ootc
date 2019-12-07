@@ -20,6 +20,7 @@
             <app-reservation-full-details 
                 *ngFor="let reservation of reservations"
                 [reservation]="reservation"
+                [users]="userList"
                 (reservationDeleteClicked)="onDeleteReservation($event)">
             </app-reservation-full-details>
         </ng-container>

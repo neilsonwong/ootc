@@ -23,7 +23,7 @@ import { Department } from 'src/app/models/Department';
 export class TimeSlotDetailsComponent extends EventDetails implements OnInit {
 
   private timeSlot: TimeSlotView;
-  private userList: User[];
+  public userList: User[];
   private departments: Department[];
   public reservations: Reservation[];
 
