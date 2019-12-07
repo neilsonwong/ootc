@@ -5,6 +5,7 @@ import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/User';
 import { ErrorService } from './error.service';
+import { map200toTrue, errorsAreFalse } from '../utils/httpUtil';
 
 const API_URL = environment.API_URL;
 
@@ -60,6 +61,11 @@ export class UserService {
         this.errorService.add(`We couldn't update the user at this time! Please try again later.`);
         return throwError(error);
       }));
+  }
 
+  deleteUser(userId: string): Observable<boolean> {
+    const url = `${API_URL}/admin/user/delete`;
+    return this.http.post(url, {userId: userId}, { observe: 'response' })
+      .pipe(map200toTrue(), errorsAreFalse());
   }
 }

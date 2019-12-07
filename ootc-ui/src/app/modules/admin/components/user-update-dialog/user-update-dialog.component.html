@@ -24,5 +24,7 @@
   <mat-dialog-actions align="center">
       <button mat-raised-button color="warn" type="button" [mat-dialog-close]="false">Cancel</button>
       <button mat-raised-button color="primary" type="submit" cdkFocusInitial>Update</button>
+      <button *ngIf="user.isAdmin === false"
+        mat-raised-button color="accent" type="button" (click)="onDelete()">Delete</button>
   </mat-dialog-actions>
 </form>

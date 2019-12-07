@@ -35,7 +35,7 @@ function validateUserCreation(user) {
 
 function validateUser(user) {
     const valid = (user &&
-        _isZeroOrGreater(user.id) &&
+        _isNonEmptyString(user.id) &&
         _isNonEmptyString(user.email) &&
         _isNonEmptyString(user.fname) &&
         _isString(user.mname) &&

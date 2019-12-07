@@ -68,8 +68,11 @@ export class UserManagementComponent implements OnInit {
       },
       width: DIALOG_WIDTHS.UPDATE_USER
     }).afterClosed().subscribe(result => {
-      if (result) {
+      if (result && !result.delete) {
         this.updateUser(result);
+      }
+      else if (result.delete) {
+        this.deleteUser(result.delete);
       }
     });
   }
@@ -82,5 +85,16 @@ export class UserManagementComponent implements OnInit {
         this.getAllUsers();
       }
     });
+  }
+
+  deleteUser(user: string) {
+    const deleteObs = this.userService.deleteUser(user)
+      .pipe(tap(() => { this.getAllUsers(); }));
+
+    this.loadingService.callWithLoader(deleteObs, [
+      { state: LoadState.Loading, title: 'Deleting User', text: 'Deleting user...' },
+      { state: LoadState.Complete, title: 'Deleted User', text: `${user} was deleted.` },
+      { state: LoadState.Error, title: 'Delete User Error' }
+    ]);
   }
 }

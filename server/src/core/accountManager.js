@@ -262,7 +262,7 @@ async function updateUser(user) {
         return user;
     }
     catch(e) {
-       logger.error(`an error occurred when retrieving ${userId} from the db`);
+       logger.error(`an error occurred when updating ${user.id} from the db`);
        logger.error(e);
     }
     return false;

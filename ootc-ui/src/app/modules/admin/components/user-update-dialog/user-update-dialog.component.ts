@@ -1,8 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { User } from 'src/app/models/User';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
+import { ConfirmationDialogComponent } from 'src/app/modules/shared/components/confirmation-dialog/confirmation-dialog.component';
+import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
 
 @Component({
   selector: 'app-user-update-dialog',
@@ -15,7 +17,9 @@ export class UserUpdateDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<UserUpdateDialogComponent>,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    private userService: UserService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.user = this.data.user;
@@ -47,5 +51,26 @@ export class UserUpdateDialogComponent implements OnInit {
       this.user.isAdmin = this.editUser.get('isAdmin').value;
     }
     this.dialogRef.close(this.user);
+  }
+
+  onDelete() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'Delete User',
+        text: `Are you sure you want to delete the user: ${this.user.email}?`,
+        yesNo: true
+      },
+      width: DIALOG_WIDTHS.CONFIRMATION
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.deleteUser(this.user.email);
+      }
+    });
+  }
+
+  deleteUser(user: string) {
+    this.dialogRef.close({'delete': user});
   }
 }
