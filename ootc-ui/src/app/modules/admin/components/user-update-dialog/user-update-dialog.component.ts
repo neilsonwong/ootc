@@ -13,7 +13,7 @@ import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
 })
 export class UserUpdateDialogComponent implements OnInit {
   public editUser: FormGroup;
-  private user: User;
+  public user: User;
 
   constructor(private dialogRef: MatDialogRef<UserUpdateDialogComponent>,
     private fb: FormBuilder,

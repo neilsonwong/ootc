@@ -16,7 +16,7 @@ import { ScheduleService } from 'src/app/services/schedule.service';
 export class UpdateTimeslotDialogComponent implements OnInit {
   public editTimeSlotForm: FormGroup;
   private originalTimeSlot: TimeSlotView;
-  private departments: Department[];
+  public departments: Department[];
 
   constructor(private scheduleService: ScheduleService,
     private dialogRef: MatDialogRef<UpdateTimeslotDialogComponent>,

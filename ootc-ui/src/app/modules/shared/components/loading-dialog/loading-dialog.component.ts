@@ -12,6 +12,7 @@ export class LoadingDialogComponent implements OnInit {
   public title: string;
   public text: string;
   public state: LoadState;
+  public readonly sadFace: string = `(๑◕︵◕๑)`;
 
   public get states() { return LoadState; }
 
