@@ -31,7 +31,7 @@ function devFormat() {
   const format = (info => {
     if (info instanceof Error || 
       (info.level === 'error' && info.message === undefined)) {
-      console.log(info);
+      console.error(info);
       return formatError(info);
     }
     return formatMessage(info);
