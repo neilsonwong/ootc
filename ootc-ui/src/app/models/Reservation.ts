@@ -2,17 +2,17 @@ export class Reservation {
     id: number;
     user: string;
     timeSlot: number;
-    isAttended: boolean;
+    attended: number;
 
     constructor (
         id: number,
         user: string,
         timeSlot: number,
-        isAttended: boolean
+        attended: number 
     ) {
         this.id = id;
         this.user = user;
         this.timeSlot = timeSlot;
-        this.isAttended = isAttended;
+        this.attended = attended;
     }
 }

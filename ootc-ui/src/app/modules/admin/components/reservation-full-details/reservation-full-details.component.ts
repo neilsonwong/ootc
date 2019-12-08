@@ -13,6 +13,7 @@ export class ReservationFullDetailsComponent implements OnInit {
   @Output() reservationDeleteClicked = new EventEmitter<Reservation>();
 
   public user: User;
+  public attended: boolean;
 
   constructor() { }
 
@@ -20,6 +21,7 @@ export class ReservationFullDetailsComponent implements OnInit {
     this.user = this.users.find((user) => {
       return this.reservation.user === user.id;
     });
+    this.attended = this.reservation.attended === 1;
   }
 
   deleteReservation() {

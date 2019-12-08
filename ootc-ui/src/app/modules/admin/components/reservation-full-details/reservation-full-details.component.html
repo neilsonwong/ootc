@@ -1,6 +1,7 @@
 <mat-chip
     [removable]="true"
-    (removed)="deleteReservation()">
+    (removed)="deleteReservation()"
+    [class.attended]="attended">
     {{ user.fname }} {{ user.lname }} - {{ user.email}}
-    <mat-icon matChipRemove>cancel</mat-icon>
+    <mat-icon *ngIf="!attended" matChipRemove>cancel</mat-icon>
 </mat-chip>
