@@ -9,10 +9,10 @@ const reservationManager = require('../core/reservationManager');
 const router = express.Router();
 
 // add user authentication
-router.use(basicAuth({
-	authorizer: authService.isValidAdminWithCb,
-	authorizeAsync: true,
-}));
+// router.use(basicAuth({
+// 	authorizer: authService.isValidAdminWithCb,
+// 	authorizeAsync: true,
+// }));
 
 /**
  * @swagger

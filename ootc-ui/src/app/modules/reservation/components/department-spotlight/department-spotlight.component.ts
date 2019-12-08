@@ -33,9 +33,6 @@ export class DepartmentSpotlightComponent implements OnInit, OnChanges {
       this.selectedIndex = found;
       this.deptSelected.emit(this.departments[this.selectedIndex]);
     }
-    else {
-      console.log('could not select department with id ' + departmentId);
-    }
   }
 
   onBack() {

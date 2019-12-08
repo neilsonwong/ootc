@@ -30,26 +30,52 @@ export class AuthenticationService {
 
     if (username && username.length > 0 &&
       password && password.length > 0) {
-        return this.http.post<number>(url, cred)
-          .pipe(
-            map((response: any) => {
-              const authContext = new UserAuthContext(username, password, response.securityClearance, response.name);
-              sessionStorage.setItem('currentUser', JSON.stringify(authContext));
+      return this.http.post<any>(url, cred)
+        .pipe(
+          map((response: any) => {
+            const authContext = new UserAuthContext(username, response.token, response.securityClearance, response.name);
+            sessionStorage.setItem('currentUser', JSON.stringify(authContext));
 
-              // emit for subject
-              this.authContextEmitter.next(authContext);
-              return null;
-            }),
-            catchError((error: any) => {
-              if (error.status === 401) {
-                return of('Invalid Login Credentials');
-              } else  if (error.status === 400) {
-                return of('Email is missing or unvalidated.');
-              }
-            })
-          )
+            // emit for subject
+            this.authContextEmitter.next(authContext);
+
+            // refresh token 30 seconds before expiry
+            const expiryTime = response.expiry - Date.now();
+            setTimeout(() => { this.refresh(authContext) }, expiryTime - 30000);
+            return null;
+          }),
+          catchError((error: any) => {
+            if (error.status === 401) {
+              return of('Invalid Login Credentials');
+            } else if (error.status === 400) {
+              return of('Email is missing or unvalidated.');
+            }
+          })
+        )
     }
     return of('Invalid login parameters');
+  }
+
+  refresh(authContext: UserAuthContext): void {
+    const url = `${API_URL}/refresh`;
+    this.http.post<any>(url, {}).pipe(
+      map((response: any) => {
+        if (response && response.token && response.expiry) {
+          authContext.token = response.token;
+          sessionStorage.setItem('currentUser', JSON.stringify(authContext));
+
+          // emit for subject
+          this.authContextEmitter.next(authContext);
+
+          // refresh token 30 seconds before expiry
+          const expiryTime = response.expiry - Date.now();
+          setTimeout(() => { this.refresh(authContext) }, expiryTime - 30000);
+        }
+      }),
+      catchError((error: any) => {
+        return of('Unable to refresh auth token');
+      })
+    ).subscribe();
   }
 
   logout(): void {
@@ -60,7 +86,7 @@ export class AuthenticationService {
 
   validateEmail(userId: string, validationCode: number): Observable<boolean> {
     const url = `${API_URL}/validateEmail`;
-    const cred = new EmailValidationCredentials(userId, validationCode, );
+    const cred = new EmailValidationCredentials(userId, validationCode);
     return this.http.post(url, cred, { observe: 'response' })
       .pipe(map200toTrue(), errorsAreFalse());
   }
@@ -74,9 +100,9 @@ export class AuthenticationService {
   getAuthContext(): UserAuthContext {
     try {
       const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-      return <UserAuthContext> currentUser;
+      return <UserAuthContext>currentUser;
     }
-    catch(e) {
+    catch (e) {
       return ({} as UserAuthContext);
     }
   }

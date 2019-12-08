@@ -13,14 +13,16 @@ export class BasicAuthInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // add authorization header with basic auth credentials if available
-        const authContext: UserAuthContext = this.auth.getAuthContext();
-        if (authContext) {
-            request = request.clone({
-                setHeaders: { 
-                    Authorization: `Basic ${authContext.authdata}`
-                }
-            });
-        }
+
+        // RETIRED
+        // const authContext: UserAuthContext = this.auth.getAuthContext();
+        // if (authContext) {
+        //     request = request.clone({
+        //         setHeaders: { 
+        //             Authorization: `Basic ${authContext.authdata}`
+        //         }
+        //     });
+        // }
 
         return next.handle(request);
     }

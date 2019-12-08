@@ -5,6 +5,10 @@
 	"BACKUP_FOLDER": "./backups",
 	"DEFAULT_USERS_FILE": "./default_users",
 	"SWAGGER_HOST": "localhost:8000",
+	"JWT": {
+		"SECRET": "VERY_SECRET",
+		"EXPIRY_TIME": 10
+	},
 	"EMAIL": {
 		"MAX_CONCURRENT": 10,
 		"MASTER": "me@mail.com"

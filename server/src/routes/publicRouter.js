@@ -43,7 +43,7 @@ router.post('/register', async (req, res) => {
     if (user && password) {
         // check if user exists
         if (await accountManager.userExists(user.email)) {
-            return res.status(409).json({error: 'A User has already been registered with this email'});
+            return res.status(409).json({ error: 'A User has already been registered with this email' });
         }
 
         const registeredUser = await accountManager.register(user, password);
@@ -52,7 +52,7 @@ router.post('/register', async (req, res) => {
             return res.status(201).json(registeredUser);
         }
     }
-    return res.status(400).json({error: 'Unable to register user with data provided'});
+    return res.status(400).json({ error: 'Unable to register user with data provided' });
 });
 
 /**
@@ -88,19 +88,35 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     const userId = req.body.userId;
     const password = req.body.password;
-    
+
     if (await accountManager.isUserValidated(userId)) {
         // check password
-        if (await (authService.isValidUser(userId, password))) {
+        const token = await (authService.authenticate(userId, password));
+        if (token !== undefined) {
             const user = await accountManager.getUser(userId);
             return res.status(200).send({
                 name: user.fname,
-                securityClearance: (user.admin) ? 2 : 1
+                securityClearance: (user.admin) ? 2 : 1,
+                token: token.token,
+                expiry: token.expiry
             });
         }
-        return res.status(401).json({ error: 'Invalid login credentials'});
+        return res.status(401).json({ error: 'Invalid login credentials' });
     }
-	return res.status(400).json({ error: 'user has not validated their email'});
+    return res.status(400).json({ error: 'user has not validated their email' });
+});
+
+// no swagger for this one
+router.post('/refresh', async (req, res) => {
+    const userId = req.user.sub;
+    const oldToken = (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') ?
+        req.headers.authorization.split(' ')[1] : '';
+    const token = await (authService.refresh(userId, oldToken));
+
+    if (token !== undefined) {
+        return res.status(200).send(token);
+    }
+    return res.status(401).json({ error: 'Unable to refresh token' });
 });
 
 /**
@@ -129,15 +145,15 @@ router.post('/login', async (req, res) => {
  *       200:
  *         description: Validation code was resent
  */
-router.post('/resendValidation', async(req, res) => {
+router.post('/resendValidation', async (req, res) => {
     const userId = req.body.userId;
-    
+
     if (await accountManager.isUserValidated(userId)) {
-        res.status(400).json({error: 'email already validated'});
+        res.status(400).json({ error: 'email already validated' });
     }
     else {
         await accountManager.setupEmailValidation(userId);
-        res.status(200).json({res: 'validation code has been sent'})
+        res.status(200).json({ res: 'validation code has been sent' })
     }
 });
 
@@ -174,10 +190,10 @@ router.post('/validateEmail', async (req, res) => {
     const validationCode = req.body.validationCode;
 
     if (await accountManager.validateUser(userId, validationCode)) {
-        res.status(200).send({res: `validated ${userId}`});
+        res.status(200).send({ res: `validated ${userId}` });
     }
     else {
-        return res.status(400).send({error: 'Invalid validation code'});
+        return res.status(400).send({ error: 'Invalid validation code' });
     }
 });
 
@@ -205,11 +221,11 @@ router.post('/validateEmail', async (req, res) => {
  *       200:
  *         description: If email is valid, a reset password email was sent
  */
-router.post('/resetPassword', async(req, res) => {
+router.post('/resetPassword', async (req, res) => {
     const userId = req.body.userId;
     accountManager.resetPassword(userId);
     return res.status(200).json(
-        {res: 'reset password email sent if account exists'});
+        { res: 'reset password email sent if account exists' });
 });
 
 /**
@@ -247,18 +263,27 @@ router.post('/resetPassword', async(req, res) => {
  *       400:
  *         description: Error changing the password
  */
-router.post('/changePassword', async(req, res) => {
+router.post('/changePassword', async (req, res) => {
     const userId = req.body.userId;
     const resetCode = req.body.resetCode;
     const oldPassword = req.body.oldPassword;
     const newPassword = req.body.newPassword;
-    
+
     const pwChanged = await accountManager.changePassword(
         userId, resetCode, oldPassword, newPassword);
 
     return pwChanged ?
-        res.status(200).json({res: 'password was updated'}) :
-        res.status(400).json({err: 'unable to update password'});
+        res.status(200).json({ res: 'password was updated' }) :
+        res.status(400).json({ err: 'unable to update password' });
 });
+
+router.fullPaths = [
+    '/api/v1/register',
+    '/api/v1/login',
+    '/api/v1/resendValidation',
+    '/api/v1/validateEmail',
+    '/api/v1/resetPassword',
+    '/api/v1/changePassword'
+];
 
 module.exports = router;

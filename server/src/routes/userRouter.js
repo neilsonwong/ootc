@@ -12,10 +12,10 @@ const scheduleManager = require('../core/scheduleManager');
 const router = express.Router();
 
 // add user authentication
-router.use(basicAuth({
-	authorizer: authService.isValidUserWithCb,
-	authorizeAsync: true,
-}));
+// router.use(basicAuth({
+// 	authorizer: authService.isValidUserWithCb,
+// 	authorizeAsync: true,
+// }));
 
 /**
  * @swagger
@@ -71,7 +71,7 @@ router.get('/departments', async (req, res) => {
  */
 router.post('/reservations/add', async (req, res) => {
 	const reservation = req.body.reservation;
-	const userId = req.auth.user;
+	const userId = req.user.sub;
 	if (reservation.user === userId) {
 		const added = await reservationManager.createReservation(reservation);
 		return added ?
@@ -113,7 +113,7 @@ router.post('/reservations/add', async (req, res) => {
  *         description: Error cancelling reservation
  */
 router.post('/reservations/cancel', async (req, res) => {
-	const userId = req.auth.user;
+	const userId = req.user.sub;
 	const reservationId = req.body.reservationId;
 	const canceled = await reservationManager.cancelReservation(reservationId, userId)
 	return canceled ?
@@ -142,7 +142,7 @@ router.post('/reservations/cancel', async (req, res) => {
  */
 router.get('/reservations', async (req, res) => {
 	// get reservations for user id
-	const userId = req.auth.user;
+	const userId = req.user.sub;
 	const reservations = await reservationManager.getReservationsForUser(userId);
 	return reservations ?
 		res.status(200).json(reservations) :
