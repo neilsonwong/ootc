@@ -1,0 +1,35 @@
+@import "~src/colours";
+
+.attendance-box-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.hidden {
+    width: 0px;
+}
+
+.date-display {
+    display: flex;
+    align-items: center;
+}
+
+.calendar-container {
+    padding-left: 0.5rem;
+}
+
+.check-in-error {
+    color: $warn;
+}
+
+.button-bar {
+    margin: auto;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+
+    button {
+        margin: 0 1rem;
+        min-width: 10rem;
+    }
+}

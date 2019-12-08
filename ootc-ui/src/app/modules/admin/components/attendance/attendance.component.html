@@ -1,14 +1,40 @@
 <app-container>
     <h2>Attendance</h2>
     <div class="attendance-container stand-alone-wide-box">
-        <h3 class="attendance-table-title">{{ date | date:'fullDate' }}</h3>
+        <div class="attendance-box-header">
+            <button mat-icon-button color="primary" (click)="goPrevious()">
+                <mat-icon>navigate_before</mat-icon>
+            </button>
+            <div class="date-display">
+                <h3>{{ date | date:'EEE, MMMM d, y' }}</h3>
+                <div class="calendar-container">
+                    <mat-form-field class="hidden">
+                        <input matInput [matDatepicker]="picker">
+                    </mat-form-field>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+            </div>
+            <button mat-icon-button color="primary" (click)="goNext()">
+                <mat-icon>navigate_next</mat-icon>
+            </button>
+        </div>
         <ng-container *ngIf="!userFound; else thanks">
             <p>Enter the email of the user</p>
-            <form class="attendance-form" [formGroup]="userIdentifyForm" (ngSubmit)="userCheckIn()">
+            <form class="attendance-form" [formGroup]="attendanceForm" (ngSubmit)="userCheckIn()">
                 <mat-form-field>
-                    <input matInput type="email" placeholder="Email" formControlName="email">
+                    <input matInput type="email" placeholder="Email" formControlName="email" required>
                 </mat-form-field>
-                <button mat-raised-button color="primary" type="submit">Check-in</button>
+                <div *ngIf="checkInError" class="check-in-error">
+                    <p>
+                        Unable to check in with the provided email, please double check that you have entered your email correctly.
+                    </p>
+                </div>
+
+                <div class="button-bar">
+                    <button mat-raised-button color="accent" type="button" (click)="clearForm()">Clear</button>
+                    <button mat-raised-button color="primary" type="submit" [disabled]="!attendanceForm.valid">Check-in</button>
+                </div>
             </form>
         </ng-container>
         <ng-template #thanks>
