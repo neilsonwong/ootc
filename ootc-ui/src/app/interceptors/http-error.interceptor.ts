@@ -3,17 +3,18 @@ import { HttpErrorResponse, HttpInterceptor, HttpRequest, HttpHandler, HttpEvent
 import { throwError, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ErrorService } from '../services/error.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
-    constructor(private errorService: ErrorService) { }
+    constructor(private authService: AuthenticationService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const ignoredErrors: string[] = request.headers.getAll('x-suppressed-errors');
-
         return next.handle(request).pipe(catchError((error: HttpErrorResponse) => {
-            if ((ignoredErrors === null) || (ignoredErrors.indexOf('' + error.status) === -1)) {
-                this.errorService.add(error.error);
+            if (error.status === 401) {
+                // auto logout if 401 response returned from api
+                this.authService.logout();
+                location.reload(true);
             }
             return throwError(error);
         }));

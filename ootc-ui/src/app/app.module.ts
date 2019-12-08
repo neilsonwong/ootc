@@ -12,6 +12,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { AuthenticationModule } from 'src/app/modules/authentication/authentication.module';
 
 import { BasicAuthInterceptor } from 'src/app/interceptors/basic-auth.interceptor';
+import { HttpErrorInterceptor } from 'src/app/interceptors/http-error.interceptor';
 import { JwtInterceptor } from 'src/app/interceptors/jwt.interceptor';
 
 @NgModule({
@@ -32,6 +33,7 @@ import { JwtInterceptor } from 'src/app/interceptors/jwt.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

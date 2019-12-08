@@ -122,8 +122,8 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
             const reservation = new Reservation(undefined, this.userId, timeSlot.id, 0);
             return this.reservationService.addReservation(reservation)
               .pipe(
-                map((val) => (`- SUCCESS: **${timeSlot.desc}** on **${timeSlot.startDate}** **${timeSlot.startTime}**`)),
-                catchError((err) => of(`- FAILED: **${timeSlot.desc}** on **${timeSlot.startDate}** **${timeSlot.startTime}**`))
+                map((val) => (`SUCCESS: **${timeSlot.desc}** on **${timeSlot.startDate}** **${reservationDisplayUtils.to12HourClock(timeSlot.startTime)}**  `)),
+                catchError((err) => of(`FAILED: **${timeSlot.desc}** on **${timeSlot.startDate}** **${reservationDisplayUtils.to12HourClock(timeSlot.startTime)}**  `))
               );
           });
 
