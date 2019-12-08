@@ -27,26 +27,29 @@
         </ng-container>
     </div>
     -->
-    <div class="mobile-nav">
-        <button mat-icon-button class="mobile-nav-hamburger" [matMenuTriggerFor]="menu">
-            <mat-icon>menu</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-            <ng-container *ngFor="let securityLevel of securityLevels">
-                <ng-container *ngIf="securityClearance >= securityLevel">
-                    <button *ngFor="let link of navLinks[securityLevel]"
-                        mat-menu-item
-                        [routerLink]="[link.url]"
-                        [class.hidden]="link.class.hidden">
-                        <mat-icon>{{ link.icon }}</mat-icon>
-                        <span>{{ link.text | uppercase }}</span>
-                    </button>
-                </ng-container>
-            </ng-container>
-            <button *ngIf="securityClearance > 0" mat-menu-item (click)="logout()">
-                <mat-icon>exit_to_app</mat-icon>
-                <span>LOG OUT</span>
+    <div class="right-side">
+        <div *ngIf="securityClearance > 0 && name !== undefined" class="logged-in-indicator">
+            Signed in as &nbsp;<span class="username">{{ name }}</span>
+        </div>
+        <div class="mobile-nav">
+            <button mat-icon-button class="mobile-nav-hamburger" [matMenuTriggerFor]="menu">
+                <mat-icon>menu</mat-icon>
             </button>
-        </mat-menu>
+            <mat-menu #menu="matMenu">
+                <ng-container *ngFor="let securityLevel of securityLevels">
+                    <ng-container *ngIf="securityClearance >= securityLevel">
+                        <button *ngFor="let link of navLinks[securityLevel]" mat-menu-item [routerLink]="[link.url]"
+                            [class.hidden]="link.class.hidden">
+                            <mat-icon>{{ link.icon }}</mat-icon>
+                            <span>{{ link.text | uppercase }}</span>
+                        </button>
+                    </ng-container>
+                </ng-container>
+                <button *ngIf="securityClearance > 0" mat-menu-item (click)="logout()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>LOG OUT</span>
+                </button>
+            </mat-menu>
+        </div>
     </div>
 </div>

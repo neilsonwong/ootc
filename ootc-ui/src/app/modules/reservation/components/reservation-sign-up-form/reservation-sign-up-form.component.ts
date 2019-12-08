@@ -119,7 +119,7 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
         if (reservationsChanged === false) {
           const newReservationsReqs = this.timeSlots.selectedOptions.selected.map(o => {
             const timeSlot: TimeSlotView = <TimeSlotView>o.value;
-            const reservation = new Reservation(undefined, this.userId, timeSlot.id, false);
+            const reservation = new Reservation(undefined, this.userId, timeSlot.id, 0);
             return this.reservationService.addReservation(reservation)
               .pipe(
                 map((val) => (`- SUCCESS: **${timeSlot.desc}** on **${timeSlot.startDate}** **${timeSlot.startTime}**`)),

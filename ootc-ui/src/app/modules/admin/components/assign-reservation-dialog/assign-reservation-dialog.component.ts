@@ -52,7 +52,7 @@ export class AssignReservationDialogComponent extends EventDetails implements On
     const reservation = new Reservation(undefined,
       this.assignReservationForm.get('user').value,
       this.timeSlot.id,
-      false);
+      0);
 
     this.dialogRef.close(reservation);
   }

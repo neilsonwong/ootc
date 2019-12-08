@@ -10,7 +10,24 @@
     justify-content: space-between;
 
     background-color: $primary;
+
+    .right-side {
+        display: flex;
+        align-items: center;
+    }
     
+    .logged-in-indicator {
+        font-size: 0.8rem;
+        color: $very-light-text-colour;
+        padding-right: 1rem;
+
+        .username {
+            font-size: 1rem;
+            font-weight: 600;
+            color: $light-text-colour;
+        }
+    }
+
     .title {
         color: $light-text-colour;
     }
@@ -72,17 +89,23 @@
 }
 
 // @media only screen and (max-width: $max-mobile-width) {
-    .header {
-        .mobile-nav {
-            display: block;
-        }
-
-        .mobile-nav-hamburger {
-            color: $light-text-colour;
-        }
-
-        .navigation {
-            display: none;
-        }
+.header {
+    .mobile-nav {
+        display: block;
     }
+
+    .mobile-nav-hamburger {
+        color: $light-text-colour;
+    }
+
+    .navigation {
+        display: none;
+    }
+}
 // }
+
+@media only screen and (max-width: $max-mobile-width) {
+    .logged-in-indicator {
+        display: none;
+    }
+}

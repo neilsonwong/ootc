@@ -2,6 +2,8 @@
     [removable]="true"
     (removed)="deleteReservation()"
     [class.attended]="attended">
-    {{ user.fname }} {{ user.lname }} - {{ user.email}}
+    <span [title]="attended ? 'Present' : ''">
+        {{ user.fname }} {{ user.lname }} - {{ user.email}}
+    </span>
     <mat-icon *ngIf="!attended" matChipRemove>cancel</mat-icon>
 </mat-chip>
