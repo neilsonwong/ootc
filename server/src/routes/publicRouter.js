@@ -101,7 +101,7 @@ router.post('/login', async (req, res) => {
                 expiry: token.expiry
             });
         }
-        return res.status(401).json({ error: 'Invalid login credentials' });
+        return res.status(400).json({ error: 'Invalid login credentials' });
     }
     return res.status(400).json({ error: 'user has not validated their email' });
 });
