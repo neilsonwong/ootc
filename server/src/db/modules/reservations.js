@@ -9,7 +9,7 @@ const sql = {
     createTable: 
         `CREATE TABLE IF NOT EXISTS reservations (
             id INTEGER PRIMARY KEY,
-            user INTEGER NOT NULL,
+            user TEXT NOT NULL,
             timeSlot INTEGER NOT NULL,
             attended BOOLEAN NOT NULL,
             UNIQUE(user, timeSlot),
