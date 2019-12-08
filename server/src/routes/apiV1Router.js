@@ -38,5 +38,4 @@ router.use(checkAdmin);
 router.use('/admin', adminRouter);
 router.use('/registration', registrationRouter);
 
-
 module.exports = router;
