@@ -11,7 +11,8 @@
 	},
 	"EMAIL": {
 		"MAX_CONCURRENT": 10,
-		"MASTER": "me@mail.com"
+		"MASTER": "me@mail.com",
+		"FORWARDER": "forwarder@mail.com"
 	},
 	"DEV_OPTIONS" : {
 		"ENABLED": true,

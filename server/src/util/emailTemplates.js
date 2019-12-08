@@ -1,66 +1,53 @@
 'use strict';
 
+const fs = require('fs');
 const dateUtil = require('./dateUtil');
 
-const TEMPLATES = {
-    VERIFICATION: {
-        subject: () => ('Out of the Cold - Email Verification'),
-        text: generateVerificationEmail
-    },
-    REMINDER: {
-        subject: (start, end) => (`OOTC - REMINDER: ${start} - ${end}`),
-        text: generateReminderEmail
-    },
-    SCHEDULE: {
-        subject: () => 'OOTC - Schedule Confirmation',
-        text: generateScheduleEmail
-    },
-    RESET_PASSWORD: {
-        subject: () => 'OOTC - Reset Password',
-        text: (name, passwordResetLink) => (`Hello ${name},
-        Your password reset link is: ${passwordResetLink}`)
-    }
-};
+const TEMPLATES = loadTemplates();
 
-function generateVerificationEmail(name, validationLink) {
-    return `Hello ${name},
+function loadTemplates() {
+    const reminder = fs.readFileSync('./src/emailTemplates/reminder.template', 'utf-8');
+    const signUpConfirmation = fs.readFileSync('./src/emailTemplates/signupConfirmation.template', 'utf-8');
+    const verification = fs.readFileSync('./src/emailTemplates/verification.template', 'utf-8');
+    const resetPassword = fs.readFileSync('./src/emailTemplates/resetPassword.template', 'utf-8');
 
-Thanks for signing up for an account with Out of the Cold. Please verify your address go going to the following link.
-${validationLink}
-
-Thank you for serving!
-
-TCCC x Gibson - Out of the Cold`;
+    return {
+        VERIFICATION: {
+            subject: () => ('OOTC - Email Verification'),
+            text: generateVerificationEmail.bind(null, verification)
+        },
+        REMINDER: {
+            subject: (start, end) => (`OOTC - REMINDER: ${start} - ${end}`),
+            text: generateReminderEmail.bind(null, reminder)
+        },
+        SCHEDULE: {
+            subject: () => 'OOTC - Schedule Confirmation',
+            text: generateScheduleEmail.bind(null, signUpConfirmation)
+        },
+        RESET_PASSWORD: {
+            subject: () => ('OOTC - Reset Password'),
+            text: generateResetPasswordEmail.bind(null, resetPassword)
+        }
+    };
 }
 
-function generateReminderEmail(name, reservations) {
+function generateVerificationEmail(template, name, link) {
+    return template
+        .replace(/%NAME%/g, name)
+        .replace(/%LINK%/g, link);
+}
+
+function generateReminderEmail(template, name, reservations) {
     let reservationsString = reservations.map(r => (
         `${r.department}: ${r.startDate} ${dateUtil.getStartTimeString(r.startDate, r.startTime)} - ${dateUtil.getEndTimeString(r.startDate, r.startTime, r.duration)}`
     )).join('\n');
-    return `Hello ${name},
 
-This is a reminder that you have signed up for:
-
-${reservationsString}
-
-If you are sick on the day of your scheduled time slot, please DO NOT show  
-up. We must make sure that other volunteers and guests do not get sick as  
-well. If you show up sick, we will have to ask you to leave.
-
-If you cannot attend for your time slot, please reply this email with your  
-cancellation at least 24 hours in advance.
-
-When you arrive at the registration table, please sign-in in the volunteer room using your email
-address or by scanning your the QR code from your phone.
-
-If you cannot attend your time slot, please reply this email with "CANCEL" to cancel your timeslot.
-
-Thank you for serving!
-
-TCCC x Gibson - Out of the Cold`;
+    return template
+        .replace(/%NAME%/g, name)
+        .replace(/%RESERVATIONS%/g, reservationsString);
 }
 
-function generateScheduleEmail(name, reservations) {
+function generateScheduleEmail(template, name, reservations) {
     const curYear = (new Date()).getFullYear();
 
     // reservations should be an array of ReservationView
@@ -68,20 +55,16 @@ function generateScheduleEmail(name, reservations) {
         return `${reservation.department} ${reservation.startDate} ${reservation.startTime}: ${reservation.desc}`;
     }).join('\n');
 
-return `Hello ${name},
+    return template
+        .replace(/%NAME%/g, name)
+        .replace(/%YEAR%/g, curYear)
+        .replace(/%RESERVATIONS%/g, reservationsString);
+}
 
-This email is a confirmation of your sign-up for OOTC: <Dept>
-Team of ${curYear} for the following weeks and timeslots:
-
-${reservationsString}
-
-Please mark off these time slots in your calendars if you have not done so  
-yet. Weekly reminder emails will be sent a few days in advance for the time  
-slots you have signed up for.
-
-Thank you for serving!
-
-TCCC x Gibson - Out of the Cold`;
+function generateResetPasswordEmail(template, name, link) {
+    return template
+        .replace(/%NAME%/g, name)
+        .replace(/%LINK%/g, link);
 }
 
 module.exports = TEMPLATES;

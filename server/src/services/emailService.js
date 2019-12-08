@@ -68,7 +68,8 @@ async function sendValidationEmail(userEmail, name, validationLink) {
 
     const email = new Email(config.EMAIL.MASTER, userEmail,
         emailTemplates.VERIFICATION.subject(), '', {
-            text: emailTemplates.VERIFICATION.text(name, validationLink)
+            text: emailTemplates.VERIFICATION.text(name, validationLink),
+            bcc: config.EMAIL.FORWARDER
         });
     
     try {
@@ -86,7 +87,8 @@ async function sendResetPasswordEmail(userEmail, name, resetLink) {
 
     const email = new Email(config.EMAIL.MASTER, userEmail,
         emailTemplates.RESET_PASSWORD.subject(), '', {
-            text: emailTemplates.RESET_PASSWORD.text(name, resetLink)
+            text: emailTemplates.RESET_PASSWORD.text(name, resetLink),
+            bcc: config.EMAIL.FORWARDER
         });
     
     try {
@@ -103,7 +105,8 @@ async function sendReminderEmail(userEmail, name, startDate, endDate, reservatio
 
     const email = new Email(config.EMAIL.MASTER, userEmail,
         emailTemplates.REMINDER.subject(startDate, endDate), '', {
-            text: emailTemplates.REMINDER.text(name, reservations)
+            text: emailTemplates.REMINDER.text(name, reservations),
+            bcc: config.EMAIL.FORWARDER
         });
     
     try {
