@@ -16,7 +16,8 @@
 	},
 	"DEV_OPTIONS" : {
 		"ENABLED": true,
-		"OVERRIDE_VALIDATION": true
+		"OVERRIDE_VALIDATION": true,
+		"TEST_CRON_DAILY": false
 	},
 	"LINKS": {
 		"VALIDATE_EMAIL": "http://localhost:4200/validateEmail",

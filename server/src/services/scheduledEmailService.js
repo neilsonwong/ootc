@@ -6,9 +6,12 @@ const logger = require('../logger');
 const accountManager = require('../core/accountManager');
 const reservationManager = require('../core/reservationManager');
 const emailService = require('./emailService');
+const config = require('../../config');
 
 let weeklyJob;
 let monthlyJob;
+let everydayJob1;
+let everydayJob2;
 
 function startCron() {
     if (!weeklyJob) {
@@ -19,8 +22,18 @@ function startCron() {
     }
 
     if (!monthlyJob) {
-        // every 5am on tuesday
+        // every 5am on the first of the month
         monthlyJob = cron.schedule('0 5 1 Jan,Feb,Mar *', () => {
+            sendMonthlyReminderEmail();
+        });
+    }
+
+    if (config.DEV_OPTIONS.TEST_CRON_DAILY === true) {
+        logger.info('starting dev cron tasks')
+        everydayJob1 = cron.schedule('*/10 * * * *', () => {
+            sendReminderEmailsForWeek();
+        });
+        everydayJob2 = cron.schedule('*/10 * * * *', () => {
             sendMonthlyReminderEmail();
         });
     }
@@ -28,14 +41,17 @@ function startCron() {
 
 async function sendReminderEmailsForWeek() {
     // runs on tuesdays
-    const startDate = moment();
+    // ensure we're on tuesday, if it is not a tuesday, go to the closest one
+    const now = moment();
+    const startDate = (now.day() < 3) ? moment().day(2) : moment().day(9);
     const endDate = moment(startDate).add(7, 'days');
     sendRemindersForDateRange(startDate, endDate);
 }
 
 function sendMonthlyReminderEmail() {
     // runs on 1st of the month
-    const startDate = moment();
+    // let's be more careful in handling
+    const startDate = moment().startOf('month');
     const endDate = moment(startDate).endOf('month');
     sendRemindersForDateRange(startDate, endDate);
 }
