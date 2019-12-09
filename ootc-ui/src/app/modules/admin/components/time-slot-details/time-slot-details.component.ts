@@ -31,6 +31,7 @@ export class TimeSlotDetailsComponent extends EventDetails implements OnInit {
   public reserved: number;
   public totalSpots: number;
   public warn: boolean;
+  public full: boolean;
 
   /* inherited from EventDetailsComponent
   public startDate: string;
@@ -71,6 +72,7 @@ export class TimeSlotDetailsComponent extends EventDetails implements OnInit {
     }
     else {
       this.warn = this.reserved < Math.ceil(this.totalSpots * 0.75);
+      this.full = this.reserved === this.totalSpots;
     }
   }
 

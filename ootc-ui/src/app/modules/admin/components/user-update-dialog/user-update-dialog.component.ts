@@ -25,7 +25,7 @@ export class UserUpdateDialogComponent implements OnInit {
     this.user = this.data.user;
 
     this.editUser = this.fb.group({
-      email: [this.user.email], 
+      email: [this.user.email, { disabled: true }],
       firstName: [this.user.fname, Validators.minLength(1)],
       lastName: [this.user.lname, Validators.minLength(1)],
       phoneNumber: [this.user.phone, [

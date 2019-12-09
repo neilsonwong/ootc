@@ -54,7 +54,7 @@ export const formErrorMessages: { [key: string]: string } = {
   number: 'Phone number must be a valid phone number (1234567890)',
   mismatch: 'Passwords don\'t match.',
   age: 'User must be 18 years or older',
-  experience: 'Experience cannot be negative',
+  experience: 'Experience must be within 0 to 10 years',
   fsymbol: 'First name must only contain letters',
   lsymbol: 'Last name must only contain letters'
   //unique: 'Passwords must contain at least 1 uppercase character'

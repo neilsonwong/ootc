@@ -18,7 +18,6 @@ import { UserUpdateDialogComponent } from '../user-update-dialog/user-update-dia
 export class UserManagementComponent implements OnInit {
 
   private users: User[];
-  private userdata: User;
   public displayedColumns: string[];
   public dataSource: MatTableDataSource<User>;
 
@@ -68,11 +67,13 @@ export class UserManagementComponent implements OnInit {
       },
       width: DIALOG_WIDTHS.UPDATE_USER
     }).afterClosed().subscribe(result => {
-      if (result && !result.delete) {
-        this.updateUser(result);
-      }
-      else if (result.delete) {
-        this.deleteUser(result.delete);
+      if (result) {
+        if (!result.delete) {
+          this.updateUser(result);
+        }
+        else {
+          this.deleteUser(result.delete);
+        }
       }
     });
   }

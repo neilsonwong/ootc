@@ -6,7 +6,8 @@
                 <div class="panel-department">{{ department }}</div>
                 <div class="panel-role">{{ desc }}</div>
                 <div class="panel-spots"
-                    [class.attention]="warn">
+                    [class.attention]="warn"
+                    [class.full]="full">
                     {{ reserved }}/{{ totalSpots }}
                 </div>
                 <div class="panel-edit">
