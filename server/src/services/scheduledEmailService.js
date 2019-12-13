@@ -44,7 +44,7 @@ async function sendReminderEmailsForWeek() {
     // ensure we're on tuesday, if it is not a tuesday, go to the closest one
     const now = moment();
     const startDate = (now.day() < 3) ? moment().day(2) : moment().day(9);
-    const endDate = moment(startDate).add(7, 'days');
+    const endDate = moment(startDate).add(6, 'days');
     sendRemindersForDateRange(startDate, endDate);
 }
 
