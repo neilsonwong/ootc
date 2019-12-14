@@ -6,7 +6,9 @@ import { LoadState } from 'src/app/constants/load-state.enum';
 import { User } from 'src/app/models/User';
 import { LoadingService } from 'src/app/services/loading.service';
 import { UserService } from 'src/app/services/user.service';
+import { IAgeRange } from 'src/app/interfaces/IAgeRange';
 import { ageRangeValidator, expRangeValidator, formErrorMessages, MustMatch } from './registration-form.validators';
+import { AGE_RANGES } from 'src/app/constants/age-ranges';
 
 @Component({
   selector: 'app-registration-form',
@@ -17,6 +19,7 @@ export class RegistrationFormComponent implements OnInit {
   public registrationForm: FormGroup;
   public formErrors = formErrorMessages;
   public registrationSuccessful: boolean;
+  public ageRanges: IAgeRange[] = AGE_RANGES;
 
   constructor(private fb: FormBuilder,
     public dialog: MatDialog,

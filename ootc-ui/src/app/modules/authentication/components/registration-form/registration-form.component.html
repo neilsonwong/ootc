@@ -43,7 +43,12 @@
                     <mat-error>{{ formErrors.number }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput type="number" placeholder="Age" formControlName="age" required>
+                    <mat-label>Age</mat-label>
+                    <mat-select formControlName="age" required>
+                        <mat-option *ngFor="let ageRange of ageRanges" [value]="ageRange.value">
+                            {{ageRange.viewValue}}
+                        </mat-option>
+                    </mat-select>
                     <mat-error>{{ formErrors.age }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
