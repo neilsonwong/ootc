@@ -30,9 +30,9 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
   @Input() reservations: ReservationView[];
   @Output() reservationsChanged = new EventEmitter<boolean>();
 
-  @ViewChild('timeSlots', { static: false }) timeSlots: MatSelectionList;
-  @ViewChild('roleSelect', { static: false }) roleFilter: MatSelect;
-  @ViewChild('allRolesOption', { static: false }) allRolesOption: MatOption;
+  @ViewChild('timeSlots') timeSlots: MatSelectionList;
+  @ViewChild('roleSelect') roleFilter: MatSelect;
+  @ViewChild('allRolesOption') allRolesOption: MatOption;
 
   private startDate: string;
   private endDate: string;
