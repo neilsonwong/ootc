@@ -1,5 +1,5 @@
 <app-container>
-    <h2 i18n="my schedule|my schedule@@mySchedule">My Schedule</h2>
+    <h2 i18n="@@mySchedule">My Schedule</h2>
     <div class="reservation-list stand-alone-wide-box">
         <mat-list #reservationList
             [class.hidden]="reservations && reservations.length === 0">
@@ -14,7 +14,7 @@
                     <div class="button-bar">
                         <button mat-raised-button color="warn" type="button"
                             (click)="onCancel(reservation)"
-                            i18n="cancel|cancel@@cancel">
+                            i18n="@@cancel">
                             Cancel
                         </button>
                     </div>
@@ -24,7 +24,7 @@
         <div *ngIf="reservations === undefined || reservations.length === 0"
             class="no-reservations-desc">
             <app-emoji-text
-                i18n="no reservation text|no reservation text@@noReservationText">
+                i18n="@@noReservationText">
                 You haven't signed up for anything yet!
             </app-emoji-text>
         </div>

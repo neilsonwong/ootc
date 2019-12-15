@@ -7,7 +7,7 @@
       "i18n": {
         "locales": {
           "zh-hk": {
-            "translation": "src/locale/messages.zh-hk.xlf",
+            "translation": "src/locale/messages.zh-Hant-HK.xlf",
             "baseHref": ""
           }
         }
@@ -79,8 +79,8 @@
             },
             "zh-hk": {
               "outputPath": "dist/ootc-ui-zh-hk/",
-              "i18nFile": "src/locale/messages.zh-hk.xlf",
-              "i18nLocale": "zh-hk",
+              "i18nFile": "src/locale/messages.zh-Hant-HK.xlf",
+              "i18nLocale": "zh-Hant-HK",
               "i18nMissingTranslation": "error"
             }
           }

@@ -1,26 +1,26 @@
 <div class="login-form-container stand-alone-box">
     <h3 class="login-form-title"
-    i18n="login title|login title|@@loginTitle">Volunteer Login</h3>
+    i18n="@@loginTitle">Volunteer Login</h3>
     <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
         <mat-form-field>
             <input matInput type="email" placeholder="Email" formControlName="email"
-            i18n-placeholder="email|email|@@email">
+            i18n-placeholder="@@email">
         </mat-form-field>
         <mat-form-field>
             <input matInput type="password" placeholder="Password" formControlName="password"
-            i18n-placeholder="password|password|@@password">
+            i18n-placeholder="@@password">
         </mat-form-field>
         <div class="errors">
             {{ error || '&#160;' }}
         </div>
         <button mat-raised-button color="primary" type="submit"
-        i18n="login|login|@@login">Login</button>
+        i18n="@@login">Login</button>
         <button mat-raised-button color="accent" type="button"
             routerLink = "/register"
-            i18n="register|register|@@register">Register</button>
+            i18n="@@register">Register</button>
         <div class="forgot-password">
             <a [routerLink]="['/forgotPassword']"
-            i18n="forgot password|forgot password|@@forgotPassword">Forgot Password</a>
+            i18n="@@forgotPassword">Forgot Password</a>
         </div>
     </form>
 </div>

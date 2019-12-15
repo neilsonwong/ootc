@@ -43,13 +43,13 @@ export class HeaderBarComponent implements OnInit {
 
   setupLinks() {
     this.navLinks = [[
-      { text:'Home', url: '', icon: 'home', class: {} },
-      { text:'Login', url: '/login', icon: 'account_circle', class: {} },
-      { text:'Register', url: '/register', icon: 'face', class: {} },
+      { text: $localize `:@@menu.home:Home`, url: '', icon: 'home', class: {} },
+      { text: $localize `:@@menu.login:Login`, url: '/login', icon: 'account_circle', class: {} },
+      { text: $localize `:@@menu.register:Register`, url: '/register', icon: 'face', class: {} },
     ],
     [
-      { text: 'Volunteer', url: '/signup', icon: 'how_to_reg', class: {} },
-      { text: 'My Schedule', url: '/myschedule', icon: 'calendar_today', class: {} },
+      { text: $localize `:@@menu.volunteer:Volunteer`, url: '/signup', icon: 'how_to_reg', class: {} },
+      { text: $localize `:@@menu.myschedule:My Schedule`, url: '/myschedule', icon: 'calendar_today', class: {} },
     ]
     ,[
       { text: 'Users', url: '/admin/users', icon: 'supervised_user_circle', class: {} },
