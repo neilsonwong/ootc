@@ -29,7 +29,10 @@
     -->
     <div class="right-side">
         <div *ngIf="securityClearance > 0 && name !== undefined" class="logged-in-indicator">
-            Signed in as &nbsp;<span class="username">{{ name }}</span>
+            <span i18n="signed in as|signed in as@@signedInAs">
+                Signed in as &nbsp;
+            </span>
+            <span class="username">{{ name }}</span>
         </div>
         <div class="mobile-nav">
             <button mat-icon-button class="mobile-nav-hamburger" [matMenuTriggerFor]="menu">

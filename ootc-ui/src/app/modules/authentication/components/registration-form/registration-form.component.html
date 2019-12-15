@@ -1,49 +1,68 @@
-<div class="registration-form  stand-alone-box">
+<div class="registration-form stand-alone-box">
     <ng-container *ngIf="registrationSuccessful; else notconfirmed">
-        <h3 class="registration-form-title">Registration Successful!</h3>
-			<app-emoji-text [thin]="true">
-                Thank you for registering!<br />
-                Check your email to validate your email!
-            </app-emoji-text>
+        <h3 class="registration-form-title"
+        i18n="registration success message|registration success message|@@registrationSuccessMsg">
+            Registration Successful!
+        </h3>
+        <app-emoji-text [thin]="true"
+        i18n="registration thank you|registration thank you@@registrationThankYou">
+            Thank you for registering!<br />
+            Check your email to validate your email!
+        </app-emoji-text>
     </ng-container>
     <ng-template #notconfirmed>
-        <h3 class="registration-form-title">Volunteer Registration</h3>
+        <h3 class="registration-form-title"
+            i18n="registration title|registration title@@registrationTitle">
+            Volunteer Registration
+        </h3>
         <div>
             <form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
                 <mat-form-field>
-                    <input matInput type="text" placeholder="First Name" formControlName="firstName" required>
+                    <input matInput type="text" placeholder="First Name"
+                        formControlName="firstName" required
+                        i18n-placeholder="first name|first name@@firstName">
                     <mat-hint>{{ formErrors.required }}</mat-hint>
                     <mat-error>{{ formErrors.fsymbol }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput type="text" placeholder="Middle Name" formControlName="middleName">
+                    <input matInput type="text" placeholder="Middle Name" formControlName="middleName"
+                        i18n-placeholder="middle name|middle name@@middleName">
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput type="text" placeholder="Last Name" formControlName="lastName" required>
+                    <input matInput type="text" placeholder="Last Name"
+                        formControlName="lastName" required
+                        i18n-placeholder="last name|last name@@lastName">
                     <mat-hint>{{ formErrors.required }}</mat-hint>
                     <mat-error>{{ formErrors.lsymbol }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput type="email" placeholder="Email" formControlName="email" required> 
+                    <input matInput type="email" placeholder="Email" formControlName="email" required
+                        i18n-placeholder="email|email|@@email">
                     <mat-hint>{{ formErrors.pattern }}</mat-hint>
                     <mat-error>{{ formErrors.pattern }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput type="password" placeholder="Password" formControlName="password" required>
+                    <input matInput type="password" placeholder="Password"
+                        formControlName="password" required
+                        i18n-placeholder="password|password|@@password">
                     <mat-hint>{{ formErrors.minLength }}</mat-hint>
                     <mat-error>{{ formErrors.minLength }}</mat-error>  
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput type="password" placeholder="Verify Password" formControlName="verifypassword" required>
+                    <input matInput type="password" placeholder="Verify Password"
+                        formControlName="verifypassword" required
+                        i18n-placeholder="verify password|verify password|@@verifyPassword">
                     <mat-error>{{ formErrors.mismatch }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput type="tel" placeholder="Phone Number" formControlName="phoneNumber" maxlength=10 required>
+                    <input matInput type="tel" placeholder="Phone Number"
+                        formControlName="phoneNumber" maxlength=10 required
+                        i18n-placeholder="phone number|phone number|@@phoneNumber">
                     <mat-hint>{{ formErrors.number }}</mat-hint>
                     <mat-error>{{ formErrors.number }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>Age</mat-label>
+                    <mat-label i18n="age|age@@age">Age</mat-label>
                     <mat-select formControlName="age" required>
                         <mat-option *ngFor="let ageRange of ageRanges" [value]="ageRange.value">
                             {{ageRange.viewValue}}
@@ -52,13 +71,20 @@
                     <mat-error>{{ formErrors.age }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput type="number" placeholder="Volunteer Experience (years)" formControlName="experience" required>
+                    <input matInput type="number" placeholder="Volunteer Experience (years)"
+                        formControlName="experience" required
+                        i18n-placeholder="volunteer experience|volunteer experience|@@volunteerExperience">
                     <mat-error>{{ formErrors.experience }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput type="text" placeholder="Comments" formControlName="comments">
+                    <input matInput type="text" placeholder="Comments" formControlName="comments"
+                        i18n-placeholder="comments|comments|@@comments">
                 </mat-form-field>
-                <button mat-raised-button color="primary" type="submit" [disabled]="!registrationForm.valid">Register</button>
+                <button mat-raised-button color="primary" type="submit"
+                    [disabled]="!registrationForm.valid"
+                    i18n="register|register|@@register">
+                    Register
+                </button>
             </form>
         </div>
     </ng-template>

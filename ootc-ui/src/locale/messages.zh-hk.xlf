@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="loginTitle" datatype="html">
+        <source>Volunteer Login</source>
+        <target>登入</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/login-form/login-form.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">login title|</note>
+        <note priority="1" from="meaning">login title</note>
+      </trans-unit>
+      <trans-unit id="email" datatype="html">
+        <source>Email</source>
+        <target>電郵</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/login-form/login-form.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/registration-form/registration-form.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+        <note priority="1" from="description">email|</note>
+        <note priority="1" from="meaning">email</note>
+      </trans-unit>
+      <trans-unit id="password" datatype="html">
+        <source>Password</source>
+        <target>密碼</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/login-form/login-form.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/registration-form/registration-form.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <note priority="1" from="description">password|</note>
+        <note priority="1" from="meaning">password</note>
+      </trans-unit>
+      <trans-unit id="login" datatype="html">
+        <source>Login</source>
+        <target>登入</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/login-form/login-form.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <note priority="1" from="description">login|</note>
+        <note priority="1" from="meaning">login</note>
+      </trans-unit>
+      <trans-unit id="register" datatype="html">
+        <source>Register</source>
+        <target>註冊</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/login-form/login-form.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/registration-form/registration-form.component.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <note priority="1" from="description">register|</note>
+        <note priority="1" from="meaning">register</note>
+      </trans-unit>
+      <trans-unit id="forgotPassword" datatype="html">
+        <source>Forgot Password</source>
+        <target>忘記帳戶?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/login-form/login-form.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <note priority="1" from="description">forgot password|</note>
+        <note priority="1" from="meaning">forgot password</note>
+      </trans-unit>
+      <trans-unit id="registrationSuccessMsg" datatype="html">
+        <source>Registration Successful!</source>
+        <target>註冊成功</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/registration-form/registration-form.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">registration success message|</note>
+        <note priority="1" from="meaning">registration success message</note>
+      </trans-unit>
+      <trans-unit id="registrationThankYou" datatype="html">
+        <source>
+            Thank you for registering!<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
+            Check your email to validate your email!
+        </source>
+        <target>
+        TODO
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/registration-form/registration-form.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <note priority="1" from="description">registration thank you</note>
+        <note priority="1" from="meaning">registration thank you</note>
+      </trans-unit>
+      <trans-unit id="registrationTitle" datatype="html">
+        <source>
+            Volunteer Registration
+        </source>
+        <target>義工登記</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/registration-form/registration-form.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <note priority="1" from="description">registration title</note>
+        <note priority="1" from="meaning">registration title</note>
+      </trans-unit>
+      <trans-unit id="firstName" datatype="html">
+        <source>First Name</source>
+        <target>名字</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/registration-form/registration-form.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <note priority="1" from="description">first name</note>
+        <note priority="1" from="meaning">first name</note>
+      </trans-unit>
+      <trans-unit id="middleName" datatype="html">
+        <source>Middle Name</source>
+        <target>名字</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/registration-form/registration-form.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <note priority="1" from="description">middle name</note>
+        <note priority="1" from="meaning">middle name</note>
+      </trans-unit>
+      <trans-unit id="lastName" datatype="html">
+        <source>Last Name</source>
+        <target>姓氏</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/registration-form/registration-form.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <note priority="1" from="description">last name</note>
+        <note priority="1" from="meaning">last name</note>
+      </trans-unit>
+      <trans-unit id="verifyPassword" datatype="html">
+        <source>Verify Password</source>
+        <target>確認密碼</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/registration-form/registration-form.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+        <note priority="1" from="description">verify password|</note>
+        <note priority="1" from="meaning">verify password</note>
+      </trans-unit>
+      <trans-unit id="phoneNumber" datatype="html">
+        <source>Phone Number</source>
+        <target>電話號碼</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/registration-form/registration-form.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <note priority="1" from="description">phone number|</note>
+        <note priority="1" from="meaning">phone number</note>
+      </trans-unit>
+      <trans-unit id="age" datatype="html">
+        <source>Age</source>
+        <target>年齡</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/registration-form/registration-form.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+        <note priority="1" from="description">age</note>
+        <note priority="1" from="meaning">age</note>
+      </trans-unit>
+      <trans-unit id="volunteerExperience" datatype="html">
+        <source>Volunteer Experience (years)</source>
+        <target>參與義工經驗(年)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/registration-form/registration-form.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+        <note priority="1" from="description">volunteer experience|</note>
+        <note priority="1" from="meaning">volunteer experience</note>
+      </trans-unit>
+      <trans-unit id="comments" datatype="html">
+        <source>Comments</source>
+        <target>TODO</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/authentication/components/registration-form/registration-form.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+        <note priority="1" from="description">comments|</note>
+        <note priority="1" from="meaning">comments</note>
+      </trans-unit>
+      <trans-unit id="ok" datatype="html">
+        <source>OK</source>
+        <target>確定</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/shared/components/error-dialog/error-dialog.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <note priority="1" from="description">ok</note>
+        <note priority="1" from="meaning">ok</note>
+      </trans-unit>
+            <trans-unit id="signedInAs" datatype="html">
+        <source>
+                Signed in as  
+            </source>
+            <target>已登入</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/shared/components/header-bar/header-bar.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <note priority="1" from="description">signed in as</note>
+        <note priority="1" from="meaning">signed in as</note>
+      </trans-unit>
+      <trans-unit id="footer" datatype="html">
+        <source>
+          Created with the <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>♥️<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> of <x id="START_TAG_SPAN_1" ctype="x-span" equiv-text="&lt;span&gt;"/>✞<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> by TCCC.  
+        </source>
+        <target>TODO</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/shared/components/footer-bar/footer-bar.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">footer</note>
+        <note priority="1" from="meaning">footer</note>
+      </trans-unit>
+      <trans-unit id="outOfTheCold" datatype="html">
+        <source>
+						Out of the Cold 
+					</source>
+          <target>寒冬送暖傳愛心 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <note priority="1" from="description">out of the cold</note>
+        <note priority="1" from="meaning">out of the cold</note>
+      </trans-unit>
+      <trans-unit id="dfa83afc9b238b9c364c789e1103e80d82132758" datatype="html">
+        <source>
+						@ TCCC
+					</source>
+          <target>@ 多倫多華基</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description">at tccc|atTccc</note>
+        <note priority="1" from="meaning">at tccc</note>
+      </trans-unit>
+      <trans-unit id="landingIntro" datatype="html">
+        <source>
+					<x id="START_EMPHASISED_TEXT" ctype="x-em" equiv-text="&lt;em&gt;"/>Toronto Christian Community Church<x id="CLOSE_EMPHASISED_TEXT" ctype="x-em" equiv-text="&lt;/em&gt;"/> and <x id="START_EMPHASISED_TEXT" ctype="x-em" equiv-text="&lt;em&gt;"/>105 Gibson Centre<x id="CLOSE_EMPHASISED_TEXT" ctype="x-em" equiv-text="&lt;/em&gt;"/> have 
+					partnered with Mosaic Interfaith Out of the Cold to bring safety, refuge, warm hospitality 
+					and emergency shelter in the York region to the homeless or those in need during 
+					the coldest weeks of the winter season. We provide services ranging from warm meals 
+					to overnight shelter to various social services.
+				</source>
+        <target>TODO</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <note priority="1" from="description">landing intro</note>
+        <note priority="1" from="meaning">landing intro</note>
+      </trans-unit>
+      <trans-unit id="landingNote" datatype="html">
+        <source>
+					<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>NOTE: <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> Volunteers under the age of 18 must be accompanied by a parent or guardian.
+				</source>
+        <target>TODO</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <note priority="1" from="description">landing note</note>
+        <note priority="1" from="meaning">landing note</note>
+      </trans-unit>
+      <trans-unit id="welcome" datatype="html">
+        <source>Welcome!</source>
+        <target>歡迎!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <note priority="1" from="description">welcome</note>
+        <note priority="1" from="meaning">welcome</note>
+      </trans-unit>
+      <trans-unit id="tcccInfo" datatype="html">
+        <source>
+					For more information on <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Toronto Christian Community Church<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, visit our website <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>here<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+				</source>
+        <target>
+					索取更多 <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>多倫多華人基督教會<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>資料, 請瀏覽<x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>網頁<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <note priority="1" from="description">tccc info</note>
+        <note priority="1" from="meaning">tccc info</note>
+      </trans-unit>
+      <trans-unit id="gibsonInfo" datatype="html">
+        <source>
+					For more information on <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>105 Gibson Centre<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, visit our website <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>here<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+				</source>
+        <target>TODO</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">gibson info</note>
+        <note priority="1" from="meaning">gibson info</note>
+      </trans-unit>
+      <trans-unit id="clearInfo" datatype="html">
+        <source>
+					For more information on <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Mosaic Interfaith Out of the Cold<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> and it&apos;s 12 host communities, visit their website <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>here<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+				</source>
+        <target>TODO</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <note priority="1" from="description">mosaic info</note>
+        <note priority="1" from="meaning">mosaic info</note>
+      </trans-unit>
+      <trans-unit id="ootcYearTitle" datatype="html">
+        <source>
+				  The 2020 OOTC Year
+			  </source>
+        <target>2020 度  寒冬送暖</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+        <note priority="1" from="description">ootc year title|</note>
+        <note priority="1" from="meaning">ootc year title</note>
+      </trans-unit>
+      <trans-unit id="whenLabel" datatype="html">
+        <source>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>When<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					</source>
+        <target>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>日期<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+        <note priority="1" from="description">when label</note>
+        <note priority="1" from="meaning">when label</note>
+      </trans-unit>
+      <trans-unit id="whenValue" datatype="html">
+        <source>
+						Every Sunday from January 26 to March 29 (10 weeks)
+					</source>
+        <target>服務提供 由一月26日至三月29日逢週日 (共十週)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+        <note priority="1" from="description">when value</note>
+        <note priority="1" from="meaning">when value</note>
+      </trans-unit>
+      <trans-unit id="volunteerOpportunities" datatype="html">
+        <source>
+				  Volunteer Opportunities
+			  </source>
+        <target>義工範圍</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+        <note priority="1" from="description">volunteer opportunities</note>
+        <note priority="1" from="meaning">volunteer opportunities</note>
+      </trans-unit>
+      <trans-unit id="hospitalityLabel" datatype="html">
+        <source>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Hospitality<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					</source>
+          <target>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>款待<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+        <note priority="1" from="description">hospitality label</note>
+        <note priority="1" from="meaning">hospitality label</note>
+      </trans-unit>
+      <trans-unit id="hospitalityDesc" datatype="html">
+        <source>
+						Serving meals and socializing with guests
+					</source>
+        <target>送餐, 與嘉賓傾談</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+        <note priority="1" from="description">hospitality desc</note>
+        <note priority="1" from="meaning">hospitality desc</note>
+      </trans-unit>
+      <trans-unit id="kitchenLabel" datatype="html">
+        <source>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Kitchen<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					</source>
+        <target>TODO</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+        <note priority="1" from="description">kitchen label</note>
+        <note priority="1" from="meaning">kitchen label</note>
+      </trans-unit>
+      <trans-unit id="kitchenDesc" datatype="html">
+        <source>
+						Food preparation, cooking and cleaning
+					</source>
+        <target>TODO</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+        <note priority="1" from="description">kitchen desc</note>
+        <note priority="1" from="meaning">kitchen desc</note>
+      </trans-unit>
+      <trans-unit id="clothingBankLabel" datatype="html">
+        <source>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Clothing Bank<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					</source>
+        <target>TODO</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+        <note priority="1" from="description">clothing bank label</note>
+        <note priority="1" from="meaning">clothing bank label</note>
+      </trans-unit>
+      <trans-unit id="clothingBankDesc" datatype="html">
+        <source>
+						Organizing and distributing of clothing items
+					</source>
+        <target>TODO</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+        <note priority="1" from="description">clothing bank desc</note>
+        <note priority="1" from="meaning">clothing bank desc</note>
+      </trans-unit>
+      <trans-unit id="registrationLabel" datatype="html">
+        <source>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Registration<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					</source>
+        <target>TODO</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">112</context>
+        </context-group>
+        <note priority="1" from="description">registration label</note>
+        <note priority="1" from="meaning">registration label</note>
+      </trans-unit>
+      <trans-unit id="registrationDesc" datatype="html">
+        <source>
+						Administration of entry and exit of guests and volunteers
+					</source>
+        <target>TODO</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+        <note priority="1" from="description">registration desc</note>
+        <note priority="1" from="meaning">registration desc</note>
+      </trans-unit>
+      <trans-unit id="setupCleanupLabel" datatype="html">
+        <source>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Setup/Cleanup<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					</source>
+        <target>TODO</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">122</context>
+        </context-group>
+        <note priority="1" from="description">setup cleanup label</note>
+        <note priority="1" from="meaning">setup cleanup label</note>
+      </trans-unit>
+      <trans-unit id="setupCleanupDesc" datatype="html">
+        <source>
+						Service room setup and cleanup
+					</source>
+        <target>TODO</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">126</context>
+        </context-group>
+        <note priority="1" from="description">setup cleanup desc</note>
+        <note priority="1" from="meaning">setup cleanup desc</note>
+      </trans-unit>
+      <trans-unit id="specialServicesLabel" datatype="html">
+        <source>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Special Services<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					</source>
+        <target>TODO</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">132</context>
+        </context-group>
+        <note priority="1" from="description">special services label</note>
+        <note priority="1" from="meaning">special services label</note>
+      </trans-unit>
+      <trans-unit id="specialServicesDesc" datatype="html">
+        <source>
+						Social assistance, medical assistance and other services
+					</source>
+        <target>TODO</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">136</context>
+        </context-group>
+        <note priority="1" from="description">special services desc</note>
+        <note priority="1" from="meaning">special services desc</note>
+      </trans-unit>
+      <trans-unit id="directions" datatype="html">
+        <source>Directions</source>
+        <target>地圖</target>    
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/home/components/landing/landing.component.html</context>
+          <context context-type="linenumber">142</context>
+        </context-group>
+        <note priority="1" from="description">directions</note>
+        <note priority="1" from="meaning">directions</note>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp" datatype="html">
+        <source>
+        Volunteer Sign Up
+    </source>
+    <target>義工登記</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/reservation/components/reservation-sign-up/reservation-sign-up.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <note priority="1" from="description">volunteer sign up</note>
+        <note priority="1" from="meaning">volunteer sign up</note>
+      </trans-unit>
+      <trans-unit id="mySchedule" datatype="html">
+        <source>My Schedule</source>
+        <target>我的服務時間表</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/reservation/components/reservation-management/reservation-management.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description">my schedule</note>
+        <note priority="1" from="meaning">my schedule</note>
+      </trans-unit>
+      <trans-unit id="cancel" datatype="html">
+        <source>Cancel</source>
+        <target>取消</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/reservation/components/reservation-management/reservation-management.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <note priority="1" from="description">cancel</note>
+        <note priority="1" from="meaning">cancel</note>
+      </trans-unit>
+      <trans-unit id="noReservationText" datatype="html">
+        <source>
+          You haven&apos;t signed up for anything yet!
+        </source>
+        <target>你仍未選擇服務日程</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/reservation/components/reservation-management/reservation-management.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <note priority="1" from="description">no reservation text</note>
+        <note priority="1" from="meaning">no reservation text</note>
+      </trans-unit>
+      <trans-unit id="departments" datatype="html">
+        <source>
+            Departments
+        </source>
+        <target>義工範圍</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/reservation/components/department-spotlight/department-spotlight.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <note priority="1" from="description">departments</note>
+        <note priority="1" from="meaning">departments</note>
+      </trans-unit>
+      <trans-unit id="pickDeptText" datatype="html">
+        <source>
+          What would you like to help with?
+        </source>
+        <target>那個項目你可以幫忙?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/reservation/components/department-spotlight/department-spotlight.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <note priority="1" from="description">pick dept text</note>
+        <note priority="1" from="meaning">pick dept text</note>
+      </trans-unit>
+      <trans-unit id="roleFilter" datatype="html">
+        <source>
+                Role Filter
+            </source>
+        <target>職務選擇</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/reservation/components/reservation-sign-up-form/reservation-sign-up-form.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description">role filter</note>
+        <note priority="1" from="meaning">role filter</note>
+      </trans-unit>
+      <trans-unit id="allRoles" datatype="html">
+        <source>
+          All
+        </source>
+        <target>全部職務</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/reservation/components/reservation-sign-up-form/reservation-sign-up-form.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description">all roles</note>
+        <note priority="1" from="meaning">all roles</note>
+      </trans-unit>
+      <trans-unit id="clear" datatype="html">
+        <source>
+            Clear
+        </source>
+        <target>清除</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/reservation/components/reservation-sign-up-form/reservation-sign-up-form.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+        <note priority="1" from="description">clear</note>
+        <note priority="1" from="meaning">clear</note>
+      </trans-unit>
+      <trans-unit id="signUp" datatype="html">
+        <source>
+            Sign Up
+        </source>
+        <target>登記</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/reservation/components/reservation-sign-up-form/reservation-sign-up-form.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+        <note priority="1" from="description">sign up</note>
+        <note priority="1" from="meaning">sign up</note>
+      </trans-unit>
+      <trans-unit id="alreadySignedUp" datatype="html">
+        <source>
+            Signed Up
+        </source>
+        <target>已登記</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/reservation/components/reservation-sign-up-line/reservation-sign-up-line.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <note priority="1" from="description">already signed up</note>
+        <note priority="1" from="meaning">already signed up</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -69,6 +69,14 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "zh-hk": {
+              "aot": true,
+              "outputPath": "dist/ootc-ui-zh-hk/",
+              "i18nFile": "src/locale/messages.zh-hk.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "zh-hk",
+              "i18nMissingTranslation": "error"
             }
           }
         },
@@ -80,7 +88,10 @@
           "configurations": {
             "production": {
               "browserTarget": "ootc-ui:build:production"
-            }
+            },
+            "zh-hk": {
+              "browserTarget": "ootc-ui:build:zh-hk"
+            },
           }
         },
         "extract-i18n": {
