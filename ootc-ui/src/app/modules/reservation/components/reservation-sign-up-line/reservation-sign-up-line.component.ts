@@ -28,9 +28,9 @@ export class ReservationSignUpLineComponent extends EventDetails implements OnIn
     this.spotsLeft = this.timeSlot.signUpCap - this.timeSlot.reserved;
 
     this.spotsPluralMapping = {
-      '=0': 'Full',
-      '=1': `1 / ${this.totalSpots} spot left`,
-      'other': `# / ${this.totalSpots} spots left`,
+      '=0': $localize `:@@plurals.spots.zero:Full`,
+      '=1': $localize `:@@plurals.spots.one:1 / ${this.totalSpots} spot left`,
+      'other': $localize `:@@plurals.spots.other:# / ${this.totalSpots} spots left`,
     };
   }
 }

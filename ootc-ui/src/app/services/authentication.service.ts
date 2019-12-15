@@ -45,10 +45,14 @@ export class AuthenticationService {
             return null;
           }),
           catchError((error: any) => {
-            if (error.status === 401) {
-              return of('Invalid Login Credentials');
-            } else if (error.status === 400) {
-              return of('Email is missing or unvalidated.');
+            console.log(error);
+            if (error.status === 400) {
+              if (error.error.error === "Invalid login credentials") {
+                return of($localize `:@@error.login.credential:Invalid Login Credentials.`);
+              }
+              else {
+                return of($localize `:@@error.login.invalidEmail:Email is missing or unvalidated.`);
+              }
             }
           })
         )

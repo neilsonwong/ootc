@@ -40,9 +40,7 @@
         </target>
       </trans-unit>
       <trans-unit id="registrationTitle" datatype="html">
-        <source>
-            Volunteer Registration
-        </source>
+        <source>Volunteer Registration</source>
         <target>義工註冊</target>
       </trans-unit>
       <trans-unit id="firstName" datatype="html">
@@ -81,11 +79,9 @@
         <source>OK</source>
         <target>確定</target>
       </trans-unit>
-            <trans-unit id="signedInAs" datatype="html">
-        <source>
-                Signed in as  
-            </source>
-            <target>已登入 </target>
+      <trans-unit id="signedInAs" datatype="html">
+        <source>Signed in as</source>
+        <target>已登入 </target>
       </trans-unit>
       <trans-unit id="footer" datatype="html">
         <source>
@@ -94,16 +90,12 @@
         <target>✞ 多倫多華基 ♥️</target>
       </trans-unit>
       <trans-unit id="outOfTheCold" datatype="html">
-        <source>
-						Out of the Cold 
-					</source>
-          <target>寒冬送暖傳愛心 </target>
+        <source>Out of the Cold </source>
+        <target>寒冬送暖傳愛心 </target>
       </trans-unit>
       <trans-unit id="atTccc" datatype="html">
-        <source>
-						@ TCCC
-					</source>
-          <target>@多倫多華基</target>
+        <source>@ TCCC</source>
+        <target>@多倫多華基</target>
       </trans-unit>
       <trans-unit id="landingIntro" datatype="html">
         <source>
@@ -150,9 +142,7 @@
         </target>
       </trans-unit>
       <trans-unit id="ootcYearTitle" datatype="html">
-        <source>
-				  The 2020 OOTC Year
-			  </source>
+        <source>The 2020 OOTC Year</source>
         <target>2020 度  寒冬送暖</target>
       </trans-unit>
       <trans-unit id="whenLabel" datatype="html">
@@ -182,37 +172,31 @@
         <target>105 社區中心 (105 Gibson Drive, Markham, ON L3R 3K7)</target>
       </trans-unit>
       <trans-unit id="volunteerOpportunities" datatype="html">
-        <source>
-				  Volunteer Opportunities
-			  </source>
+        <source>Volunteer Opportunities</source>
         <target>義工範圍</target>
       </trans-unit>
       <trans-unit id="hospitalityLabel" datatype="html">
         <source>
-						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Hospitality<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
-					</source>
-          <target>
-						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>款待<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
-</target>
+					<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Hospitality<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+				</source>
+        <target>
+					<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>款待<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+        </target>
       </trans-unit>
       <trans-unit id="hospitalityDesc" datatype="html">
-        <source>
-						Serving meals and socializing with guests
-					</source>
+        <source>Serving meals and socializing with guests</source>
         <target>送餐, 與嘉賓傾談</target>
       </trans-unit>
       <trans-unit id="kitchenLabel" datatype="html">
         <source>
-						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Kitchen<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
-					</source>
+					<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Kitchen<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+				</source>
         <target>
-						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>廚房<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>廚房<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
         </target>
       </trans-unit>
       <trans-unit id="kitchenDesc" datatype="html">
-        <source>
-						Food preparation, cooking and cleaning
-					</source>
+        <source>Food preparation, cooking and cleaning</source>
         <target>食物準備, 煮食及清潔</target>
       </trans-unit>
       <trans-unit id="clothingBankLabel" datatype="html">
@@ -224,9 +208,7 @@
         </target>
       </trans-unit>
       <trans-unit id="clothingBankDesc" datatype="html">
-        <source>
-						Organizing and distributing of clothing items
-					</source>
+        <source>Organizing and distributing of clothing items</source>
         <target>整理及分發</target>
       </trans-unit>
       <trans-unit id="registrationLabel" datatype="html">
@@ -238,9 +220,7 @@
         </target>
       </trans-unit>
       <trans-unit id="registrationDesc" datatype="html">
-        <source>
-						Administration of entry and exit of guests and volunteers
-					</source>
+        <source>Administration of entry and exit of guests and volunteers</source>
         <target>負責嘉賓與義工進出記錄</target>
       </trans-unit>
       <trans-unit id="setupCleanupLabel" datatype="html">
@@ -252,23 +232,19 @@
         </target>
       </trans-unit>
       <trans-unit id="setupCleanupDesc" datatype="html">
-        <source>
-						Service room setup and cleanup
-					</source>
+        <source>Service room setup and cleanup</source>
         <target>佈置場地和清理</target>
       </trans-unit>
       <trans-unit id="specialServicesLabel" datatype="html">
         <source>
-						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Special Services<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Special Services<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
 					</source>
         <target>
-						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>專業服務<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>專業服務<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
         </target>
       </trans-unit>
       <trans-unit id="specialServicesDesc" datatype="html">
-        <source>
-						Social assistance, medical assistance and other services
-					</source>
+        <source>Social assistance, medical assistance and other services</source>
         <target>社區援助，醫療援助和其他服務</target>
       </trans-unit>
       <trans-unit id="directions" datatype="html">
@@ -276,10 +252,8 @@
         <target>地圖</target>    
       </trans-unit>
       <trans-unit id="volunteerSignUp" datatype="html">
-        <source>
-        Volunteer Sign Up
-    </source>
-    <target>義工登記</target>
+        <source>Volunteer Sign Up</source>
+        <target>義工登記</target>
       </trans-unit>
       <trans-unit id="mySchedule" datatype="html">
         <source>My Schedule</source>
@@ -290,55 +264,39 @@
         <target>取消</target>
       </trans-unit>
       <trans-unit id="noReservationText" datatype="html">
-        <source>
-          You haven&apos;t signed up for anything yet!
-        </source>
-        <target>你仍未選擇服務日程</target>
+        <source>You haven&apos;t signed up for anything yet!</source>
+        <target>您仍未選擇服務日程</target>
       </trans-unit>
       <trans-unit id="comingUpSoon" datatype="html">
         <source>Coming Up Soon</source>
         <target>TODO</target>
       </trans-unit>
       <trans-unit id="departments" datatype="html">
-        <source>
-            Departments
-        </source>
+        <source>Departments</source>
         <target>義工範圍</target>
       </trans-unit>
       <trans-unit id="pickDeptText" datatype="html">
-        <source>
-          What would you like to help with?
-        </source>
-        <target>那個項目你可以幫忙?</target>
+        <source>What would you like to help with?</source>
+        <target>那個項目您可以幫忙?</target>
       </trans-unit>
       <trans-unit id="roleFilter" datatype="html">
-        <source>
-                Role Filter
-            </source>
+        <source>Role Filter</source>
         <target>職務選擇</target>
       </trans-unit>
       <trans-unit id="allRoles" datatype="html">
-        <source>
-          All
-        </source>
+        <source>All</source>
         <target>全部職務</target>
       </trans-unit>
       <trans-unit id="clear" datatype="html">
-        <source>
-            Clear
-        </source>
+        <source>Clear</source>
         <target>清除</target>
       </trans-unit>
       <trans-unit id="signUp" datatype="html">
-        <source>
-            Sign Up
-        </source>
+        <source>Sign Up</source>
         <target>登記</target>
       </trans-unit>
       <trans-unit id="alreadySignedUp" datatype="html">
-        <source>
-            Signed Up
-        </source>
+        <source>Signed Up</source>
         <target>已登記</target>
       </trans-unit>
       <trans-unit id="menu.home">
@@ -364,6 +322,138 @@
       <trans-unit id="logout" datatype="html">
         <source>LOG OUT</source>
         <target>登出</target>
+      </trans-unit>
+      <trans-unit id="error.login.credential">
+        <source>Invalid Login Credentials</source>
+        <target>您所輸入的密碼錯誤。</target>
+      </trans-unit>
+      <trans-unit id="error.login.invalidEmail">
+        <source>Email is missing or unvalidated.</source>
+        <target>找不到任何與您輸入的電郵。</target>
+      </trans-unit>
+      <trans-unit id="error.validation.required">
+        <source>This is a required field</source>
+        <target>此為必填欄位。</target>
+      </trans-unit>
+      <trans-unit id="error.validation.pattern">
+        <source>Email must be a valid email address (abc@tccc.ca).</source>
+        <target>電郵格式不正確，請重新輸入。(abc@tccc.ca)</target>
+      </trans-unit>
+      <trans-unit id="error.validation.minLength">
+        <source>Password must contain at least 8 characters.</source>
+        <target>密碼必須包含至少 8 個字元。</target>
+      </trans-unit>
+      <trans-unit id="error.validation.number">
+        <source>Phone number must be a valid phone number (4191234567)</source>
+        <target>電話號碼格式不正確，請重新輸入。(4191234567)</target>
+      </trans-unit>
+      <trans-unit id="error.validation.mismatch">
+        <source>Passwords don\'t match.</source>
+        <target>密碼不同。</target>
+      </trans-unit>
+      <trans-unit id="error.validation.age">
+        <source>User must be 18 years or older</source>
+        <target>TODO</target>
+      </trans-unit>
+      <trans-unit id="error.validation.experience">
+        <source>Experience must be within 0 to 10 years</source>
+        <target>TODO</target>
+      </trans-unit>
+      <trans-unit id="error.validation.fsymbol">
+        <source>First name must only contain letters</source>
+        <target>僅允許使用英文字母。</target>
+      </trans-unit>
+      <trans-unit id="error.validation.lsymbol">
+        <source>Last name must only contain letters</source>
+        <target>僅允許使用英文字母。</target>
+      </trans-unit>
+      <trans-unit id="dept.hospitality.name">
+        <source>Hospitality</source>
+        <target>款待</target>
+      </trans-unit>
+      <trans-unit id="dept.kitchen.name">
+        <source>Kitchen</source>
+        <target>廚房</target>
+      </trans-unit>
+      <trans-unit id="dept.clothingBank.name">
+        <source>Clothing Bank</source>
+        <target>衣物庫</target>
+      </trans-unit>
+      <trans-unit id="dept.registration.name">
+        <source>Registration</source>
+        <target>註冊</target>
+      </trans-unit>
+      <trans-unit id="dept.setupCleanup.name">
+        <source>Setup / Cleanup</source>
+        <target>場地佈置/清理</target>
+      </trans-unit>
+      <trans-unit id="dept.hospitality.desc">
+        <source>Hospitality</source>
+        <target>款待</target>
+      </trans-unit>
+      <trans-unit id="dept.kitchen.desc">
+        <source>Kitchen</source>
+        <target>廚房</target>
+      </trans-unit>
+      <trans-unit id="dept.clothingBank.desc">
+        <source>Clothing Bank</source>
+        <target>衣物庫</target>
+      </trans-unit>
+      <trans-unit id="dept.registration.desc">
+        <source>Registration</source>
+        <target>註冊</target>
+      </trans-unit>
+      <trans-unit id="dept.setupCleanup.desc">
+        <source>Setup / Cleanup</source>
+        <target>場地佈置/清理</target>
+      </trans-unit>
+      <trans-unit id="plurals.spots.zero">
+        <source>Full</source>
+        <target>滿</target>
+      </trans-unit>
+      <trans-unit id="plurals.spots.one">
+        <source>1 / <x id="PH"/> spot left</source>
+        <target>1 / <x id="PH"/> 位</target>
+      </trans-unit>
+      <trans-unit id="plurals.spots.other">
+        <source># / <x id="PH"/> spots left</source>
+        <target># / <x id="PH"/> 位</target>
+      </trans-unit>
+      <trans-unit id="plurals.duration.halfHour">
+        <source>30 mins</source>
+        <target>30 分鐘</target>
+      </trans-unit>
+      <trans-unit id="plurals.duration.hour">
+        <source>1 hour</source>
+        <target>1 個小時</target>
+      </trans-unit>
+      <trans-unit id="plurals.duration.hours">
+        <source># hours</source>
+        <target># 個小時</target>
+      </trans-unit>
+      <trans-unit id="confirmation.ok">
+        <source>OK</source>
+        <target>確定</target>
+      </trans-unit>
+      <trans-unit id="confirmation.cancel">
+        <source>Cancel</source>
+        <target>取消</target>
+      </trans-unit>
+      <trans-unit id="confirmation.yes">
+        <source>Yes</source>
+        <target>是</target>
+      </trans-unit>
+      <trans-unit id="confirmation.no">
+        <source>No</source>
+        <target>否</target>
+      </trans-unit>
+      <trans-unit id="modal.cancelReservation.title">
+        <source>Cancel Reservation</source>
+        <target>取消選項</target>
+      </trans-unit>
+      <trans-unit id="modal.cancelReservation.text">
+        <source>Are you sure you want to cancel this reservation?</source>
+        <target>您確定要取消此選項嗎？</target>
       </trans-unit>
     </body>
   </file>

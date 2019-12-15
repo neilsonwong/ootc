@@ -38,27 +38,28 @@
                 <mat-form-field>
                     <input matInput type="email" placeholder="Email" formControlName="email" required
                         i18n-placeholder="@@email">
-                    <mat-hint>{{ formErrors.pattern }}</mat-hint>
+                    <mat-hint>{{ formErrors.required }}</mat-hint>
                     <mat-error>{{ formErrors.pattern }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="password" placeholder="Password"
                         formControlName="password" required
                         i18n-placeholder="@@password">
-                    <mat-hint>{{ formErrors.minLength }}</mat-hint>
+                    <mat-hint>{{ formErrors.required }}</mat-hint>
                     <mat-error>{{ formErrors.minLength }}</mat-error>  
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="password" placeholder="Verify Password"
                         formControlName="verifypassword" required
                         i18n-placeholder="@@verifyPassword">
+                    <mat-hint>{{ formErrors.required }}</mat-hint>
                     <mat-error>{{ formErrors.mismatch }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="tel" placeholder="Phone Number"
                         formControlName="phoneNumber" maxlength=10 required
                         i18n-placeholder="@@phoneNumber">
-                    <mat-hint>{{ formErrors.number }}</mat-hint>
+                    <mat-hint>{{ formErrors.required }}</mat-hint>
                     <mat-error>{{ formErrors.number }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
@@ -68,12 +69,14 @@
                             {{ageRange.viewValue}}
                         </mat-option>
                     </mat-select>
+                    <mat-hint>{{ formErrors.required }}</mat-hint>
                     <mat-error>{{ formErrors.age }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="number" placeholder="Volunteer Experience (years)"
                         formControlName="experience" required
                         i18n-placeholder="@@volunteerExperience">
+                    <mat-hint>{{ formErrors.required }}</mat-hint>
                     <mat-error>{{ formErrors.experience }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>

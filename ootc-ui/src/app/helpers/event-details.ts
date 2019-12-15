@@ -16,9 +16,9 @@ export class EventDetails implements OnInit {
   public duration: number;
 
   public durationPluralMapping = {
-    '=0.5':'30 mins',
-    '=1': '1 hour',
-    'other': '# hours',
+    '=0.5': $localize `:@@plurals.duration.halfHour:30 mins`,
+    '=1': $localize `:@@plurals.duration.hour:1 hour`,
+    'other': $localize `:@@plurals.duration.hours:# hours`,
   };
 
   constructor() { }

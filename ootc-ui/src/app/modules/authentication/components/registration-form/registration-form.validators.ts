@@ -48,14 +48,14 @@ export function expRangeValidator(control: AbstractControl): { [key: string]: bo
 
 // https://stackoverflow.com/questions/47884655/display-custom-validator-error-with-mat-error
 export const formErrorMessages: { [key: string]: string } = {
-  required: 'This is a required field',
-  pattern: 'Email must be a valid email address (abc@tccc.ca).',
-  minLength: 'Password must contain at least 8 characters.',
-  number: 'Phone number must be a valid phone number (1234567890)',
-  mismatch: 'Passwords don\'t match.',
-  age: 'User must be 18 years or older',
-  experience: 'Experience must be within 0 to 10 years',
-  fsymbol: 'First name must only contain letters',
-  lsymbol: 'Last name must only contain letters'
+  required: $localize `:@@error.validation.required:This is a required field`,
+  pattern: $localize `:@@error.validation.pattern:Email must be a valid email address (abc@tccc.ca).`,
+  minLength: $localize `:@@error.validation.minLength:Password must contain at least 8 characters.`,
+  number: $localize `:@@error.validation.number:Phone number must be a valid phone number (4161234567)`,
+  mismatch: $localize `:@@error.validation.mismatch:Passwords don\'t match.`,
+  age: $localize `:@@error.validation.age:User must be 18 years or older`,
+  experience: $localize `:@@error.validation.experience:Experience must be within 0 to 10 years`,
+  fsymbol: $localize `:@@error.validation.fsymbol:First name must only contain letters`,
+  lsymbol: $localize `:@@error.validation.lsymbol:Last name must only contain letters`
   //unique: 'Passwords must contain at least 1 uppercase character'
 };

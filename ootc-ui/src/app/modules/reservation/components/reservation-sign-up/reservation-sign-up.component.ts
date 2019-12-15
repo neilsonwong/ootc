@@ -3,6 +3,7 @@ import { DepartmentService } from 'src/app/services/department.service';
 import { Department } from 'src/app/models/Department';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { ReservationView } from 'src/app/models/ReservationView';
+import { TranslationService } from 'src/app/services/translationService';
 
 @Component({
   selector: 'app-reservation-sign-up',
@@ -15,7 +16,8 @@ export class ReservationSignUpComponent implements OnInit {
   public selectedDepartment: Department;
 
   constructor(private departmentService: DepartmentService,
-    private reservationService: ReservationService) { }
+    private reservationService: ReservationService,
+    private translationService: TranslationService) { }
 
   ngOnInit() {
     this.reservations = [];
@@ -27,7 +29,7 @@ export class ReservationSignUpComponent implements OnInit {
   private getDepartments() {
     this.departmentService.getDepartments()
       .subscribe((departments: Department[]) => {
-        this.departments = departments;
+        this.departments = this.translationService.translateDepartments(departments);
       });
   }
 

@@ -36,8 +36,8 @@ export class ReservationManagementComponent implements OnInit {
   onCancel(reservation: ReservationView) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: {
-        title: 'Cancel Reservation',
-        text: 'Are you sure you want to cancel this reservation?',
+        title: $localize `:@@modal.cancelReservation.title:Cancel Reservation`,
+        text: $localize `:@@modal.cancelReservation.text:Are you sure you want to cancel this reservation?`,
         yesNo: true
       },
       width: DIALOG_WIDTHS.CONFIRMATION
