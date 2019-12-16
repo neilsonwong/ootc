@@ -29,7 +29,7 @@
     -->
     <div class="right-side">
         <div *ngIf="securityClearance > 0 && name !== undefined" class="logged-in-indicator">
-            <span i18n="@@signedInAs">
+            <span i18n="@@header.signedInAs">
                 Signed in as &nbsp;
             </span>
             <span class="username">{{ name }}</span>
@@ -50,7 +50,7 @@
                 </ng-container>
                 <button *ngIf="securityClearance > 0" mat-menu-item (click)="logout()">
                     <mat-icon>exit_to_app</mat-icon>
-                    <span i18n="@@logout">LOG OUT</span>
+                    <span i18n="@@menu.logout">LOG OUT</span>
                 </button>
             </mat-menu>
         </div>

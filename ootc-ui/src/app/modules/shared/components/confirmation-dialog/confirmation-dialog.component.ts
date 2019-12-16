@@ -9,8 +9,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class ConfirmationDialogComponent implements OnInit {
   public title: string;
   public text: string;
-  public positiveButtonText: string = $localize `:@@confirmation.ok:OK`;
-  public negativeButtonText: string = $localize `:@@confirmation.cancel:Cancel`;
+  public positiveButtonText: string = $localize `:@@button.text.ok:OK`;
+  public negativeButtonText: string = $localize `:@@button.text.cancel:Cancel`;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -18,8 +18,8 @@ export class ConfirmationDialogComponent implements OnInit {
     this.title = this.data.title;
     this.text = this.data.text;
     if (this.data.yesNo) {
-      this.positiveButtonText = $localize `:@@confirmation.yes:Yes`;
-      this.negativeButtonText = $localize `:@@confirmation.no:No`;
+      this.positiveButtonText = $localize `:@@button.text.yes:Yes`;
+      this.negativeButtonText = $localize `:@@button.text.no:No`;
     }
   }
 }

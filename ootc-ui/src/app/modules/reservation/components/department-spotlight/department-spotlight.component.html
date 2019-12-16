@@ -7,7 +7,7 @@
         </mat-button-toggle>
     </mat-button-toggle-group>
     <mat-form-field class="dropdown-menu">
-        <mat-label i18n="@@departments">
+        <mat-label i18n="@@departments.title">
             Departments
         </mat-label>
         <mat-select (selectionChange)="selectDept($event)">
@@ -22,7 +22,7 @@
     <ng-template #pickSomething>
         <div class="no-selection-desc">
             <app-emoji-text
-                i18n="@@pickDeptText">
+                i18n="@@departments.pickText">
                 What would you like to help with?
             </app-emoji-text>
         </div>

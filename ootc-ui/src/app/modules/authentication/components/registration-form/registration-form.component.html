@@ -1,18 +1,18 @@
 <div class="registration-form stand-alone-box">
     <ng-container *ngIf="registrationSuccessful; else notconfirmed">
         <h3 class="registration-form-title"
-        i18n="@@registrationSuccessMsg">
+        i18n="@@registration.success.msg">
             Registration Successful!
         </h3>
         <app-emoji-text [thin]="true"
-        i18n="@@registrationThankYou">
+            i18n="@@registration.success.thankYou">
             Thank you for registering!<br />
             Check your email to validate your email!
         </app-emoji-text>
     </ng-container>
     <ng-template #notconfirmed>
         <h3 class="registration-form-title"
-            i18n="@@registrationTitle">
+            i18n="@@registration.form.title">
             Volunteer Registration
         </h3>
         <div>
@@ -20,50 +20,50 @@
                 <mat-form-field>
                     <input matInput type="text" placeholder="First Name"
                         formControlName="firstName" required
-                        i18n-placeholder="@@firstName">
+                        i18n-placeholder="@@registration.form.firstName">
                     <mat-hint>{{ formErrors.required }}</mat-hint>
                     <mat-error>{{ formErrors.fsymbol }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="text" placeholder="Middle Name" formControlName="middleName"
-                        i18n-placeholder="@@middleName">
+                        i18n-placeholder="@@registration.form.middleName">
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="text" placeholder="Last Name"
                         formControlName="lastName" required
-                        i18n-placeholder="@@lastName">
+                        i18n-placeholder="@@registration.form.lastName">
                     <mat-hint>{{ formErrors.required }}</mat-hint>
                     <mat-error>{{ formErrors.lsymbol }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="email" placeholder="Email" formControlName="email" required
-                        i18n-placeholder="@@email">
+                        i18n-placeholder="@@form.email">
                     <mat-hint>{{ formErrors.required }}</mat-hint>
                     <mat-error>{{ formErrors.pattern }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="password" placeholder="Password"
                         formControlName="password" required
-                        i18n-placeholder="@@password">
+                        i18n-placeholder="@@form.password">
                     <mat-hint>{{ formErrors.required }}</mat-hint>
                     <mat-error>{{ formErrors.minLength }}</mat-error>  
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="password" placeholder="Verify Password"
                         formControlName="verifypassword" required
-                        i18n-placeholder="@@verifyPassword">
+                        i18n-placeholder="@@registration.form.verifyPassword">
                     <mat-hint>{{ formErrors.required }}</mat-hint>
                     <mat-error>{{ formErrors.mismatch }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="tel" placeholder="Phone Number"
                         formControlName="phoneNumber" maxlength=10 required
-                        i18n-placeholder="@@phoneNumber">
+                        i18n-placeholder="@@registration.form.phoneNumber">
                     <mat-hint>{{ formErrors.required }}</mat-hint>
                     <mat-error>{{ formErrors.number }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label i18n="@@age">Age</mat-label>
+                    <mat-label i18n="@@registration.form.age">Age</mat-label>
                     <mat-select formControlName="age" required>
                         <mat-option *ngFor="let ageRange of ageRanges" [value]="ageRange.value">
                             {{ageRange.viewValue}}
@@ -75,17 +75,17 @@
                 <mat-form-field>
                     <input matInput type="number" placeholder="Volunteer Experience (years)"
                         formControlName="experience" required
-                        i18n-placeholder="@@volunteerExperience">
+                        i18n-placeholder="@@registration.form.volunteerExperience">
                     <mat-hint>{{ formErrors.required }}</mat-hint>
                     <mat-error>{{ formErrors.experience }}</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input matInput type="text" placeholder="Comments" formControlName="comments"
-                        i18n-placeholder="@@comments">
+                        i18n-placeholder="@@registration.form.comments">
                 </mat-form-field>
                 <button mat-raised-button color="primary" type="submit"
                     [disabled]="!registrationForm.valid"
-                    i18n="@@register">
+                    i18n="@@button.text.register">
                     Register
                 </button>
             </form>
