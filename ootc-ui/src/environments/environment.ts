@@ -4,7 +4,25 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://localhost:8000/api/v1'
+  API_URL: 'http://localhost:8000/api/v1',
+  BASE_DOMAIN: undefined,
+  languages: [
+    {
+      locale: 'en-US',
+      name: 'English',
+      url: 'http://localhost:4200'
+    },
+    {
+      locale: 'zh-Hant',
+      name: '中文 (繁體)',
+      url: 'http://localhost:4201'
+    },
+    {
+      locale: 'zh-Hans',
+      name: '中文 (简体)',
+      url: 'http://localhost:4201'
+    }
+  ]
 };
 
 /*

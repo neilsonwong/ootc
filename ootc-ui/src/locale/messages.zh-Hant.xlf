@@ -27,6 +27,18 @@
         <source>Volunteer Registration</source>
         <target>義工註冊</target>
       </trans-unit>
+      <trans-unit id="registration.loader.title">
+        <source>Registering Volunteer</source>
+        <target>TODO</target>
+      </trans-unit>
+      <trans-unit id="registration.loader.text">
+        <source>Registering our new volunteer ...</source>
+        <target>TODO</target>
+      </trans-unit>
+      <trans-unit id="registration.loader.error">
+        <source>Registration Error.</source>
+        <target>TODO</target>
+      </trans-unit>
 
       <!-- form fields -->
       <trans-unit id="form.email" datatype="html">
@@ -145,6 +157,10 @@
       <trans-unit id="menu.logout" datatype="html">
         <source>LOG OUT</source>
         <target>登出</target>
+      </trans-unit>
+      <trans-unit id="menu.language" datatype="html">
+        <source>LANGUAGE</source>
+        <target>LANG</target>
       </trans-unit>
 
       <!-- footer -->
@@ -340,6 +356,34 @@
         <source>Signed Up</source>
         <target>已登記</target>
       </trans-unit>
+      <trans-unit id="volunteerSignUp.results">
+        <source>#### Sign up results! <x id="PH"/></source>
+        <target>TODO</target>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp.success">
+        <source>SUCCESS: **<x id="PH"/>** on **<x id="PH_1"/>** **<x id="PH_2"/>**</source>
+        <target>TODO</target>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp.failure">
+        <source>FAILED: **<x id="PH"/>** on **<x id="PH_1"/>** **<x id="PH_2"/>**</source>
+        <target>TODO</target>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp.loader.title">
+        <source>Signing you up!</source>
+        <target>TODO</target>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp.loader.text">
+        <source>Sign ups are processing ...</source>
+        <target>TODO</target>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp.loader.done">
+        <source>Sign ups are complete.</source>
+        <target>TODO</target>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp.loader.error">
+        <source>Unable to sign up.</source>
+        <target>TODO</target>
+      </trans-unit>
 
       <!-- my schedule -->
       <trans-unit id="mySchedule.title" datatype="html">
@@ -357,6 +401,30 @@
       <trans-unit id="departments.pickText" datatype="html">
         <source>What would you like to help with?</source>
         <target>那個項目您可以幫忙?</target>
+      </trans-unit>
+      <trans-unit id="mySchedule.cancel.loader.title">
+        <source>Cancelling</source>
+        <target>TODO</target>
+      </trans-unit>
+      <trans-unit id="mySchedule.cancel.loader.text">
+        <source>Sending Cancellation ...</source>
+        <target>TODO</target>
+      </trans-unit>
+      <trans-unit id="mySchedule.cancel.loader.done.title">
+        <source>Cancelled</source>
+        <target>TODO</target>
+      </trans-unit>
+      <trans-unit id="mySchedule.cancel.loader.done.text">
+        <source>
+          We have cancelled your session for  
+          **<x id="PH"/>** on  
+          **<x id="PH_1"/>** at **<x id="PH_2"/>**.
+        </source>
+        <target>TODO</target>
+      </trans-unit>
+      <trans-unit id="mySchedule.cancel.loader.error">
+        <source>Cancellation Error</source>
+        <target>TODO</target>
       </trans-unit>
 
       <!-- errors -->
@@ -532,6 +600,7 @@
         <source>Change Password</source>
         <target>TODO</target>
       </trans-unit>
+
 
     </body>
   </file>

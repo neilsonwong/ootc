@@ -48,6 +48,7 @@
                         </button>
                     </ng-container>
                 </ng-container>
+                <app-language-selector></app-language-selector>
                 <button *ngIf="securityClearance > 0" mat-menu-item (click)="logout()">
                     <mat-icon>exit_to_app</mat-icon>
                     <span i18n="@@menu.logout">LOG OUT</span>

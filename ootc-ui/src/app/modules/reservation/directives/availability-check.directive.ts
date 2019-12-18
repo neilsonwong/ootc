@@ -19,8 +19,7 @@ export class AvailabilityCheckDirective implements OnChanges {
     // don't disable a live checkbox
     if (this.hostInput.selected === false) {
       this.setDisabled(
-        (this.value.hasSpace === false) ||
-        this.isBusy());
+        (this.value.hasSpace === false) || this.isBusy());
     }
   }
 

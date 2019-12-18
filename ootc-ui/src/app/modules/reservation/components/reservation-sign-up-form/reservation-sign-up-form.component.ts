@@ -122,14 +122,14 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
             const reservation = new Reservation(undefined, this.userId, timeSlot.id, 0);
             return this.reservationService.addReservation(reservation)
               .pipe(
-                map((val) => (`SUCCESS: **${timeSlot.desc}** on **${timeSlot.startDate}** **${reservationDisplayUtils.to12HourClock(timeSlot.startTime)}**  `)),
-                catchError((err) => of(`FAILED: **${timeSlot.desc}** on **${timeSlot.startDate}** **${reservationDisplayUtils.to12HourClock(timeSlot.startTime)}**  `))
+                map((val) => ($localize `:@@volunteerSignUp.success:SUCCESS: **${timeSlot.desc}** on **${timeSlot.startDate}** **${reservationDisplayUtils.to12HourClock(timeSlot.startTime)}**  `)),
+                catchError((err) => of($localize `:@@volunteerSignUp.failure:FAILED: **${timeSlot.desc}** on **${timeSlot.startDate}** **${reservationDisplayUtils.to12HourClock(timeSlot.startTime)}**  `))
               );
           });
 
           const batchSignUpObs = forkJoin(newReservationsReqs)
             .pipe(
-              map((val: string[]) => (`#### Sign up results!\n` + val.join('\n'))),
+              map((val: string[]) => ($localize `:@@volunteerSignUp.results:#### Sign up results! ${'\n'+ val.join('\n')}`)),
               tap(() => {
                 this.reservationsChanged.emit(true);
                 this.setupForm();
@@ -137,9 +137,9 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
             );
 
           this.loadingService.callWithLoader(batchSignUpObs, [
-            { state: LoadState.Loading, title: 'Signing you up!', text: 'Sign ups are processing ...' },
-            { state: LoadState.Complete, title: 'Sign ups complete' },
-            { state: LoadState.Error, title: 'Unable to sign up' }
+            { state: LoadState.Loading, title: $localize `:@@volunteerSignUp.loader.title:Signing you up!`, text: $localize `:@@volunteerSignUp.loader.text:Sign ups are processing ...` },
+            { state: LoadState.Complete, title: $localize `:@@volunteerSignUp.loader.done:Sign ups complete.` },
+            { state: LoadState.Error, title: $localize `:@@volunteerSignUp.loader.error:Unable to sign up.` }
           ]);
         }
         else {

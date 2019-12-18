@@ -55,13 +55,12 @@ export class ReservationManagementComponent implements OnInit {
       .pipe(tap(() => { this.getReservations(); }));
 
     this.loadingService.callWithLoader(cancelObs, [
-      { state: LoadState.Loading, title: 'Cancelling', text: 'Sending Cancellation ...' },
-      { state: LoadState.Complete, title: 'Cancelled', text: [
-        `We have cancelled your session for  `,
-        `**${reservation.desc}** on  `,
-        `**${formatDate(reservation.startDate, 'fullDate', 'en-US')}** at **${to12HourClock(reservation.startTime)}**.`
-      ].join('\n') },
-      { state: LoadState.Error, title: 'Cancellation Error' }
+      { state: LoadState.Loading, title: $localize `:@@mySchedule.cancel.loader.title:Cancelling`, text: $localize `:@@mySchedule.cancel.loader.text:Sending Cancellation ...` },
+      { state: LoadState.Complete, title: $localize `:@@mySchedule.cancel.loader.done.title:Cancelled`, text: $localize
+`:@@mySchedule.cancel.loader.done.text:We have cancelled your session for  
+**${reservation.desc}** on  
+**${formatDate(reservation.startDate, 'fullDate', 'en-US')}** at **${to12HourClock(reservation.startTime)}**.`},
+      { state: LoadState.Error, title: $localize `:@@mySchedule.cancel.loader.error:Cancellation Error` }
     ]);
   }
 }

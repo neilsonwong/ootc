@@ -3,11 +3,11 @@ import { ILanguage } from 'src/app/interfaces/ILanguage';
 import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
-  selector: 'app-footer-bar',
-  templateUrl: './footer-bar.component.html',
-  styleUrls: ['./footer-bar.component.scss']
+  selector: 'app-language-selector',
+  templateUrl: './language-selector.component.html',
+  styleUrls: ['./language-selector.component.scss']
 })
-export class FooterBarComponent implements OnInit {
+export class LanguageSelectorComponent implements OnInit {
   public languages: ILanguage[];
 
   constructor(private localeService: LocaleService) { }
