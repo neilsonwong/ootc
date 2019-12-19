@@ -29,7 +29,7 @@ export class ReservationSignUpLineComponent extends EventDetails implements OnIn
 
     this.spotsPluralMapping = {
       '=0': $localize `:@@plurals.spots.zero:Full`,
-      '=1': $localize `:@@plurals.spots.one:1 / ${this.totalSpots} spot left`,
+      // '=1': $localize `:@@plurals.spots.one:1 / ${this.totalSpots} spot left`,
       'other': $localize `:@@plurals.spots.other:# / ${this.totalSpots} spots left`,
     };
   }

@@ -1,7 +1,9 @@
 import { Injectable, LOCALE_ID, Inject } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { AuthenticationService } from './authentication.service';
 import { ILanguage } from 'src/app/interfaces/ILanguage';
 import * as docCookies from 'src/app/utils/docCookies';
+import { COOKIE_AUTH_CONTEXT } from 'src/app/constants/storage-constants';
 
 const LANGUAGES: ILanguage[] = environment.languages;
 
@@ -11,6 +13,7 @@ const LANGUAGES: ILanguage[] = environment.languages;
 export class LocaleService {
 
   constructor(
+    private authService: AuthenticationService,
     @Inject(LOCALE_ID) public locale: string
   ) {
     if (environment.BASE_DOMAIN) {
@@ -43,6 +46,12 @@ export class LocaleService {
       return;
     }
     else {
+      // if they have an auth context, put it in!
+      const authContext = this.authService.getAuthContext();
+      if (authContext && authContext.securityClearance) {
+        docCookies.setItem(COOKIE_AUTH_CONTEXT, JSON.stringify(authContext), 10, '/', environment.BASE_DOMAIN);
+      }
+
       // renavigate the page to the right locale
       // find the right url
       const preferredLanguage = LANGUAGES.find((lang: ILanguage) => {
