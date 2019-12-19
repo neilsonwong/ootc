@@ -34,7 +34,8 @@ export function setItem(sKey: string, sValue: string, vEnd?: any, sPath?: string
   if (vEnd) {
     switch (vEnd.constructor) {
       case Number:
-        sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + maxAgeToGMT(vEnd);
+        // sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + vEnd;
+        sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; expires=" + (new Date(vEnd * 1e3 + Date.now())).toUTCString();
         /*
         Note: Despite officially defined in RFC 6265, the use of `max-age` is not compatible with any
         version of Internet Explorer, Edge and some mobile browsers. Therefore passing a number to
@@ -42,7 +43,6 @@ export function setItem(sKey: string, sValue: string, vEnd?: any, sPath?: string
         relative time to an absolute time. For instance, replacing the previous line with:
         */
         /*
-        sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; expires=" + (new Date(vEnd * 1e3 + Date.now())).toUTCString();
         */
         break;
       case String:
@@ -57,7 +57,7 @@ export function setItem(sKey: string, sValue: string, vEnd?: any, sPath?: string
   return true;
 };
 export function removeItem(sKey: string, sPath?: string, sDomain?: string): Boolean {
-  if (!this.hasItem(sKey)) { return false; }
+  if (!hasItem(sKey)) { return false; }
   document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "");
   return true;
 };
@@ -69,7 +69,4 @@ export function keys() {
   var aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/);
   for (var nLen = aKeys.length, nIdx = 0; nIdx < nLen; nIdx++) { aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]); }
   return aKeys;
-}
-function maxAgeToGMT (nMaxAge: number) {
-  return nMaxAge === Infinity ? "Fri, 31 Dec 9999 23:59:59 GMT" : (new Date(nMaxAge * 1e3 + Date.now())).toUTCString();
 }

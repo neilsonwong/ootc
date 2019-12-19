@@ -130,7 +130,7 @@ export class AuthenticationService {
     const cookieAuthString = docCookies.getItem(COOKIE_AUTH_CONTEXT);
 
     if (cookieAuthString !== null) {
-      docCookies.removeItem(COOKIE_AUTH_CONTEXT);
+      docCookies.removeItem(COOKIE_AUTH_CONTEXT, '/', environment.BASE_DOMAIN);
 
       // replace it
       if (sessionStorage.getItem(SESSION_AUTH_CONTEXT) === null) {
