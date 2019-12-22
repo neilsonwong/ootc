@@ -6,12 +6,12 @@ export const environment = {
     {
       locale: 'en-US',
       name: 'English',
-      url: 'https://tccc-ootc.ca'
+      url: 'https://en.tccc-ootc.ca'
     },
     {
       locale: 'zh-Hant',
       name: '中文 (繁體)',
-      url: 'https://zh.tccc-ootc.ca'
+      url: 'https://zht.tccc-ootc.ca'
     },
     {
       locale: 'zh-Hans',
