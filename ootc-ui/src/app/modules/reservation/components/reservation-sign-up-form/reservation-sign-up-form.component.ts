@@ -19,6 +19,7 @@ import { ScheduleService } from 'src/app/services/schedule.service';
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
 import * as dateUtils from 'src/app/utils/dateUtils';
 import * as moment from 'moment';
+import { TranslationService } from 'src/app/services/translationService';
 
 @Component({
   selector: 'app-reservation-sign-up-form',
@@ -50,7 +51,8 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
     private reservationService: ReservationService,
     private scheduleService: ScheduleService,
     private loadingService: LoadingService,
-    private authService: AuthenticationService) {
+    private authService: AuthenticationService,
+    private translationService: TranslationService) {
     super();
   }
 
@@ -120,6 +122,7 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
           const newReservationsReqs = this.timeSlots.selectedOptions.selected.map(o => {
             const timeSlot: TimeSlotView = <TimeSlotView>o.value;
             const reservation = new Reservation(undefined, this.userId, timeSlot.id, 0);
+            timeSlot.desc = this.translationService.translateRole(timeSlot.desc);
             return this.reservationService.addReservation(reservation)
               .pipe(
                 map((val) => ($localize `:@@volunteerSignUp.success:SUCCESS: **${timeSlot.desc}** on **${timeSlot.startDate}** **${reservationDisplayUtils.to12HourClock(timeSlot.startTime)}**  `)),
@@ -129,7 +132,7 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
 
           const batchSignUpObs = forkJoin(newReservationsReqs)
             .pipe(
-              map((val: string[]) => ($localize `:@@volunteerSignUp.results:#### Sign up results! ${'\n'+ val.join('\n')}`)),
+              map((val: string[]) => ($localize `:@@volunteerSignUp.results:#### Sign up results! ${'\n'+ val.join('\n\n')}`)),
               tap(() => {
                 this.reservationsChanged.emit(true);
                 this.setupForm();
@@ -191,7 +194,7 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
   private initRoles() {
     if (this.allTimeSlots) {
       this.roles = this.allTimeSlots
-        .map((e: TimeSlotView) => (e.desc))
+        .map((e: TimeSlotView) => (this.translationService.translateRole(e.desc)))
         .filter((v, i, a) => a.indexOf(v) === i);
     }
   }
@@ -240,7 +243,7 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
     else {
       const temp = {};
       for (const day in this.groupedTimeSlots) {
-        temp[day] = this.groupedTimeSlots[day].filter((t: TimeSlotView) => (t.desc === roleString));
+        temp[day] = this.groupedTimeSlots[day].filter((t: TimeSlotView) => (this.translationService.translateRole(t.desc) === roleString));
       }
       this.groupedDisplayTimeSlots = temp;
     }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventDetails } from 'src/app/helpers/event-details';
+import { TranslationService } from 'src/app/services/translationService';
 
 @Component({
   selector: 'app-reservation-details',
@@ -7,8 +8,8 @@ import { EventDetails } from 'src/app/helpers/event-details';
   styleUrls: ['./reservation-details.component.scss']
 })
 export class ReservationDetailsComponent extends EventDetails implements OnInit {
-  constructor() {
-    super();
+  constructor(protected translationService: TranslationService) {
+    super(translationService);
   }
 
   ngOnInit() {
