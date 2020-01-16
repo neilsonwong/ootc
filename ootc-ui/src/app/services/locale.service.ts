@@ -17,7 +17,12 @@ export class LocaleService {
     @Inject(LOCALE_ID) public locale: string
   ) {
     if (environment.BASE_DOMAIN) {
-      document.domain = environment.BASE_DOMAIN;
+      try {
+        document.domain = environment.BASE_DOMAIN;
+      }
+      catch (e) {
+        console.log(e);
+      }
     }
   }
 

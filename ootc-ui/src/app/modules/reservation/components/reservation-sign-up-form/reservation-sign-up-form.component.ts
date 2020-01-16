@@ -58,7 +58,7 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
 
   ngOnInit(): void {
     const rootDate = dateUtils.nowOrStartOfSeason();
-    const twoMonthsLater = moment(rootDate).add(2, 'months')
+    const twoMonthsLater = moment(rootDate).add(3, 'months')
 
     this.startDate = rootDate.format('YYYY-MM-DD');
     this.endDate = twoMonthsLater.format('YYYY-MM-DD');

@@ -5,7 +5,7 @@
     box-sizing: border-box;
     padding: 2rem;
     padding-bottom: 4rem;
-    min-width: calc($app-container-min-width + 4rem);
+    min-width: calc(#{$app-container-min-width} + 4rem);
     max-width: $app-container-max-width;
 }
 
