@@ -68,13 +68,15 @@ export class TimeSlotDetailsComponent extends EventDetails implements OnInit {
     this.totalSpots = this.timeSlot.signUpCap;
     this.reserved = this.timeSlot.reserved;
 
+    if (this.reserved === this.totalSpots) {
+      this.full = true;
+    }
     // warn if total < 5 and someone is missing
-    if (this.totalSpots < 5) {
+    else if (this.totalSpots < 5) {
       this.warn = this.reserved !== this.totalSpots;
     }
     else {
       this.warn = this.reserved < Math.ceil(this.totalSpots * 0.75);
-      this.full = this.reserved === this.totalSpots;
     }
   }
 
