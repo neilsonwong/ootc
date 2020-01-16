@@ -4,6 +4,18 @@
   "newProjectRoot": "projects",
   "projects": {
     "ootc-ui": {
+      "i18n": {
+        "locales": {
+          "zh-hk": {
+            "translation": "src/locale/messages.zh-Hant.xlf",
+            "baseHref": ""
+          },
+          "zh-cn": {
+            "translation": "src/locale/messages.zh-Hans.xlf",
+            "baseHref": ""
+          }
+        }
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -22,7 +34,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets",
@@ -53,7 +65,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -69,6 +80,18 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "zh-hk": {
+              "outputPath": "dist/ootc-ui-zh-hk/",
+              "i18nFile": "src/locale/messages.zh-Hant.xlf",
+              "i18nLocale": "zh-Hant",
+              "i18nMissingTranslation": "error"
+            },
+            "zh-cn": {
+              "outputPath": "dist/ootc-ui-zh-cn/",
+              "i18nFile": "src/locale/messages.zh-Hans.xlf",
+              "i18nLocale": "zh-Hans",
+              "i18nMissingTranslation": "error"
             }
           }
         },
@@ -80,6 +103,12 @@
           "configurations": {
             "production": {
               "browserTarget": "ootc-ui:build:production"
+            },
+            "zh-hk": {
+              "browserTarget": "ootc-ui:build:zh-hk"
+            },
+            "zh-cn": {
+              "browserTarget": "ootc-ui:build:zh-cn"
             }
           }
         },

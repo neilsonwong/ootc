@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <!-- title -->
+      <trans-unit id="website.title">
+        <source>Out of the Cold @ TCCC</source>
+        <target>寒冬送暖传爱心@多伦多华人基督教会</target>
+      </trans-unit>
+
+      <!-- login -->
+      <trans-unit id="volunteerLogin.title" datatype="html">
+        <source>Volunteer Login</source>
+        <target>登入</target>
+      </trans-unit>
+
+      <!-- registration  -->
+      <trans-unit id="registration.success.msg" datatype="html">
+        <source>Registration Successful!</source>
+        <target>註冊成功</target>
+      </trans-unit>
+      <trans-unit id="registration.success.thankYou" datatype="html">
+        <source>
+          Thank you for registering!<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
+          Check your email to validate your email!
+        </source>
+        <target>
+          註冊成功謝謝。<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
+          電子郵件已發送到您的信箱。請查看及驗證。
+        </target>
+      </trans-unit>
+      <trans-unit id="registration.form.title" datatype="html">
+        <source>Volunteer Registration</source>
+        <target>義工註冊</target>
+      </trans-unit>
+      <trans-unit id="registration.loader.title">
+        <source>Registering Volunteer</source>
+        <target>註冊中</target>
+      </trans-unit>
+      <trans-unit id="registration.loader.text">
+        <source>Registering our new volunteer ...</source>
+        <target>註冊中...</target>
+      </trans-unit>
+      <trans-unit id="registration.loader.error">
+        <source>Registration Error.</source>
+        <target>註冊失敗。請重新註冊。</target>
+      </trans-unit>
+
+      <!-- form fields -->
+      <trans-unit id="form.email" datatype="html">
+        <source>Email</source>
+        <target>電郵</target>
+      </trans-unit>
+      <trans-unit id="registration.form.firstName" datatype="html">
+        <source>First Name</source>
+        <target>名字</target>
+      </trans-unit>
+      <trans-unit id="registration.form.middleName" datatype="html">
+        <source>Middle Name</source>
+        <target>名字</target>
+      </trans-unit>
+      <trans-unit id="registration.form.lastName" datatype="html">
+        <source>Last Name</source>
+        <target>姓氏</target>
+      </trans-unit>
+      <trans-unit id="form.password" datatype="html">
+        <source>Password</source>
+        <target>密碼</target>
+      </trans-unit>
+      <trans-unit id="registration.form.verifyPassword" datatype="html">
+        <source>Verify Password</source>
+        <target>確認密碼</target>
+      </trans-unit>
+      <trans-unit id="registration.form.phoneNumber" datatype="html">
+        <source>Phone Number</source>
+        <target>電話號碼</target>
+      </trans-unit>
+      <trans-unit id="registration.form.age" datatype="html">
+        <source>Age</source>
+        <target>年齡</target>
+      </trans-unit>
+      <trans-unit id="registration.form.volunteerExperience" datatype="html">
+        <source>Volunteer Experience (years)</source>
+        <target>參與義工經驗(年)</target>
+      </trans-unit>
+      <trans-unit id="registration.form.comments" datatype="html">
+        <source>Comments</source>
+        <target>特別關注</target>
+      </trans-unit>
+      <trans-unit id="changePassword.form.oldPassword" datatype="html">
+        <source>Old Password</source>
+        <target>密碼</target>
+      </trans-unit>
+      <trans-unit id="changePassword.form.newPassword" datatype="html">
+        <source>New Password</source>
+        <target>新密碼</target>
+      </trans-unit>
+
+      <!-- forgot password -->
+      <trans-unit id="forgotPassword.title" datatype="html">
+        <source>Forgot Password</source>
+        <target>忘記密碼</target>
+      </trans-unit>
+      <trans-unit id="forgotPassword.text" datatype="html">
+        <source>Enter your email and we will send you a link to reset your password.</source>
+        <target>請輸入您的電郵。</target>
+      </trans-unit>
+      <trans-unit id="forgotPassword.sentEmail" datatype="html">
+        <source>If the entered email is valid, you will recieve a password reset link shortly.</source>
+        <target>重置密碼的電子郵件已發送。</target>
+      </trans-unit>
+
+      <!-- changePassword -->
+      <trans-unit id="changePassword.title" datatype="html">
+        <source>Change Password</source>
+        <target>更改密碼</target>
+      </trans-unit>
+      <trans-unit id="changePassword.text" datatype="html">
+        <source>
+          You are changing the password for 
+          <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
+          <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="INTERPOLATION" equiv-text="{{ email }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+        </source>
+        <target>現在為
+          <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
+          <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="INTERPOLATION" equiv-text="{{ email }}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+          <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
+          更改密碼
+        </target>
+      </trans-unit>
+      <trans-unit id="changePassword.finished" datatype="html">
+        <source>
+          <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>
+            Your password has been updated, you will be logged out. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
+            Please Login again.
+          <x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+        </source>
+        <target>密碼已更新。請再次登入。</target>
+      </trans-unit>
+
+      <!-- header bar -->
+      <trans-unit id="header.signedInAs" datatype="html">
+        <source>Signed in as</source>
+        <target>已登入 </target>
+      </trans-unit>
+
+      <!-- menu -->
+      <trans-unit id="menu.home">
+        <source>Home</source>
+        <target>主页</target>
+      </trans-unit>
+      <trans-unit id="menu.login">
+        <source>Login</source>
+        <target>登入</target>
+      </trans-unit>
+      <trans-unit id="menu.register">
+        <source>Register</source>
+        <target>注册</target>
+      </trans-unit>
+      <trans-unit id="menu.volunteer">
+        <source>Volunteer</source>
+        <target>义工登记</target>
+      </trans-unit>
+      <trans-unit id="menu.myschedule">
+        <source>My Schedule</source>
+        <target>我的服务时间表</target>
+      </trans-unit>
+      <trans-unit id="menu.logout" datatype="html">
+        <source>LOG OUT</source>
+        <target>登出</target>
+      </trans-unit>
+      <trans-unit id="menu.language" datatype="html">
+        <source>LANGUAGE</source>
+        <target>语言</target>
+      </trans-unit>
+
+      <!-- footer -->
+      <trans-unit id="footer" datatype="html">
+        <source>
+          Created with the <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>♥️<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> of <x id="START_TAG_SPAN_1" ctype="x-span" equiv-text="&lt;span&gt;"/>✞<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> by TCCC.  
+        </source>
+        <target>✞ 多伦多华人基督教会 ♥️</target>
+      </trans-unit>
+
+      <!-- landing page -->
+      <trans-unit id="landing.banner.title.ootc" datatype="html">
+        <source>Out of the Cold </source>
+        <target>寒冬送暖传爱心 </target>
+      </trans-unit>
+      <trans-unit id="landing.banner.title.atTccc" datatype="html">
+        <source>@ TCCC</source>
+        <target>@多伦多华人基督教会</target>
+      </trans-unit>
+      <trans-unit id="landing.banner.intro" datatype="html">
+        <source>
+					<x id="START_EMPHASISED_TEXT" ctype="x-em" equiv-text="&lt;em&gt;"/>Toronto Christian Community Church<x id="CLOSE_EMPHASISED_TEXT" ctype="x-em" equiv-text="&lt;/em&gt;"/> and <x id="START_EMPHASISED_TEXT" ctype="x-em" equiv-text="&lt;em&gt;"/>105 Gibson Centre<x id="CLOSE_EMPHASISED_TEXT" ctype="x-em" equiv-text="&lt;/em&gt;"/> have 
+					partnered with Mosaic Interfaith Out of the Cold to bring safety, refuge, warm hospitality 
+					and emergency shelter in the York region to the homeless or those in need during 
+					the coldest weeks of the winter season. We provide services ranging from warm meals 
+					to overnight shelter to various social services.
+				</source>
+        <target>
+        	<x id="START_EMPHASISED_TEXT" ctype="x-em" equiv-text="&lt;em&gt;"/>多伦多华人基督教会<x id="CLOSE_EMPHASISED_TEXT" ctype="x-em" equiv-text="&lt;/em&gt;"/> 和 <x id="START_EMPHASISED_TEXT" ctype="x-em" equiv-text="&lt;em&gt;"/>105社区中心<x id="CLOSE_EMPHASISED_TEXT" ctype="x-em" equiv-text="&lt;/em&gt;"/>,数度与Mosaic Interfaith Out of Cold 合作，在每年冬季最寒冷的数周内, 为无家可归者或有需要的人提供安全，热情款待和紧急庇护所。我们提供的服务范围从热食，留宿，到各种社会服务。
+        </target>
+      </trans-unit>
+      <trans-unit id="landing.banner.note" datatype="html">
+        <source>
+					<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>NOTE: <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> Volunteers under the age of 18 must be accompanied by a parent or guardian.
+				</source>
+        <target>
+          <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>請注意: <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> 未滿18年歳的義工必須有家長或監護人陪同參與。
+        </target>
+      </trans-unit>
+      <trans-unit id="landing.main.title" datatype="html">
+        <source>Welcome!</source>
+        <target>欢迎!</target>
+      </trans-unit>
+      <trans-unit id="landing.main.info.tccc" datatype="html">
+        <source>
+					For more information on <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Toronto Christian Community Church<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, visit our website <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>here<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+				</source>
+        <target>
+					索取更多 <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>多倫多華人基督教會<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>資料, 請瀏覽<x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>網頁<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+        </target>
+      </trans-unit>
+      <trans-unit id="landing.main.info.gibson" datatype="html">
+        <source>
+					For more information on <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>105 Gibson Centre<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, visit our website <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>here<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+				</source>
+        <target>
+					索取更多<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>105社區中心<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>資料, 請瀏覽<x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>網頁<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+        </target>
+      </trans-unit>
+      <trans-unit id="landing.main.info.mosaic" datatype="html">
+        <source>
+					For more information on <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Mosaic Interfaith Out of the Cold<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> and it&apos;s 12 host communities, visit their website <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>here<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+				</source>
+        <target>
+					索取更多<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Mosaic Interfaith Out of the Cold<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>資料, 請瀏覽<x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>網頁<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+        </target>
+      </trans-unit>
+      <trans-unit id="landing.main.overview.title" datatype="html">
+        <source>The 2020 OOTC Year</source>
+        <target>2020 度  寒冬送暖傳愛心</target>
+      </trans-unit>
+      <trans-unit id="landing.main.overview.when.label" datatype="html">
+        <source>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>When<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					</source>
+        <target>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>日期<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+        </target>
+      </trans-unit>
+      <trans-unit id="landing.main.overview.when.value" datatype="html">
+        <source>
+						Every Sunday from January 26 to March 29 (10 weeks)
+					</source>
+        <target>服務提供 由一月26日至三月29日逢週日 (共十週)</target>
+      </trans-unit>
+      <trans-unit id="landing.main.overview.where.label" datatype="html">
+        <source>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Where<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					</source>
+        <target>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>地址<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					</target>
+      </trans-unit>
+      <trans-unit id="landing.main.overview.where.value" datatype="html">
+        <source>105 Gibson Centre (105 Gibson Drive, Markham, ON L3R 3K7)</source>
+        <target>105 社區中心 (105 Gibson Drive, Markham, ON L3R 3K7)</target>
+      </trans-unit>
+      <trans-unit id="landing.main.opportunities.title" datatype="html">
+        <source>Volunteer Opportunities</source>
+        <target>義工範圍</target>
+      </trans-unit>
+      <trans-unit id="landing.main.opportunities.hospitality.label" datatype="html">
+        <source>
+					<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Hospitality<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+				</source>
+        <target>
+					<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>款待<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+        </target>
+      </trans-unit>
+      <trans-unit id="landing.main.opportunities.hospitality.value" datatype="html">
+        <source>Serving meals and socializing with guests</source>
+        <target>送餐, 與嘉賓傾談</target>
+      </trans-unit>
+      <trans-unit id="landing.main.opportunities.kitchen.label" datatype="html">
+        <source>
+					<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Kitchen<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+				</source>
+        <target>
+					<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>廚房<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+        </target>
+      </trans-unit>
+      <trans-unit id="landing.main.opportunities.kitchen.value" datatype="html">
+        <source>Food preparation, cooking and cleaning</source>
+        <target>食物準備, 煮食及清潔</target>
+      </trans-unit>
+      <trans-unit id="landing.main.opportunities.clothingBank.label" datatype="html">
+        <source>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Clothing Bank<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					</source>
+        <target>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>衣物庫<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+        </target>
+      </trans-unit>
+      <trans-unit id="landing.main.opportunities.clothingBank.value" datatype="html">
+        <source>Organizing and distributing of clothing items</source>
+        <target>整理及分發</target>
+      </trans-unit>
+      <trans-unit id="landing.main.opportunities.registration.label" datatype="html">
+        <source>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Registration<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					</source>
+        <target>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>接待<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+        </target>
+      </trans-unit>
+      <trans-unit id="landing.main.opportunities.registration.value" datatype="html">
+        <source>Administration of entry and exit of guests and volunteers</source>
+        <target>負責嘉賓與義工進出記錄</target>
+      </trans-unit>
+      <trans-unit id="landing.main.opportunities.setupCleanup.label" datatype="html">
+        <source>
+						<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Setup/Cleanup<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					</source>
+        <target>
+          <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>場地佈置/清理<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+        </target>
+      </trans-unit>
+      <trans-unit id="landing.main.opportunities.setupCleanup.value" datatype="html">
+        <source>Service room setup and cleanup</source>
+        <target>佈置場地和清理</target>
+      </trans-unit>
+      <trans-unit id="landing.main.opportunities.specialServices.label" datatype="html">
+        <source>
+					<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Special Services<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+					</source>
+        <target>
+					<x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>專業服務<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>:
+        </target>
+      </trans-unit>
+      <trans-unit id="landing.main.opportunities.specialServices.value" datatype="html">
+        <source>Social assistance, medical assistance and other services</source>
+        <target>社區援助，醫療援助和其他服務</target>
+      </trans-unit>
+      <trans-unit id="landing.main.directions" datatype="html">
+        <source>Directions</source>
+        <target>地圖</target>    
+      </trans-unit>
+
+      <!-- volunteer sign up -->
+      <trans-unit id="volunteerSignUp.title" datatype="html">
+        <source>Volunteer Sign Up</source>
+        <target>義工登記</target>
+      </trans-unit>
+      <trans-unit id="upcoming.title" datatype="html">
+        <source>Coming Up Soon</source>
+        <target>即將來臨</target>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp.form.roleFilter" datatype="html">
+        <source>Role Filter</source>
+        <target>職務選擇</target>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp.form.roleFilter.all" datatype="html">
+        <source>All</source>
+        <target>全部職務</target>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp.line.alreadySignedUp.text" datatype="html">
+        <source>Signed Up</source>
+        <target>已登記</target>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp.results">
+        <source>#### Sign up results! <x id="PH"/></source>
+        <target>登記結果: <x id="PH"/></target>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp.success">
+        <source>SUCCESS: **<x id="PH"/>** on **<x id="PH_1"/>** **<x id="PH_2"/>**</source>
+        <target>成功: **<x id="PH"/>** **<x id="PH_1"/>** **<x id="PH_2"/>**</target>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp.failure">
+        <source>FAILED: **<x id="PH"/>** on **<x id="PH_1"/>** **<x id="PH_2"/>**</source>
+        <target>失敗: **<x id="PH"/>** on **<x id="PH_1"/>** **<x id="PH_2"/>**</target>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp.loader.title">
+        <source>Signing you up!</source>
+        <target>登記中</target>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp.loader.text">
+        <source>Sign ups are processing ...</source>
+        <target>登記中...</target>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp.loader.done">
+        <source>Sign ups are complete.</source>
+        <target>登記完成</target>
+      </trans-unit>
+      <trans-unit id="volunteerSignUp.loader.error">
+        <source>Unable to sign up.</source>
+        <target>登記失敗。</target>
+      </trans-unit>
+
+      <!-- my schedule -->
+      <trans-unit id="mySchedule.title" datatype="html">
+        <source>My Schedule</source>
+        <target>我的服務時間表</target>
+      </trans-unit>
+      <trans-unit id="mySchedule.noReservations.text" datatype="html">
+        <source>You haven&apos;t signed up for anything yet!</source>
+        <target>您仍未選擇服務日程</target>
+      </trans-unit>
+      <trans-unit id="departments.title" datatype="html">
+        <source>Departments</source>
+        <target>義工範圍</target>
+      </trans-unit>
+      <trans-unit id="departments.pickText" datatype="html">
+        <source>What would you like to help with?</source>
+        <target>那個項目您可以幫忙?</target>
+      </trans-unit>
+      <trans-unit id="mySchedule.cancel.loader.title">
+        <source>Cancelling</source>
+        <target>取消中</target>
+      </trans-unit>
+      <trans-unit id="mySchedule.cancel.loader.text">
+        <source>Sending Cancellation ...</source>
+        <target>取消中...</target>
+      </trans-unit>
+      <trans-unit id="mySchedule.cancel.loader.done.title">
+        <source>Cancelled</source>
+        <target>取消完成</target>
+      </trans-unit>
+      <trans-unit id="mySchedule.cancel.loader.done.text">
+        <source>
+          We have cancelled your session for  
+          **<x id="PH"/>** on  
+          **<x id="PH_1"/>** at **<x id="PH_2"/>**.
+        </source>
+        <target>取消完成:
+          **<x id="PH"/>**  
+          **<x id="PH_1"/>** **<x id="PH_2"/>**.
+        </target>
+      </trans-unit>
+      <trans-unit id="mySchedule.cancel.loader.error">
+        <source>Cancellation Error</source>
+        <target>取消失敗</target>
+      </trans-unit>
+
+      <!-- errors -->
+      <trans-unit id="error.login.credential">
+        <source>Invalid Login Credentials</source>
+        <target>您所輸入的密碼錯誤。</target>
+      </trans-unit>
+      <trans-unit id="error.login.invalidEmail">
+        <source>Email is missing or unvalidated.</source>
+        <target>找不到任何與您輸入的電郵。</target>
+      </trans-unit>
+      <trans-unit id="error.validation.required">
+        <source>This is a required field</source>
+        <target>此為必填欄位。</target>
+      </trans-unit>
+      <trans-unit id="error.validation.pattern">
+        <source>Email must be a valid email address (abc@tccc.ca).</source>
+        <target>電郵格式不正確，請重新輸入。(abc@tccc.ca)</target>
+      </trans-unit>
+      <trans-unit id="error.validation.minLength">
+        <source>Password must contain at least 8 characters.</source>
+        <target>密碼必須包含至少 8 個字元。</target>
+      </trans-unit>
+      <trans-unit id="error.validation.number">
+        <source>Phone number must be a valid phone number (4191234567)</source>
+        <target>電話號碼格式不正確，請重新輸入。(4191234567)</target>
+      </trans-unit>
+      <trans-unit id="error.validation.mismatch">
+        <source>Passwords don\'t match.</source>
+        <target>密碼不同。</target>
+      </trans-unit>
+      <trans-unit id="error.validation.age">
+        <source>User must be 18 years or older</source>
+        <target>義工必需年滿18歲</target>
+      </trans-unit>
+      <trans-unit id="error.validation.experience">
+        <source>Experience must be within 0 to 10 years</source>
+        <target>義工經驗: 0 - 10年</target>
+      </trans-unit>
+      <trans-unit id="error.validation.fsymbol">
+        <source>First name must only contain letters</source>
+        <target>僅允許使用英文字母。</target>
+      </trans-unit>
+      <trans-unit id="error.validation.lsymbol">
+        <source>Last name must only contain letters</source>
+        <target>僅允許使用英文字母。</target>
+      </trans-unit>
+
+      <!-- departments -->
+      <trans-unit id="dept.hospitality.name">
+        <source>Hospitality</source>
+        <target>款待</target>
+      </trans-unit>
+      <trans-unit id="dept.kitchen.name">
+        <source>Kitchen</source>
+        <target>廚房</target>
+      </trans-unit>
+      <trans-unit id="dept.clothingBank.name">
+        <source>Clothing Bank</source>
+        <target>衣物庫</target>
+      </trans-unit>
+      <trans-unit id="dept.registration.name">
+        <source>Registration</source>
+        <target>接待</target>
+      </trans-unit>
+      <trans-unit id="dept.setupCleanup.name">
+        <source>Setup / Cleanup</source>
+        <target>場地佈置/清理</target>
+      </trans-unit>
+      <trans-unit id="dept.hospitality.desc">
+        <source>The **Hospitality Team** focuses on providing a warm and friendly experience to guests.&#10;&#10;*The team handles serving snacks and dinner, replenishing coffee and tea, and is highly encouraged to spend time with guests in conversation or activity.*&#10;&#10;**Tasks include:** &#10;&#10;- Serving snacks or dinner&#10;- Socializing with guests</source>
+        <target>**款待部** 的主要職責是給嘉賓提供一個溫馨的環境。&#10;&#10;*款待部義工會送上小食及晚餐給嘉賓, 沖咖啡及茶。我們也希望義工能與嘉賓一起傾談或活動。*&#10;&#10;**主責:** &#10;&#10;- 送小吃及晚餐&#10;- 與嘉賓傾談</target>
+      </trans-unit>
+      <trans-unit id="dept.kitchen.desc">
+        <source>The **Kitchen Team** focuses on preparing, cooking, and serving 60+ meals to our guests during the dinner service. &#10;&#10;*The team prepares a unique menu each week consisting of soup, main and dessert.*&#10;&#10;**Tasks include:**&#10;- Grocery shopping&#10;- Preparing food and cooking&#10;- Dish-washing&#10;&#10;**Note:** Volunteers are especially needed for Monday morning to prepare breakfast for overnight guests.&#10;&#10;**IMPORTANT: The Kitchen Team is only for highly experienced cooks. If you sign up, we may contact you to follow up for more info.**</source>
+        <target>**廚房部** 的主要職責是準備食物, 煮食, 清潔。 每晚要準備六十多份晚餐給嘉賓享用。&#10;&#10;*每週的晚餐都有不同的菜式。廚房部義工會準備一種湯, 一種主菜, 及一種甜點。*&#10;&#10;**主責:**&#10;- 買食材&#10;- 食物準備, 煮飯&#10;- 洗碗&#10;&#10;**請注意:** 星期一早上特別需要義工參與(煮早餐)。&#10;&#10;**請注意: 廚房部工作需具相關經驗人士參與。我們會向參與的義工查訊相關經驗的資料。**</target>
+      </trans-unit>
+      <trans-unit id="dept.clothingBank.desc">
+        <source>The **Clothing Bank Team** focuses on distributing various clothing items to our guests and organizing new apparel that is purchased or donated. &#10;&#10;*The team aims to assist guest in finding what they need and ensuring that all guests are able to get what they what they need.*&#10;&#10;**Tasks include:**&#10;- Organizing and categorizing apparel&#10;- Assisting guests apparel selection</source>
+        <target>**衣物庫部** 的主要職責是分發衣服及物件給嘉賓, 衣物庫新來的衣服整理和分類。&#10;&#10;*我們希望能夠幫助每一個嘉賓選出他們需要的衣物。*&#10;&#10;**主責:**&#10;- 把衣服整理和分類&#10;- 幫助嘉賓選擇衣物</target>
+      </trans-unit>
+      <trans-unit id="dept.registration.desc">
+        <source>The **Registration Team** focuses on attending to guests and volunteers entering and exiting the premises. &#10;&#10;*The team checks-in guests and coordinates services for the guests such as showers, hair cuts, medical services and social services.*&#10;&#10;**Tasks include:** &#10;- Front desk administration&#10;- Service scheduling and coordination&#10;&#10;**Note:** Volunteers are especially needed for Monday morning for signing-out overnight guests.</source>
+        <target>**接待部** 的主要職責是記下義工和嘉賓的進出記錄。&#10;&#10;*接待部義工會嘉賓與義工登記及幫助嘉賓安排同日專業服務時間。專業服務包括:shower, 剪頭髮, 醫療援助, 及社區援助。*&#10;&#10;**主責:** &#10;- 嘉賓與義工進出登記&#10;- 安排專業服務&#10;&#10;**請注意:** 星期一早上特別需要義工參與(嘉賓離開登記)。</target>
+      </trans-unit>
+      <trans-unit id="dept.setupCleanup.desc">
+        <source>The **Setup/Cleanup Team** focuses on setting up and cleaning up the rooms for dining and various services. &#10;&#10;*The team handles setup Sunday afternoon before guests arrive and cleanup on Monday morning after guests depart.*&#10;&#10;**Tasks include:** &#10;- Setting up tables, chairs and mats&#10;- Specialized layouts for service rooms&#10;&#10;**Note:** Volunteers are especially needed for Monday morning venue cleanup.</source>
+        <target>場地佈置/清理 desc</target>
+      </trans-unit>
+
+      <!-- plurals -->
+      <trans-unit id="plurals.spots.zero">
+        <source>Full</source>
+        <target>滿</target>
+      </trans-unit>
+      <trans-unit id="plurals.spots.one">
+        <source>1 / <x id="PH"/> spot left</source>
+        <target>1 / <x id="PH"/> 位</target>
+      </trans-unit>
+      <trans-unit id="plurals.spots.other">
+        <source># / <x id="PH"/> spots left</source>
+        <target># / <x id="PH"/> 位</target>
+      </trans-unit>
+      <trans-unit id="plurals.duration.halfHour">
+        <source>30 mins</source>
+        <target>30 分鐘</target>
+      </trans-unit>
+      <trans-unit id="plurals.duration.hour">
+        <source>1 hour</source>
+        <target>1 個小時</target>
+      </trans-unit>
+      <trans-unit id="plurals.duration.hours">
+        <source># hours</source>
+        <target># 個小時</target>
+      </trans-unit>
+
+      <!-- modals -->
+      <trans-unit id="modal.cancelReservation.title">
+        <source>Cancel Reservation</source>
+        <target>取消選項</target>
+      </trans-unit>
+      <trans-unit id="modal.cancelReservation.text">
+        <source>Are you sure you want to cancel this reservation?</source>
+        <target>您確定要取消此選項嗎？</target>
+      </trans-unit>
+
+      <!-- button texts -->
+      <trans-unit id="button.text.login" datatype="html">
+        <source>Login</source>
+        <target>登入</target>
+      </trans-unit>
+      <trans-unit id="button.text.register" datatype="html">
+        <source>Register</source>
+        <target>註冊</target>
+      </trans-unit>
+      <trans-unit id="button.text.forgotPassword" datatype="html">
+        <source>Forgot Password</source>
+        <target>忘記密碼?</target>
+      </trans-unit>
+      <trans-unit id="button.text.ok" datatype="html">
+        <source>OK</source>
+        <target>確定</target>
+      </trans-unit>
+      <trans-unit id="button.text.cancelReservation" datatype="html">
+        <source>Cancel</source>
+        <target>取消選項</target>
+      </trans-unit>
+      <trans-unit id="button.text.clear" datatype="html">
+        <source>Clear</source>
+        <target>清除</target>
+      </trans-unit>
+      <trans-unit id="button.text.signUp" datatype="html">
+        <source>Sign Up</source>
+        <target>登記</target>
+      </trans-unit>
+      <trans-unit id="button.text.cancel">
+        <source>Cancel</source>
+        <target>取消</target>
+      </trans-unit>
+      <trans-unit id="button.text.yes">
+        <source>Yes</source>
+        <target>是</target>
+      </trans-unit>
+      <trans-unit id="button.text.no">
+        <source>No</source>
+        <target>否</target>
+      </trans-unit>
+      <trans-unit id="button.text.resetPassword" datatype="html">
+        <source>Send password reset email</source>
+        <target>重設密碼</target>
+      </trans-unit>
+      <trans-unit id="button.text.changePassword" datatype="html">
+        <source>Change Password</source>
+        <target>更改密碼</target>
+      </trans-unit>
+
+      <trans-unit id="role.serveSnacks">
+        <source>Serving Snacks and Socializing</source>
+        <target>星期日 - 送小食, 與嘉賓傾談</target>
+      </trans-unit>
+      <trans-unit id="role.serveDinner">
+        <source>Serving Dinner and Socializing</source>
+        <target>星期日 - 送晚餐, 與嘉賓傾談</target>
+      </trans-unit>
+      <trans-unit id="role.foodPrep">
+        <source>Sunday - Food Prep and Cooking</source>
+        <target>星期日 - 食物準備, 煮飯</target>
+      </trans-unit>
+      <trans-unit id="role.cookBreakfast">
+        <source>Monday - Cooking Breakfast</source>
+        <target>星期一清晨 - 煮早餐</target>
+      </trans-unit>
+      <trans-unit id="role.grocery">
+        <source>Grocery Shopping</source>
+        <target>買食材</target>
+      </trans-unit>
+      <trans-unit id="role.sunSignIn">
+        <source>Sunday - Afternoon Sign-in</source>
+        <target>星期日下午 - 嘉賓與義工登記</target>
+      </trans-unit>
+      <trans-unit id="role.sunSignOut">
+        <source>Sunday - Evening Sign-Out</source>
+        <target>星期日晚 - 嘉賓與義工離開登記</target>
+      </trans-unit>
+      <trans-unit id="role.monSignOut">
+        <source>Monday - Morning Sign-Out</source>
+        <target>星期一清晨 - 嘉賓離開登記</target>
+      </trans-unit>
+      <trans-unit id="role.clothBankSetup">
+        <source>Setup and Afternoon Shift</source>
+        <target>星期日下午 - 佈置場地, 整理及分發衣服</target>
+      </trans-unit>
+      <trans-unit id="role.clothBankCleanup">
+        <source>Cleanup and Evening Shift</source>
+        <target>星期日晚 - 清理場地, 整理及分發衣服</target>
+      </trans-unit>
+      <trans-unit id="role.sunVenueSetup">
+        <source>Venue Setup</source>
+        <target>星期日 - 佈置場地</target>
+      </trans-unit>
+      <trans-unit id="role.sunVenueCleanup">
+        <source>Venue Cleanup</source>
+        <target>星期日 - 清理場地</target>
+      </trans-unit>
+      <trans-unit id="role.monVenueCleanup">
+        <source>Monday - Morning Cleanup</source>
+        <target>星期一清晨 - 清理場地</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

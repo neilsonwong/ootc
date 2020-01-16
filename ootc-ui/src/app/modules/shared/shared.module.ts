@@ -32,6 +32,7 @@ import { LoadingDialogComponent } from './components/loading-dialog/loading-dial
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 
 import { MarkdownPipe } from './pipes/markdown.pipe';
+import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { MarkdownPipe } from './pipes/markdown.pipe';
     LoadingDialogComponent,
     ErrorDialogComponent,
     MarkdownPipe,
+    LanguageSelectorComponent,
   ],
   imports: [
     CommonModule,

@@ -7,7 +7,9 @@
         </mat-button-toggle>
     </mat-button-toggle-group>
     <mat-form-field class="dropdown-menu">
-        <mat-label>Departments</mat-label>
+        <mat-label i18n="@@departments.title">
+            Departments
+        </mat-label>
         <mat-select (selectionChange)="selectDept($event)">
             <mat-option *ngFor="let dept of departments" [value]="dept.id">
                 {{ dept.name }}
@@ -19,7 +21,10 @@
     </ng-container>
     <ng-template #pickSomething>
         <div class="no-selection-desc">
-            <app-emoji-text>What would you like to help with?</app-emoji-text>
+            <app-emoji-text
+                i18n="@@departments.pickText">
+                What would you like to help with?
+            </app-emoji-text>
         </div>
     </ng-template>
 </div>

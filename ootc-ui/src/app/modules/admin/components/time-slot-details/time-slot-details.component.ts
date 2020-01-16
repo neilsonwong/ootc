@@ -14,6 +14,7 @@ import { DIALOG_WIDTHS } from 'src/app/constants/dialog-widths';
 import { UpdateTimeslotDialogComponent } from '../update-timeslot-dialog/update-timeslot-dialog.component';
 import { DepartmentService } from 'src/app/services/department.service';
 import { Department } from 'src/app/models/Department';
+import { TranslationService } from 'src/app/services/translationService';
 
 @Component({
   selector: 'app-time-slot-details',
@@ -46,8 +47,9 @@ export class TimeSlotDetailsComponent extends EventDetails implements OnInit {
     private scheduleService: ScheduleService,
     private reservationService: ReservationService,
     private departmentService: DepartmentService,
+    protected translationService: TranslationService,
     public dialog: MatDialog) {
-    super();
+    super(translationService);
   }
 
   ngOnInit() {

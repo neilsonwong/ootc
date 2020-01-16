@@ -19,6 +19,7 @@ import { ScheduleService } from 'src/app/services/schedule.service';
 import * as reservationDisplayUtils from 'src/app/utils/reservationDisplay';
 import * as dateUtils from 'src/app/utils/dateUtils';
 import * as moment from 'moment';
+import { TranslationService } from 'src/app/services/translationService';
 
 @Component({
   selector: 'app-reservation-sign-up-form',
@@ -30,9 +31,9 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
   @Input() reservations: ReservationView[];
   @Output() reservationsChanged = new EventEmitter<boolean>();
 
-  @ViewChild('timeSlots', { static: false }) timeSlots: MatSelectionList;
-  @ViewChild('roleSelect', { static: false }) roleFilter: MatSelect;
-  @ViewChild('allRolesOption', { static: false }) allRolesOption: MatOption;
+  @ViewChild('timeSlots') timeSlots: MatSelectionList;
+  @ViewChild('roleSelect') roleFilter: MatSelect;
+  @ViewChild('allRolesOption') allRolesOption: MatOption;
 
   private startDate: string;
   private endDate: string;
@@ -50,7 +51,8 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
     private reservationService: ReservationService,
     private scheduleService: ScheduleService,
     private loadingService: LoadingService,
-    private authService: AuthenticationService) {
+    private authService: AuthenticationService,
+    private translationService: TranslationService) {
     super();
   }
 
@@ -120,16 +122,17 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
           const newReservationsReqs = this.timeSlots.selectedOptions.selected.map(o => {
             const timeSlot: TimeSlotView = <TimeSlotView>o.value;
             const reservation = new Reservation(undefined, this.userId, timeSlot.id, 0);
+            timeSlot.desc = this.translationService.translateRole(timeSlot.desc);
             return this.reservationService.addReservation(reservation)
               .pipe(
-                map((val) => (`SUCCESS: **${timeSlot.desc}** on **${timeSlot.startDate}** **${reservationDisplayUtils.to12HourClock(timeSlot.startTime)}**  `)),
-                catchError((err) => of(`FAILED: **${timeSlot.desc}** on **${timeSlot.startDate}** **${reservationDisplayUtils.to12HourClock(timeSlot.startTime)}**  `))
+                map((val) => ($localize `:@@volunteerSignUp.success:SUCCESS: **${timeSlot.desc}** on **${timeSlot.startDate}** **${reservationDisplayUtils.to12HourClock(timeSlot.startTime)}**  `)),
+                catchError((err) => of($localize `:@@volunteerSignUp.failure:FAILED: **${timeSlot.desc}** on **${timeSlot.startDate}** **${reservationDisplayUtils.to12HourClock(timeSlot.startTime)}**  `))
               );
           });
 
           const batchSignUpObs = forkJoin(newReservationsReqs)
             .pipe(
-              map((val: string[]) => (`#### Sign up results!\n` + val.join('\n'))),
+              map((val: string[]) => ($localize `:@@volunteerSignUp.results:#### Sign up results! ${'\n'+ val.join('\n\n')}`)),
               tap(() => {
                 this.reservationsChanged.emit(true);
                 this.setupForm();
@@ -137,9 +140,9 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
             );
 
           this.loadingService.callWithLoader(batchSignUpObs, [
-            { state: LoadState.Loading, title: 'Signing you up!', text: 'Sign ups are processing ...' },
-            { state: LoadState.Complete, title: 'Sign ups complete' },
-            { state: LoadState.Error, title: 'Unable to sign up' }
+            { state: LoadState.Loading, title: $localize `:@@volunteerSignUp.loader.title:Signing you up!`, text: $localize `:@@volunteerSignUp.loader.text:Sign ups are processing ...` },
+            { state: LoadState.Complete, title: $localize `:@@volunteerSignUp.loader.done:Sign ups complete.` },
+            { state: LoadState.Error, title: $localize `:@@volunteerSignUp.loader.error:Unable to sign up.` }
           ]);
         }
         else {
@@ -191,7 +194,7 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
   private initRoles() {
     if (this.allTimeSlots) {
       this.roles = this.allTimeSlots
-        .map((e: TimeSlotView) => (e.desc))
+        .map((e: TimeSlotView) => (this.translationService.translateRole(e.desc)))
         .filter((v, i, a) => a.indexOf(v) === i);
     }
   }
@@ -240,7 +243,7 @@ export class ReservationSignUpFormComponent extends GroupedEventList implements 
     else {
       const temp = {};
       for (const day in this.groupedTimeSlots) {
-        temp[day] = this.groupedTimeSlots[day].filter((t: TimeSlotView) => (t.desc === roleString));
+        temp[day] = this.groupedTimeSlots[day].filter((t: TimeSlotView) => (this.translationService.translateRole(t.desc) === roleString));
       }
       this.groupedDisplayTimeSlots = temp;
     }

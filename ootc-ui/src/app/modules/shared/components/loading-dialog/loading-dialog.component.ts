@@ -13,6 +13,7 @@ export class LoadingDialogComponent implements OnInit {
   public text: string;
   public state: LoadState;
   public readonly sadFace: string = `(๑◕︵◕๑)`;
+  public readonly okText: string = $localize `:@@button.text.ok:OK`;
 
   public get states() { return LoadState; }
 

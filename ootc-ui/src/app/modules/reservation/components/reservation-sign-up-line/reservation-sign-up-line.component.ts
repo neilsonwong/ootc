@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EventDetails } from 'src/app/helpers/event-details';
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
+import { TranslationService } from 'src/app/services/translationService';
 
 @Component({
   selector: 'app-reservation-sign-up-line',
@@ -17,8 +18,8 @@ export class ReservationSignUpLineComponent extends EventDetails implements OnIn
   public totalSpots: number;
   public spotsPluralMapping = {};
 
-  constructor() {
-    super();
+  constructor(protected translationService: TranslationService) {
+    super(translationService);
   }
 
   ngOnInit() {
@@ -28,9 +29,9 @@ export class ReservationSignUpLineComponent extends EventDetails implements OnIn
     this.spotsLeft = this.timeSlot.signUpCap - this.timeSlot.reserved;
 
     this.spotsPluralMapping = {
-      '=0': 'Full',
-      '=1': `1 / ${this.totalSpots} spot left`,
-      'other': `# / ${this.totalSpots} spots left`,
+      '=0': $localize `:@@plurals.spots.zero:Full`,
+      // '=1': $localize `:@@plurals.spots.one:1 / ${this.totalSpots} spot left`,
+      'other': $localize `:@@plurals.spots.other:# / ${this.totalSpots} spots left`,
     };
   }
 }

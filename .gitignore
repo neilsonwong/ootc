@@ -1,0 +1,11 @@
+# Local Netlify folder
+.netlify
+netlify.toml
+
+*.DS_Store
+*.swp
+
+server/backups
+server/serverDb
+
+server/aws.json*

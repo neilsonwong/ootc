@@ -4,7 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Department } from '../models/Department';
 import { ErrorService } from './error.service';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 const API_URL = environment.API_URL;
 
@@ -19,7 +19,8 @@ export class DepartmentService  {
   getDepartments(): Observable<Department[]> {
     const url = `${API_URL}/user/departments`;
     return this.http.get<Department[]>(url)
-      .pipe(catchError((error: HttpErrorResponse) => {
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
         this.errorService.add(`We couldn't get the list of departments at this time!`);
         return throwError(error);
       }));

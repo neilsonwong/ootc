@@ -6,7 +6,7 @@
         </app-emoji-text>
     </div>
     <mat-dialog-actions align="center">
-        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>{{ okText }}</button>
     </mat-dialog-actions>
 </ng-container>
 <ng-container *ngIf="state === states.Loading">
@@ -26,6 +26,6 @@
         </app-emoji-text>
     </div>
     <mat-dialog-actions align="center">
-        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>{{ okText }}</button>
     </mat-dialog-actions>
 </ng-container>

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { TimeSlotView } from 'src/app/models/TimeSlotView';
 import { EventDetails } from 'src/app/helpers/event-details';
+import { TranslationService } from 'src/app/services/translationService';
 
 @Component({
   selector: 'app-assign-reservation-dialog',
@@ -25,8 +26,8 @@ export class AssignReservationDialogComponent extends EventDetails implements On
   constructor(
     private dialogRef: MatDialogRef<AssignReservationDialogComponent>,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: any) { 
-      super();
+    @Inject(MAT_DIALOG_DATA) public data: any, protected translationService: TranslationService) { 
+      super(translationService);
     }
 
   ngOnInit() {

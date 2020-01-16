@@ -7,6 +7,7 @@ import { ErrorDialogComponent } from './modules/shared/components/error-dialog/e
 import { LoadingDialogComponent } from './modules/shared/components/loading-dialog/loading-dialog.component';
 import { ErrorService } from './services/error.service';
 import { LoadingService } from './services/loading.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -17,11 +18,13 @@ export class AppComponent implements OnInit, OnDestroy {
   private errorSub: Subscription;
   private loaderSub: Subscription;
   private loaderRef: MatDialogRef<LoadingDialogComponent, any>;
+  private readonly title: string = $localize `:@@website.title:Out of the Cold @ TCCC`;
 
   constructor(
     private dialog: MatDialog,
     private errorService: ErrorService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private titleService: Title
   ) { }
 
   ngOnInit(): void {
@@ -31,6 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loaderSub = this.loadingService.get().subscribe((info: ILoaderInfo) => {
       this.popLoader(info);
     });
+    this.titleService.setTitle(this.title);
   }
 
   ngOnDestroy(): void {

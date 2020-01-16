@@ -2,10 +2,15 @@
     class="reservation-sign-up-form">
     <div class="role-filter-container">
         <mat-form-field class="role-filter">
-            <mat-label>Role Filter</mat-label>
+            <mat-label i18n="@@volunteerSignUp.form.roleFilter">
+                Role Filter
+            </mat-label>
             <mat-select #roleSelect
                 value="All" (selectionChange)="onFilterChanged($event)">
-                <mat-option #allRolesOption value="All">All</mat-option>
+                <mat-option #allRolesOption value="All"
+                    i18n="@@volunteerSignUp.form.roleFilter.all">
+                    All
+                </mat-option>
                 <mat-option *ngFor="let role of roles" [value]="role">
                     {{ role }}
                 </mat-option>
@@ -40,8 +45,15 @@
         </div>
     </mat-selection-list>
     <div class="button-bar">
-        <button mat-raised-button color="accent" type="button" (click)="clearSelected()">Clear</button>
+        <button mat-raised-button color="accent" type="button"
+            (click)="clearSelected()"
+            i18n="@@button.text.clear">
+            Clear
+        </button>
         <button mat-raised-button color="primary" type="button" (click)="reserveSelected()"
-            [disabled]="timeSlots.selectedOptions.selected.length === 0">Reserve</button>
+            [disabled]="timeSlots.selectedOptions.selected.length === 0"
+            i18n="@@button.text.signUp">
+            Sign Up
+        </button>
     </div>
 </div>

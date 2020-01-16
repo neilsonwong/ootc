@@ -10,9 +10,10 @@ $mobileBannerHeight: calc(100vh - 4rem);
 
 .landing-banner {
     position: absolute;
-    top: 4rem;
+    // top: 4rem;
     left: 0;
     right: 0;
+    margin-top: -2rem;
 
     height: $bannerHeight;
     // linear gradient background
