@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   API_URL: 'http://localhost:8000/api/v1',
   BASE_DOMAIN: undefined,
+  legacy: true,
   languages: [
     {
       locale: 'en-US',

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ILinkItem } from 'src/app/interfaces/ILinkItem';
 import { UserAuthContext } from 'src/app/models/UserAuthContext';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header-bar',
@@ -15,6 +16,7 @@ export class HeaderBarComponent implements OnInit {
 
   public navLinks: ILinkItem[][];
   public highlight: string;
+  public legacyMode: boolean;
 
   public securityLevels: number[];
   public securityClearance: number = 0;
@@ -25,6 +27,7 @@ export class HeaderBarComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.legacyMode = environment.legacy;
     this.setupLinks();
     this.securityLevels = Array(this.navLinks.length).fill(0).map((x,i)=>i);
     this.authService.getAuthContextStream().subscribe((authContext: UserAuthContext) => {
