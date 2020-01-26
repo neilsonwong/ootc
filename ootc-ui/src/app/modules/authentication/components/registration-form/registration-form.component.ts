@@ -63,7 +63,7 @@ export class RegistrationFormComponent implements OnInit {
     const pw = this.registrationForm.get('password').value;
     const registerThisGuy = new User(
       undefined,
-      this.registrationForm.get('email').value,
+      this.registrationForm.get('email').value.toString().toLowerCase(),
       this.registrationForm.get('firstName').value,
       this.registrationForm.get('middleName').value,
       this.registrationForm.get('lastName').value,

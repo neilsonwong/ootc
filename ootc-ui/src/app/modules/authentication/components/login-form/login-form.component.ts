@@ -28,7 +28,7 @@ export class LoginFormComponent implements OnInit {
   onLogin() {
     this.error = null;
     this.authService.login(
-      this.loginForm.get('email').value,
+      this.loginForm.get('email').value.toString().toLowerCase(),
       this.loginForm.get('password').value)
       .pipe(take(1))
       .subscribe((errorMessage) => {
