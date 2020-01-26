@@ -13,7 +13,6 @@ export class AttendanceComponent implements OnInit {
   public date: Date = new Date();
   public userIdentifyForm: FormGroup;
   public userFound: boolean = false;
-  public confirmed = false;
   public id: any;
 
   constructor(private fb: FormBuilder,
@@ -29,9 +28,17 @@ export class AttendanceComponent implements OnInit {
 
   userCheckIn() {
     // date formatting: yyyy-mm-dd
-    this.reservationService.reservationSignin(this.userIdentifyForm.get('email').value, this.date.toString()).subscribe((res: boolean) => {
-        this.confirmed = true;
-        console.log("it works");
-    });
-  }  
+    // date is automatically handled on the server if we are not overriding
+    this.reservationService.reservationSignin(this.userIdentifyForm.get('email').value)
+      .subscribe((res: boolean) => {
+        console.log(res)
+        if (res) {
+          this.userFound = true;
+          setTimeout(() => {
+            this.userIdentifyForm.reset();
+            this.userFound = false;
+          }, 5000);
+        }
+      });
+  }
 }

@@ -69,7 +69,7 @@ export class ReservationService {
     if (date) {
       reqBody.date = date;
     }
-    return this.http.post<boolean>(url, reqBody)
+    return this.http.post<boolean>(url, reqBody, { observe: 'response' })
       .pipe(map200toTrue(), errorsAreFalse());
   }
 }
