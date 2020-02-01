@@ -9,6 +9,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { UserService } from 'src/app/services/user.service';
 import { CreateUserDialogComponent } from '../create-user-dialog/create-user-dialog.component';
 import { UserUpdateDialogComponent } from '../user-update-dialog/user-update-dialog.component';
+import REGEX from 'src/app/constants/regex';
 
 @Component({
   selector: 'app-user-management',
@@ -18,6 +19,7 @@ import { UserUpdateDialogComponent } from '../user-update-dialog/user-update-dia
 export class UserManagementComponent implements OnInit {
 
   private users: User[];
+  public emails: string;
   public displayedColumns: string[];
   public dataSource: MatTableDataSource<User>;
 
@@ -40,6 +42,10 @@ export class UserManagementComponent implements OnInit {
   private getAllUsers() {
     this.userService.getAllUsers().subscribe((users: any[]) => {
       this.users = users;
+      this.emails = users
+        .map((user: User) => user.email)
+        .filter((email: string) => REGEX.VALID_EMAIL.test(email))
+        .join(', ');
       this.dataSource = new MatTableDataSource(this.users);
       this.dataSource.sort = this.sort;
     });
@@ -97,5 +103,9 @@ export class UserManagementComponent implements OnInit {
       { state: LoadState.Complete, title: 'Deleted User', text: `${user} was deleted.` },
       { state: LoadState.Error, title: 'Delete User Error' }
     ]);
+  }
+
+  onCopyComplete(payload: string) {
+    console.log(`emails have been copied to clipboard`);
   }
 }

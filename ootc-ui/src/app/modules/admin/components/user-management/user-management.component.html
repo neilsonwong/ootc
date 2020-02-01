@@ -2,6 +2,7 @@
   <h2>User Management</h2>
   <div class="stand-alone-wide-box">
       <button mat-button (click)="onCreateUser()">Create User</button>
+      <button mat-button [copy-clipboard]="emails" (copied)="onCopyComplete($event)">Copy All Emails</button>
     <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>

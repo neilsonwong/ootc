@@ -15,6 +15,7 @@ import { UserUpdateDialogComponent } from './components/user-update-dialog/user-
 import { AssignReservationDialogComponent } from './components/assign-reservation-dialog/assign-reservation-dialog.component';
 import { CreateUserDialogComponent } from './components/create-user-dialog/create-user-dialog.component';
 import { UpdateTimeslotDialogComponent } from './components/update-timeslot-dialog/update-timeslot-dialog.component';
+import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { UpdateTimeslotDialogComponent } from './components/update-timeslot-dial
     AssignReservationDialogComponent,
     CreateUserDialogComponent,
     UpdateTimeslotDialogComponent,
+    CopyClipboardDirective,
   ],
   imports: [
     SharedModule,
